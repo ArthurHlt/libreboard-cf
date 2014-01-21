@@ -9,7 +9,7 @@ meteor-trello
     $ ./configure && make install clean
 
 
-##### install meteor and metoarite
+##### install meteor and meteorite
     $ curl https://install.meteor.com/ | sh
     $ npm install -g meteorite
     
