@@ -13,6 +13,12 @@ if (Meteor.isClient) {
                 // update width area
                 updateListAreaWidth(); 
             });
+        },
+        updateListTitle: function(list_id, title) {
+            this.collect(Lists).only(function(insert, update) {
+           
+                update(list_id, { title: title });  
+            });
         }
     });
 }

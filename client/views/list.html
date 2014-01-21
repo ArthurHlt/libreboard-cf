@@ -13,9 +13,7 @@
                     <div class="list-area  js-list-sortable  js-no-higher-edits clearfix ui-sortable" style="width: 1872px;"> 
                         {{#each all}}
                             <div class="list" data-id="{{ _id }}">
-                                <div class="list-header js-list-header non-empty clearfix editable" attr="name"> 
-                                    <h2 class="list-header-name hide-on-edit js-list-name current">{{ title }}</h2>
-                                </div>
+                                {{> list_header }}
                                 <div class="list-cards fancy-scrollbar clearfix js-list-cards js-sortable ui-sortable">
                                     {{#each cards _id }}
                                         <div class="list-card js-member-droppable ui-droppable">
@@ -24,18 +22,7 @@
                                             </div>  
                                         </div>
                                     {{/each}}
-                                    <form class="CardAddForm dn" data-id="{{ _id }}">
-                                        <div class="card-composer">
-                                            <div class="list-card js-composer" style="padding-bottom: 0px;"> 
-                                                <div class="list-card-labels clearfix js-list-card-composer-labels"></div> 
-                                                <textarea class="list-card-composer-textarea js-card-title card-title"></textarea> 
-                                                <div class="list-card-members js-list-card-composer-members"></div> 
-                                            </div> 
-                                            <div class="cc-controls clearfix"> 
-                                                <input type="submit" class="primary confirm js-add-card" value="Add">   
-                                            </div> 
-                                        </div>
-                                    </form>
+                                    {{> card_add_form }}
                                 </div>
                                 <a class="open-card-composer js-open-card-composer" href="#">Add a card…</a>
                             </div>
@@ -54,4 +41,32 @@
             </div>
         </div>
     </div>
+</template>
+
+<template name="list_header">
+<div class="list-header js-list-header non-empty clearfix editable" attr="name"> 
+    <h2 class="list-header-name hide-on-edit js-list-name current">{{ title }}</h2>
+    <div class="edit edit-heavy clearfix"> 
+        <textarea type="text" class="field single-line" style="height: 66px;">{{ title }}</textarea>      
+        <div class="edit-controls clearfix"> 
+            <input type="submit" class="primary confirm js-save-edit" value="Save"> 
+            <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
+        </div>
+    </div>
+</div>
+</template>
+
+<template name="card_add_form">
+<div class="CardAddForm dn" data-id="{{ _id }}">
+    <div class="card-composer">
+        <div class="list-card js-composer" style="padding-bottom: 0px;"> 
+            <div class="list-card-labels clearfix js-list-card-composer-labels"></div> 
+            <textarea class="list-card-composer-textarea js-card-title card-title"></textarea> 
+            <div class="list-card-members js-list-card-composer-members"></div> 
+        </div> 
+        <div class="cc-controls clearfix"> 
+            <input type="submit" class="primary confirm js-add-card" value="Add">   
+        </div> 
+    </div>
+</div>
 </template>

@@ -44,26 +44,6 @@ if (Meteor.isClient) {
     };
 
     Template.list.events({
-
-        "click .list-area-wrapper": function(e) {
-
-            // click callback formHideAddShow
-            clickWrapper(e, formHideAddShow);
-        },
-
-        "click .open-card-composer": function(e) {
-            var $this = jQuery(e.currentTarget),
-                list = $this.parents(".list"),
-                addForm = list.find(".CardAddForm");
-
-            // click hide focus textarea
-            $this.hide(); addForm.fadeIn(100);
-            list.find("textarea").focus();
-            e.preventDefault();
-        },
-
-        "focus .list-name-input": formHideAddShow,
-            
         "focus .card-title": function(e) {
             var $this = jQuery(e.currentTarget),
                 form = $this.parents(".CardAddForm"),
@@ -71,32 +51,82 @@ if (Meteor.isClient) {
                 list = not_forms.parents(".list");
 
             // not $this hide CardAddForm, all cart add show
-            not_forms.hide();
             list.find(".js-open-card-composer").show();
         },
+        "blur .card-title": function(e) {
+            blurClickSubmit(jQuery(e.relatedTarget), function() {
+                jQuery(".CardAddForm").hide();
+                jQuery(".open-card-composer").show();
+            });
+        },
+        "click .open-card-composer": function(e) {
+            var $this = jQuery(e.currentTarget),
+                list = $this.parents(".list"),
+                addForm = list.find(".CardAddForm");
 
-        "submit #ListAddForm": function(e) {
-            var $this = jQuery(e.currentTarget);
-            elemVal($this.find(".list-name-input"), function(elem, title, slug) {
+            // click hide focus textarea
+            $this.hide(); addForm.fadeIn(100); list.find("textarea").focus();
+            e.preventDefault();
+        },
+        "click .js-save-edit": function(e) {
+            var form = jQuery(e.currentTarget).parents("form");
+            elemVal(form.find(".list-name-input"), function(elem, title, slug) {
                 ListQuery.addList(title, Session.get("board_id")); 
             });     
             e.preventDefault();
         },
-        
-        // add card
-        "submit .CardAddForm": function(e) {
+        "click .js-add-card": function(e) {
             var $this = jQuery(e.currentTarget),
+                form = $this.parents(".CardAddForm"),
                 list = $this.parents(".list-cards");
 
-            elemVal($this.find(".card-title"), function(elem, title, slug) {
-
-                //insert data
-                CardQuery.addListCart(title, Session.get("board_id"), $this.data("id"));
+            elemVal(form.find(".card-title"), function(elem, title, slug) {
+                CardQuery.addListCart(title, Session.get("board_id"), form.data("id"));
 
                 // animate click textarea
-                list.find("textarea").focus();
                 focusTextareaAnimate(list);
+                Meteor.setTimeout(function() {
+                    list.find("textarea").focus();
+                }, 200);
             });          
+            e.preventDefault();
+        }
+    });
+
+    // Board list title update
+    Template.list_header.events({
+        "click .list-header": function(e) {
+            var $this = jQuery(e.currentTarget),
+                list = $this.parents(".list");
+
+            $this.addClass("editing");
+            list.find(".field").focus();
+        },
+
+        "blur .edit textarea": function(e) {
+            var $this = jQuery(e.currentTarget),
+                list = $this.parents(".list");
+           
+            blurClickSubmit(jQuery(e.relatedTarget), function() {
+                list.find(".editing").removeClass("editing");
+            });
+        },
+
+        "click .js-save-edit": function(e) {
+            var $this = jQuery(e.currentTarget),
+                list = $this.parents(".list"),
+                val = list.find(".field").val();
+
+            if (jQuery.trim(val)) {
+                ListQuery.updateListTitle(list.data("id"), val);
+            }
+            e.preventDefault();
+        },
+
+        "click .js-cancel-edit": function(e) {
+            var $this = jQuery(e.currentTarget); 
+                list = $this.parents(".list"),
+                edit = list.find(".edit"),
             e.preventDefault();
         }
     });
