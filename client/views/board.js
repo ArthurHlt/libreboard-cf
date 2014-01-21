@@ -15,20 +15,21 @@ if (Meteor.isClient) {
     // Events
     Template.boards.events({
         "submit #AddBoardForm": function(e) {
-            var $this = jQuery(e.target),
-                name = $this.find(".list-name-input");
-            // trim and add
-            if (jQuery.trim(name.val())) {
-                Boards.insert({ name: name.val(), slug: slugify(name.val()) });
-                name.val("");
-            }
+            var $this = jQuery(e.target);
+
+            elemVal($this.find(".list-name-input"), function(elem, val, slug) {
+
+                // insert data
+                Boards.insert({ name: val, slug: slug });
+            });  
+
             e.preventDefault();
         },
         "click .board-list li.board": function(e) {
             var $this = jQuery(e.currentTarget),
                 _id = $this.data("id");
 
-            // trigger  list --> board slug
+            // trigger  list --> board id
             Session.set("board_id", _id);
         }
     });

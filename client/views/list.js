@@ -5,7 +5,7 @@ if (Meteor.isClient) {
             return Lists.find({ board_id: Session.get("board_id")});
         },
         board: function() {
-            return Boards.findOne({ slug: Session.get("board_id") });
+            return Boards.findOne({ _id: Session.get("board_id") });
         },
         cards: function(list_id) {
             return Cards.find({
@@ -22,44 +22,78 @@ if (Meteor.isClient) {
         var resize = function() {
             var body_canvas = jQuery(".board-canvas");
             body_canvas.height($(window).height() - 100);
+
+            // resize update canvas list height
+            updateListHeight();
         };
 
         // nitialize and resize body
         $(window).resize(resize); resize();
+
+        // update width area
+        updateListAreaWidth(); 
+
+        // update canvas list height
+        updateListHeight();
     };
 
     Template.list.events({
-        "submit #ListAddForm": function(e) {
+        "click .open-card-composer": function(e) {
             var $this = jQuery(e.currentTarget),
-                label = $this.find(".list-name-input");
-           
-            if (jQuery.trim(label.val())) {
+                list = $this.parents(".list"),
+                addForm = list.find(".CardAddForm");
+
+            // click hide
+            $this.hide(); addForm.fadeIn(100);
+
+            // focus textarea
+            list.find("textarea").focus();
+
+            e.preventDefault();
+        },
+        "submit #ListAddForm": function(e) {
+            var $this = jQuery(e.currentTarget);
+
+            elemVal($this.find(".list-name-input"), function(elem, val, slug) {
                 var insert_data = {
-                    name: label.val(),
-                    slug: slugify(label.val()),
+                    name: val,
+                    slug: slug,
                     board_id: Session.get("board_id")
                 };
+
+                // insert list
                 Lists.insert(insert_data);
-                label.val("");
-            }
+
+                // update width area
+                updateListAreaWidth(); 
+            });     
+
             e.preventDefault();
         },
         
         // add card
         "submit .CardAddForm": function(e) {
             var $this = jQuery(e.currentTarget),
-                title = $this.find(".card-title");
-           
-            if (jQuery.trim(title.val())) {
+                list = $this.parents(".list-cards");
+
+            elemVal($this.find(".card-title"), function(elem, val, slug) {
                 var insert_data = {
-                    title: title.val(),
-                    slug: slugify(title.val()),
+                    title: val,
+                    slug: slug,
                     board_id: Session.get("board_id"),
                     list_id: $this.data("id")
                 };
+
+                // insert data
                 Cards.insert(insert_data);
-                title.val("");
-            }
+
+                // focus and animate
+                list.find("textarea").focus();
+
+                // animate click textarea
+                focusTextareaAnimate(list);
+            });          
+
             e.preventDefault();
         }
     });
