@@ -2,15 +2,15 @@
 if (Meteor.isClient) {
     Template.list.helpers({
         all: function() {
-            return Lists.find({ board: Session.get("list")});
+            return Lists.find({ board_id: Session.get("board_id")});
         },
         board: function() {
-            return Boards.findOne({ slug: Session.get("list") });
+            return Boards.findOne({ slug: Session.get("board_id") });
         },
-        cards: function(list) {
+        cards: function(list_id) {
             return Cards.find({
-                board: Session.get("list"),
-                list: list 
+                board_id: Session.get("board_id"),
+                list_id: list_id
             });
         }
     });
@@ -37,7 +37,7 @@ if (Meteor.isClient) {
                 var insert_data = {
                     name: label.val(),
                     slug: slugify(label.val()),
-                    board: Session.get("list")
+                    board_id: Session.get("board_id")
                 };
                 Lists.insert(insert_data);
                 label.val("");
@@ -54,8 +54,8 @@ if (Meteor.isClient) {
                 var insert_data = {
                     title: title.val(),
                     slug: slugify(title.val()),
-                    board: Session.get("list"),
-                    list: $this.data("list")
+                    board_id: Session.get("board_id"),
+                    list_id: $this.data("id")
                 };
                 Cards.insert(insert_data);
                 title.val("");

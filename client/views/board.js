@@ -7,8 +7,8 @@ if (Meteor.isClient) {
         all: function() {
             return Boards.find();
         },
-        list: function() {
-            return Session.get("list");
+        board_id: function() {
+            return Session.get("board_id");
         }
     });
 
@@ -26,10 +26,10 @@ if (Meteor.isClient) {
         },
         "click .board-list li.board": function(e) {
             var $this = jQuery(e.currentTarget),
-                slug = $this.data("slug");
+                _id = $this.data("id");
 
             // trigger  list --> board slug
-            Session.set("list", slug);
+            Session.set("board_id", _id);
         }
     });
 }

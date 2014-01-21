@@ -12,19 +12,19 @@
                 <div class="list-area-wrapper fancy-scrollbar"> 
                     <div class="list-area  js-list-sortable  js-no-higher-edits clearfix ui-sortable" style="width: 1872px;"> 
                         {{#each all}}
-                            <div class="list" data-slug="{{ slug }}">
+                            <div class="list" data-id="{{ _id }}">
                                 <div class="list-header js-list-header non-empty clearfix editable" attr="name"> 
                                     <h2 class="list-header-name hide-on-edit js-list-name current">{{ name }}</h2>
                                 </div>
                                 <div class="list-cards fancy-scrollbar clearfix js-list-cards js-sortable ui-sortable">
-                                    {{#each cards name }}
+                                    {{#each cards _id }}
                                         <div class="list-card js-member-droppable ui-droppable">
                                             <div class="list-card-details clearfix"> 
                                                 <a href="#" class="list-card-title clear js-card-name">{{ title }}</a>    
                                             </div>  
                                         </div>
                                     {{/each}}
-                                    <form class="CardAddForm" data-list="{{ slug }}">
+                                    <form class="CardAddForm" data-id="{{ _id }}">
                                         <div class="card-composer">
                                             <div class="list-card js-composer" style="padding-bottom: 0px;"> 
                                                 <div class="list-card-labels clearfix js-list-card-composer-labels"></div> 
