@@ -1,0 +1,5 @@
+/* CSS declarations go here */
+
+
+#AddBoardForm input[type='text'] { width:234px; }
+.boardPage { background-color: rgb(35, 113, 159); }

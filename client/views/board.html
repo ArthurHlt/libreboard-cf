@@ -1,0 +1,33 @@
+<template name="boards">
+    {{#if list }}
+        {{> list }}
+    {{else}}
+        <div class="member-boards-view">
+            <div class="window-module-title window-module-title-no-divider"> 
+                <span class="icon-lg window-module-title-icon icon-member"></span> 
+                <h3>Boards</h3>
+            </div> 
+            <ul class="board-list gutter js-board-list clearfix">
+                {{#each all}}
+                    <li class="board" data-slug="{{ slug }}">
+                        <a class="js-open-board highlight-icon" style="background-color: #23719F; ">
+                            <span class="details"> 
+                                <span class="board-list-item-name" title="playboyokulu">{{ name }}</span>
+                            </span>
+                        </a>
+                    </li>
+                {{/each}}
+                <li>
+                    <form id="AddBoardForm"> 
+                        <input type="text" class="list-name-input" name="name" placeholder="add board" autocomplete="off"> 
+                        <input type="hidden" class="list-slug-input" name="name"> 
+                        <div class="edit-controls keep clearfix"> 
+                            <input type="submit" class="primary confirm js-save-edit" value="Add"> 
+                        </div> 
+                    </form> 
+                </li>
+            </ul>
+        </div>
+    {{/if}}
+</template>
+

@@ -1,0 +1,56 @@
+<template name="list">
+    <div class="board-wrapper disabled-all-widgets">
+        <div class="board-wrapper disabled-all-widgets">
+            <div class="board-header clearfix js-board-header">
+                <a href="#" class="board-header-btn board-header-btn-name js-rename-board" title="Rename the board.">
+                    <span class="board-header-btn-text"> {{ board.name }}</span> 
+                </a>   
+            </div>
+        </div> 
+        <div class="board-canvas" style="height: 383px;"> 
+            <div id="board" class="clearfix">
+                <div class="list-area-wrapper fancy-scrollbar"> 
+                    <div class="list-area  js-list-sortable  js-no-higher-edits clearfix ui-sortable" style="width: 1872px;"> 
+                        {{#each all}}
+                            <div class="list" data-slug="{{ slug }}">
+                                <div class="list-header js-list-header non-empty clearfix editable" attr="name"> 
+                                    <h2 class="list-header-name hide-on-edit js-list-name current">{{ name }}</h2>
+                                </div>
+                                <div class="list-cards fancy-scrollbar clearfix js-list-cards js-sortable ui-sortable">
+                                    {{#each cards name }}
+                                        <div class="list-card js-member-droppable ui-droppable">
+                                            <div class="list-card-details clearfix"> 
+                                                <a href="#" class="list-card-title clear js-card-name">{{ title }}</a>    
+                                            </div>  
+                                        </div>
+                                    {{/each}}
+                                    <form class="CardAddForm" data-list="{{ slug }}">
+                                        <div class="card-composer">
+                                            <div class="list-card js-composer" style="padding-bottom: 0px;"> 
+                                                <div class="list-card-labels clearfix js-list-card-composer-labels"></div> 
+                                                <textarea class="list-card-composer-textarea js-card-title card-title"></textarea> 
+                                                <div class="list-card-members js-list-card-composer-members"></div> 
+                                            </div> 
+                                            <div class="cc-controls clearfix"> 
+                                                <input type="submit" class="primary confirm js-add-card" value="Add">   
+                                            </div> 
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {{/each}}
+                        <div class="list add-list">
+                            <form id="ListAddForm"> 
+                                <span class="placeholder js-open-add-list">Add a list…</span> 
+                                <input type="text" class="list-name-input" name="name" placeholder="Add a list…" autocomplete="off"> 
+                                <div class="edit-controls keep clearfix"> 
+                                    <input type="submit" class="primary confirm js-save-edit" value="Save">  
+                                </div> 
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
