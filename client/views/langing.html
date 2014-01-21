@@ -1,0 +1,17 @@
+<template name="landing">
+    {{#if show_boards }}
+        {{> boards }}
+    {{else}}
+        <div class="promo-wrapper whiteBg">
+            <header id="landingHeader" class="landing-header"> 
+                <img id="landingLogo" title="logo" src="/img/meteor.png" width=210> 
+                <h2>Meteor.js Trello</h2>
+            </header> 
+            <section id="landingFirstSignUpButton" class="landing-section"> 
+                <div class="width-wrapper"> 
+                    <a class="button primary landing-signup-button js-first-sign-up-landing-boards" href="/signup"> Goto Boards</a> 
+                </div> 
+            </section>
+        </div>
+    {{/if}}
+</template>
