@@ -44,6 +44,13 @@ if (Meteor.isClient) {
     };
 
     Template.list.events({
+
+        "click .list-area-wrapper": function(e) {
+
+            // click callback formHideAddShow
+            clickWrapper(e, formHideAddShow);
+        },
+
         "click .open-card-composer": function(e) {
             var $this = jQuery(e.currentTarget),
                 list = $this.parents(".list"),
@@ -58,6 +65,8 @@ if (Meteor.isClient) {
             e.preventDefault();
         },
 
+        "focus .list-name-input": formHideAddShow,
+            
         "focus .card-title": function(e) {
             var $this = jQuery(e.currentTarget),
                 form = $this.parents(".CardAddForm"),
