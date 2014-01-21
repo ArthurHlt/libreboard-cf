@@ -57,6 +57,20 @@ if (Meteor.isClient) {
 
             e.preventDefault();
         },
+
+        "focus .card-title": function(e) {
+            var $this = jQuery(e.currentTarget),
+                form = $this.parents(".CardAddForm"),
+                not_forms = jQuery(".CardAddForm").not(form),
+                list = not_forms.parents(".list");
+
+            // not $this hide CardAddForm
+            not_forms.hide();
+            
+            // all cart add show
+            list.find(".js-open-card-composer").show();
+        },
+
         "submit #ListAddForm": function(e) {
             var $this = jQuery(e.currentTarget);
 
