@@ -22,13 +22,10 @@ if (Meteor.isClient) {
     Template.boards.events({
         "submit #AddBoardForm": function(e) {
             var $this = jQuery(e.target);
+            elemVal($this.find(".list-name-input"), function(elem, title) {
 
-            elemVal($this.find(".list-name-input"), function(elem, val, slug) {
-
-                // insert data
-                Boards.insert({ name: val, slug: slug });
+                BoardsQuery.addBoard(title);
             });  
-
             e.preventDefault();
         },
         "click .board-list li.board": function(e) {

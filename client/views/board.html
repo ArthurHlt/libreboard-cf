@@ -12,7 +12,7 @@
                     <li class="board" data-id="{{ _id }}">
                         <a class="js-open-board highlight-icon" style="background-color: #23719F; ">
                             <span class="details"> 
-                                <span class="board-list-item-name" title="{{ name }}">{{ name }}</span>
+                                <span class="board-list-item-name" title="{{ title }}">{{ title }}</span>
                             </span>
                         </a>
                     </li>
@@ -20,7 +20,6 @@
                 <li>
                     <form id="AddBoardForm"> 
                         <input type="text" class="list-name-input" name="name" placeholder="add board" autocomplete="off"> 
-                        <input type="hidden" class="list-slug-input" name="name"> 
                         <div class="edit-controls keep clearfix"> 
                             <input type="submit" class="primary confirm js-save-edit" value="Add"> 
                         </div> 

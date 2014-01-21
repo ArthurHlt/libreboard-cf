@@ -56,12 +56,9 @@ if (Meteor.isClient) {
                 list = $this.parents(".list"),
                 addForm = list.find(".CardAddForm");
 
-            // click hide
+            // click hide focus textarea
             $this.hide(); addForm.fadeIn(100);
-
-            // focus textarea
             list.find("textarea").focus();
-
             e.preventDefault();
         },
 
@@ -73,30 +70,16 @@ if (Meteor.isClient) {
                 not_forms = jQuery(".CardAddForm").not(form),
                 list = not_forms.parents(".list");
 
-            // not $this hide CardAddForm
+            // not $this hide CardAddForm, all cart add show
             not_forms.hide();
-            
-            // all cart add show
             list.find(".js-open-card-composer").show();
         },
 
         "submit #ListAddForm": function(e) {
             var $this = jQuery(e.currentTarget);
-
-            elemVal($this.find(".list-name-input"), function(elem, val, slug) {
-                var insert_data = {
-                    name: val,
-                    slug: slug,
-                    board_id: Session.get("board_id")
-                };
-
-                // insert list
-                Lists.insert(insert_data);
-
-                // update width area
-                updateListAreaWidth(); 
+            elemVal($this.find(".list-name-input"), function(elem, title, slug) {
+                ListQuery.addList(title, Session.get("board_id")); 
             });     
-
             e.preventDefault();
         },
         
@@ -105,24 +88,15 @@ if (Meteor.isClient) {
             var $this = jQuery(e.currentTarget),
                 list = $this.parents(".list-cards");
 
-            elemVal($this.find(".card-title"), function(elem, val, slug) {
-                var insert_data = {
-                    title: val,
-                    slug: slug,
-                    board_id: Session.get("board_id"),
-                    list_id: $this.data("id")
-                };
+            elemVal($this.find(".card-title"), function(elem, title, slug) {
 
-                // insert data
-                Cards.insert(insert_data);
-
-                // focus and animate
-                list.find("textarea").focus();
+                //insert data
+                CardQuery.addListCart(title, Session.get("board_id"), $this.data("id"));
 
                 // animate click textarea
+                list.find("textarea").focus();
                 focusTextareaAnimate(list);
             });          
-
             e.preventDefault();
         }
     });
