@@ -2,6 +2,14 @@ meteor-trello
 =============
 
 
+###### Boards View
+
+![alt tag](http://metrello.yasaricli.com/img/boards.png)
+
+###### Board list View
+
+![alt tag](http://metrello.yasaricli.com/img/lists.png)
+
 ##### install nodejs 
     $ wget http://nodejs.org/dist/v0.10.24/node-v0.10.24.tar.gz
     $ tar -xvf node-v0.10.24.tar.gz
