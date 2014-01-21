@@ -5,3 +5,5 @@
 .boardPage { background-color: rgb(35, 113, 159); }
 .dn { display:none; }
 .header-btn.upgrade,.header-btn.header-boards{ padding-left: 9px!important;}
+#landingLogo { width:150px!important; }
+.whiteBg { background:white; }

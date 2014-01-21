@@ -1,4 +1,10 @@
 
+/*********************************************
+*
+* All boards list events, rendered, helpers 
+* 
+***********************************************/
+
 // is client then run
 if (Meteor.isClient) {
 

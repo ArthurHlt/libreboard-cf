@@ -1,4 +1,10 @@
 
+/*********************************************
+*
+* List, list --> card Helpers, rendered, events
+* 
+***********************************************/
+
 if (Meteor.isClient) {
     Template.list.helpers({
         all: function() {
