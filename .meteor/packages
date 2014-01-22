@@ -7,3 +7,6 @@ standard-app-packages
 autopublish
 insecure
 preserve-inputs
+router
+accounts-base
+accounts-password
