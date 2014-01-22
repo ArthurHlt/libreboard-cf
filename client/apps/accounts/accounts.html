@@ -1,9 +1,11 @@
 <template name="login">
-
     {{> account_header }}
     <div class="account-content clearfix"> 
-        <form action="/authenticate" method="post" class="primary-col clearfix" novalidate=""> 
+        <form id="LoginForm" action="/authenticate" method="post" class="primary-col clearfix" novalidate=""> 
             <h2> Log In </h2>    
+            {{#if error_message }}
+                <p class="error">{{error_message}}</p>
+            {{/if}}
             <label for="email-login"> Email </label> 
             <input type="email" name="user" id="email-login" value="" tabindex="1" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" autofocus=""> 
             <label for="password-login"> Password </label> 
@@ -20,8 +22,11 @@
 <template name="signup">
     {{> account_header }}
     <div class="account-content clearfix"> 
-        <form action="/signup" method="post" class="primary-col clearfix js-emailpassword" novalidate=""> 
+        <form id="SignUpForm" action="/signup" method="post" class="primary-col clearfix js-emailpassword" novalidate=""> 
             <h2>Create an Account</h2> 
+            {{#if error_message }}
+                <p class="error">{{error_message}}</p>
+            {{/if}}
             <label for="display-name-create"> Name </label> 
             <input type="text" name="fullName" id="display-name-create" value="" tabindex="1" autofocus="" placeholder="e.g., Dr. Frankenstein"> 
             <p class="hide error js-email-as-name" style="padding-bottom: 16px;"> 
