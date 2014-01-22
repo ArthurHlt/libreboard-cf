@@ -5,4 +5,4 @@ export MONGO_URL=mongodb://localhost:27017/trello
 DISABLE_WEBSOCKETS=true 
 
 # Production
-meteor --port 1111 --production
+meteor --port 2222

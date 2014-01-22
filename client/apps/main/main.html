@@ -1,0 +1,33 @@
+
+<template name="index">
+    <div class="promo-wrapper whiteBg">
+        <header id="landingHeader" class="landing-header"> 
+        </header> 
+        <section id="landingFirstSignUpButton" class="landing-section"> 
+            <div class="width-wrapper"> 
+                <a class="button primary landing-signup-button js-first-sign-up-landing-boards" href="/signup"> Goto Boards</a> 
+            </div> 
+        </section>
+    
+    </div>
+</template>
+
+
+<template name="info">
+    info
+</template>
+
+<template name="header">
+    <div id="header">
+        <div id="header-spinner"></div>
+        <nav class="promo-nav"> 
+            <a href="{{ indexPath }}" {{#if isIndexPage}}id="navLanding"{{/if}}>Home</a>
+            <a href="/info" target="_blank" {{#if isInfoPage}}id="navLanding"{{/if}}>info</a> 
+        </nav>    
+        <div class="header-user"> 
+            <a class="header-btn header-signup" href="/signup">Sign Up</a> 
+            <a class="header-btn header-login js-toggle-login-popover no-right-margin" href="/login">Log In</a>  
+        </div>  
+    </div>
+</template>
+
