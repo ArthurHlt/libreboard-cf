@@ -324,7 +324,7 @@ textarea::-moz-placeholder{color:#939393}
 .header-btn.header-signup:active{background:#24a828;background:-webkit-linear-gradient(top, #24a828 0, #1b7e1e 100%);background:linear-gradient(to bottom, #24a828 0, #1b7e1e 100%)}
 .header-btn.header-go-to-boards{padding:0 8px 0 38px}.header-btn.header-go-to-boards .member{border-top-left-radius:3px;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:3px;position:absolute;left:0}
 .header-user{position:absolute;top:5px;right:0}
-.promo-nav a{display:inline-block;text-decoration:none;height:15px;padding:5px 6px;margin:3px 2px 0 8px;background:none;line-height:15px;color:#fff;text-transform:uppercase;letter-spacing:.1em;font-weight:600;font-size:12px;border-radius:3px}.promo-nav a:hover{background:#3291c8;background:-webkit-linear-gradient(top, #3291c8 0, #2f88bc 100%);background:linear-gradient(to bottom, #3291c8 0, #2f88bc 100%)}
+.promo-nav a {display:inline-block;text-decoration:none;height:15px;padding:5px 6px;margin:3px 2px 0 8px;background:none;line-height:15px;color:#fff;text-transform:uppercase;letter-spacing:.1em;font-weight:600;font-size:12px;border-radius:3px}.promo-nav a:hover{background:#3291c8;background:-webkit-linear-gradient(top, #3291c8 0, #2f88bc 100%);background:linear-gradient(to bottom, #3291c8 0, #2f88bc 100%)}
 .promo-nav a:active{background:#2a7aa8}
 .small-window .promo-nav{display:none}
 .show-search-btn{display:none}
