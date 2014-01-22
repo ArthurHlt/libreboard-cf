@@ -5,7 +5,7 @@
     <div id="surface" class="clearfix">
         {{> header }}
         <div id="content" class="clearfix">
-            {{ renderPage }}
+            {{#isolate}} {{renderPage}} {{/isolate}}
         </div>
     </div>
 </body>

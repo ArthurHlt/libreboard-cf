@@ -11,4 +11,13 @@ if (Meteor.isClient) {
         "/signup": "signup",
         "/forgot": "forgot"
     });
+
+    Meteor.Router.filters({
+        "login_required": function(page) {
+            if (Meteor.user()) {
+                return page;
+            }
+            return "index";
+        }
+    });
 }

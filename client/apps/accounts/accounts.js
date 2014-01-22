@@ -27,26 +27,23 @@ if (Meteor.isClient) {
             if (isNotEmpty(email) && isNotEmpty(password)) {
                 Meteor.loginWithPassword(email, password, function(err ){
                     if (err) {
-                        error("The email or password was incorrect."); 
+                        Error("The email or password was incorrect."); 
                         return;    
                     }
-
-                    // login then 
+                    // goto user boards
+                    Meteor.Router.to('/boards');
                 });
             }
         }
     });
 
-
     // Signup helpers
     Helpers("signup", {});
-
 
     // Rendered signup
     Rendered("signup", function(addClass) {
         addClass("account-page");
     });
-
 
     // signup events
     Template.signup.events({
@@ -59,11 +56,15 @@ if (Meteor.isClient) {
             if (isNotEmpty(email) && isNotEmpty(email) && 
                 isNotEmpty(password) && isEmail(email) && 
                 isValidPassword(password)) {
-
+                // remove error
                 removeError(); 
                 Accounts.createUser({name: fullname, email: email, password : password}, function(err) { 
-              
-                   // redirect 
+                    if (err) {
+                        Error(err.reason);
+                        return;
+                    }
+                    // goto user boards
+                    Meteor.Router.to('/boards');
                 });
             }
              

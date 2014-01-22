@@ -18,9 +18,11 @@ if (Meteor.isClient) {
         }
     });
 
-    Template.boards.rendered = function() {
-        jQuery(".list-name-input").focus();
-    };
+    Rendered("boards", function(addClass) {
+        addClass("page-index", "large-window", "tabbed-page");
+
+        // initial rendered
+    });
 
     // Events
     Template.boards.events({
