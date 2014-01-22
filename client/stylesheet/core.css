@@ -4,7 +4,6 @@
 .boardPage { background-color: rgb(35, 113, 159); }
 .dn { display:none; }
 .header-btn.upgrade,.header-btn.header-boards{ padding-left: 9px!important;}
-#landingLogo { width:150px!important; }
 .whiteBg { background:white; }
 
 .js-open-board:hover { background-color:#226791!important; }
@@ -13,3 +12,6 @@
 
 .promo-nav a#navLanding {background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAMAAAD6Ou7DAAAAM1BMVEUAAAD///////////////////////////////////////////////////////////////+3leKCAAAAEHRSTlMAlg/kKQc7w9X4AX9QUf799Yq2lgAAADZJREFUCB0FwYUBgAAAwCDs1v1/rQDcDwDjNI0AhhoA1q/eFVj2qn0BV1VdMB9VdcycW1XVdv5TywJ7mq6QbgAAAABJRU5ErkJggg==') no-repeat center bottom;cursor:default;color:#a2d6f4;padding-bottom:12px}
 
+.header-btn.header-logo .logo { background-image: url(/img/middle_logo.png); background-repeat: no-repeat; display: block; height: 30px; width: 80px; }
+.header-logo { left:auto!important; right:auto!important; top:auto!important; bottom:auto!important; margin-left:0px!important; opacity:9!important; }
+.header-btn.header-logo { background:none!important; }
