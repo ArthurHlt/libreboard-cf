@@ -14,6 +14,7 @@ if (Meteor.isClient) {
 
     Meteor.Router.filters({
         "login_required": function(page) {
+            if (Meteor.loggingIn()) { return "loading"; }
             if (Meteor.user()) {
                 return page;
             }

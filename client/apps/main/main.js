@@ -39,6 +39,11 @@ if (Meteor.isClient) {
         // initialize    
     });
 
+    // Loading Meteor.loggingIn
+    Rendered("loading", function(addClass) {
+        addClass("boardPage");
+    });
+
     Helpers("header_user", {});
     Template.header_user.events({
         "click .js-open-add-menu": function(e) {

@@ -3,7 +3,9 @@
 </head>
 <body>
     <div id="surface" class="clearfix">
-        {{> header }}
+        {{#unless loggingIn }}
+            {{> header }}
+        {{/unless}}
         <div id="content" class="clearfix">
             {{#isolate}} {{renderPage}} {{/isolate}}
         </div>
