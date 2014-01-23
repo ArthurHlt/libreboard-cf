@@ -68,6 +68,17 @@
     </div>
 </template>
 
+<template name="user_header_menu">
+    <ul class="pop-over-list"> 
+        <li><a class="js-profile" href="/yasaricli">Profile</a></li> 
+        <li><a class="js-account" href="/yasaricli/account">Settings</a></li>
+    </ul>
+    <hr>
+    <ul class="pop-over-list"> 
+        <li><a class="js-logout" href="#">Log Out</a></li> 
+    </ul>
+</template>
+
 <template name="account_google">
     <form action="/authenticate_openid" method="post" class="secondary-col clearfix">
         <label> Or log in with: </label>  

@@ -108,8 +108,8 @@ if (Meteor.isClient) {
 
     // Board list title update
     Template.list_header.events({
-        "click .list-header": function(e) {
-            var $this = jQuery(e.currentTarget),
+        "click .list-header-name": function(event, template) {
+            var $this = jQuery(template.firstNode),
                 list = $this.parents(".list");
 
             $this.addClass("editing");

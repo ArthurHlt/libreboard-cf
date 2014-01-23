@@ -46,20 +46,24 @@ if (Meteor.isClient) {
 
     Helpers("header_user", {});
     Template.header_user.events({
-        "click .js-open-add-menu": function(e) {
-            e.preventDefault();
-            ShowPop("title", "create_board", "pop_header_user");
+        "click .js-open-add-menu": function(event) {
+            event.preventDefault();
+            ShowPop("Create Board", "create_board", "pop_header_user");
+        },
+        "click .js-open-header-member-menu": function(event, template) {
+            var profile = Meteor.user().profile
+            ShowPop(profile.fullname, "user_header_menu", "pop_header_user");
+            event.preventDefault();
         }
     });
 
-    Helpers("pop_base", {
+    Rendered("not_found", function(addClass) {
+        addClass("page-index")
+    });
+
+    Helpers("pop_base", { 
         pop: function() {
-            return {
-                show: Session.get("show_pop"),
-                title: Session.get("pop_title"),
-                css_klass: Session.get("pop_css_klass"),
-                create_board: Session.get("pop_create_board")
-            }
+            return PopHelper();
         }
     });
 
@@ -69,4 +73,5 @@ if (Meteor.isClient) {
             HidePop();
         }
     });
+
 }

@@ -75,6 +75,11 @@
     </div>
 </template>
 
+
+<template name="not_found">
+    <div class="big-message quiet"> <h1> Page not found. </h1>   <p> This page may be private. If someone gave you this link, they may need to invite you to one of their boards or organizations. </p>  </div>
+</template>
+
 <template name="loading">
     <div class="base-loading Absolute-Center">
         <div class="loading-gif"></div>
@@ -93,6 +98,9 @@
             <div class="content clearfix">
                 {{#if pop.create_board }}
                     {{> create_board }}
+                {{/if}}
+                {{#if pop.user_header_menu  }}
+                    {{> user_header_menu }}
                 {{/if}}
             </div>
         </div>

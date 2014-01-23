@@ -75,4 +75,13 @@ if (Meteor.isClient) {
     Rendered("forgot", function(addClass) {
         addClass("account-page");
     });
+
+    // Header user menu
+    Template.user_header_menu.events({
+        "click .js-logout": function(event, template) {
+            event.preventDefault();
+            Meteor.logout();
+            HidePop();
+        }
+    });
 }
