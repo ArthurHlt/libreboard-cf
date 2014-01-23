@@ -6,6 +6,7 @@
 ***********************************************/
 
 if (Meteor.isClient) {
+
     Helpers("list", {
         all: function() {
             return Lists.find({ board_id: Session.get("currentBoardId")});
@@ -22,8 +23,6 @@ if (Meteor.isClient) {
     });
 
     Rendered("list", function(addClass){
-        addClass("boardPage"); 
-
         // resize board carts scrolling.
         var resize = function() {
             var body_canvas = jQuery(".board-canvas");
@@ -31,6 +30,8 @@ if (Meteor.isClient) {
             // resize update canvas list height
             updateListHeight();
         };
+
+        addClass("boardPage"); 
 
         // nitialize and resize body
         $(window).resize(resize); resize();
@@ -42,8 +43,21 @@ if (Meteor.isClient) {
         updateListHeight();
     });
 
+    Template.add_list.events({
+        "click .add-list": function(event, t) {
+            var $this = jQuery(t.firstNode);
+            $this.removeClass("idle");
+            t.find(".list-name-input").focus();
+        },
+        "click .js-cancel-edit": function(event, template) {
+            event.stopPropagation();
+            event.preventDefault();
+            jQuery(template.firstNode).addClass("idle");
+        }
+    });
+
     Template.list.events({
-        "focus .card-title": function(e) {
+        "focus .card-title": function(event, tenplate) {
             var $this = jQuery(e.currentTarget),
                 form = $this.parents(".CardAddForm"),
                 not_forms = jQuery(".CardAddForm").not(form),
@@ -52,27 +66,27 @@ if (Meteor.isClient) {
             // not $this hide CardAddForm, all cart add show
             list.find(".js-open-card-composer").show();
         },
-        "blur .card-title": function(e) {
-            blurClickSubmit(jQuery(e.relatedTarget), function() {
+        "blur .card-title": function(event, template) {
+            blurClickSubmit(jQuery(event.relatedTarget), function() {
                 jQuery(".CardAddForm").hide();
                 jQuery(".open-card-composer").show();
             });
         },
-        "click .open-card-composer": function(e) {
-            var $this = jQuery(e.currentTarget),
+        "click .open-card-composer": function(event, template) {
+            var $this = jQuery(event.currentTarget),
                 list = $this.parents(".list"),
                 addForm = list.find(".CardAddForm");
 
             // click hide focus textarea
             $this.hide(); addForm.fadeIn(100); list.find("textarea").focus();
-            e.preventDefault();
+            event.preventDefault();
         },
-        "click .js-save-edit": function(e) {
-            var form = jQuery(e.currentTarget).parents("form");
+        "click .js-save-edit": function(event, template) {
+            var form = jQuery(event.currentTarget).parents("form");
             elemVal(form.find(".list-name-input"), function(elem, title, slug) {
                 ListQuery.addList(title, Session.get("currentBoardId")); 
             });     
-            e.preventDefault();
+            event.preventDefault();
         },
         "click .js-add-card": function(e) {
             var $this = jQuery(e.currentTarget),
@@ -101,7 +115,6 @@ if (Meteor.isClient) {
             $this.addClass("editing");
             list.find(".field").focus();
         },
-
         "blur .edit textarea": function(e) {
             var $this = jQuery(e.currentTarget),
                 list = $this.parents(".list");
@@ -110,7 +123,6 @@ if (Meteor.isClient) {
                 list.find(".editing").removeClass("editing");
             });
         },
-
         "click .js-save-edit": function(e) {
             var $this = jQuery(e.currentTarget),
                 list = $this.parents(".list"),
@@ -121,7 +133,6 @@ if (Meteor.isClient) {
             }
             e.preventDefault();
         },
-
         "click .js-cancel-edit": function(e) {
             var $this = jQuery(e.currentTarget); 
                 list = $this.parents(".list"),
