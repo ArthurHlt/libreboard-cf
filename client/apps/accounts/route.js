@@ -20,7 +20,7 @@ if (Meteor.isClient) {
             }
             return "index";
         },
-        "login_then": function() {
+        "login_then": function(page) {
             if (Meteor.loggingIn()) { return "loading"; }
             if (Meteor.user()) {
                 return "boards";
