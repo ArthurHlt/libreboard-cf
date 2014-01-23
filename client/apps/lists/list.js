@@ -6,29 +6,28 @@
 ***********************************************/
 
 if (Meteor.isClient) {
-    Template.list.helpers({
+    Helpers("list", {
         all: function() {
-            return Lists.find({ board_id: Session.get("board_id")});
+            return Lists.find({ board_id: Session.get("currentBoardId")});
         },
         board: function() {
-            return Boards.findOne({ _id: Session.get("board_id") });
+            return Boards.findOne({ _id: Session.get("currentBoardId") });
         },
         cards: function(list_id) {
             return Cards.find({
-                board_id: Session.get("board_id"),
+                board_id: Session.get("currentBoardId"),
                 list_id: list_id
             });
         }
     });
 
-    Template.list.rendered = function() {
-        jQuery("body").addClass("boardPage");
+    Rendered("list", function(addClass){
+        addClass("boardPage"); 
 
         // resize board carts scrolling.
         var resize = function() {
             var body_canvas = jQuery(".board-canvas");
             body_canvas.height($(window).height() - 100);
-
             // resize update canvas list height
             updateListHeight();
         };
@@ -41,7 +40,7 @@ if (Meteor.isClient) {
 
         // update canvas list height
         updateListHeight();
-    };
+    });
 
     Template.list.events({
         "focus .card-title": function(e) {
@@ -71,7 +70,7 @@ if (Meteor.isClient) {
         "click .js-save-edit": function(e) {
             var form = jQuery(e.currentTarget).parents("form");
             elemVal(form.find(".list-name-input"), function(elem, title, slug) {
-                ListQuery.addList(title, Session.get("board_id")); 
+                ListQuery.addList(title, Session.get("currentBoardId")); 
             });     
             e.preventDefault();
         },
@@ -81,7 +80,7 @@ if (Meteor.isClient) {
                 list = $this.parents(".list-cards");
 
             elemVal(form.find(".card-title"), function(elem, title, slug) {
-                CardQuery.addListCart(title, Session.get("board_id"), form.data("id"));
+                CardQuery.addListCart(title, Session.get("currentBoardId"), form.data("id"));
 
                 // animate click textarea
                 focusTextareaAnimate(list);

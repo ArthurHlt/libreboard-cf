@@ -58,7 +58,7 @@ if (Meteor.isClient) {
                 isValidPassword(password)) {
                 // remove error
                 removeError(); 
-                Accounts.createUser({name: fullname, email: email, password : password}, function(err) { 
+                Accounts.createUser({profile: { fullname: fullname}, email: email, password : password}, function(err) { 
                     if (err) {
                         Error(err.reason);
                         return;

@@ -239,7 +239,7 @@ textarea::-moz-placeholder{color:#939393}
 .sidebar-boards-list li.starred.has-unread-activity .details,.board-list li.starred.has-unread-activity .details{padding-right:50px}
 .sidebar-boards-list li.starred.has-unread-activity .unread-indicator,.board-list li.starred.has-unread-activity .unread-indicator{right:34px}
 .sidebar-boards-list li.has-unread-activity .details,.board-list li.has-unread-activity .details{padding-right:36px}
-.board-list li{float:left;width:250px; word-wrap: break-word; }
+.board-list li{float:left;width:25%; word-wrap: break-word; }
 .board-list a{background-color:#999;color:#f6f6f6;height:90px;margin:0 16px 16px 0;font-size:16px;line-height:22px}
 .board-list .details{height:84px;padding-right:36px}
 .board-list .board-list-item-sub-name{color:rgba(255,255,255,0.5);display:block;font-size:14px;font-weight:normal;line-height:22px}

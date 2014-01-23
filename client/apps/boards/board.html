@@ -2,27 +2,26 @@
         <div class="member-boards-view">
             <div class="window-module-title window-module-title-no-divider"> 
                 <span class="icon-lg window-module-title-icon icon-member"></span> 
-                <h3>Boards</h3>
+                <h3>My Boards</h3>
             </div> 
             <ul class="board-list gutter js-board-list clearfix">
                 {{#each all}}
                     <li class="board" data-id="{{ _id }}">
-                        <a class="js-open-board highlight-icon" style="background-color: #23719F; ">
+                        <a href="{{get_absolute_url _id }}" class="js-open-board highlight-icon" style="background-color: #23719F; ">
                             <span class="details"> 
                                 <span class="board-list-item-name" title="{{ title }}">{{ title }}</span>
                             </span>
                         </a>
                     </li>
                 {{/each}}
-                <li>
-                    <form id="AddBoardForm"> 
-                        <input type="text" class="list-name-input" name="name" placeholder="add board" autocomplete="off"> 
-                        <div class="edit-controls keep clearfix"> 
-                            <input type="submit" class="primary confirm js-save-edit" value="Add"> 
-                        </div> 
-                    </form> 
-                </li>
             </ul>
         </div>
 </template>
 
+<template name="create_board">
+    <form id="CreateBoardForm"> 
+        <label for="boardNewTitle">Title</label> 
+        <input id="boardNewTitle" type="text" name="name" class="non-empty js-autofocus" placeholder="Untitled Board" autofocus>       
+        <input type="submit" class="primary wide js-submit" value="Create"> 
+    </form>
+</template>

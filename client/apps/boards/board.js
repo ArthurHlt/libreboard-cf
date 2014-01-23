@@ -9,36 +9,32 @@
 if (Meteor.isClient) {
 
     // helpers context
-    Template.boards.helpers({
+    Helpers("boards", {
         all: function() {
-            return Boards.find();
+            return BoardsQuery.all();
         },
-        board_id: function() {
-            return Session.get("board_id");
+        get_absolute_url: function(id) {
+            return Meteor.Router.listPath(id);
         }
     });
 
     Rendered("boards", function(addClass) {
         addClass("page-index", "large-window", "tabbed-page");
-
         // initial rendered
     });
 
-    // Events
-    Template.boards.events({
-        "submit #AddBoardForm": function(e) {
-            var $this = jQuery(e.target);
-            elemVal($this.find(".list-name-input"), function(elem, title) {
-                BoardsQuery.addBoard(title);
-            });  
+    Template.create_board.events({
+        "submit #CreateBoardForm": function(e, t) {
             e.preventDefault();
-        },
-        "click .board-list li.board": function(e) {
-            var $this = jQuery(e.currentTarget),
-                _id = $this.data("id");
-
-            // trigger  list --> board id
-            Session.set("board_id", _id);
+            var title = t.find("#boardNewTitle");
+            if (trimInput(title.value)) {
+                var board = BoardsQuery.addBoard(title.value);
+                HidePop();
+                // goto board
+                page(Meteor.Router.listPath(board));
+                return;
+            }
+            title.focus();
         }
     });
 }
