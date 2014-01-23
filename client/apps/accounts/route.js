@@ -19,6 +19,16 @@ if (Meteor.isClient) {
                 return page;
             }
             return "index";
+        },
+        "login_then": function() {
+            if (Meteor.loggingIn()) { return "loading"; }
+            if (Meteor.user()) {
+                return "boards";
+            }
+            return page
         }
     });
+
+   // filter login_then pages
+   Meteor.Router.filter('login_then', {only: ['login', "signup", "forgot"] }); 
 }

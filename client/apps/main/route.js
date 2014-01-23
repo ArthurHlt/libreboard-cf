@@ -12,4 +12,7 @@ if (Meteor.isClient) {
         "/loading": "loading",
         "*": "not_found"
     });
+
+   // filter login_then pages
+   Meteor.Router.filter('login_then', {only: ['index', "info"] }); 
 }
