@@ -1,4 +1,6 @@
 # text editors
 *~
 *.swp
-metrello
+
+private/conf.js
+private/production.js
