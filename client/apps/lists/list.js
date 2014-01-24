@@ -43,6 +43,7 @@ if (Meteor.isClient) {
         updateListHeight();
     });
 
+
     Template.add_list.events({
         "click .add-list": function(event, t) {
             var $this = jQuery(t.firstNode);
@@ -56,9 +57,10 @@ if (Meteor.isClient) {
         }
     });
 
+
     Template.list.events({
         "focus .card-title": function(event, tenplate) {
-            var $this = jQuery(e.currentTarget),
+            var $this = jQuery(event.currentTarget),
                 form = $this.parents(".CardAddForm"),
                 not_forms = jQuery(".CardAddForm").not(form),
                 list = not_forms.parents(".list");
@@ -86,6 +88,13 @@ if (Meteor.isClient) {
             elemVal(form.find(".list-name-input"), function(elem, title, slug) {
                 ListQuery.addList(title, Session.get("currentBoardId")); 
             });     
+            event.preventDefault();
+        },
+        "click .js-rename-board": function(event, template) {
+            ShowPop("Rename Board", "rename_board");
+            Meteor.setTimeout(function() {
+                jQuery(".js-board-name").focus();
+            }, 200);
             event.preventDefault();
         },
         "click .js-add-card": function(e) {

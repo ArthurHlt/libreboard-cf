@@ -52,7 +52,7 @@ if (Meteor.isClient) {
         },
         "click .js-open-header-member-menu": function(event, template) {
             var profile = Meteor.user().profile
-            ShowPop(profile.fullname, "user_header_menu", "pop_header_user");
+            ShowPop(profile.fullname, "user_header_menu");
             event.preventDefault();
         }
     });
@@ -73,5 +73,4 @@ if (Meteor.isClient) {
             HidePop();
         }
     });
-
 }

@@ -37,4 +37,24 @@ if (Meteor.isClient) {
             title.focus();
         }
     });
+
+    Helpers("rename_board", {
+        board: function() {
+            return Boards.findOne({ _id: Session.get("currentBoardId") });
+        }
+    });
+
+    Template.rename_board.events({
+        "submit #RenameBoardForm": function(event, template) {
+            event.preventDefault();
+            var rename = template.find(".js-board-name ");
+            if (trimInput(rename.value)) {
+                BoardsQuery.updateBoardTitle(rename.value, Session.get("currentBoardId")); 
+                HidePop();
+                return;
+            }
+            // else focus
+            jQuery(rename).focus();
+        }    
+    });
 }
