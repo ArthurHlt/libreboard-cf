@@ -2,10 +2,10 @@
     <div class="board-wrapper disabled-all-widgets">
         <div class="board-wrapper disabled-all-widgets">
             <div class="board-header clearfix js-board-header">
-                <a href="#" class="board-header-btn board-header-btn-name js-rename-board" title="Rename the board.">
+                <a href="#" class="board-header-btn board-header-btn-name js-rename-board {{#unless edit }}no-edit{{/unless}}" title="Rename the board.">
                     <span class="board-header-btn-text"> {{ board.title }} </span> 
                 </a>
-                <a href="#" class="board-header-btn perms-btn js-change-vis" id="permission-level" title="This board is private.  Only people added to the board can view and edit it.">
+                <a href="#" class="board-header-btn perms-btn js-change-vis {{#unless edit }}no-edit{{/unless}}" id="permission-level" title="This board is private.  Only people added to the board can view and edit it.">
                     <span class="board-header-btn-icon icon-sm icon-{{#if board.private }}private{{ else }}public{{/if}}"></span> 
                     <span class="board-header-btn-text">{{#if board.private }}Private{{ else }}Public{{/if}}</span> 
                 </a>
@@ -28,10 +28,14 @@
                                     {{/each}}
                                     {{> card_add_form }}
                                 </div>
-                                <a class="open-card-composer js-open-card-composer" href="#">Add a card…</a>
+                                {{#if edit }}
+                                    <a class="open-card-composer js-open-card-composer" href="#">Add a card…</a>
+                                {{/if}}
                             </div>
                         {{/each}}
-                        {{> add_list }}
+                        {{#if edit }}
+                            {{> add_list }}
+                        {{/if}}
                     </div>
                 </div>
             </div>

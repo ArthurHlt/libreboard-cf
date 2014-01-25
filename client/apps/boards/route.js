@@ -6,6 +6,7 @@
 *******************************************/
 
 if (Meteor.isClient) {
+
     Meteor.Router.add({
         "/boards": "boards",
         "/board/:_id": { to: "list", and: function(id) {
@@ -27,21 +28,23 @@ if (Meteor.isClient) {
             if (!board) { return "index"; }
             return page; 
         }, 
+
         /*
         *
-        * IF NOT USER AUTHENTICATED AND PRIVATE BOARD THEN 
+        * IF USER AUTHENTICATED AND CURRENT BOARD OWNER USER THEN
+        * file include ./permission.js
         */
-        "require_private": function(page) {
-            var board = Boards.findOne({_id: Session.get("currentBoardId") });
-            if (!Meteor.user() && board.private) {
-                return "index"
-            } 
-            return page;
+        "permission_board": function(page) {
+            if (BoardIsSessionUserThen()) { return page; }
+            if (BoardIsSessionUserPublicThen()) { return page; }
+            if (BoardIsNotUserPublicThen()) { return page }
+
+            return "index";
         }
     });
 
    // filter login_required pages
    Meteor.Router.filter('login_required', {only: ['boards'] }); 
    Meteor.Router.filter('board_exists', {only: "list" }); 
-   Meteor.Router.filter('require_private', {only: "list" }); 
+   Meteor.Router.filter('permission_board', {only: "list" }); 
 }

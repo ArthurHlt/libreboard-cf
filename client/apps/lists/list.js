@@ -97,15 +97,19 @@ if (Meteor.isClient) {
             event.preventDefault();
         },
         "click .js-rename-board": function(event, template) {
-            ShowPop("Rename Board", "rename_board");
-            Meteor.setTimeout(function() {
-                jQuery(".js-board-name").focus();
-            }, 200);
+            if (PermissionBoardEdit()) {
+                ShowPop("Rename Board", "rename_board");
+                Meteor.setTimeout(function() {
+                    jQuery(".js-board-name").focus();
+                }, 200);
+            }
             event.preventDefault();
         },
         "click .js-change-vis": function() {
             event.preventDefault();
-            ShowPop("Change Visibility", "permission_level");
+            if (PermissionBoardEdit()) {
+                ShowPop("Change Visibility", "permission_level");
+            }
         },
         "click .js-add-card": function(e) {
             var $this = jQuery(e.currentTarget),
@@ -130,9 +134,10 @@ if (Meteor.isClient) {
         "click .list-header-name": function(event, template) {
             var $this = jQuery(template.firstNode),
                 list = $this.parents(".list");
-
-            $this.addClass("editing");
-            list.find(".field").focus();
+            if (PermissionBoardEdit()) {
+                $this.addClass("editing");
+                list.find(".field").focus();
+            }
         },
         "blur .edit textarea": function(e) {
             var $this = jQuery(e.currentTarget),
