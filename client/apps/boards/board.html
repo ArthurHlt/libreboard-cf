@@ -35,3 +35,30 @@
         <input type="submit" class="primary wide js-submit" value="Create"> 
     </form>
 </template>
+
+<template name="permission_level">
+    <ul class="pop-over-list"> 
+        <li> 
+            <a class="js-select light-hover" href="#" name="private"> 
+                <span class="icon-sm icon-private vis-icon"></span> 
+                Private  
+                {{#if board.private }}
+                    <span class="icon-sm icon-check"></span>
+                {{/if}}
+                <span class="sub-name"> This board is private.  Only people added to the board can view and edit it.  </span> 
+            </a> 
+        </li>  
+        <li> 
+            <a class="js-select light-hover" href="#" name="public"> 
+                <span class="icon-sm icon-public vis-icon"></span> 
+                Public  
+                {{#unless board.private }}
+                    <span class="icon-sm icon-check"></span>
+                {{/unless}}
+                <span class="sub-name"> 
+                    This board is public. It's visible to anyone with the link and will show up in search engines like Google.  Only people added to the board can edit.  
+                </span> 
+            </a> 
+        </li> 
+    </ul>
+</template>

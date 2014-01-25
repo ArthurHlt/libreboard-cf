@@ -12,7 +12,10 @@ if (Meteor.isClient) {
             return Lists.find({ board_id: Session.get("currentBoardId")});
         },
         board: function() {
-            return Boards.findOne({ _id: Session.get("currentBoardId") });
+            return Boards.findOne({ 
+                _id: Session.get("currentBoardId"),
+                // userid: Meteor.user()._id
+            });
         },
         cards: function(list_id) {
             return Cards.find({
@@ -87,6 +90,9 @@ if (Meteor.isClient) {
             var form = jQuery(event.currentTarget).parents("form");
             elemVal(form.find(".list-name-input"), function(elem, title, slug) {
                 ListQuery.addList(title, Session.get("currentBoardId")); 
+                Meteor.setTimeout(function() {
+                    jQuery(".add-list").addClass("idle");
+                }, 50);
             });     
             event.preventDefault();
         },
@@ -96,6 +102,10 @@ if (Meteor.isClient) {
                 jQuery(".js-board-name").focus();
             }, 200);
             event.preventDefault();
+        },
+        "click .js-change-vis": function() {
+            event.preventDefault();
+            ShowPop("Change Visibility", "permission_level");
         },
         "click .js-add-card": function(e) {
             var $this = jQuery(e.currentTarget),

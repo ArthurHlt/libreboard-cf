@@ -99,11 +99,14 @@
                 {{#if pop.create_board }}
                     {{> create_board }}
                 {{/if}}
-                {{#if pop.user_header_menu  }}
-                    {{> user_header_menu }}
-                {{/if}}
                 {{#if pop.rename_board  }}
                     {{> rename_board }}
+                {{/if}}
+                {{#if pop.permission_level }}
+                    {{> permission_level }}
+                {{/if}}
+                {{#if pop.user_header_menu  }}
+                    {{> user_header_menu }}
                 {{/if}}
             </div>
         </div>

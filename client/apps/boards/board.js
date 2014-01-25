@@ -28,7 +28,7 @@ if (Meteor.isClient) {
             e.preventDefault();
             var title = t.find("#boardNewTitle");
             if (trimInput(title.value)) {
-                var board = BoardsQuery.addBoard(title.value);
+                var board = BoardsQuery.createBoard(title.value);
                 HidePop();
                 // goto board
                 page(Meteor.Router.listPath(board));
@@ -56,5 +56,22 @@ if (Meteor.isClient) {
             // else focus
             jQuery(rename).focus();
         }    
+    });
+
+    Helpers("permission_level", {
+        board: function() {
+            return Boards.findOne({ _id: Session.get("currentBoardId") });
+        }
+    });
+
+    Template.permission_level.events({
+        "click .light-hover": function(event, template) {
+            var $this = jQuery(event.currentTarget),
+                private = $this.attr("name") == "private";
+            // update
+            BoardsQuery.updatePrivate(private, Session.get("currentBoardId"));
+            HidePop();
+            event.preventDefault();
+        }
     });
 }
