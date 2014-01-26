@@ -88,7 +88,7 @@
 
 <template name="pop_base">
     {{#if pop.show }}
-        <div class="pop-over clearfix fancy-scrollbar {{ pop.css_klass }}"> 
+        <div class="pop-over clearfix fancy-scrollbar {{ pop.css_klass }}" style="{{ pop.style }}"> 
             <div class="header clearfix"> 
                 <span class="header-title">{{ pop.title }}</span> 
                 <a class="close-btn js-close-popover" href="#"> 
@@ -107,6 +107,12 @@
                 {{/if}}
                 {{#if pop.user_header_menu  }}
                     {{> user_header_menu }}
+                {{/if}}
+                {{#if pop.card_menu  }}
+                    {{> card_menu }}
+                {{/if}}
+                {{#if pop.list_menu  }}
+                    {{> list_menu }}
                 {{/if}}
             </div>
         </div>

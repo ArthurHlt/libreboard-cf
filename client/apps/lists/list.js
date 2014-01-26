@@ -60,7 +60,6 @@ if (Meteor.isClient) {
         }
     });
 
-
     Template.list.events({
         "focus .card-title": function(event, tenplate) {
             var $this = jQuery(event.currentTarget),
@@ -126,8 +125,24 @@ if (Meteor.isClient) {
                 }, 200);
             });          
             e.preventDefault();
+        },
+        "mouseover .list-card": function(event, template) {
+            var $this = jQuery(event.currentTarget);
+            $this.addClass("active-card");
+        },
+        "mouseout .list-card": function(event, template) {
+            var $this = jQuery(event.currentTarget);
+            $this.removeClass("active-card");
+        },
+        "click .js-card-menu": function(event, template) {
+            var $this = jQuery(event.currentTarget),
+                card = $this.parents(".list-card");
+                ShowPop("Card Actions", "card_menu", $this);  
         }
     });
+
+    // list header Helpers
+    Helpers("list_header", {});
 
     // Board list title update
     Template.list_header.events({
@@ -162,6 +177,11 @@ if (Meteor.isClient) {
                 list = $this.parents(".list"),
                 edit = list.find(".edit"),
             e.preventDefault();
+        },
+        "click .js-open-list-menu": function(event, template) {
+            var $this = jQuery(event.currentTarget);
+            ShowPop("List Actions", "list_menu", $this);
+            event.preventDefault();
         }
     });
 }

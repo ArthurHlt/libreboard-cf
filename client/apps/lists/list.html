@@ -20,7 +20,10 @@
                                 {{> list_header }}
                                 <div class="list-cards fancy-scrollbar clearfix js-list-cards js-sortable ui-sortable">
                                     {{#each cards _id }}
-                                        <div class="list-card js-member-droppable ui-droppable">
+                                        <div class="list-card js-member-droppable ui-droppable" data-id="{{ _id }}">
+                                            {{#if edit }}
+                                                <span class="list-card-operation icon-sm icon-menu dark-hover js-card-menu"></span>
+                                            {{/if}}
                                             <div class="list-card-details clearfix"> 
                                                 <a href="#" class="list-card-title clear js-card-name">{{ title }}</a>    
                                             </div>  
@@ -66,7 +69,9 @@
                 <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
             </div>
         </div>
-        <a href="#" class="list-header-menu-icon icon-sm icon-menu dark-hover js-open-list-menu"></a>
+        {{#if edit }}
+            <a href="#" class="list-header-menu-icon icon-sm icon-menu dark-hover js-open-list-menu"></a>
+        {{/if}}
     </div>
 </template>
 
@@ -83,4 +88,41 @@
             </div> 
         </div>
     </div>
+</template>
+
+<template name="card_menu">
+    <ul class="pop-over-list">  
+        <li>
+            <a class="js-change-card-members" href="#">Members…</a> 
+        </li>    
+        <li> 
+            <a class="js-subscribe highlight-icon" href="#">Subscribe</a> 
+        </li>  
+    </ul> 
+    <hr>
+    <ul class="pop-over-list"> 
+        <li> 
+            <a class="js-archive-card" href="#">Archive</a> 
+        </li> 
+    </ul>
+</template>
+
+<template name="list_menu"> 
+    <ul class="pop-over-list">  
+        <li>
+            <a class="js-add-card" href="#">Add Card…</a>
+        </li>  
+        <li>
+            <a class="js-move-list" href="#">Move List…</a>
+        </li>  
+        <li>
+            <a class="highlight-icon js-list-subscribe" href="#">Subscribe</a>
+        </li> 
+    </ul>
+    <hr>
+    <ul class="pop-over-list"> 
+        <li>
+            <a class="js-close-list" href="#">Archive This List</a>
+        </li> 
+    </ul>
 </template>
