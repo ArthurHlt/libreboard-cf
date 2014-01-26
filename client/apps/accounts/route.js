@@ -4,7 +4,6 @@
 * Accounts Router
 *
 *******************************************/
-
 if (Meteor.isClient) {
     Meteor.Router.add({
         "/login": "login",
@@ -20,7 +19,6 @@ if (Meteor.isClient) {
             return "index";
         },
         "login_then": function(page) {
-            if (Meteor.loggingIn()) { return "loading"; }
             if (Meteor.user()) {
                 return "boards";
             }
@@ -29,5 +27,7 @@ if (Meteor.isClient) {
     });
 
    // filter login_then pages
-   Meteor.Router.filter('login_then', {only: ['login', "signup", "forgot"] }); 
+   Meteor.Router.filter('login_then', {
+       only: ["index", "info", 'login', "signup", "forgot"] 
+   }); 
 }

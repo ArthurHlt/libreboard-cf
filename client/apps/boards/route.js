@@ -25,7 +25,7 @@ if (Meteor.isClient) {
             var board = Boards.findOne({_id: Session.get("currentBoardId") });
 
             // Board not found then redirect index!
-            if (!board) { return "index"; }
+            if (!board) { return "loading"; }
             return page; 
         }, 
 
@@ -38,13 +38,12 @@ if (Meteor.isClient) {
             if (BoardIsSessionUserThen()) { return page; }
             if (BoardIsSessionUserPublicThen()) { return page; }
             if (BoardIsNotUserPublicThen()) { return page }
-
             return "index";
         }
     });
 
    // filter login_required pages
-   Meteor.Router.filter('login_required', {only: ['boards'] }); 
    Meteor.Router.filter('board_exists', {only: "list" }); 
+   Meteor.Router.filter('login_required', {only: ['boards'] }); 
    Meteor.Router.filter('permission_board', {only: "list" }); 
 }

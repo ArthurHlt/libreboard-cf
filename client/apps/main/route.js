@@ -18,17 +18,13 @@ if (Meteor.isClient) {
             Session.set("show_pop", false);
             return page;
         },
-
         loading: function(page) {
             if (Meteor.loggingIn()) { return "loading"; }
-            return page
+            return page;
         }
     });
     
-    // all pages
-    Meteor.Router.filter('loading');
-    Meteor.Router.filter('session_restart');
-
     // index // info pages
-    Meteor.Router.filter('login_then', {only: ['index', "info"] }); 
+    Meteor.Router.filter('session_restart');
+    Meteor.Router.filter('loading');
 }
