@@ -19,19 +19,19 @@
             _id: Session.get("currentBoardId"),
             private: false
         });
-    }
+    };
 
     BoardIsNotUserPublicThen = function() {
         return !Meteor.user() && Boards.findOne({
             _id: Session.get("currentBoardId"),
             private: false
         });
-    }
+    };
 
     PermissionBoardEdit = function() {
         if (BoardIsSessionUserThen()) { return true; }
         if (BoardIsSessionUserPublicThen()) { return false; }
-        if (BoardIsNotUserPublicThen()) { return false }
+        if (BoardIsNotUserPublicThen()) { return false; }
         return false;
-    }
+    };
 }());

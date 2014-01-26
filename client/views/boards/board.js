@@ -11,7 +11,7 @@ if (Meteor.isClient) {
     // helpers context
     Helpers("boards", {
         all: function() {
-            return BoardsQuery.all();
+            return Boards.find({ userid: Meteor.user()._id });
         },
         get_absolute_url: function(id) {
             return Meteor.Router.listPath(id);
@@ -28,10 +28,15 @@ if (Meteor.isClient) {
             e.preventDefault();
             var title = t.find("#boardNewTitle");
             if (trimInput(title.value)) {
-                var board = BoardsQuery.createBoard(title.value);
-                HidePop();
-                // goto board
-                page(Meteor.Router.listPath(board));
+                Meteor.call("createBoard", {
+                    title: title.value
+                }, function(err, result) {
+                    if (result) {
+                        HidePop();
+                        // goto board
+                        page(Meteor.Router.listPath(result));
+                    }    
+                });
                 return;
             }
             title.focus();
@@ -49,8 +54,12 @@ if (Meteor.isClient) {
             event.preventDefault();
             var rename = template.find(".js-board-name ");
             if (trimInput(rename.value)) {
-                BoardsQuery.updateBoardTitle(rename.value, Session.get("currentBoardId")); 
-                HidePop();
+                Meteor.call("updateBoard", {
+                    _id: Session.get("currentBoardId"),
+                    title: rename.value
+                }, function() {
+                    HidePop();
+                });
                 return;
             }
             // else focus
@@ -69,8 +78,14 @@ if (Meteor.isClient) {
             var $this = jQuery(event.currentTarget),
                 private = $this.attr("name") == "private";
             // update
-            BoardsQuery.updatePrivate(private, Session.get("currentBoardId"));
-            HidePop();
+            Meteor.call("changeBoardPerm", {
+                _id: Session.get("currentBoardId"),
+                private: private
+            }, function(err, result) {
+                if (result) {
+                    HidePop();
+                }
+            });
             event.preventDefault();
         }
     });

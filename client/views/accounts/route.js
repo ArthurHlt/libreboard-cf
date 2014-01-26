@@ -1,16 +1,11 @@
-    
-/*******************************************
-* 
-* Accounts Router
-*
-*******************************************/
-if (Meteor.isClient) {
+
+(function() {
     Meteor.Router.add({
         "/login": "login",
         "/signup": "signup",
         "/forgot": "forgot"
     });
-
+    
     Meteor.Router.filters({
         "login_required": function(page) {
             if (Meteor.user()) {
@@ -22,12 +17,12 @@ if (Meteor.isClient) {
             if (Meteor.user()) {
                 return "boards";
             }
-            return page
+            return page;
         }
     });
-
-   // filter login_then pages
-   Meteor.Router.filter('login_then', {
-       only: ["index", "info", 'login', "signup", "forgot"] 
-   }); 
-}
+    
+    // filter login_then pages
+    Meteor.Router.filter('login_then', {
+        only: ["index", "info", 'login', "signup", "forgot"] 
+    }); 
+}());

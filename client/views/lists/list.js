@@ -31,7 +31,6 @@ if (Meteor.isClient) {
         updateListHeight();
     });
 
-
     /* ============================ ALL HELPERS ===========================*/
 
     /* --> LIST HELPERS */
@@ -45,12 +44,10 @@ if (Meteor.isClient) {
         board: function() {
             return Boards.findOne({ 
                 _id: Session.get("currentBoardId")
-                // userid: Meteor.user()._id
             });
         },
         cards: function(list_id) {
             return Cards.find({
-                board_id: Session.get("currentBoardId"),
                 list_id: list_id,
                 archive: false 
             });
@@ -90,8 +87,11 @@ if (Meteor.isClient) {
     Template.card_menu.events({
         "click .js-archive-card": function(event, template) {
             var card = getPopElem("list-card", "pop_card_id"); 
-            CardQuery.archiveToCard(card.id);
-            HidePop();
+            Meteor.call("archiveToMoveCart", card.id, function(err, result) {
+                if (result) {
+                    HidePop();
+                }
+            });
             event.preventDefault(); 
         } 
     });
@@ -153,13 +153,18 @@ if (Meteor.isClient) {
                 list = $this.parents(".list-cards");
 
             elemVal(form.find(".card-title"), function(elem, title, slug) {
-                CardQuery.addListCart(title, Session.get("currentBoardId"), form.data("id"));
+                Meteor.call("addCard", {
+                    title: title,
+                    list_id: form.data("id")
+                }, function(err, result) {
+                    if (result) {
+                        focusTextareaAnimate(list);
+                        Meteor.setTimeout(function() {
+                            list.find("textarea").focus();
+                        }, 200);
+                    }
+                });
 
-                // animate click textarea
-                focusTextareaAnimate(list);
-                Meteor.setTimeout(function() {
-                    list.find("textarea").focus();
-                }, 200);
             });          
             e.preventDefault();
         },
@@ -208,11 +213,11 @@ if (Meteor.isClient) {
             }
             e.preventDefault();
         },
-        "click .js-cancel-edit": function(e) {
-            var $this = jQuery(e.currentTarget); 
+        "click .js-cancel-edit": function(event, template) {
+            var $this = jQuery(event.currentTarget),
                 list = $this.parents(".list"),
-                edit = list.find(".edit"),
-            e.preventDefault();
+                edit = list.find(".edit");
+            event.preventDefault();
         },
         "click .js-open-list-menu": function(event, template) {
             var $this = jQuery(event.currentTarget),

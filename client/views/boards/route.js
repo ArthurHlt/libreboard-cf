@@ -1,12 +1,5 @@
-    
-/*******************************************
-* 
-* Boards  Router
-*
-*******************************************/
 
-if (Meteor.isClient) {
-
+(function() {
     Meteor.Router.add({
         "/boards": "boards",
         "/board/:_id": { to: "list", and: function(id) {
@@ -37,13 +30,14 @@ if (Meteor.isClient) {
         "permission_board": function(page) {
             if (BoardIsSessionUserThen()) { return page; }
             if (BoardIsSessionUserPublicThen()) { return page; }
-            if (BoardIsNotUserPublicThen()) { return page }
+            if (BoardIsNotUserPublicThen()) { return page; }
             return "index";
         }
     });
 
    // filter login_required pages
-   Meteor.Router.filter('board_exists', {only: "list" }); 
-   Meteor.Router.filter('login_required', {only: ['boards'] }); 
-   Meteor.Router.filter('permission_board', {only: "list" }); 
-}
+   Meteor.Router.filter('login_required', { only: ['boards'] }); 
+   Meteor.Router.filter('board_exists', { only: "list" }); 
+   Meteor.Router.filter('permission_board', { only: "list" }); 
+}());
+

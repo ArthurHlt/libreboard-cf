@@ -51,14 +51,14 @@ if (Meteor.isClient) {
             ShowPop("Create Board", "create_board");
         },
         "click .js-open-header-member-menu": function(event, template) {
-            var profile = Meteor.user().profile
+            var profile = Meteor.user().profile;
             ShowPop(profile.fullname, "user_header_menu");
             event.preventDefault();
         }
     });
 
     Rendered("not_found", function(addClass) {
-        addClass("page-index")
+        addClass("page-index");
     });
 
     Helpers("pop_base", { 

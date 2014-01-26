@@ -1,11 +1,5 @@
-    
-/*******************************************
-* 
-* Javascript: Main View Router
-*
-*******************************************/
 
-if (Meteor.isClient) {
+(function() {
     Meteor.Router.add({
         "/": "index",
         "/info": "info",
@@ -27,4 +21,5 @@ if (Meteor.isClient) {
     // index // info pages
     Meteor.Router.filter('session_restart');
     Meteor.Router.filter('loading');
-}
+}());
+
