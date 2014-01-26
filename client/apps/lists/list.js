@@ -7,24 +7,9 @@
 
 if (Meteor.isClient) {
 
-    Helpers("list", {
-        all: function() {
-            return Lists.find({ board_id: Session.get("currentBoardId")});
-        },
-        board: function() {
-            return Boards.findOne({ 
-                _id: Session.get("currentBoardId"),
-                // userid: Meteor.user()._id
-            });
-        },
-        cards: function(list_id) {
-            return Cards.find({
-                board_id: Session.get("currentBoardId"),
-                list_id: list_id
-            });
-        }
-    });
+    /* ============================ ALL RENDERED ===========================*/
 
+    /* --> LIST RENDERED */
     Rendered("list", function(addClass){
         // resize board carts scrolling.
         var resize = function() {
@@ -47,6 +32,37 @@ if (Meteor.isClient) {
     });
 
 
+    /* ============================ ALL HELPERS ===========================*/
+
+    /* --> LIST HELPERS */
+    Helpers("list", {
+        all: function() {
+            return Lists.find({ 
+                board_id: Session.get("currentBoardId"),
+                archive: false 
+            });
+        },
+        board: function() {
+            return Boards.findOne({ 
+                _id: Session.get("currentBoardId"),
+                userid: Meteor.user()._id
+            });
+        },
+        cards: function(list_id) {
+            return Cards.find({
+                board_id: Session.get("currentBoardId"),
+                list_id: list_id,
+                archive: false 
+            });
+        }
+    });
+
+    /* --> LIST_HEADER HELPERS */
+    Helpers("list_header", {});
+
+    /* ============================ ALL EVENTS ===========================*/
+
+    /* --> ADD_LIST EVENTS */
     Template.add_list.events({
         "click .add-list": function(event, t) {
             var $this = jQuery(t.firstNode);
@@ -60,6 +76,27 @@ if (Meteor.isClient) {
         }
     });
 
+    /* --> LIST_MENU EVENTS */
+    Template.list_menu.events({
+        "click .js-close-list": function(event, template) {
+            var list = getPopElem("list", "pop_list_id"); 
+            ListQuery.archiveToList(list.id);
+            HidePop();
+            event.preventDefault(); 
+        } 
+    });
+
+    /* --> CARD_MENU EVENTS */
+    Template.card_menu.events({
+        "click .js-archive-card": function(event, template) {
+            var card = getPopElem("list-card", "pop_card_id"); 
+            CardQuery.archiveToCard(card.id);
+            HidePop();
+            event.preventDefault(); 
+        } 
+    });
+
+    /* --> LIST EVENTS */
     Template.list.events({
         "focus .card-title": function(event, tenplate) {
             var $this = jQuery(event.currentTarget),
@@ -137,14 +174,13 @@ if (Meteor.isClient) {
         "click .js-card-menu": function(event, template) {
             var $this = jQuery(event.currentTarget),
                 card = $this.parents(".list-card");
-                ShowPop("Card Actions", "card_menu", $this);  
+            ShowPop("Card Actions", "card_menu", $this);  
+            Session.set("pop_card_id", card.data("id"));
+            event.preventDefault();
         }
     });
 
-    // list header Helpers
-    Helpers("list_header", {});
-
-    // Board list title update
+    /* --> LIST_HEADER EVENTS */
     Template.list_header.events({
         "click .list-header-name": function(event, template) {
             var $this = jQuery(template.firstNode),
@@ -179,8 +215,10 @@ if (Meteor.isClient) {
             e.preventDefault();
         },
         "click .js-open-list-menu": function(event, template) {
-            var $this = jQuery(event.currentTarget);
+            var $this = jQuery(event.currentTarget),
+                list = $this.parents(".list");
             ShowPop("List Actions", "list_menu", $this);
+            Session.set("pop_list_id", list.data("id"));
             event.preventDefault();
         }
     });

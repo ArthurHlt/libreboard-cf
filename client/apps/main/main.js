@@ -48,7 +48,7 @@ if (Meteor.isClient) {
     Template.header_user.events({
         "click .js-open-add-menu": function(event) {
             event.preventDefault();
-            ShowPop("Create Board", "create_board", "pop_header_user");
+            ShowPop("Create Board", "create_board");
         },
         "click .js-open-header-member-menu": function(event, template) {
             var profile = Meteor.user().profile
