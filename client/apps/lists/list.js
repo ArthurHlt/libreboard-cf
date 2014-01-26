@@ -44,8 +44,8 @@ if (Meteor.isClient) {
         },
         board: function() {
             return Boards.findOne({ 
-                _id: Session.get("currentBoardId"),
-                userid: Meteor.user()._id
+                _id: Session.get("currentBoardId")
+                // userid: Meteor.user()._id
             });
         },
         cards: function(list_id) {
