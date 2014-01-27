@@ -198,6 +198,23 @@ if (Meteor.isClient) {
                 jQuery(".open-card-composer").show();
             });
         },
+        'keypress .card-title': function(event, template) {
+            var $this = jQuery(event.currentTarget),
+                list = $this.parents(".list"),
+                cards = $this.parents(".list-cards"),
+                area = list.find(".js-card-title");
+            if (event.charCode == 13 && trimInput(area.val())) {
+                CardQuerys.createCard({
+                    title: area.val(),
+                    list_id: list.data("id")
+                }, function() {
+                    area.val(""); 
+                    focusTextareaAnimate(cards);
+                }); 
+                event.stopPropagation();
+                return false;
+            }
+        },
         "click .open-card-composer": function(event, template) {
             var $this = jQuery(event.currentTarget),
                 list = $this.parents(".list"),
@@ -232,24 +249,20 @@ if (Meteor.isClient) {
                 ShowPop("Change Visibility", "permission_level");
             }
         },
-        "click .js-add-card": function(e) {
-            var $this = jQuery(e.currentTarget),
+        "click .js-add-card": function(event) {
+            var $this = jQuery(event.currentTarget),
                 form = $this.parents(".CardAddForm"),
                 list = $this.parents(".list-cards");
-
             elemVal(form.find(".card-title"), function(elem, title, slug) {
-                Cards.insert({
-                    userid: Meteor.user()._id,
-                    list_id: form.data("id"),
+                CardQuerys.createCard({
                     title: title,
-                    archive: false
-                })
-                focusTextareaAnimate(list);
-                Meteor.setTimeout(function() {
+                    list_id: form.data("id")
+                }, function() {
+                    focusTextareaAnimate(list);
                     list.find("textarea").focus();
-                }, 200);
+                });
             });          
-            e.preventDefault();
+            event.preventDefault();
         },
         "mouseover .list-card": function(event, template) {
             var $this = jQuery(event.currentTarget);
