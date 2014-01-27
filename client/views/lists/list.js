@@ -87,11 +87,8 @@ if (Meteor.isClient) {
     Template.card_menu.events({
         "click .js-archive-card": function(event, template) {
             var card = getPopElem("list-card", "pop_card_id"); 
-            Meteor.call("archiveToMoveCart", card.id, function(err, result) {
-                if (result) {
-                    HidePop();
-                }
-            });
+            Cards.update({_id: card.id}, {$set: { archive: true }});
+            HidePop();
             event.preventDefault(); 
         } 
     });
@@ -153,18 +150,16 @@ if (Meteor.isClient) {
                 list = $this.parents(".list-cards");
 
             elemVal(form.find(".card-title"), function(elem, title, slug) {
-                Meteor.call("addCard", {
+                Cards.insert({
+                    userid: Meteor.user()._id,
+                    list_id: form.data("id"),
                     title: title,
-                    list_id: form.data("id")
-                }, function(err, result) {
-                    if (result) {
-                        focusTextareaAnimate(list);
-                        Meteor.setTimeout(function() {
-                            list.find("textarea").focus();
-                        }, 200);
-                    }
-                });
-
+                    archive: false
+                })
+                focusTextareaAnimate(list);
+                Meteor.setTimeout(function() {
+                    list.find("textarea").focus();
+                }, 200);
             });          
             e.preventDefault();
         },

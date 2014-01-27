@@ -28,15 +28,14 @@ if (Meteor.isClient) {
             e.preventDefault();
             var title = t.find("#boardNewTitle");
             if (trimInput(title.value)) {
-                Meteor.call("createBoard", {
+                var board = Boards.insert({
+                    userid: Meteor.user()._id,
+                    private: true,
+                    archive: false,
                     title: title.value
-                }, function(err, result) {
-                    if (result) {
-                        HidePop();
-                        // goto board
-                        page(Meteor.Router.listPath(result));
-                    }    
                 });
+                HidePop();
+                page(Meteor.Router.listPath(board));
                 return;
             }
             title.focus();
@@ -54,12 +53,10 @@ if (Meteor.isClient) {
             event.preventDefault();
             var rename = template.find(".js-board-name ");
             if (trimInput(rename.value)) {
-                Meteor.call("updateBoard", {
-                    _id: Session.get("currentBoardId"),
+                Boards.update({_id: Session.get("currentBoardId") }, { $set: { 
                     title: rename.value
-                }, function() {
-                    HidePop();
-                });
+                }});
+                HidePop();
                 return;
             }
             // else focus
@@ -77,15 +74,11 @@ if (Meteor.isClient) {
         "click .light-hover": function(event, template) {
             var $this = jQuery(event.currentTarget),
                 private = $this.attr("name") == "private";
-            // update
-            Meteor.call("changeBoardPerm", {
-                _id: Session.get("currentBoardId"),
+
+            Boards.update({_id: Session.get("currentBoardId") }, { $set: {
                 private: private
-            }, function(err, result) {
-                if (result) {
-                    HidePop();
-                }
-            });
+            }});    
+            HidePop();
             event.preventDefault();
         }
     });
