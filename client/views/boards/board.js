@@ -24,18 +24,18 @@ if (Meteor.isClient) {
     });
 
     Template.create_board.events({
-        "submit #CreateBoardForm": function(e, t) {
-            e.preventDefault();
-            var title = t.find("#boardNewTitle");
+        "submit #CreateBoardForm": function(event, template) {
+            event.preventDefault();
+            var title = template.find("#boardNewTitle");
             if (trimInput(title.value)) {
-                var board = Boards.insert({
-                    userid: Meteor.user()._id,
-                    private: true,
-                    archive: false,
+                BoardQuerys.createBoard({
                     title: title.value
+                }, function(board) {
+                    
+                    // success hidePop and redirect create board.     
+                    HidePop();
+                    page(Meteor.Router.listPath(board));
                 });
-                HidePop();
-                page(Meteor.Router.listPath(board));
                 return;
             }
             title.focus();
@@ -51,12 +51,14 @@ if (Meteor.isClient) {
     Template.rename_board.events({
         "submit #RenameBoardForm": function(event, template) {
             event.preventDefault();
-            var rename = template.find(".js-board-name ");
+            var rename = template.find(".js-board-name");
             if (trimInput(rename.value)) {
-                Boards.update({_id: Session.get("currentBoardId") }, { $set: { 
+                BoardQuerys.updateBoard(Session.get("currentBoardId"), {
                     title: rename.value
-                }});
-                HidePop();
+                }, function() {
+                
+                    HidePop();
+                });
                 return;
             }
             // else focus
@@ -75,10 +77,13 @@ if (Meteor.isClient) {
             var $this = jQuery(event.currentTarget),
                 private = $this.attr("name") == "private";
 
-            Boards.update({_id: Session.get("currentBoardId") }, { $set: {
+            BoardQuerys.changeBoardPerm(Session.get("currentBoardId"), {
                 private: private
-            }});    
-            HidePop();
+            }, function() {
+                
+                // success callback        
+                HidePop();
+            });
             event.preventDefault();
         }
     });
