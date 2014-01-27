@@ -9,13 +9,31 @@
 
 if (Meteor.isClient) {
 
-    // Login Helpers
-    Helpers("login", {});
-
     // login rendered
     Rendered("login", function(addClass) {
         addClass("account-page");
     });
+
+
+    // Rendered signup
+    Rendered("signup", function(addClass) {
+        addClass("account-page");
+    });
+
+    Rendered("forgot", function(addClass) {
+        addClass("account-page");
+    });
+
+
+    // Login Helpers
+    Helpers("login", {});
+
+    // Signup helpers
+    Helpers("signup", {});
+
+
+    Helpers("forgot", {});
+
 
     // login events
     Template.login.events({
@@ -35,14 +53,6 @@ if (Meteor.isClient) {
                 });
             }
         }
-    });
-
-    // Signup helpers
-    Helpers("signup", {});
-
-    // Rendered signup
-    Rendered("signup", function(addClass) {
-        addClass("account-page");
     });
 
     // signup events
@@ -69,11 +79,6 @@ if (Meteor.isClient) {
             }
              
         }
-    });
-
-    Template.forgot.helpers({});
-    Rendered("forgot", function(addClass) {
-        addClass("account-page");
     });
 
     // Header user menu
