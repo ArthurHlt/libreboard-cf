@@ -2,7 +2,7 @@
 (function() {
     Meteor.Router.add({
         "/boards": "boards",
-        "/board/:_id": { to: "list", and: function(id) {
+        "/board/:_id": { to: "board", and: function(id) {
 
             // access parameters in order a function args too
             Session.set("currentBoardId", id);
@@ -37,7 +37,7 @@
 
    // filter login_required pages
    Meteor.Router.filter('login_required', { only: ['boards'] }); 
-   Meteor.Router.filter('board_exists', { only: "list" }); 
-   Meteor.Router.filter('permission_board', { only: "list" }); 
+   Meteor.Router.filter('board_exists', { only: "board" }); 
+   Meteor.Router.filter('permission_board', { only: "board" }); 
 }());
 

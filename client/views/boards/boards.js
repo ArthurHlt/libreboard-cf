@@ -1,16 +1,23 @@
 
 /*********************************************
 *
-* List, list --> card Helpers, rendered, events
+* All boards list events, rendered, helpers 
 * 
 ***********************************************/
 
+// is client then run
 if (Meteor.isClient) {
 
     /* ============================ ALL RENDERED ===========================*/
 
-    /* --> LIST RENDERED */
-    Rendered("list", function(addClass){
+    /* --> BOARDS RENDERED */
+    Rendered("boards", function(addClass) {
+        addClass("page-index", "large-window", "tabbed-page");
+    });
+
+
+    /* --> BOARD RENDERED */
+    Rendered("board", function(addClass){
         // resize board carts scrolling.
         var resize = function() {
             var body_canvas = jQuery(".board-canvas");
@@ -33,17 +40,17 @@ if (Meteor.isClient) {
 
     /* ============================ ALL HELPERS ===========================*/
 
-    /* --> LIST HELPERS */
-    Helpers("list", {
-        all: function() {
-            return Lists.find({ 
-                board_id: Session.get("currentBoardId"),
-                archive: false 
-            });
-        },
+    /* --> BOARD HELPERS */
+    Helpers("board", {
         board: function() {
             return Boards.findOne({ 
                 _id: Session.get("currentBoardId")
+            });
+        },
+        lists: function() {
+            return Lists.find({ 
+                board_id: Session.get("currentBoardId"),
+                archive: false 
             });
         },
         cards: function(list_id) {
@@ -57,7 +64,88 @@ if (Meteor.isClient) {
     /* --> LIST_HEADER HELPERS */
     Helpers("list_header", {});
 
+    /* --> PERMISSION HELPERS */
+    Helpers("permission_level", {
+        board: function() {
+            return Boards.findOne({ _id: Session.get("currentBoardId") });
+        }
+    });
+
+    // helpers context
+    Helpers("boards", {
+        all: function() {
+            return Boards.find({ userid: Meteor.user()._id });
+        },
+        get_absolute_url: function(id) {
+            return Meteor.Router.boardPath(id);
+        }
+    });
+
+    /* --> RENAME BOARD HELPERS */
+    Helpers("rename_board", {
+        board: function() {
+            return Boards.findOne({ _id: Session.get("currentBoardId") });
+        }
+    });
+
+
     /* ============================ ALL EVENTS ===========================*/
+
+    /* --> CREATE BOARD EVENTS */
+    Template.create_board.events({
+        "submit #CreateBoardForm": function(event, template) {
+            event.preventDefault();
+            var title = template.find("#boardNewTitle");
+            if (trimInput(title.value)) {
+                BoardQuerys.createBoard({
+                    title: title.value
+                }, function(board) {
+                    
+                    // success hidePop and redirect create board.     
+                    HidePop();
+                    page(Meteor.Router.boardPath(board));
+                });
+                return;
+            }
+            title.focus();
+        }
+    });
+
+    /* --> RENAME BOARD EVENTS */
+    Template.rename_board.events({
+        "submit #RenameBoardForm": function(event, template) {
+            event.preventDefault();
+            var rename = template.find(".js-board-name");
+            if (trimInput(rename.value)) {
+                BoardQuerys.updateBoard(Session.get("currentBoardId"), {
+                    title: rename.value
+                }, function() {
+                
+                    HidePop();
+                });
+                return;
+            }
+            // else focus
+            jQuery(rename).focus();
+        }    
+    });
+
+    /* --> PERMISSION LEVEL EVENTS */
+    Template.permission_level.events({
+        "click .light-hover": function(event, template) {
+            var $this = jQuery(event.currentTarget),
+                private = $this.attr("name") == "private";
+
+            BoardQuerys.changeBoardPerm(Session.get("currentBoardId"), {
+                private: private
+            }, function() {
+                
+                // success callback        
+                HidePop();
+            });
+            event.preventDefault();
+        }
+    });
 
     /* --> ADD_LIST EVENTS */
     Template.add_list.events({
@@ -94,7 +182,7 @@ if (Meteor.isClient) {
     });
 
     /* --> LIST EVENTS */
-    Template.list.events({
+    Template.board.events({
         "focus .card-title": function(event, tenplate) {
             var $this = jQuery(event.currentTarget),
                 form = $this.parents(".CardAddForm"),
@@ -222,4 +310,6 @@ if (Meteor.isClient) {
             event.preventDefault();
         }
     });
+
+
 }
