@@ -1,6 +1,88 @@
 <template name="profile">
+    <div class="has-ad">
+        <div class="tabbed-pane-header"> 
+            <div class="tabbed-pane-header-wrapper clearfix"> 
+                <a class="tabbed-pane-header-image profile-image {{#if currentUser }} ed js-change-avatar-profile{{/if}}" href="#">
+                    <img class="profile-image-image" src="{{ gravatar profile 170}}" alt="{{ profile.profile.fullname }}">
+                    {{#if currentUser }}
+                        <span class="change-text"> Change Avatar </span> 
+                    {{/if}}
+                </a> 
+            <div class="tabbed-pane-header-details"> 
+                <div class="js-current-details">
+                    <div class="tabbed-pane-header-details-name"> 
+                        <h1 class="inline"> {{ profile.profile.fullname }}</h1> 
+                        <p class="window-title-extra quiet"> @{{ profile.username }}</p>
+                    </div> 
+                    <div class="tabbed-pane-header-details-content {{#if profile_edit }}hide{{/if}}">{{ profile.profile.bio }}</div>
+                    {{#if currentUser }}
+                        <a class="button-link tabbed-pane-header-details-edit js-edit-profile {{#if profile_edit }}hide{{/if}}" href="#">
+                            <span class="icon-sm icon-edit"></span> Edit profile
+                        </a>
+                    {{/if}}
+                </div>
+                {{#if currentUser }}
+                    <form class="js-profile-form {{#unless profile_edit }}hide{{/unless}}">
+                        {{#if error_message }}
+                            <p class="error js-profile-form-error">
+                                {{ error_message }}
+                            </p>
+                        {{/if}}
+                        <p class="error js-profile-form-error hide"></p> <label>Full Name</label> 
+                        <input type="text" name="fullName" class="fullname" value="{{profile.profile.fullname }}"> <label>Username</label> 
+                        <input type="text" name="username" class="username" value="{{ profile.username }}">
+                        <label>Bio 
+                            <span class="quiet">(optional)</span>
+                        </label> 
+                        <textarea name="bio" class="bio">{{ profile.profile.bio }}</textarea> 
+                        <input type="submit" class="primary wide js-submit-profile" value="Save"> 
+                        <input type="button" class="js-cancel-edit-profile" value="Cancel"> 
+                    </form>  
+                {{/if}}
+            </div>  
+        </div> 
+    </div> 
+    {{> activities }}
+</template>
 
-    {{ profile }}
+<template name="activities">
+    <div class="tabbed-pane-main-col clearfix">  
+        <div class="tabbed-pane-main-col-wrapper js-content">  
+            <div class="window-module"> 
+                <div class="window-module-title"> 
+                    <span class="window-module-title-icon icon-lg icon-activity"></span> 
+                    <h3>Activity</h3> 
+                </div> 
+            <div class="list-actions">
+                {{> activity }}
+                {{> activity }}
+                {{> activity }}
+                {{> activity }}
+            </div> 
+        </div> 
+    </div>
+</template>
 
-    dsds
+<template name="activity">
+                <div class="phenom clearfix"> 
+                    <div class="creator member js-show-mem-menu">  
+                        <img class="member-avatar" height="30" width="30" src="https://trello-avatars.s3.amazonaws.com/1c0c719979acfbb5a147060ef1603898/30.png" alt="Yaşar İÇLİ (yasaricli)" title="Yaşar İÇLİ (yasaricli)">
+                        <span class="member-gold-badge" title="This member has Trello Gold."></span>  
+                    </div>   
+                    <div class="phenom-desc"> 
+                        <a class="inline-object js-show-mem-menu" href="/4eda51ff6715c257d0346ad2">Yaşar İÇLİ</a>      
+                        renamed                      
+                        <a href="/b/e0sk098w/ssssss" class="inline-object">Şşşşşş</a> 
+                        (from fdfd).
+                    </div> 
+                    <p class="phenom-meta quiet"> 
+                        <span class="date js-hide-on-sending" dt="2014-01-28T20:30:40.326Z" title="28 1 2014 22:30:40">Jan 28 at 22:30</span>  
+                        <span class="js-spinner hide"><span class="spinner small left" style="margin-right: 4px;"></span> Sending…</span>  
+                        - on board 
+                        <a class="bold" href="/board/ssssss/52de287be4d360e95c4437c1">Şşşşşş</a> 
+                        <span title="This board is public. It's visible to anyone with the link and will show up in search engines like Google.  Only people added to the board can edit." class="icon-sm icon-public"></span>   
+                        <span class="js-hide-on-sending">    
+                        </span> 
+                    </p> 
+                </div>
 </template>

@@ -1,10 +1,17 @@
 
 Cards = new Meteor.Collection("cards");
 
-Cards.allow({
-    insert: function() { return !!Meteor.user(); },
-    update: function() { return !!Meteor.user(); },
-    remove: function() { return !!Meteor.user(); }
+Meteor.startup(function () {
+    Cards.allow({
+        insert: function() { return !!Meteor.user(); },
+        update: function(userid, card) { 
+            return Meteor.user() && userid == card.userid;
+        },
+        remove: function(userid, card) { 
+            return Meteor.user() && userid == card.userid;
+        },
+        fetch: ["userid"]
+    });
 });
 
 CardQuerys = {

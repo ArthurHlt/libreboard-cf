@@ -1,11 +1,17 @@
 
-
 Boards = new Meteor.Collection("boards");
 
-Boards.allow({
-    insert: function() { return !!Meteor.user(); },
-    update: function() { return !!Meteor.user(); },
-    remove: function() { return !!Meteor.user(); }
+Meteor.startup(function () {
+    Boards.allow({
+        insert: function() { return !!Meteor.user(); },
+        update: function(userid, board) { 
+            return Meteor.user() && userid == board.userid;
+        },
+        remove: function(userid, board) { 
+            return Meteor.user() && userid == board.userid;
+        },
+        fetch: ["userid"]
+    });
 });
 
 

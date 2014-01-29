@@ -70,8 +70,8 @@
 
 <template name="user_header_menu">
     <ul class="pop-over-list"> 
-        <li><a class="js-profile" href="/yasaricli">Profile</a></li> 
-        <li><a class="js-account" href="/yasaricli/account">Settings</a></li>
+        <li><a class="js-profile" href="/{{ currentUser.username }}">Profile</a></li> 
+        <li><a class="js-account" href="/{{ currentUser.username }}/account">Settings</a></li>
     </ul>
     <hr>
     <ul class="pop-over-list"> 

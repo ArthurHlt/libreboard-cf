@@ -31,9 +31,7 @@ if (Meteor.isClient) {
     // Signup helpers
     Helpers("signup", {});
 
-
     Helpers("forgot", {});
-
 
     // login events
     Template.login.events({
@@ -52,6 +50,7 @@ if (Meteor.isClient) {
                     Meteor.Router.to('/boards');
                 });
             }
+            return false;
         }
     });
 
@@ -70,7 +69,8 @@ if (Meteor.isClient) {
                 removeError(); 
                 var register_obj = {
                     profile: {
-                        fullname: fullname
+                        fullname: fullname,
+                        gravatar: email
                     },
                     username: slugify(fullname, ""),
                     email: email,

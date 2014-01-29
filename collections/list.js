@@ -2,10 +2,16 @@
 // Collections
 Lists = new Meteor.Collection("lists");
 
-Lists.allow({
-    insert: function() { return !!Meteor.user(); },
-    update: function() { return !!Meteor.user(); },
-    remove: function() { return !!Meteor.user(); }
+Meteor.startup(function () {
+    Lists.allow({
+        insert: function() { return !!Meteor.user(); },
+        update: function(userid, list) { 
+            return Meteor.user() && userid == list.userid;
+        },
+        remove: function(userid, list) { 
+            return Meteor.user() && userid == list.userid;
+        }
+    });
 });
 
 if (Meteor.isClient) {
