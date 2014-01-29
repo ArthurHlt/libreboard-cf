@@ -165,7 +165,7 @@ if (Meteor.isClient) {
     Template.list_menu.events({
         "click .js-close-list": function(event, template) {
             var list = getPopElem("list", "pop_list_id"); 
-            ListQuery.archiveToList(list.id);
+            ListQuery.archiveMoveList(list.id);
             HidePop();
             event.preventDefault(); 
         } 
@@ -227,11 +227,15 @@ if (Meteor.isClient) {
         "click .js-save-edit": function(event, template) {
             var form = jQuery(event.currentTarget).parents("form");
             elemVal(form.find(".list-name-input"), function(elem, title, slug) {
-                ListQuery.addList(title, Session.get("currentBoardId")); 
-                Meteor.setTimeout(function() {
-                    jQuery(".add-list").addClass("idle");
-                }, 50);
-            });     
+                ListQuery.createList({
+                    title: title,
+                    board_id: Session.get("currentBoardId")
+                }, function() {
+                    Meteor.setTimeout(function() {
+                        jQuery(".add-list").addClass("idle");
+                    }, 50);
+                });
+            }); 
             event.preventDefault();
         },
         "click .js-rename-board": function(event, template) {
@@ -305,7 +309,9 @@ if (Meteor.isClient) {
                 val = list.find(".field").val();
 
             if (jQuery.trim(val)) {
-                ListQuery.updateListTitle(list.data("id"), val);
+                ListQuery.updateList(list.data("id"), {
+                    title: val
+                });
             }
             e.preventDefault();
         },

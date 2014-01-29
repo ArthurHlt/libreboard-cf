@@ -2,13 +2,21 @@
 
 Boards = new Meteor.Collection("boards");
 
+Boards.allow({
+    insert: function() { return !!Meteor.user(); },
+    update: function() { return !!Meteor.user(); },
+    remove: function() { return !!Meteor.user(); }
+});
+
+
 BoardQuerys = {
     createBoard: function(data, callback) {
         return is_authenticated(function(user) {
             var board = Boards.insert(_.extend({
                 userid: user._id,
                 private: true,
-                archive: false
+                archive: false,
+                createdate: new Date()
             }, data));
 
             // callback run
@@ -18,7 +26,9 @@ BoardQuerys = {
     updateBoard: function(_id, data, callback) {
         return is_authenticated(function(user) {
             var $set = _.extend({}, data);
-            Boards.update({ _id: _id }, { $set: $set });
+            Boards.update({ _id: _id }, { $set: _.extend({
+                updatedate: new Date()
+            }, $set) });
 
             // callback run
             return callback && callback();
