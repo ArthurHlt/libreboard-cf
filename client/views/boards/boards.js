@@ -175,8 +175,9 @@ if (Meteor.isClient) {
     Template.card_menu.events({
         "click .js-archive-card": function(event, template) {
             var card = getPopElem("list-card", "pop_card_id"); 
-            Cards.update({_id: card.id}, {$set: { archive: true }});
-            HidePop();
+            CardQuerys.archiveMoveCard(card.id, function() {
+                HidePop();
+            });
             event.preventDefault(); 
         } 
     });
