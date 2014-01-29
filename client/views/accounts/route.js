@@ -1,9 +1,13 @@
-
 (function() {
     Meteor.Router.add({
         "/login": "login",
         "/signup": "signup",
-        "/forgot": "forgot"
+        "/forgot": "forgot",
+
+        "/:username": function(username) {
+            Session.set('currentUsername', username);
+            return "profile";
+        }
     });
     
     Meteor.Router.filters({
