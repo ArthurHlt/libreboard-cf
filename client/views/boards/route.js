@@ -1,4 +1,3 @@
-
 (function() {
     Meteor.Router.add({
         "/boards": "boards",
