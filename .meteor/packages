@@ -10,3 +10,4 @@ preserve-inputs
 router
 accounts-base
 accounts-password
+migrations
