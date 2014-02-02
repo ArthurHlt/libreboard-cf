@@ -3,7 +3,8 @@
   "dependencies": {
     "basePackages": {
       "router": {},
-      "migrations": {}
+      "migrations": {},
+      "Planet": {}
     },
     "packages": {
       "router": {
@@ -15,6 +16,11 @@
         "git": "https://github.com/rantav/meteor-migrations.git",
         "tag": "v0.0.2",
         "commit": "4e75c06b8e94961567765c4dea20a007816ad274"
+      },
+      "Planet": {
+        "git": "https://github.com/yasaricli/planet.git",
+        "tag": "v0.1.3",
+        "commit": "1b0d2df2523f553a428eff7fb82860ee710cb91d"
       },
       "page-js-ie-support": {
         "git": "https://github.com/tmeasday/meteor-page-js-ie-support.git",

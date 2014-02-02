@@ -8,6 +8,11 @@
 // is client then run
 if (Meteor.isClient) {
 
+    Meteor.subscribe("boards");
+    Meteor.subscribe("lists");
+    Meteor.subscribe("cards");
+
+
     /* ============================ ALL RENDERED ===========================*/
 
     /* --> BOARDS RENDERED */

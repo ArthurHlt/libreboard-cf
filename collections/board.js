@@ -1,7 +1,12 @@
 
 Boards = new Meteor.Collection("boards");
 
-Meteor.startup(function () {
+if (Meteor.isServer) {
+
+    Meteor.publish("boards", function() {
+        return Boards.find({});
+    });
+
     Boards.allow({
         insert: function() { return !!Meteor.user(); },
         update: function(userid, board) { 
@@ -12,7 +17,7 @@ Meteor.startup(function () {
         },
         fetch: ["userid"]
     });
-});
+}
 
 
 BoardQuerys = {

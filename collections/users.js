@@ -1,11 +1,11 @@
 
-Meteor.startup(function () {
+if (Meteor.isServer) {
     Meteor.users.allow({
         update: function (userId, user) {  
             return userId === user._id; 
         }
     });
-});
+}
 
 UsersQuerys = {
     updateUser: function(data, callback) {

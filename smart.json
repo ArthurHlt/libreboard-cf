@@ -1,6 +1,7 @@
 {
   "packages": {
     "router": {},
-    "migrations": {}
+    "migrations": {},
+    "Planet": {}
   }
 }

@@ -2,7 +2,12 @@
 // Collections
 Lists = new Meteor.Collection("lists");
 
-Meteor.startup(function () {
+if (Meteor.isServer) {
+
+    Meteor.publish("lists", function() {
+        return Lists.find({});
+    });
+
     Lists.allow({
         insert: function() { return !!Meteor.user(); },
         update: function(userid, list) { 
@@ -12,7 +17,7 @@ Meteor.startup(function () {
             return Meteor.user() && userid == list.userid;
         }
     });
-});
+}
 
 if (Meteor.isClient) {
     ListQuery = {

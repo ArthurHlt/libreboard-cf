@@ -1,11 +1,8 @@
-
-
 /*******************************************
 * 
 * Accounts
 *
 *******************************************/
-
 
 if (Meteor.isClient) {
 
@@ -13,7 +10,6 @@ if (Meteor.isClient) {
     Rendered("login", function(addClass) {
         addClass("account-page");
     });
-
 
     // Rendered signup
     Rendered("signup", function(addClass) {
@@ -23,7 +19,6 @@ if (Meteor.isClient) {
     Rendered("forgot", function(addClass) {
         addClass("account-page");
     });
-
 
     // Login Helpers
     Helpers("login", {});

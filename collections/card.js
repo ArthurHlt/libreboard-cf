@@ -1,7 +1,12 @@
 
 Cards = new Meteor.Collection("cards");
 
-Meteor.startup(function () {
+if (Meteor.isServer) {
+
+    Meteor.publish("cards", function() {
+        return Cards.find({});
+    });
+
     Cards.allow({
         insert: function() { return !!Meteor.user(); },
         update: function(userid, card) { 
@@ -12,7 +17,7 @@ Meteor.startup(function () {
         },
         fetch: ["userid"]
     });
-});
+}
 
 CardQuerys = {
     createCard: function(data, callback) {
