@@ -9,6 +9,6 @@
         // username field
     });
 
-    var list = Meteor.Migrations.list();
-    console.log(list.fetch());
+    //var list = Meteor.Migrations.list();
+    //console.log(list.fetch());
 }());

@@ -3,7 +3,7 @@
         <div class="tabbed-pane-header"> 
             <div class="tabbed-pane-header-wrapper clearfix"> 
                 <a class="tabbed-pane-header-image profile-image {{#if currentUser }} ed js-change-avatar-profile{{/if}}" href="#">
-                    <img class="profile-image-image" src="{{ gravatar profile 170}}" alt="{{ profile.profile.fullname }}">
+                    <img class="profile-image-image" src="{{ gravatar profile._id 170}}" alt="{{ profile.profile.fullname }}">
                     {{#if currentUser }}
                         <span class="change-text"> Change Avatar </span> 
                     {{/if}}
@@ -54,35 +54,51 @@
                     <h3>Activity</h3> 
                 </div> 
             <div class="list-actions">
-                {{> activity }}
-                {{> activity }}
-                {{> activity }}
-                {{> activity }}
+                {{#each activities }}
+                    {{> activity }}
+                {{else}}
+                    <p class="empty-list">No actions in the last 30 days </p>
+                {{/each }}
             </div> 
         </div> 
     </div>
 </template>
 
 <template name="activity">
-                <div class="phenom clearfix"> 
-                    <div class="creator member js-show-mem-menu">  
-                        <img class="member-avatar" height="30" width="30" src="https://trello-avatars.s3.amazonaws.com/1c0c719979acfbb5a147060ef1603898/30.png" alt="Yaşar İÇLİ (yasaricli)" title="Yaşar İÇLİ (yasaricli)">
-                        <span class="member-gold-badge" title="This member has Trello Gold."></span>  
-                    </div>   
-                    <div class="phenom-desc"> 
-                        <a class="inline-object js-show-mem-menu" href="/4eda51ff6715c257d0346ad2">Yaşar İÇLİ</a>      
-                        renamed                      
-                        <a href="/b/e0sk098w/ssssss" class="inline-object">Şşşşşş</a> 
-                        (from fdfd).
-                    </div> 
-                    <p class="phenom-meta quiet"> 
-                        <span class="date js-hide-on-sending" dt="2014-01-28T20:30:40.326Z" title="28 1 2014 22:30:40">Jan 28 at 22:30</span>  
-                        <span class="js-spinner hide"><span class="spinner small left" style="margin-right: 4px;"></span> Sending…</span>  
-                        - on board 
-                        <a class="bold" href="/board/ssssss/52de287be4d360e95c4437c1">Şşşşşş</a> 
-                        <span title="This board is public. It's visible to anyone with the link and will show up in search engines like Google.  Only people added to the board can edit." class="icon-sm icon-public"></span>   
-                        <span class="js-hide-on-sending">    
-                        </span> 
-                    </p> 
-                </div>
+    <div class="phenom clearfix"> 
+        <div class="creator member js-show-mem-menu">  
+            <img class="member-avatar" height="30" width="30" src="{{ gravatar userid 30 }}">
+        </div>
+        <div class="phenom-desc"> 
+            <a class="inline-object js-show-mem-menu" href="/{{ get_user userid "username" }}">{{ get_user userid "profile.fullname" }}</a>
+            {{ type }}
+                {{#if current }}
+                    <a href="/board/{{ current._id }}" class="inline-object">
+                        {{ current.title }}
+                    </a> 
+                {{else}}
+                    <a href="/board/{{ after._id }}" class="inline-object">
+                        {{ after.title }} 
+                    </a> 
+                     (from {{ before.title }}).
+                {{/if}}
+        </div> 
+        <p class="phenom-meta quiet"> 
+            {{#if current }} 
+                <span class="date js-hide-on-sending" dt="2014-01-28T20:30:40.326Z" title="28 1 2014 22:30:40">Jan 28 at 22:30</span>  
+                - on board 
+                <a class="bold" href="/board/{{ currentObj._id }}">{{ current.title }}</a> 
+                <span title="This board is public. It's visible to anyone with the link and will show up in search engines like Google.  Only people added to the board can edit." class="icon-sm {{#if current.private }}icon-private{{else}}icon-public{{/if}}"></span>   
+                <span class="js-hide-on-sending">    
+                </span> 
+            {{ else }} 
+                <span class="date js-hide-on-sending" dt="2014-01-28T20:30:40.326Z" title="28 1 2014 22:30:40">Jan 28 at 22:30</span>  
+                - on board 
+                <a class="bold" href="/board/{{ currentObj._id }}">{{ after.title }}</a> 
+                <span title="This board is public. It's visible to anyone with the link and will show up in search engines like Google.  Only people added to the board can edit." class="icon-sm {{#if after.private }}icon-private{{else}}icon-public{{/if}}"></span>   
+                <span class="js-hide-on-sending">    
+                </span> 
+            {{/if}}
+        </p> 
+    </div>
 </template>

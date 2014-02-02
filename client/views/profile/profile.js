@@ -1,16 +1,25 @@
 (function() {
     if (Meteor.isClient) {
-    
+       
         // Profile,
         Helpers("profile", {
             // Current /:username Profile
             profile: function() {
-                return Meteor.users.findOne({ username: Session.get("currentUsername")});
+                Meteor.subscribe("get_user", Session.get("currentUsername"));
+                return Meteor.users.findOne();
             },
             profile_edit: function() {
                 return Session.get("profile_edit");              
             }
         });
+
+        Helpers("activities", {
+            activities: function() {
+               Meteor.subscribe("user_activities", Session.get("currentUsername")); 
+               return Activities.find({});
+            }
+        });
+
         Rendered("profile", function(addClass) {
             addClass("tabbed-page");
             // rendered

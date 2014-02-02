@@ -4,13 +4,13 @@
         "/signup": "signup",
         "/forgot": "forgot",
 
-        "/:username": function(page) {
+        "/:username": function(page_or_username) {
             // /username --> name /info /index vs --> return page
-            if (!Meteor.Router[page + "Path"]) {
-                Session.set('currentUsername', page);
+            if (!Meteor.Router[page_or_username + "Path"]) {
+                Session.set('currentUsername', page_or_username);
                 return "profile";
             }
-            return page;
+            return page_or_username;
         }
     });
     

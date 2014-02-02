@@ -7,11 +7,9 @@
 
 // is client then run
 if (Meteor.isClient) {
-
     Meteor.subscribe("boards");
     Meteor.subscribe("lists");
     Meteor.subscribe("cards");
-
 
     /* ============================ ALL RENDERED ===========================*/
 
@@ -122,10 +120,9 @@ if (Meteor.isClient) {
             event.preventDefault();
             var rename = template.find(".js-board-name");
             if (trimInput(rename.value)) {
-                BoardQuerys.updateBoard(Session.get("currentBoardId"), {
+                BoardQuerys.updateRenameBoard(Session.get("currentBoardId"), {
                     title: rename.value
                 }, function() {
-                
                     HidePop();
                 });
                 return;
