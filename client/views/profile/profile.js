@@ -1,11 +1,15 @@
 (function() {
     if (Meteor.isClient) {
-       
+
+        Deps.autorun(function () {
+            Meteor.subscribe("get_user", Session.get("currentUsername"));
+            Meteor.subscribe("user_activities", Session.get("currentUsername")); 
+        });
+
         // Profile,
         Helpers("profile", {
             // Current /:username Profile
             profile: function() {
-                Meteor.subscribe("get_user", Session.get("currentUsername"));
                 return Meteor.users.findOne();
             },
             profile_edit: function() {
@@ -15,7 +19,6 @@
 
         Helpers("activities", {
             activities: function() {
-               Meteor.subscribe("user_activities", Session.get("currentUsername")); 
                return Activities.find({});
             }
         });
