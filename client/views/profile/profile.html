@@ -2,47 +2,55 @@
     <div class="has-ad">
         <div class="tabbed-pane-header"> 
             <div class="tabbed-pane-header-wrapper clearfix"> 
-                <a class="tabbed-pane-header-image profile-image {{#if currentUser }} ed js-change-avatar-profile{{/if}}" href="#">
-                    <img class="profile-image-image" src="{{ gravatar profile._id 170}}" alt="{{ profile.profile.fullname }}">
-                    {{#if currentUser }}
-                        <span class="change-text"> Change Avatar </span> 
-                    {{/if}}
-                </a> 
-            <div class="tabbed-pane-header-details"> 
-                <div class="js-current-details">
-                    <div class="tabbed-pane-header-details-name"> 
-                        <h1 class="inline"> {{ profile.profile.fullname }}</h1> 
-                        <p class="window-title-extra quiet"> @{{ profile.username }}</p>
-                    </div> 
-                    <div class="tabbed-pane-header-details-content {{#if profile_edit }}hide{{/if}}">{{ profile.profile.bio }}</div>
-                    {{#if currentUser }}
-                        <a class="button-link tabbed-pane-header-details-edit js-edit-profile {{#if profile_edit }}hide{{/if}}" href="#">
-                            <span class="icon-sm icon-edit"></span> Edit profile
-                        </a>
-                    {{/if}}
-                </div>
-                {{#if currentUser }}
-                    <form class="js-profile-form {{#unless profile_edit }}hide{{/unless}}">
-                        {{#if error_message }}
-                            <p class="error js-profile-form-error">
-                                {{ error_message }}
-                            </p>
+                {{#if loaded }}
+                    <a class="tabbed-pane-header-image profile-image {{#if currentUser }} ed js-change-avatar-profile{{/if}}" href="#">
+                        <img class="profile-image-image" src="{{ gravatar profile._id 170}}" alt="{{ profile.profile.fullname }}">
+                        {{#if currentUser }}
+                            <span class="change-text"> Change Avatar </span> 
                         {{/if}}
-                        <p class="error js-profile-form-error hide"></p> <label>Full Name</label> 
-                        <input type="text" name="fullName" class="fullname" value="{{profile.profile.fullname }}"> <label>Username</label> 
-                        <input type="text" name="username" class="username" value="{{ profile.username }}">
-                        <label>Bio 
-                            <span class="quiet">(optional)</span>
-                        </label> 
-                        <textarea name="bio" class="bio">{{ profile.profile.bio }}</textarea> 
-                        <input type="submit" class="primary wide js-submit-profile" value="Save"> 
-                        <input type="button" class="js-cancel-edit-profile" value="Cancel"> 
-                    </form>  
+                    </a> 
+                    <div class="tabbed-pane-header-details"> 
+                    <div class="js-current-details">
+                        <div class="tabbed-pane-header-details-name"> 
+                            <h1 class="inline"> {{ profile.profile.fullname }}</h1> 
+                            <p class="window-title-extra quiet"> @{{ profile.username }}</p>
+                        </div> 
+                        <div class="tabbed-pane-header-details-content {{#if profile_edit }}hide{{/if}}">{{ profile.profile.bio }}</div>
+                        {{#if currentUser }}
+                            <a class="button-link tabbed-pane-header-details-edit js-edit-profile {{#if profile_edit }}hide{{/if}}" href="#">
+                                <span class="icon-sm icon-edit"></span> Edit profile
+                            </a>
+                        {{/if}}
+                    </div>
+                    {{#if currentUser }}
+                        <form class="js-profile-form {{#unless profile_edit }}hide{{/unless}}">
+                            {{#if error_message }}
+                                <p class="error js-profile-form-error">
+                                    {{ error_message }}
+                                </p>
+                            {{/if}}
+                            <p class="error js-profile-form-error hide"></p> <label>Full Name</label> 
+                            <input type="text" name="fullName" class="fullname" value="{{profile.profile.fullname }}"> <label>Username</label> 
+                            <input type="text" name="username" class="username" value="{{ profile.username }}">
+                            <label>Bio 
+                                <span class="quiet">(optional)</span>
+                            </label> 
+                            <textarea name="bio" class="bio">{{ profile.profile.bio }}</textarea> 
+                            <input type="submit" class="primary wide js-submit-profile" value="Save"> 
+                            <input type="button" class="js-cancel-edit-profile" value="Cancel"> 
+                        </form>  
+                    {{/if}}
+                {{else}}
+                    {{> data_loading }}
                 {{/if}}
             </div>  
         </div> 
     </div> 
-    {{> activities }}
+    {{#if loaded }}
+        {{> activities }}
+    {{ else }}
+        {{> data_loading }}
+    {{/if}}
 </template>
 
 <template name="activities">

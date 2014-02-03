@@ -1,9 +1,14 @@
 (function() {
     if (Meteor.isClient) {
 
-        Deps.autorun(function () {
-            Meteor.subscribe("get_user", Session.get("currentUsername"));
-            Meteor.subscribe("user_activities", Session.get("currentUsername")); 
+        Meteor.autosubscribe(function () {
+            Meteor.subscribe("get_user", Session.get("currentUsername"), function() {
+                Session.set('data_loaded', true); 
+            });
+
+            Meteor.subscribe("user_activities", Session.get("currentUsername"), function() {
+                Session.set('data_loaded', true); 
+            }); 
         });
 
         // Profile,
