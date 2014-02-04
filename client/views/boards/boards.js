@@ -18,6 +18,9 @@ if (Meteor.isClient) {
         addClass("page-index", "large-window", "tabbed-page");
     });
 
+    Meteor.startup(function () {
+    
+    });
 
     /* --> BOARD RENDERED */
     Rendered("board", function(addClass){
@@ -29,16 +32,49 @@ if (Meteor.isClient) {
             updateListHeight();
         };
 
-        addClass("boardPage"); 
+        addClass("boardPage"); $(window).resize(resize); resize();
+        updateListAreaWidth(); updateListHeight();
 
-        // nitialize and resize body
-        $(window).resize(resize); resize();
+        // IS AUTHENTICATED
+        is_authenticated(function() {
+       
+            // LIST DRAG DROPS
+            jQuery(".list-area").sortable("destroy").sortable({
+                connectWith: '.list',
+                items: ":not(.add-list)",
+                drop: function(dragging) {
+                    var wrap = jQuery(this);
+                    wrap.find(".list:not(.add-list)").each(function(i) {
+                        var list = jQuery(this);
+                        ListQuery.updateList(list.data("id"), {
+                            rank: i
+                        }); 
+                    });
+                }
+            });
 
-        // update width area
-        updateListAreaWidth(); 
+            // LIST CARDS DRAG DROP
+            jQuery('.list-cards').sortable("destroy").sortable({
+                connectWith: '.ui-droppable',
+                items: ':not(.CardAddForm)',
 
-        // update canvas list height
-        updateListHeight();
+                // drop then update and added new ..
+                drop: function(dragging, pp) {
+                    var list = jQuery(this),
+                        list_id = list.parents(".list").data("id");
+                    list.find(".list-card").each(function(i, elem) {
+                        var $this = jQuery(elem);
+                        if ($this.data("id")) {
+                            CardQuerys.updateCard($this.data("id"), {
+                                rank: i
+                            });
+                        }
+                    });
+                    // update card move list
+                    CardQuerys.moveToListCard(dragging.data("id"), list_id);
+                }
+            })
+        });
     });
 
     /* ============================ ALL HELPERS ===========================*/
@@ -52,15 +88,13 @@ if (Meteor.isClient) {
         },
         lists: function() {
             return Lists.find({ 
-                board_id: Session.get("currentBoardId"),
-                archive: false 
-            });
+                board_id: Session.get("currentBoardId")
+            }, {sort: ["rank","asc"]});
         },
         cards: function(list_id) {
             return Cards.find({
-                list_id: list_id,
-                archive: false 
-            });
+                list_id: list_id
+            }, {sort: ["rank","asc"]});
         }
     });
 

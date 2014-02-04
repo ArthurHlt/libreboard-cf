@@ -1,14 +1,16 @@
 (function() {
     if (Meteor.isClient) {
 
-        Meteor.autosubscribe(function () {
-            Meteor.subscribe("get_user", Session.get("currentUsername"), function() {
-                Session.set('data_loaded', true); 
-            });
+        Deps.autorun(function () {
+            if (Session.get("currentUsername")) {
+                Meteor.subscribe("get_user", Session.get("currentUsername"), function() {
+                    Session.set('data_loaded', true); 
+                });
 
-            Meteor.subscribe("user_activities", Session.get("currentUsername"), function() {
-                Session.set('data_loaded', true); 
-            }); 
+                Meteor.subscribe("user_activities", Session.get("currentUsername"), function() {
+                    Session.set('data_loaded', true); 
+                }); 
+            }
         });
 
         // Profile,
