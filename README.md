@@ -1,6 +1,10 @@
 meteor-trello
 =============
 
+[![Build Status](https://travis-ci.org/yasaricli/meteor-trello.png)](https://travis-ci.org/yasaricli/meteor-trello)
+
+
+[Show issues Metrello board :)](http://metrello.yasaricli.com/board/TXQsFCu9fyMcWYxJ7)
 
 ###### Boards View
 
@@ -25,7 +29,11 @@ meteor-trello
     $ git clone https://github.com/yasaricli/meteor-trello.git
     $ cd meteor-trello
     $ meteor
-    
+
+##### Change version to try first branch (v0)
+    $ cd meteor-trello
+    $ git checkout v0
+    $ meteor
     
 ###### use mongodb Production
     $ export MONGO_URL=mongodb://localhost:27017/dbname

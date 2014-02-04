@@ -2,23 +2,51 @@
 // Collections
 Lists = new Meteor.Collection("lists");
 
-if (Meteor.isClient) {
-    ListQuery = CollectionQuery.extend({
-        addList: function(title, board_id) {
-            this.collect(Lists).only(function(insert, update, remove) {
-           
-                // insert 
-                insert({ title: title, board_id: board_id });
+if (Meteor.isServer) {
 
-                // update width area
-                updateListAreaWidth(); 
-            });
+    Meteor.publish("lists", function() {
+        return Lists.find({
+            archive: false
+        });
+    });
+
+    Lists.allow({
+        insert: function() { return !!Meteor.user(); },
+        update: function(userid, list) { 
+            return Meteor.user() && userid == list.userid;
         },
-        updateListTitle: function(list_id, title) {
-            this.collect(Lists).only(function(insert, update) {
-           
-                update(list_id, { title: title });  
-            });
+        remove: function(userid, list) { 
+            return Meteor.user() && userid == list.userid;
         }
     });
+}
+
+if (Meteor.isClient) {
+    ListQuery = {
+        createList: function(data, callback) {
+            return is_authenticated(function(user) {
+                Lists.insert(_.extend({
+                    archive: false,
+                    userid: user._id,
+                    createdate: new Date(),
+                    rank: 999999 // ???
+                }, data));
+                updateListAreaWidth();                
+                return callback && callback();
+            });
+        },
+        updateList: function(list_id, data, callback) {
+            return is_authenticated(function(user) {
+                Lists.update({ _id: list_id }, { $set: _.extend({
+                    updatedate: new Date()
+                }, data)});
+                return callback && callback();
+            });
+        },
+        archiveMoveList: function(_id, callback) {
+            this.updateList(_id, {
+                archive: true
+            }, callback);
+        }
+    };
 }

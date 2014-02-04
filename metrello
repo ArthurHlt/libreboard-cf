@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # mongodb and websocket config
-export MONGO_URL=mongodb://localhost:27017/trello
-DISABLE_WEBSOCKETS=true 
+export MONGO_URL=mongodb://127.0.0.1:27017/trello
+export DISABLE_WEBSOCKETS=true
 
 # Production
-meteor --port 1111 --production
+meteor run --port $@

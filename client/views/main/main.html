@@ -1,0 +1,126 @@
+<template name="index">
+    <div class="promo-wrapper whiteBg">
+        <header id="landingHeader" class="landing-header"> 
+            <img id="landingLogo" title="Trello logo" src="/img/logo.png">
+            <h1>Trello</h1>
+            <h2>Organize anything, together</h2>
+        </header> 
+        <section id="landingFirstSignUpButton" class="landing-section"> 
+            <div class="width-wrapper"> 
+                <a class="button primary landing-signup-button js-first-sign-up-landing-boards" href="/signup"> Sign Up—It’s Free! </a> 
+            </div> 
+        </section>
+    
+    </div>
+</template>
+
+<template name="info">
+    <p>Meteor js Trello style</p>
+</template>
+
+<template name="header">
+    {{#if show_header}}
+        <div id="header">
+            {{#if currentUser }}
+                <div class="header-boards-button">
+                    <a class="header-btn header-boards js-boards-menu" title="View list of boards" href="{{ boardsPath }}">
+                        <span class="header-btn-icon icon-lg icon-board light"></span> 
+                        <span class="header-btn-text">Boards</span> 
+                    </a> 
+                </div>
+                {{> header_search }}
+                {{> header_user }}
+            {{else}}
+                <a class="header-btn header-logo bgnone" href="/">
+                    <span class="logo"></span>
+                </a>
+                <nav class="promo-nav"> 
+                    <a href="{{ indexPath }}" {{#if isIndexPage}}id="navLanding"{{/if}}>Home</a>
+                    <a href="/info" target="_blank" {{#if isInfoPage}}id="navLanding"{{/if}}>info</a> 
+                </nav>    
+                <div class="header-user"> 
+                    <a class="header-btn header-signup" href="/signup">Sign Up</a> 
+                    <a class="header-btn header-login js-toggle-login-popover no-right-margin" href="/login">Log In</a>  
+                </div>
+            {{/if}}
+        </div>
+    {{/if}}
+</template>
+
+<template name="header_search">
+    <div id="header-search">  
+        <label for="search-text">Global Search</label> 
+        <input id="search-text" type="text" autocomplete="off" autocorrect="off" spellcheck="false" value=""> 
+        <input id="search-submit" type="submit" value="Search"> 
+        <a class="header-btn header-search js-search-submit" href="#" title="Search for boards, cards, members, and organizations."> 
+            <span class="header-btn-icon icon-lg icon-search light"></span> 
+        </a>  
+    </div>
+</template>
+
+<template name="header_user">
+    <div class="header-user">  
+        <a class="header-btn js-open-add-menu" href="#" title="Add a new board or organization."> 
+            <span class="header-btn-icon icon-lg icon-add light"></span> 
+        </a> 
+        <a class="header-btn header-member js-open-header-member-menu" href="#" > 
+            <span class="member"> 
+                <img class="member-avatar" height="30" width="30" src="{{ gravatar currentUser._id 30 }}" alt="{{ currentUser.profile.fullname }}" title="{{ currentUser.profile.fullname }}">
+            </span> 
+            <span class="header-btn-text js-member-name">{{ currentUser.profile.fullname }}</span> 
+        </a> 
+        <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 Notifications."> 
+            <span class="header-btn-icon icon-lg icon-notification light"></span> 
+        </a>      
+    </div>
+</template>
+
+
+<template name="not_found">
+    <div class="big-message quiet"> <h1> Page not found. </h1>   <p> This page may be private. If someone gave you this link, they may need to invite you to one of their boards or organizations. </p>  </div>
+</template>
+
+<template name="loading">
+    <div class="base-loading Absolute-Center">
+        <div class="loading-gif"></div>
+    </div>
+</template>
+
+<template name="data_loading">
+    <div class="tabbed-pane-main-col-loading js-loading-page"> 
+        <span class="tabbed-pane-main-col-loading-spinner spinner"></span> 
+    </div>
+</template>
+
+<template name="pop_base">
+    {{#if pop.show }}
+        <div class="pop-over clearfix fancy-scrollbar {{ pop.css_klass }}" style="{{ pop.style }}"> 
+            <div class="header clearfix"> 
+                <span class="header-title">{{ pop.title }}</span> 
+                <a class="close-btn js-close-popover" href="#"> 
+                    <span class="icon-sm icon-close"></span> 
+                </a> 
+            </div> 
+            <div class="content clearfix">
+                {{#if pop.create_board }}
+                    {{> create_board }}
+                {{/if}}
+                {{#if pop.rename_board  }}
+                    {{> rename_board }}
+                {{/if}}
+                {{#if pop.permission_level }}
+                    {{> permission_level }}
+                {{/if}}
+                {{#if pop.user_header_menu  }}
+                    {{> user_header_menu }}
+                {{/if}}
+                {{#if pop.card_menu  }}
+                    {{> card_menu }}
+                {{/if}}
+                {{#if pop.list_menu  }}
+                    {{> list_menu }}
+                {{/if}}
+            </div>
+        </div>
+    {{/if}}
+</template>

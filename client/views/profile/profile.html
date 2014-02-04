@@ -1,0 +1,112 @@
+<template name="profile">
+    <div class="has-ad">
+        <div class="tabbed-pane-header"> 
+            <div class="tabbed-pane-header-wrapper clearfix"> 
+                {{#if loaded }}
+                    <a class="tabbed-pane-header-image profile-image {{#if currentUser }} ed js-change-avatar-profile{{/if}}" href="#">
+                        <img class="profile-image-image" src="{{ gravatar profile._id 170}}" alt="{{ profile.profile.fullname }}">
+                        {{#if currentUser }}
+                            <span class="change-text"> Change Avatar </span> 
+                        {{/if}}
+                    </a> 
+                    <div class="tabbed-pane-header-details"> 
+                    <div class="js-current-details">
+                        <div class="tabbed-pane-header-details-name"> 
+                            <h1 class="inline"> {{ profile.profile.fullname }}</h1> 
+                            <p class="window-title-extra quiet"> @{{ profile.username }}</p>
+                        </div> 
+                        <div class="tabbed-pane-header-details-content {{#if profile_edit }}hide{{/if}}">{{ profile.profile.bio }}</div>
+                        {{#if currentUser }}
+                            <a class="button-link tabbed-pane-header-details-edit js-edit-profile {{#if profile_edit }}hide{{/if}}" href="#">
+                                <span class="icon-sm icon-edit"></span> Edit profile
+                            </a>
+                        {{/if}}
+                    </div>
+                    {{#if currentUser }}
+                        <form class="js-profile-form {{#unless profile_edit }}hide{{/unless}}">
+                            {{#if error_message }}
+                                <p class="error js-profile-form-error">
+                                    {{ error_message }}
+                                </p>
+                            {{/if}}
+                            <p class="error js-profile-form-error hide"></p> <label>Full Name</label> 
+                            <input type="text" name="fullName" class="fullname" value="{{profile.profile.fullname }}"> <label>Username</label> 
+                            <input type="text" name="username" class="username" value="{{ profile.username }}">
+                            <label>Bio 
+                                <span class="quiet">(optional)</span>
+                            </label> 
+                            <textarea name="bio" class="bio">{{ profile.profile.bio }}</textarea> 
+                            <input type="submit" class="primary wide js-submit-profile" value="Save"> 
+                            <input type="button" class="js-cancel-edit-profile" value="Cancel"> 
+                        </form>  
+                    {{/if}}
+                {{else}}
+                    {{> data_loading }}
+                {{/if}}
+            </div>  
+        </div> 
+    </div> 
+    {{#if loaded }}
+        {{> activities }}
+    {{ else }}
+        {{> data_loading }}
+    {{/if}}
+</template>
+
+<template name="activities">
+    <div class="tabbed-pane-main-col clearfix">  
+        <div class="tabbed-pane-main-col-wrapper js-content">  
+            <div class="window-module"> 
+                <div class="window-module-title"> 
+                    <span class="window-module-title-icon icon-lg icon-activity"></span> 
+                    <h3>Activity</h3> 
+                </div> 
+            <div class="list-actions">
+                {{#each activities }}
+                    {{> activity }}
+                {{else}}
+                    <p class="empty-list">No actions in the last 30 days </p>
+                {{/each }}
+            </div> 
+        </div> 
+    </div>
+</template>
+
+<template name="activity">
+    <div class="phenom clearfix"> 
+        <div class="creator member js-show-mem-menu">  
+            <img class="member-avatar" height="30" width="30" src="{{ gravatar userid 30 }}">
+        </div>
+        <div class="phenom-desc"> 
+            <a class="inline-object js-show-mem-menu" href="/{{ get_user userid "username" }}">{{ get_user userid "profile.fullname" }}</a>
+            {{ type }}
+                {{#if current }}
+                    <a href="/board/{{ current._id }}" class="inline-object">
+                        {{ current.title }}
+                    </a> 
+                {{else}}
+                    <a href="/board/{{ after._id }}" class="inline-object">
+                        {{ after.title }} 
+                    </a> 
+                     (from {{ before.title }}).
+                {{/if}}
+        </div> 
+        <p class="phenom-meta quiet"> 
+            {{#if current }} 
+                <span class="date js-hide-on-sending" dt="2014-01-28T20:30:40.326Z" title="28 1 2014 22:30:40">Jan 28 at 22:30</span>  
+                - on board 
+                <a class="bold" href="/board/{{ currentObj._id }}">{{ current.title }}</a> 
+                <span title="This board is public. It's visible to anyone with the link and will show up in search engines like Google.  Only people added to the board can edit." class="icon-sm {{#if current.private }}icon-private{{else}}icon-public{{/if}}"></span>   
+                <span class="js-hide-on-sending">    
+                </span> 
+            {{ else }} 
+                <span class="date js-hide-on-sending" dt="2014-01-28T20:30:40.326Z" title="28 1 2014 22:30:40">Jan 28 at 22:30</span>  
+                - on board 
+                <a class="bold" href="/board/{{ currentObj._id }}">{{ after.title }}</a> 
+                <span title="This board is public. It's visible to anyone with the link and will show up in search engines like Google.  Only people added to the board can edit." class="icon-sm {{#if after.private }}icon-private{{else}}icon-public{{/if}}"></span>   
+                <span class="js-hide-on-sending">    
+                </span> 
+            {{/if}}
+        </p> 
+    </div>
+</template>

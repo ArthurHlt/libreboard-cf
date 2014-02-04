@@ -1,11 +1,14 @@
 <head>
-  <title>Meteorjs Trello </title>
+  <title>Meteorjs Trello</title>
 </head>
 <body>
     <div id="surface" class="clearfix">
-        {{> header }}
+        {{#unless loggingIn }}
+            {{> header }}
+        {{/unless}}
         <div id="content" class="clearfix">
-            {{> landing }}
+            {{#isolate}} {{renderPage}} {{/isolate}}
         </div>
     </div>
+    {{> pop_base }}
 </body>

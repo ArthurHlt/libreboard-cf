@@ -1,3 +1,6 @@
 # text editors
 *~
 *.swp
+
+private/conf.js
+private/production.js
