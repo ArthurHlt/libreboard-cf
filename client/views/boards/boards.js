@@ -18,6 +18,9 @@ if (Meteor.isClient) {
         addClass("page-index", "large-window", "tabbed-page");
     });
 
+    Meteor.startup(function () {
+    
+    });
 
     /* --> BOARD RENDERED */
     Rendered("board", function(addClass){
@@ -29,16 +32,56 @@ if (Meteor.isClient) {
             updateListHeight();
         };
 
-        addClass("boardPage"); 
+        jQuery("#surface").on("click", function(event) {
+            var $this = jQuery(event.target);
+            resetAddCard($this);
+            resetUpdateListTitle($this);
 
-        // nitialize and resize body
-        $(window).resize(resize); resize();
+        });
 
-        // update width area
-        updateListAreaWidth(); 
+        addClass("boardPage"); $(window).resize(resize); resize();
+        updateListAreaWidth(); updateListHeight();
 
-        // update canvas list height
-        updateListHeight();
+        // IS AUTHENTICATED
+        is_authenticated(function() {
+       
+            // LIST DRAG DROPS
+            jQuery(".list-area").sortable("destroy").sortable({
+                connectWith: '.list',
+                items: ":not(.add-list)",
+                drop: function(dragging) {
+                    var wrap = jQuery(this);
+                    wrap.find(".list:not(.add-list)").each(function(i) {
+                        var list = jQuery(this);
+                        ListQuery.updateList(list.data("id"), {
+                            rank: i
+                        }); 
+                    });
+                }
+            });
+
+            // LIST CARDS DRAG DROP
+            jQuery('.list-cards').sortable("destroy").sortable({
+                connectWith: '.ui-droppable',
+                items: ':not(.CardAddForm)',
+
+                // drop then update and added new ..
+                drop: function(dragging, pp) {
+                    var list = jQuery(this),
+                        list_id = list.parents(".list").data("id");
+                    list.find(".list-card").each(function(i, elem) {
+                        var $this = jQuery(elem);
+                        if ($this.data("id")) {
+                            CardQuerys.updateCard($this.data("id"), {
+                                rank: i
+                            });
+                        }
+                    });
+                    // update card move list
+                    CardQuerys.moveToListCard(dragging.data("id"), list_id);
+                }
+            })
+        });
     });
 
     /* ============================ ALL HELPERS ===========================*/
@@ -52,15 +95,13 @@ if (Meteor.isClient) {
         },
         lists: function() {
             return Lists.find({ 
-                board_id: Session.get("currentBoardId"),
-                archive: false 
-            });
+                board_id: Session.get("currentBoardId")
+            }, {sort: ["rank","asc"]});
         },
         cards: function(list_id) {
             return Cards.find({
-                list_id: list_id,
-                archive: false 
-            });
+                list_id: list_id
+            }, {sort: ["rank","asc"]});
         }
     });
 
@@ -186,27 +227,13 @@ if (Meteor.isClient) {
 
     /* --> LIST EVENTS */
     Template.board.events({
-        "focus .card-title": function(event, tenplate) {
-            var $this = jQuery(event.currentTarget),
-                form = $this.parents(".CardAddForm"),
-                not_forms = jQuery(".CardAddForm").not(form),
-                list = not_forms.parents(".list");
-
-            // not $this hide CardAddForm, all cart add show
-            list.find(".js-open-card-composer").show();
-        },
-        "blur .card-title": function(event, template) {
-            blurClickSubmit(jQuery(event.relatedTarget), function() {
-                jQuery(".CardAddForm").hide();
-                jQuery(".open-card-composer").show();
-            });
-        },
         'keypress .card-title': function(event, template) {
             var $this = jQuery(event.currentTarget),
                 list = $this.parents(".list"),
                 cards = $this.parents(".list-cards"),
-                area = list.find(".js-card-title");
-            if (event.charCode == 13 && trimInput(area.val())) {
+                area = list.find(".js-card-title"),
+                charCode = event.keyCode || event.which;
+            if (charCode == 13 && trimInput(area.val())) {
                 CardQuerys.createCard({
                     title: area.val(),
                     list_id: list.data("id")
@@ -223,8 +250,13 @@ if (Meteor.isClient) {
                 list = $this.parents(".list"),
                 addForm = list.find(".CardAddForm");
 
+            jQuery(".CardAddForm").hide();
+            jQuery(".open-card-composer").show();
+
             // click hide focus textarea
-            $this.hide(); addForm.fadeIn(100); list.find("textarea").focus();
+            $this.hide();
+            list.find(".CardAddForm").show();
+            list.find("textarea").focus();
             event.preventDefault();
         },
         "click .js-save-edit": function(event, template) {
@@ -250,7 +282,7 @@ if (Meteor.isClient) {
             }
             event.preventDefault();
         },
-        "click .js-change-vis": function() {
+        "click .js-change-vis": function(event, template) {
             event.preventDefault();
             if (PermissionBoardEdit()) {
                 ShowPop("Change Visibility", "permission_level");
@@ -268,6 +300,9 @@ if (Meteor.isClient) {
                     focusTextareaAnimate(list);
                     list.find("textarea").focus();
                 });
+            }, function() {
+            
+                list.find("textarea").focus();
             });          
             event.preventDefault();
         },
@@ -294,17 +329,11 @@ if (Meteor.isClient) {
             var $this = jQuery(template.firstNode),
                 list = $this.parents(".list");
             if (PermissionBoardEdit()) {
+                jQuery(".editable").removeClass("editing");
                 $this.addClass("editing");
+                jQuery(".list-area").sortable("disable");
                 list.find(".field").focus();
             }
-        },
-        "blur .edit textarea": function(e) {
-            var $this = jQuery(e.currentTarget),
-                list = $this.parents(".list");
-           
-            blurClickSubmit(jQuery(e.relatedTarget), function() {
-                list.find(".editing").removeClass("editing");
-            });
         },
         "click .js-save-edit": function(e) {
             var $this = jQuery(e.currentTarget),
@@ -319,9 +348,8 @@ if (Meteor.isClient) {
             e.preventDefault();
         },
         "click .js-cancel-edit": function(event, template) {
-            var $this = jQuery(event.currentTarget),
-                list = $this.parents(".list"),
-                edit = list.find(".edit");
+            jQuery(".editable").removeClass("editing");
+            jQuery(".list-area").sortable("enable");
             event.preventDefault();
         },
         "click .js-open-list-menu": function(event, template) {
@@ -332,6 +360,4 @@ if (Meteor.isClient) {
             event.preventDefault();
         }
     });
-
-
 }

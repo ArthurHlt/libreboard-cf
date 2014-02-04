@@ -2,7 +2,7 @@
 
 # mongodb and websocket config
 export MONGO_URL=mongodb://127.0.0.1:27017/trello
-export DISABLE_WEBSOCKETS=true 
+export DISABLE_WEBSOCKETS=yes
 
 # Production
-meteor --port $@
+meteor run --port $@
