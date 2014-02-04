@@ -4,9 +4,10 @@ Lists = new Meteor.Collection("lists");
 
 if (Meteor.isServer) {
 
-    Meteor.publish("lists", function() {
+    Meteor.publish("lists", function(board_id) {
         return Lists.find({
-            archive: false
+            archive: false,
+            board_id: board_id 
         });
     });
 

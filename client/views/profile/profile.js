@@ -17,7 +17,7 @@
         Helpers("profile", {
             // Current /:username Profile
             profile: function() {
-                return Meteor.users.findOne();
+                return Meteor.users.findOne({});
             },
             profile_edit: function() {
                 return Session.get("profile_edit");              

@@ -3,8 +3,9 @@ Cards = new Meteor.Collection("cards");
 
 if (Meteor.isServer) {
 
-    Meteor.publish("cards", function() {
+    Meteor.publish("cards", function(list_id) {
         return Cards.find({
+            list_id: list_id,
             archive: false
         });
     });

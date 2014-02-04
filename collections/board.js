@@ -2,8 +2,12 @@
 Boards = new Meteor.Collection("boards");
 
 if (Meteor.isServer) {
+
     Meteor.publish("boards", function() {
-        return Boards.find({});
+        if (this.userId) {
+            return Boards.find({ userid: this.userId });
+        }
+        return Boards.find({ private: false });
     });
 
     Boards.allow({

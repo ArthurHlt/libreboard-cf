@@ -7,10 +7,10 @@
 
 // is client then run
 if (Meteor.isClient) {
+
     Deps.autorun(function() {
-        Meteor.subscribe("boards");
-        Meteor.subscribe("lists");
-        Meteor.subscribe("cards");
+        Meteor.subscribe("boards", dataLoadedTrue);
+        Meteor.subscribe("lists", Session.get("currentBoardId"), dataLoadedTrue);
     });
 
     /* ============================ ALL RENDERED ===========================*/
@@ -18,10 +18,6 @@ if (Meteor.isClient) {
     /* --> BOARDS RENDERED */
     Rendered("boards", function(addClass) {
         addClass("page-index", "large-window", "tabbed-page");
-    });
-
-    Meteor.startup(function () {
-    
     });
 
     /* --> BOARD RENDERED */
@@ -38,7 +34,6 @@ if (Meteor.isClient) {
             var $this = jQuery(event.target);
             resetAddCard($this);
             resetUpdateListTitle($this);
-
         });
 
         addClass("boardPage"); $(window).resize(resize); resize();
@@ -91,16 +86,15 @@ if (Meteor.isClient) {
     /* --> BOARD HELPERS */
     Helpers("board", {
         board: function() {
-            return Boards.findOne({ 
+            return Boards.findOne({
                 _id: Session.get("currentBoardId")
             });
         },
         lists: function() {
-            return Lists.find({ 
-                board_id: Session.get("currentBoardId")
-            }, {sort: ["rank","asc"]});
+            return Lists.find({}, {sort: ["rank","asc"]});
         },
         cards: function(list_id) {
+            Meteor.subscribe("cards", list_id);
             return Cards.find({
                 list_id: list_id
             }, {sort: ["rank","asc"]});
