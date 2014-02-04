@@ -6,6 +6,7 @@
 .header-btn-btn { padding-left:23px!important; ; }
 .whiteBg { background:white; }
 .bgnone { background:none!important; }
+.cursorDefault { cursor:default!important; }
 
 .js-open-board:hover { background-color:#226791!important; }
 .list-header-name { word-wrap: break-word; }

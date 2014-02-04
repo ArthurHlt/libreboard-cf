@@ -96,8 +96,8 @@
 </template>
 
 <template name="list_header">
-    <div class="list-header js-list-header non-empty clearfix editable" attr="name"> 
-        <h2 class="list-header-name hide-on-edit js-list-name current">{{ title }}</h2>
+    <div class="list-header js-list-header non-empty clearfix {{#if edit }}editable{{/if}}" attr="name"> 
+        <h2 class="list-header-name hide-on-edit js-list-name {{#if edit }}current{{/if}}">{{ title }}</h2>
         <div class="edit edit-heavy clearfix"> 
             <textarea type="text" class="field single-line" style="height: 66px;">{{ title }}</textarea>      
             <div class="edit-controls clearfix"> 
