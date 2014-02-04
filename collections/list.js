@@ -5,7 +5,9 @@ Lists = new Meteor.Collection("lists");
 if (Meteor.isServer) {
 
     Meteor.publish("lists", function() {
-        return Lists.find({});
+        return Lists.find({
+            archive: false
+        });
     });
 
     Lists.allow({
@@ -26,9 +28,9 @@ if (Meteor.isClient) {
                 Lists.insert(_.extend({
                     archive: false,
                     userid: user._id,
-                    createdate: new Date()
+                    createdate: new Date(),
+                    rank: 999999 // ???
                 }, data));
-
                 updateListAreaWidth();                
                 return callback && callback();
             });

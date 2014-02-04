@@ -32,6 +32,7 @@ if (Meteor.isClient) {
             updateListHeight();
         };
 
+<<<<<<< HEAD
         jQuery("#surface").on("click", function(event) {
             var $this = jQuery(event.target);
             resetAddCard($this);
@@ -39,6 +40,8 @@ if (Meteor.isClient) {
 
         });
 
+=======
+>>>>>>> eb22938144c84ba9a85a5605dea66ee630c7e9fc
         addClass("boardPage"); $(window).resize(resize); resize();
         updateListAreaWidth(); updateListHeight();
 

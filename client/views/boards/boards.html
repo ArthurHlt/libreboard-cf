@@ -46,9 +46,7 @@
                                             {{#if edit }}
                                                 <span class="list-card-operation icon-sm icon-menu dark-hover js-card-menu"></span>
                                             {{/if}}
-                                            <div class="list-card-details clearfix"> 
-                                                <a href="#" class="list-card-title clear js-card-name">{{ title }}</a>    
-                                            </div>  
+                                            <div class="list-card-details">{{ title }}</div>  
                                         </div>
                                     {{/each}}
                                     {{> card_add_form }}
@@ -98,8 +96,8 @@
 </template>
 
 <template name="list_header">
-    <div class="list-header js-list-header non-empty clearfix editable" attr="name"> 
-        <h2 class="list-header-name hide-on-edit js-list-name current">{{ title }}</h2>
+    <div class="list-header js-list-header non-empty clearfix {{#if edit }}editable{{/if}}" attr="name"> 
+        <h2 class="list-header-name hide-on-edit js-list-name {{#if edit }}current{{/if}}">{{ title }}</h2>
         <div class="edit edit-heavy clearfix"> 
             <textarea type="text" class="field single-line" style="height: 66px;">{{ title }}</textarea>      
             <div class="edit-controls clearfix"> 

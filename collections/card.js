@@ -4,7 +4,9 @@ Cards = new Meteor.Collection("cards");
 if (Meteor.isServer) {
 
     Meteor.publish("cards", function() {
-        return Cards.find({});
+        return Cards.find({
+            archive: false
+        });
     });
 
     Cards.allow({
@@ -26,7 +28,8 @@ if (Meteor.isClient) {
                 Cards.insert(_.extend({
                     userid: user._id,
                     archive: false,
-                    datetime: new Date()
+                    datetime: new Date(),
+                    rank: 99999999 // ??? 
                 }, data));
                 return callback && callback();
             });
@@ -43,7 +46,14 @@ if (Meteor.isClient) {
                 archive: true 
             });
             return callback && callback();
+        },
+        moveToListCard: function(_id, list_id, callback) {
+            var self = this;
+            return is_authenticated(function() {
+                self.updateCard(_id, {
+                    list_id: list_id
+                });
+            });
         }
     };
 }
-
