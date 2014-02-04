@@ -4,6 +4,8 @@ meteor-trello
 [![Build Status](https://travis-ci.org/yasaricli/meteor-trello.png)](https://travis-ci.org/yasaricli/meteor-trello)
 
 
+[Show issues Metrello board :)](http://metrello.yasaricli.com/board/TXQsFCu9fyMcWYxJ7)
+
 ###### Boards View
 
 ![alt tag](http://metrello.yasaricli.com/img/boards.png)
