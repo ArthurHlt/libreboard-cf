@@ -1,7 +1,7 @@
 meteor-trello
 =============
 
-[![Build Status](https://travis-ci.org/yasaricli/meteor-trello.png)](https://travis-ci.org/yasaricli/meteor-trello)
+[![Build Status](https://travis-ci.org/yasaricli/metrello.png)](https://travis-ci.org/yasaricli/metrello)
 
 
 [Show issues Metrello board :)](http://metrello.yasaricli.com/board/TXQsFCu9fyMcWYxJ7)
