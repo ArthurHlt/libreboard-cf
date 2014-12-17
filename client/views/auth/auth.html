@@ -3,6 +3,7 @@
     <div class="account-content clearfix">
         <form id="SignUpForm" class="primary-col">
             <h2>Create an Account</h2> 
+            {{#if error }} <p class="error">{{ error }}</p> {{/if}}
             <label for="fullname"> Name </label> 
             <input type="text" id="fullname" tabindex="1" autofocus="" placeholder="e.g., Dr. Frankenstein">
             <label for="email"> Email </label> 
@@ -22,6 +23,7 @@
     <div class="account-content clearfix">
         <form id="LoginForm" class="primary-col">
             <h2> Log In </h2> 
+            {{#if error }} <p class="error">{{error }}</p> {{/if}}
             <label for="email"> Email </label> 
             <input type="email" id="email" tabindex="1" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" autofocus=""> 
             <label for="password"> Password </label> 
