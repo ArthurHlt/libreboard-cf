@@ -3,8 +3,10 @@
 </head>
 
 <template name="layout">
-    <div id="content">
-        {{ > yield }}
+    <div id="surface">
+        <div id="content">
+            {{ > yield }}
+        </div>
     </div>
 </template>
 
@@ -16,7 +18,7 @@
         </header> 
         <section id="landingFirstSignUpButton" class="landing-section"> 
             <div class="width-wrapper"> 
-                <a class="button primary landing-signup-button js-first-sign-up-landing-boards button-green" href="{{ pathFor route='Signup' }}"> Sign Up—It’s Free! </a> 
+                <a class="button primary" href="{{ pathFor route='Signup' }}"> Sign Up—It’s Free! </a> 
             </div> 
         </section>
     </div>

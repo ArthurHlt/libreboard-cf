@@ -1,2 +1,39 @@
-<template name="login"></template>
-<template name="signup"></template>
+<template name="signup">
+    {{ > authHeader }}
+    <div class="account-content clearfix">
+        <form id="SignUpForm" class="primary-col">
+            <h2>Create an Account</h2> 
+            <label for="fullname"> Name </label> 
+            <input type="text" id="fullname" tabindex="1" autofocus="" placeholder="e.g., Dr. Frankenstein">
+            <label for="email"> Email </label> 
+            <input type="email" id="email" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" placeholder="e.g., doc@frankenstein.com">
+            <label for="password"> Password </label> 
+            <input type="password" id="password" placeholder="e.g., ••••••••••••••••">
+            <input type="submit" class="primary" value="Create New Account">
+            <p class="quiet clear"> 
+                Already have an account? <a href="{{ pathFor route='Login' }}"><strong>Log In.</strong></a> 
+            </p>
+        </form>
+    </div> 
+</template>
+
+<template name="login">
+    {{ > authHeader }}
+    <div class="account-content clearfix">
+        <form id="LoginForm" class="primary-col">
+            <h2> Log In </h2> 
+            <label for="email"> Email </label> 
+            <input type="email" id="email" tabindex="1" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" autofocus=""> 
+            <label for="password"> Password </label> 
+            <input type="password" id="password" tabindex="2" placeholder="e.g., ••••••••••••••••"> 
+            <input type="submit" class="primary" value="Log In" tabindex="3"> 
+            <p class="quiet clear"> New here? <a href="{{ pathFor route='Signup' }}"><strong>Create an Account.</strong></a> </p> 
+        </form>
+    </div> 
+</template>
+
+<template name="authHeader">
+    <div class="account-header"> 
+        <img src="/logo_blue.png"> 
+    </div>
+</template>
