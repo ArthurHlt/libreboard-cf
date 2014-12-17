@@ -1,5 +1,0 @@
-
-(function() {
-    Meteor.methods({
-    });
-}());

@@ -25,7 +25,5 @@
 .base-loading .loading-gif { background:url(/img/loading.gif); background-size: 18px 18px; height: 18px; left: 2px; position: relative; top: 6px; width: 18px; }
 .window-module-title { margin: 0 0 20px 38px!important; }
 
-
 .sortable-dragging { cursor:-webkit-grab; }
-
 .list-area > .placeholder { background-color:rgba(0,0,0,0.2)!important; border-color:transparent!important; -webkit-box-shadow:none!important; box-shadow:none!important; float:left;  width:250px; margin: 0 5px; padding: 4px 3px 3px;}
