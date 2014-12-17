@@ -4,11 +4,9 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
 insecure
 dburles:collection-helpers
 reywood:publish-composite
 matb33:collection-hooks
 iron:router
 accounts-password
-

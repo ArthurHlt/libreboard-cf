@@ -2,6 +2,14 @@
     <title>Metrello</title>
 </head>
 
+<template name="StaticLayout">
+    <div id="surface">
+        <div id="content">
+            {{ > yield }}
+        </div>
+    </div>
+</template>
+
 <template name="layout">
     <div id="surface">
         <div id="header">

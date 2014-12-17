@@ -16,16 +16,14 @@ Router.configure({
     * ClassMapper body add, remove class.
     */
     onBeforeAction: function() {
-        var ClassMapper = {
-                'Signup': 'account-page',
-                'Login' : 'account-page',
-                'Boards': 'page-index large-window tabbed-page'
-            },
-            klass = ClassMapper[this.route.getName()],
-            body = $('body');
-       
-        // if klass Router name then add else remove attribute all class..
-        klass ? body.addClass(klass) : body.removeAttr('class');
+        var body = $('body'),
+            bodyClass = this.route.options["bodyClass"];
+     
+        // Remove class attribute body
+        body.removeAttr('class');
+
+        // if klass iron router name currentRouter then add Class
+        if (bodyClass) body.addClass(bodyClass);
 
         // reset default sessions
         Session.set('error', false);
