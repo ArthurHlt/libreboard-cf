@@ -1,3 +1,6 @@
+// Default sessions
+Session.setDefault('error', false);
+
 /*
 * If you want to use a default layout template for all routes you can 
 * configure a global Router option.
@@ -22,6 +25,9 @@ Router.configure({
        
         // if klass Router name then add else remove attribute all class..
         klass ? body.addClass(klass) : body.removeAttr('class');
+
+        // reset default sessions
+        Session.set('error', false);
 
         // next
         this.next();
