@@ -1,5 +1,5 @@
 Utils = {
-    error: function() {
+    error: function(err) {
         Session.set("error", (err && err.message || false));       
     }
 };
