@@ -18,7 +18,8 @@ Router.configure({
     onBeforeAction: function() {
         var ClassMapper = {
                 'Signup': 'account-page',
-                'Login': 'account-page'
+                'Login' : 'account-page',
+                'Boards': 'page-index large-window tabbed-page'
             },
             klass = ClassMapper[this.route.getName()],
             body = $('body');

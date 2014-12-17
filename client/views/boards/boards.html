@@ -1,3 +1,22 @@
 <template name="boards">
-    boards
+    <div class="member-boards-view">
+        <div class="window-module-title window-module-title-no-divider"> 
+            <span class="icon-lg window-module-title-icon icon-member"></span> 
+            <h3>My Boards</h3>
+
+        </div> 
+        <ul class="board-list gutter js-board-list clearfix">
+            {{# each currentUser.boards }} 
+                <li class="board">
+                    <a href="#" class="js-open-board highlight-icon" style="background-color: #23719F;">
+                        <span class="details"> 
+                            <span class="board-list-item-name" title="{{ name }}">{{ name }}</span>
+                        </span>
+                    </a>
+                </li>
+            {{ else }}
+                <p class="quiet" style="padding: 8px 12px;">No boards.</p>
+            {{ / each }}
+        </ul>
+    </div>
 </template>

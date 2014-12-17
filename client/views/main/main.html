@@ -4,9 +4,68 @@
 
 <template name="layout">
     <div id="surface">
+        <div id="header">
+            <a class="header-btn header-logo bgnone" href="{{ pathFor route='Home' }}">
+                <span class="logo"></span>
+            </a>
+            <nav class="promo-nav"> 
+                <a href="{{ pathFor route='Home' }}" id='navLanding'>Home</a>
+                <a href="{{ pathFor route='Info' }}">Info</a>
+            </nav>
+            <div class="header-user"> 
+                <a class="header-btn header-signup" href="{{ pathFor route='Signup' }}">Sign Up</a> 
+                <a class="header-btn header-login js-toggle-login-popover no-right-margin" href="{{ pathFor route='Login' }}">Log In</a>  
+            </div>
+        </div>
         <div id="content">
             {{ > yield }}
         </div>
+    </div>
+</template>
+
+<template name='AuthLayout'>
+    <div id="surface">
+        <div id="header">
+            <div class="header-boards-button">
+                <a class="header-btn header-boards js-boards-menu" title="View list of boards" href="{{ pathFor route='Boards' }}">
+                    <span class="header-btn-icon icon-lg icon-board light"></span> 
+                    <span class="header-btn-text">Boards</span>
+                </a>
+            </div>
+            {{ > search }}
+            {{ > user }}
+        </div>
+        <div id="content">
+            {{ > yield }}
+        </div>
+    </div>
+</template>
+
+<template name="search">
+    <div id="header-search">  
+        <label for="search-text">Global Search</label> 
+        <input id="search-text" type="text" autocomplete="off" autocorrect="off" spellcheck="false"> 
+        <input id="search-submit" type="submit" value="Search"> 
+        <a class="header-btn header-search js-search-submit" href="#" title="Search for boards, cards, members, and organizations."> 
+            <span class="header-btn-icon icon-lg icon-search light"></span> 
+        </a>
+    </div>
+</template>
+
+<template name="user">
+    <div class="header-user">  
+        <a class="header-btn js-open-add-menu" href="#" title="Add a new board"> 
+            <span class="header-btn-icon icon-lg icon-add light"></span> 
+        </a> 
+        <a class="header-btn header-member js-open-header-member-menu" href="#" > 
+            <span class="member"> 
+                <img src="">
+            </span> 
+            <span class="header-btn-text js-member-name">{{ currentUser.profile.fullname }}</span> 
+        </a> 
+        <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 Notifications."> 
+            <span class="header-btn-icon icon-lg icon-notification light"></span> 
+        </a>      
     </div>
 </template>
 
@@ -22,4 +81,8 @@
             </div> 
         </section>
     </div>
+</template>
+
+<template name='loading'>
+    loading..
 </template>
