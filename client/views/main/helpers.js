@@ -1,6 +1,12 @@
 var Helpers = {
     error: function() {
         return Session.get('error');
+    },
+    toLowerCase: function(text) {
+        return text.toLowerCase();
+    },
+    toUpperCase: function(text) {
+        return text.toUpperCase();
     }
 };
 

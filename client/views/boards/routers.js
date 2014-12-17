@@ -12,6 +12,7 @@ Router.route('/boards/:_id', {
     name: 'Board',
     template: 'board',
     layoutTemplate: 'AuthLayout',
+    bodyClass: 'boardPage',
     waitOn: function() {
         return Meteor.subscribe('board', this.params._id);
     }

@@ -17,9 +17,24 @@ Users.before.insert(function (userId, doc) {
 
 // AFTER HOOK
 Users.after.insert(function (userId, doc) {
+    var ExampleBoard = {
+        title: 'Welcome Board',
+        userId: doc._id,
+        permission: 'Private' // Private || Public
+    };
 
     // Welcome Board insert and list, card :)
-    Boards.insert({ name: 'Welcome Board', userId: doc._id }, function(err, boardId) {
-        // insert list and card  
+    Boards.insert(ExampleBoard, function(err, boardId) {
+        
+        // lists
+        _.forEach(['Basics', 'Advanced'], function(title) {
+
+            // insert List
+            Lists.insert({ title: title, boardId: boardId }, function(err, listId) {
+                
+                // add List
+
+            });
+        });
     });
 });

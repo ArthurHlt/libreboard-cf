@@ -9,7 +9,7 @@ Meteor.publishComposite('boards', function() {
 Meteor.publishComposite('board', function(boardId) {
     return {
         find: function() {
-            return Boards.find({ boardId: boardId });
+            return Boards.find({ _id: boardId });
         },
         children: [
             {

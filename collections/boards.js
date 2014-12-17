@@ -4,14 +4,14 @@ Cards  = new Mongo.Collection('cards');
 
 
 Boards.helpers({
-    lists: function(board) {
-        return Lists.find({ listId: board._id });       
+    lists: function() {
+        return Lists.find({ boardId: this._id });       
     }
 });
 
 
 Lists.helpers({
-    cards: function(list) {
-        return Cards.find({ listId: list._id });
+    cards: function() {
+        return Cards.find({ listId: this._id });
     }
 });
