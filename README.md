@@ -1,4 +1,4 @@
-meteor-trello
+Metrello
 =============
 
 [![Build Status](https://travis-ci.org/yasaricli/metrello.png)](https://travis-ci.org/yasaricli/metrello)
@@ -6,16 +6,9 @@ meteor-trello
 
 [Show issues Metrello board :)](http://metrello.yasaricli.com/board/TXQsFCu9fyMcWYxJ7)
 
-##### metrello clone and run
-    $ git clone https://github.com/yasaricli/meteor-trello.git
+##### Clone and run
+    $ git clone https://github.com/yasaricli/metrello.git
     $ cd meteor-trello
     $ meteor run
-
-    
-###### use mongodb Production
-    $ export MONGO_URL=mongodb://localhost:27017/dbname
-    $ meteor --production 
-
-    
 
 
