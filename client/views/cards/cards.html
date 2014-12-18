@@ -1,0 +1,29 @@
+<template name="cards">
+    <div class="list-cards fancy-scrollbar clearfix js-list-cards js-sortable ui-sortable">
+        {{# each cards }}  
+            <div class="list-card js-member-droppable ui-droppable">
+                <span class="list-card-operation icon-sm icon-menu dark-hover js-card-menu"></span>
+                <div class="list-card-details">{{ title }}</div>
+            </div>
+        {{/each}}
+        {{ > addCardForm }}
+    </div>
+    <a class="open-card-composer js-open-card-composer" href="#">Add a card…</a>
+</template>
+
+<template name="addCardForm">
+    <div class="card-composer hide">
+        <div class="list-card js-composer"> 
+            <div class="list-card-labels clearfix js-list-card-composer-labels"></div> 
+            <div class="list-card-details clearfix"> 
+                <textarea class="list-card-composer-textarea js-card-title" style="overflow: hidden; word-wrap: break-word; height: 36px;"></textarea> 
+                <div class="list-card-members js-list-card-composer-members"></div> 
+            </div> 
+        </div> 
+        <div class="cc-controls clearfix"> 
+            <input type="submit" class="primary confirm js-add-card" value="Add"> 
+            <a class="icon-lg icon-close dark-hover js-cancel" href="#"></a> 
+            <a class="cc-opt icon-lg icon-menu dark-hover js-cc-menu" href="#"></a> 
+        </div> 
+    </div>
+</template>
