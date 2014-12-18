@@ -2,13 +2,21 @@ Utils = {
     error: function(err) {
         Session.set("error", (err && err.message || false));       
     },
-    /*
-    * Utils.scrollLeft("#board", 300) --> set scrollleft
-    * Utils.scrollLeft("#board", 300, true) --> ++ scrollLeft  
-    */
-    scrollLeft: function(selector, px, px2) {
-        var $el = $(selector),
-            scrollLeft = $el.scrollLeft();
-        $el.animate({ scrollLeft: (px2 ? (scrollLeft + px) : px) });
+
+    // scroll
+    Scroll: function(selector) {
+        var $el = $(selector);
+
+        console.log($el[0]);
+        return {
+            top: function(px, add) {
+                var t = $el.scrollTop();
+                $el.animate({ scrollTop: (add ? (t + px) : px) });
+            },
+            left: function(px, add) {
+                var l = $el.scrollLeft();
+                $el.animate({ scrollLeft: (add ? (l + px) : px) });
+            }
+        };
     }
 };

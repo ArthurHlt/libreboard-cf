@@ -37,7 +37,7 @@ Template.addlistForm.events({
             }, function() {
 
                 // insert complete to scrollLeft
-                Utils.scrollLeft('#board', 270, true);
+                Utils.Scroll('#board').left(270, true);
             });
 
             // clear input 

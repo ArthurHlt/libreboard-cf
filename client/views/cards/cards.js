@@ -17,7 +17,8 @@ Template.addCardForm.events({
         }
     },
     'submit #AddCardForm': function(event, t) {
-        var title = t.$('.js-card-title');
+        var title = t.$('.js-card-title'),
+            list = title.parents('.list');
             
         // title trim if not empty then
         if ($.trim(title.val())) {
@@ -29,6 +30,9 @@ Template.addCardForm.events({
 
             // empty and focus.
             title.val('').focus();
+
+            // focus complete then scroll top
+            Utils.Scroll(list.find('.list-cards')).top(1000, true);
         }
         event.preventDefault();
     }
