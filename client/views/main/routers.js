@@ -27,6 +27,7 @@ Router.configure({
 
         // reset default sessions
         Session.set('error', false);
+        Session.set('pop', false);
 
         // next
         this.next();

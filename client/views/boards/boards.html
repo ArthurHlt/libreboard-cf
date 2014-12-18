@@ -36,3 +36,15 @@
         {{ > lists board=board }}
     </div>
 </template>
+
+<template name="createBoardPop">
+    <div class="content clearfix fancy-scrollbar js-tab-parent">
+        <form id="CreateBoardForm"> 
+            <label for="boardNewTitle">Title</label> 
+            <input id="boardNewTitle" type="text" name="name" class="non-empty js-autofocus" placeholder="Like “Bucket List” for example…" autofocus> 
+            <p class="quiet js-vis-display">
+                <span class="icon-sm icon-public"></span>This board will be <strong>public</strong>.</p>
+            <input type="submit" class="primary wide js-submit" value="Create">
+        </form>
+    </div>
+</template>

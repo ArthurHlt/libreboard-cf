@@ -33,6 +33,7 @@
 
 <template name='AuthLayout'>
     <div id="surface">
+        {{# if session 'pop' }}{{ > pop }}{{/if}}
         <div id="header">
             <div class="header-boards-button">
                 <a class="header-btn header-boards js-boards-menu" title="View list of boards" href="{{ pathFor route='Boards' }}">
@@ -41,7 +42,7 @@
                 </a>
             </div>
             {{ > search }}
-            {{ > user }}
+            {{ > memberHeader }}
         </div>
         <div id="content">
             {{ > yield }}
@@ -57,23 +58,6 @@
         <a class="header-btn header-search js-search-submit" href="#" title="Search for boards, cards, members, and organizations."> 
             <span class="header-btn-icon icon-lg icon-search light"></span> 
         </a>
-    </div>
-</template>
-
-<template name="user">
-    <div class="header-user">  
-        <a class="header-btn js-open-add-menu" href="#" title="Add a new board"> 
-            <span class="header-btn-icon icon-lg icon-add light"></span> 
-        </a> 
-        <a class="header-btn header-member js-open-header-member-menu" href="#" > 
-            <span class="member"> 
-                <img src="">
-            </span> 
-            <span class="header-btn-text js-member-name">{{ currentUser.profile.fullname }}</span> 
-        </a> 
-        <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 Notifications."> 
-            <span class="header-btn-icon icon-lg icon-notification light"></span> 
-        </a>      
     </div>
 </template>
 
@@ -93,4 +77,21 @@
 
 <template name='loading'>
     loading..
+</template>
+
+<template name="pop">
+    <div class="pop-over clearfix" style="display: block; left: 973px; top: 45px;"> 
+        <div class="header clearfix"> 
+            <a class="back-btn js-back-view" href="#" style="display: none;"> 
+                <span class="icon-sm icon-leftarrow"></span> 
+            </a> 
+            <span class="header-title">{{ pop.label }}</span> 
+            <a class="close-btn js-close-popover" href="#"> 
+                <span class="icon-sm icon-close"></span> 
+            </a> 
+        </div> 
+        <div class="content clearfix fancy-scrollbar js-tab-parent" style="max-height: 549px;">
+            {{> UI.dynamic template=pop.template data=pop.data }}
+        </div> 
+    </div>
 </template>

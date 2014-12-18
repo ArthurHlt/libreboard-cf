@@ -27,3 +27,9 @@ Template.board.helpers({
 
 Template.boards.events({});
 Template.board.events({});
+
+Template.createBoardPop.events({
+    'submit #CreateBoardForm': function(event, t) {
+    
+    }
+});

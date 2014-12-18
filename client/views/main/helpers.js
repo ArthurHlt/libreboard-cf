@@ -3,10 +3,16 @@ var Helpers = {
         return Session.get('error');
     },
     toLowerCase: function(text) {
-        return text.toLowerCase();
+        return text && text.toLowerCase();
     },
     toUpperCase: function(text) {
-        return text.toUpperCase();
+        return text && text.toUpperCase();
+    },
+    firstChar: function(text) {
+        return text && text[0].toUpperCase();
+    },
+    session: function(prop) {
+        return Session.get(prop);
     }
 };
 

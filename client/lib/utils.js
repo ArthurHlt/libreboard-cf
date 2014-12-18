@@ -18,5 +18,20 @@ Utils = {
                 $el.animate({ scrollLeft: (add ? (l + px) : px) });
             }
         };
+    },
+
+    // Pop
+    Pop: {
+        open: function(template, label, left, top) {
+            Session.set('pop', { 
+                template: template, 
+                label: label,
+                left: left, 
+                top: top
+            });
+        },
+        close: function() {
+            Session.set('pop', false);       
+        }
     }
 };

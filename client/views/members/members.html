@@ -1,0 +1,26 @@
+<template name="memberHeader">
+    <div class="header-user">  
+        <a class="header-btn js-open-add-menu" href="#" title="Add a new board"> 
+            <span class="header-btn-icon icon-lg icon-add light"></span> 
+        </a> 
+        <a class="header-btn header-member js-open-header-member-menu" href="#"> 
+            <span class="member">  
+                <span class="member-initials"> {{ firstChar currentUser.profile.fullname }}  </span>
+                <span class="member-gold-badge" title="This member has Trello Gold."></span> 
+            </span> 
+            <span class="header-btn-text js-member-name">{{ currentUser.profile.fullname }}</span> 
+        </a>
+        <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 Notifications."> 
+            <span class="header-btn-icon icon-lg icon-notification light"></span> 
+        </a>      
+    </div>
+</template>
+
+<template name="memberMenuPop">
+    <ul class="pop-over-list"> 
+        <li><a class="js-profile" href="{{ pathFor route='Profile' }}">Profile</a></li> 
+        <li><a class="js-cards" href="{{ pathFor route='Settings' }}">Settings</a></li>  
+    </ul>
+    <hr>
+    <ul class="pop-over-list"><li><a class="js-logout" href="#">Log Out</a></li></ul>
+</template>
