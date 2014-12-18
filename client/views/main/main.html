@@ -79,6 +79,17 @@
     loading..
 </template>
 
+<template name='message'>
+    <div class="big-message quiet {{ color }}"> 
+        <h1>{{ label }}</h1>   
+        <p> This page may be private. If someone gave you this link, they may need to invite you to one of their boards.</p>  
+    </div>
+</template>
+
+<template name="notfound">
+    {{ > message label='Page not found.'}}
+</template>
+
 <template name="pop">
     <div class="pop-over clearfix" style="display: block; left: {{ pop.left }}px; top: {{ pop.top }}px;"> 
         <div class="header clearfix"> 
