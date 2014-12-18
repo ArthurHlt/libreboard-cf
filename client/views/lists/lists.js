@@ -1,4 +1,24 @@
 Template.addlistForm.helpers({});
+Template.lists.helpers({});
+
+Template.lists.events({
+    'click .js-open-card-composer': function(event, t) {
+        var $el = $(event.currentTarget),
+            list = $el.parents('.list'),
+            composer = list.find('.card-composer');
+            allComposers = t.$('.card-composer');
+
+        // all lists hide composer and open click composer show
+        allComposers.addClass('hide');
+        t.$('.js-open-card-composer').removeClass('hide');
+
+        // click open composer and focus 
+        composer.removeClass('hide');
+        composer.find('.js-card-title').focus();
+        $el.addClass('hide');
+    }
+});
+
 Template.addlistForm.events({
     'click .js-open-add-list': function(event, t) {
         t.$('.list').removeClass('idle');

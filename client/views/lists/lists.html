@@ -14,7 +14,7 @@
                         </div>
                         <a href="#" class="list-header-menu-icon icon-sm icon-menu dark-hover js-open-list-menu"></a>
                     </div>
-                    {{ > cards cards=cards }}
+                    {{ > cards cards=cards listId=_id board=board }}
                 </div>
             {{/each}}
             {{ > addlistForm }}
