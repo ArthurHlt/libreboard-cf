@@ -16,7 +16,7 @@ Users.before.insert(function (userId, doc) {
 
 
 // AFTER HOOK
-Users.after.insert(function (userId, doc) {
+Users.after.insert(function(userId, doc) {
     var ExampleBoard = {
         title: 'Welcome Board',
         userId: doc._id,
@@ -28,13 +28,13 @@ Users.after.insert(function (userId, doc) {
         
         // lists
         _.forEach(['Basics', 'Advanced'], function(title) {
+            var list = {
+                title: title,
+                boardId: boardId
+            };
 
             // insert List
-            Lists.insert({ title: title, boardId: boardId }, function(err, listId) {
-                
-                // add List
-
-            });
+            Lists.insert({ title: title, boardId: boardId });
         });
     });
 });

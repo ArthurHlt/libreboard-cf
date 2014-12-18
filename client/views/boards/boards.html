@@ -33,17 +33,13 @@
                 </a>
             </div>
         </div> 
-        <div class="board-canvas">
-            <div id="board" class="clearfix">
-                {{ > lists board=board }}
-            </div>
-        </div>
+        {{ > lists board=board }}
     </div>
 </template>
 
 <template name='lists'>
-    <div class="list-area-wrapper fancy-scrollbar"> 
-        <div class="list-area  js-list-sortable  js-no-higher-edits clearfix ui-sortable" attr="name"> 
+    <div class="board-canvas">
+        <div id="board" class="fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable">
             {{# each board.lists }} 
                 <div class="list">
                     <div class="list-header js-list-header non-empty clearfix editable">
@@ -95,9 +91,9 @@
 
 <template name="addlistForm">
     <div class="list add-list idle">
-        <form id="ListAddForm"> 
+        <form id="AddListForm"> 
             <span class="placeholder js-open-add-list">Add a list…</span> 
-            <input type="text" class="list-name-input" name="name" placeholder="Add a list…" autocomplete="off"> 
+            <input type="text" class="list-name-input" placeholder="Add a list…" autocomplete="off"> 
             <div class="edit-controls keep clearfix"> 
                 <input type="submit" class="primary confirm js-save-edit" value="Save"> 
                 <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a> 

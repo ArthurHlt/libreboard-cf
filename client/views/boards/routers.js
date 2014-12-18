@@ -12,7 +12,7 @@ Router.route('/boards/:_id', {
     name: 'Board',
     template: 'board',
     layoutTemplate: 'AuthLayout',
-    bodyClass: 'boardPage',
+    bodyClass: 'page-index body-webkit-scrollbars body-board-view bgBoard',
     waitOn: function() {
         return Meteor.subscribe('board', this.params._id);
     }
