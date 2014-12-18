@@ -30,6 +30,23 @@ Template.board.events({});
 
 Template.createBoardPop.events({
     'submit #CreateBoardForm': function(event, t) {
-    
+        var title = t.$('#boardNewTitle');
+
+        // trim value title 
+        if ($.trim(title.val())) {
+
+            // İnsert Board title
+            Boards.insert({
+
+                title: title.val(),
+                permission : 'Public'
+
+            }, function(err, boardId) {
+                 
+                // insert complete goto board page
+                Router.go('Board', { _id: boardId });
+            }); 
+        }
+        event.preventDefault();    
     }
 });
