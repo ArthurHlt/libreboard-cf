@@ -29,6 +29,9 @@ Utils = {
             },
             boardName: function(offset) {
                 return { left: (offset.left), top: (offset.top + 35) }
+            },
+            boardPermission: function(offset) {
+                return this.boardName(offset);
             }
         },
         getOffset: function($el) {

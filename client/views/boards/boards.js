@@ -25,6 +25,12 @@ Template.board.helpers({
     }
 });
 
+Template.changePermissionBoardPop.helpers({
+    check: function(perm) {
+        return this.permission == perm;
+    } 
+});
+
 Template.boards.events({});
 
 Template.board.events({
@@ -32,7 +38,7 @@ Template.board.events({
         Utils.Pop.open('changeBoardTitlePop', 'Rename Board', event.currentTarget, Boards.findOne());
     },
     'click #permission-level': function(event, t) {
-    
+        Utils.Pop.open('changePermissionBoardPop', 'Change Visibility', event.currentTarget, Boards.findOne());
     }
 });
 
@@ -73,5 +79,22 @@ Template.changeBoardTitlePop.events({
             });
         }
         event.preventDefault();
+    }
+});
+
+Template.changePermissionBoardPop.events({
+    'click .js-select': function(event, t) {
+        var $this = $(event.currentTarget),
+            permission = $this.attr('name');
+
+        // update permission
+        Boards.update(this._id, { 
+            $set: {
+                permission: permission
+            } 
+        }, function() {
+            // pop close
+            Utils.Pop.close();
+        });
     }
 });
