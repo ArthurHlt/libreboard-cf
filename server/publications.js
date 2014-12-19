@@ -14,12 +14,12 @@ Meteor.publishComposite('board', function(boardId) {
         children: [
             {
                 find: function(board) {
-                    return Lists.find({ boardId: board._id });
+                    return Lists.find({ boardId: board._id, closed: false });
                 },
                 children: [
                     {
                         find: function(list, board) {
-                            return Cards.find({ listId: list._id });
+                            return Cards.find({ listId: list._id, closed: false });
                         }
                     }
                 ]

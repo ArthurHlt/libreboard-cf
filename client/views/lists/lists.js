@@ -16,6 +16,14 @@ Template.lists.events({
         composer.removeClass('hide');
         composer.find('.js-card-title').focus();
         $el.addClass('hide');
+    },
+    'click .js-open-list-menu': function(event, t) {
+        var $this = $(event.currentTarget),
+            list = $this.parents('.list');
+
+        // open pop
+        Utils.Pop.open('listActionPop', 'List Actions', list[0], this);
+        event.preventDefault();
     }
 });
 
@@ -45,4 +53,20 @@ Template.addlistForm.events({
         }
         event.preventDefault();
     }
+});
+
+Template.listActionPop.events({
+    'click .js-close-list': function(event, t) {
+        Lists.update(this._id, { 
+            $set: {
+                closed: true
+            }
+        }, function(err, listId) {
+            // close pop
+            Utils.Pop.close();
+        }); 
+        event.preventDefault();    
+    },
+    'click .js-add-card': function(event, t) {},
+    'click .js-list-subscribe': function(event, t) {}
 });

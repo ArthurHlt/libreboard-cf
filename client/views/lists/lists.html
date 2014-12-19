@@ -2,7 +2,7 @@
     <div class="board-canvas">
         <div id="board" class="fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable">
             {{# each board.lists }} 
-                <div class="list">
+                <div class="list" popoffset='list'>
                     <div class="list-header js-list-header non-empty clearfix editable">
                         <h2 class="list-header-name hide-on-edit js-list-name current">{{ title }}</h2>
                         <div class="edit edit-heavy clearfix"> 
@@ -33,4 +33,15 @@
             </div> 
         </form> 
     </div>
+</template>
+
+<template name="listActionPop">
+    <ul class="pop-over-list">  
+        <li><a class="js-add-card" href="#">Add Card…</a></li> 
+        <li><a class="highlight-icon js-list-subscribe" href="#">Subscribe</a></li>
+    </ul> 
+    <hr>
+    <ul class="pop-over-list"> 
+        <li><a class="js-close-list" href="#">Archive This List</a></li> 
+    </ul> 
 </template>

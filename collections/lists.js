@@ -20,9 +20,16 @@ Lists.helpers({
 });
 
 
-// LISTS BEFORE HOOK
+// LISTS BEFORE HOOK INSERT
 Lists.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
+    doc.updatedAt = new Date();
     doc.userId = userId;
     doc.closed = false;
+});
+
+
+// LISTS BEFORE HOOK UPDATE
+Lists.before.update(function(userId, doc) {
+    doc.updatedAt = new Date();
 });
