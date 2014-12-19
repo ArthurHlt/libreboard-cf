@@ -5,7 +5,7 @@ Metrello
 
 ##### Clone and run
     $ git clone https://github.com/yasaricli/metrello.git
-    $ cd meteor-trello
+    $ cd metrello
     $ meteor run
 
 
