@@ -64,20 +64,20 @@
 <template name="changePermissionBoardPop">
     <ul class="pop-over-list"> 
         <li> 
-            <a class="js-select light-hover" href="#" name="private"> 
+            <a class="js-select light-hover" href="#" name="Private"> 
                 <span class="icon-sm icon-private vis-icon"></span> 
                 Private  
-                {{# if check 'private' }}
+                {{# if check 'Private' }}
                     <span class="icon-sm icon-check"></span>  
                 {{/if}}
                 <span class="sub-name"> This board is private.  Only people added to the board can view and edit it.  </span> 
             </a> 
         </li>  
         <li> 
-            <a class="js-select light-hover" href="#" name="public"> 
+            <a class="js-select light-hover" href="#" name="Public"> 
                 <span class="icon-sm icon-public vis-icon"></span> 
                 Public  
-                {{# if check 'public' }}
+                {{# if check 'Public' }}
                     <span class="icon-sm icon-check"></span>  
                 {{/if}}
                 <span class="sub-name"> This board is public. It's visible to anyone with the link and will show up in search engines like Google.  Only people added to the board can edit.  </span> 
