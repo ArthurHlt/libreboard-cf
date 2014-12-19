@@ -22,16 +22,13 @@ Utils = {
     Pop: {
         Offsets: {
             headerUser: function(offset) {
-                return {
-                    left: (offset.left - 118),
-                    top: (offset.top + 40)
-                }
+                return { left: (offset.left - 118), top: (offset.top + 40) }
             },
             list: function(offset) {
-                return {
-                    left: (offset.left + 230),
-                    top: (offset.top + 25)
-                }
+                return { left: (offset.left + 230), top: (offset.top + 25) }
+            },
+            boardName: function(offset) {
+                return { left: (offset.left), top: (offset.top + 35) }
             }
         },
         getOffset: function($el) {

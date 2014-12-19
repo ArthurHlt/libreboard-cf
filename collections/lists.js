@@ -30,6 +30,6 @@ Lists.before.insert(function(userId, doc) {
 
 
 // LISTS BEFORE HOOK UPDATE
-Lists.before.update(function(userId, doc) {
-    doc.updatedAt = new Date();
+Lists.before.update(function(userId, doc, fieldNames, modifier) {
+    modifier.$set.modifiedAt = new Date();
 });

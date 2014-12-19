@@ -26,7 +26,15 @@ Template.board.helpers({
 });
 
 Template.boards.events({});
-Template.board.events({});
+
+Template.board.events({
+    'click .js-rename-board': function(event, t) {
+        Utils.Pop.open('changeBoardTitlePop', 'Rename Board', event.currentTarget, Boards.findOne());
+    },
+    'click #permission-level': function(event, t) {
+    
+    }
+});
 
 Template.createBoardPop.events({
     'submit #CreateBoardForm': function(event, t) {
@@ -48,5 +56,22 @@ Template.createBoardPop.events({
             }); 
         }
         event.preventDefault();    
+    }
+});
+
+Template.changeBoardTitlePop.events({
+    'submit #ChangeBoardTitleForm': function(event, t) {
+        var title = t.$('.js-board-name');
+        if ($.trim(title.val())) {
+            Boards.update(this._id, { 
+                $set: {
+                    title: title.val()     
+                }
+            }, function(err, boardId) {
+                // pop close
+                Utils.Pop.close();
+            });
+        }
+        event.preventDefault();
     }
 });
