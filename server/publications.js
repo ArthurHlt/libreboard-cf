@@ -9,7 +9,13 @@ Meteor.publishComposite('boards', function() {
 Meteor.publishComposite('board', function(boardId) {
     return {
         find: function() {
-            return Boards.find({ _id: boardId });
+            var boards = Boards.find({ _id: boardId, userId: this.userId });
+
+            // currentUser Private or Public board
+            if (boards.count()) return boards;
+
+            // Public board
+            return Boards.find({ _id: boardId, permission: 'public' });
         },
         children: [
             {
