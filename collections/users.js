@@ -1,5 +1,7 @@
 Users = Meteor.users;
 
+
+// HELPERS
 Users.helpers({
     boards: function() {
         return Boards.find({ userId: this._id });

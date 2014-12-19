@@ -1,5 +1,15 @@
 Lists  = new Mongo.Collection('lists');
 
+
+// ALLOWS
+Lists.allow({
+    insert: function(userId, doc) { return doc.userId === userId; },
+    update: function(userId, doc) { return doc.userId === userId; },
+    remove: function(userId, doc) { return doc.userId === userId; },
+});
+
+
+// HELPERS
 Lists.helpers({
     cards: function() {
         return Cards.find({ listId: this._id });
