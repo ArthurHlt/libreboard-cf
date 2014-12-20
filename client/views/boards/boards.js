@@ -1,9 +1,8 @@
 // Template RENDERED and resize board list vs.
 Template.board.rendered = function() {
-    var window_height = $(window).height();
-        resize = function() {
+    var resize = function() {
             var board = jQuery(".board-canvas");
-            board.height(window_height - 100);
+            board.height($(window).height() - 100);
         };
 
     // initial resize 

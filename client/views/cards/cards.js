@@ -1,3 +1,17 @@
+Template.cards.rendered = function() {
+    $(".cards").sortable({
+        connectWith: ".cards",
+        tolerance: 'pointer',
+        appendTo: 'body',
+        helper: "clone",
+        items: '.list-card:not(.js-composer)',
+        placeholder: 'list-card placeholder',
+        start: function (event, ui) {
+            $('.list-card.placeholder').height(ui.item.height());
+        },
+    }).disableSelection();
+};
+
 Template.addCardForm.helpers({});
 Template.addCardForm.events({
     'click .js-cancel': function(event, t) {

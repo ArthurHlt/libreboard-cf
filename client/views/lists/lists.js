@@ -1,3 +1,18 @@
+Template.lists.rendered = function() {
+    $(".lists").sortable({
+        connectWith: ".lists",
+        handle: ".list-header",
+        tolerance: 'pointer',
+        appendTo: 'body',
+        helper: "clone",
+        items: '.list:not(.add-list)',
+        placeholder: 'list placeholder',
+        start: function (event, ui) {
+            $('.list.placeholder').height(ui.item.height());
+        },
+    }).disableSelection();
+};
+
 Template.addlistForm.helpers({});
 Template.lists.helpers({});
 

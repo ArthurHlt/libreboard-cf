@@ -1,9 +1,15 @@
 <template name="cards">
-    <div class="list-cards fancy-scrollbar clearfix js-list-cards js-sortable ui-sortable">
-        {{# each cards }}  
+    <div class="list-cards cards fancy-scrollbar clearfix js-list-cards js-sortable ui-sortable">
+        {{# each cards }} 
             <div class="list-card js-member-droppable ui-droppable">
-                <span class="list-card-operation icon-sm icon-menu dark-hover js-card-menu"></span>
-                <div class="list-card-details">{{ title }}</div>
+                <div class="list-card-labels clearfix js-card-labels"></div> 
+                <div class="list-card-cover js-card-cover hide"></div> 
+                <span class="list-card-operation icon-sm icon-edit dark-hover js-open-quick-card-editor js-card-menu"></span> 
+                <div class="list-card-details clearfix"> 
+                    <a class="list-card-title clear js-card-name" href="#">{{ title }}</a>  
+                    <div class="badges"></div> 
+                    <div class="list-card-members js-list-card-members"></div> 
+                </div> 
             </div>
         {{/each}}
         {{ > addCardForm }}
