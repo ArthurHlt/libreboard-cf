@@ -39,3 +39,82 @@
         <img src="/logo_blue.png"> 
     </div>
 </template>
+
+<template name="memberHeader">
+    <div class="header-user" popOffset='headerUser'>  
+        <a class="header-btn js-open-add-menu" href="#" title="Add a new board"> 
+            <span class="header-btn-icon icon-lg icon-add light"></span> 
+        </a> 
+        <a class="header-btn header-member js-open-header-member-menu" href="#"> 
+            <span class="member">  
+                <span class="member-initials"> {{ firstChar currentUser.profile.fullname }}  </span>
+                <span class="member-gold-badge" title="This member has Trello Gold."></span> 
+            </span> 
+            <span class="header-btn-text js-member-name">{{ currentUser.profile.fullname }}</span> 
+        </a>
+        <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 Notifications."> 
+            <span class="header-btn-icon icon-lg icon-notification light"></span> 
+        </a>      
+    </div>
+</template>
+
+<template name="memberMenuPop">
+    <ul class="pop-over-list"> 
+        <li><a class="js-profile" href="{{ pathFor route='Profile' _id=currentUser._id }}">Profile</a></li> 
+        <li><a class="js-cards" href="{{ pathFor route='Settings' }}">Settings</a></li>  
+    </ul>
+    <hr>
+    <ul class="pop-over-list"><li><a class="js-logout" href="#">Log Out</a></li></ul>
+</template>
+
+<template name='profile'>
+    <div class="tabbed-pane-header">
+        <div class="tabbed-pane-header-wrapper clearfix"> 
+            <a class="tabbed-pane-header-image profile-image ed js-change-avatar-profile" href="#">
+                <span class="profile-image-initials">{{ firstChar currentUser.profile.fullname }}</span>
+                <span class="change-text"> Change Avatar </span>
+            </a> 
+            <div class="tabbed-pane-header-details"> 
+                <div class="js-current-details">
+                    <div class="tabbed-pane-header-details-name">
+                        <h1 class="inline"> {{ currentUser.profile.fullname }} </h1> 
+                        <p class="window-title-extra quiet"> @{{ currentUser.username }} </p>  
+                    </div> 
+                    <div class="tabbed-pane-header-details-content"></div>  
+                    <a class="button-link tabbed-pane-header-details-edit js-edit-profile" href="#">
+                        <span class="icon-sm icon-edit"></span> 
+                        Edit profile
+                    </a>  
+                </div>    
+            </div>  
+        </div> 
+    </div>
+</template>
+
+<template name="settings">
+    {{ > profile }}
+    <div class="tabbed-pane-main-col clearfix"> 
+        <div class="tabbed-pane-main-col-loading hide js-loading-page"> 
+            <span class="tabbed-pane-main-col-loading-spinner spinner"></span> 
+        </div> 
+        <div class="tabbed-pane-main-col-wrapper js-content">
+            <div class="window-module clearfix"> 
+                <div class="window-module-title"> 
+                    <h3>Account Details</h3> 
+                </div> 
+                <a class="big-link js-change-name-and-bio" href="#"> 
+                    <span class="text">Change Name, Initials, or Bio</span> 
+                </a> 
+                <a class="big-link js-change-avatar" href="#"> 
+                    <span class="text">Change Avatar</span> 
+                </a> 
+                <a class="big-link js-change-password" href="#"> 
+                    <span class="text">Change Password</span> 
+                </a> 
+                <a class="big-link js-change-email" href="#"> 
+                    <span class="text">Change Email</span> 
+                </a> 
+            </div>       
+        </div> 
+    </div>
+</template>
