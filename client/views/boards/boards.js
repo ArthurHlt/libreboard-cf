@@ -72,10 +72,10 @@ Template.changeBoardTitlePop.events({
                 $set: {
                     title: title.val()     
                 }
-            }, function(err, boardId) {
-                // pop close
-                Utils.Pop.close();
             });
+
+            // pop close 
+            Utils.Pop.close();
         }
         event.preventDefault();
     }
@@ -91,9 +91,9 @@ Template.changePermissionBoardPop.events({
             $set: {
                 permission: permission
             } 
-        }, function() {
-            // pop close
-            Utils.Pop.close();
         });
+
+        // pop close 
+        Utils.Pop.close();
     }
 });
