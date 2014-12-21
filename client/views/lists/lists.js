@@ -70,7 +70,7 @@ Template.addlistForm.events({
             Lists.insert({ 
                 title: title.value, 
                 boardId: this.board._id,
-                sort: $('.list').last().index()
+                sort: $('.list').length
             }, function() {
 
                 // insert complete to scrollLeft

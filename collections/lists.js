@@ -12,7 +12,7 @@ Lists.allow({
 // HELPERS
 Lists.helpers({
     cards: function() {
-        return Cards.find({ listId: this._id });
+        return Cards.find({ listId: this._id }, { sort: { sort: 1 }});
     },
     board: function() {
         return Boards.findOne(this.boardId);

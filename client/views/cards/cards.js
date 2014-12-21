@@ -1,5 +1,8 @@
 Template.cards.rendered = function() {
-    $(".cards").sortable({
+    var _this = this,
+        cards = _this.$(".cards");
+
+    cards.sortable({
         connectWith: ".cards",
         tolerance: 'pointer',
         appendTo: 'body',
@@ -9,6 +12,19 @@ Template.cards.rendered = function() {
         start: function (event, ui) {
             $('.list-card.placeholder').height(ui.item.height());
         },
+        update: function(event, ui) {
+            var list = ui.item.parents('.list-cards'),
+                cards = list.find('.list-card');
+            cards.each(function(i, card) {
+                Cards.update(Blaze.getData(card)._id, {
+                    $set: {
+                        sort: i,
+                        listId: Blaze.getData(list.get(0)).listId
+                    }
+                });
+            });
+        }
+
     }).disableSelection();
 };
 
@@ -39,7 +55,8 @@ Template.addCardForm.events({
             Cards.insert({ 
                 title: title.val(),
                 listId: this.listId,
-                boardId: this.board._id
+                boardId: this.board._id,
+                sort: list.find('.list-card').length
             });
 
             // empty and focus.
