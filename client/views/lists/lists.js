@@ -1,5 +1,8 @@
 Template.lists.rendered = function() {
-    $(".lists").sortable({
+    var _this = this,
+        lists = _this.$(".lists");
+
+    lists.sortable({
         connectWith: ".lists",
         handle: ".list-header",
         tolerance: 'pointer',
@@ -10,6 +13,16 @@ Template.lists.rendered = function() {
         start: function (event, ui) {
             $('.list.placeholder').height(ui.item.height());
         },
+        update: function(event, ui) {
+            lists.find('.list:not(.add-list)').each(function(i, list) {
+                var data = Blaze.getData(list);
+                Lists.update(data._id, { 
+                    $set: {
+                        sort: i
+                    } 
+                });
+            });
+        }
     }).disableSelection();
 };
 
@@ -56,7 +69,8 @@ Template.addlistForm.events({
             // insert 
             Lists.insert({ 
                 title: title.value, 
-                boardId: this.board._id
+                boardId: this.board._id,
+                sort: $('.list').last().index()
             }, function() {
 
                 // insert complete to scrollLeft

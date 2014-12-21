@@ -12,7 +12,7 @@ Boards.allow({
 // HELPERS
 Boards.helpers({
     lists: function() {
-        return Lists.find({ boardId: this._id });       
+        return Lists.find({ boardId: this._id }, { sort: { sort: 1 }});
     }
 });
 

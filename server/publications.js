@@ -15,7 +15,7 @@ Meteor.publishComposite('board', function(boardId) {
             if (boards.count()) return boards;
 
             // Public board
-            return Boards.find({ _id: boardId, permission: 'public' });
+            return Boards.find({ _id: boardId, permission: 'Public' });
         },
         children: [
             {
