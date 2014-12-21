@@ -33,10 +33,10 @@ Template.changePermissionBoardPop.helpers({
 Template.boards.events({});
 
 Template.board.events({
-    'click .js-rename-board': function(event, t) {
+    'click .js-rename-board:not(.no-edit)': function(event, t) {
         Utils.Pop.open('changeBoardTitlePop', 'Rename Board', event.currentTarget, Boards.findOne());
     },
-    'click #permission-level': function(event, t) {
+    'click #permission-level:not(.no-edit)': function(event, t) {
         Utils.Pop.open('changePermissionBoardPop', 'Change Visibility', event.currentTarget, Boards.findOne());
     }
 });

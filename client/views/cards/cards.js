@@ -1,31 +1,34 @@
 Template.cards.rendered = function() {
     var _this = this,
+        data = this.data,
         cards = _this.$(".cards");
 
-    cards.sortable({
-        connectWith: ".cards",
-        tolerance: 'pointer',
-        appendTo: 'body',
-        helper: "clone",
-        items: '.list-card:not(.js-composer)',
-        placeholder: 'list-card placeholder',
-        start: function (event, ui) {
-            $('.list-card.placeholder').height(ui.item.height());
-        },
-        stop: function(event, ui) {
-            var list = ui.item.parents('.list-cards'),
-                cards = list.find('.list-card');
-            cards.each(function(i, card) {
-                Cards.update(Blaze.getData(card)._id, {
-                    $set: {
-                        sort: i,
-                        listId: Blaze.getData(list.get(0)).listId
-                    }
+    if (!data.board.edit('yes')) {
+        cards.sortable({
+            connectWith: ".cards",
+            tolerance: 'pointer',
+            appendTo: 'body',
+            helper: "clone",
+            items: '.list-card:not(.js-composer)',
+            placeholder: 'list-card placeholder',
+            start: function (event, ui) {
+                $('.list-card.placeholder').height(ui.item.height());
+            },
+            stop: function(event, ui) {
+                var list = ui.item.parents('.list-cards'),
+                    cards = list.find('.list-card');
+                cards.each(function(i, card) {
+                    Cards.update(Blaze.getData(card)._id, {
+                        $set: {
+                            sort: i,
+                            listId: Blaze.getData(list.get(0)).listId
+                        }
+                    });
                 });
-            });
-        }
+            }
 
-    }).disableSelection();
+        }).disableSelection();
+    }
 };
 
 Template.addCardForm.helpers({});

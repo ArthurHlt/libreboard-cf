@@ -3,7 +3,7 @@
         <div id="board" class="lists fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable">
             {{# each board.lists }} 
                 <div class="list" popoffset='list'>
-                    <div class="list-header js-list-header non-empty clearfix editable">
+                    <div class="list-header js-list-header non-empty clearfix {{ board.edit '' 'editable' }}">
                         <h2 class="list-header-name hide-on-edit js-list-name current">{{ title }}</h2>
                         <div class="edit edit-heavy clearfix"> 
                             <textarea type="text" class="field single-line" style="height: 66px;">{{ title }}</textarea>      
@@ -12,7 +12,7 @@
                                 <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
                             </div>
                         </div>
-                        <a href="#" class="list-header-menu-icon icon-sm icon-menu dark-hover js-open-list-menu"></a>
+                        <a href="#" class="list-header-menu-icon icon-sm icon-menu dark-hover js-open-list-menu {{ board.edit 'hide' }}"></a>
                     </div>
                     {{ > cards cards=cards listId=_id board=board }}
                 </div>
@@ -23,7 +23,7 @@
 </template>
 
 <template name="addlistForm">
-    <div class="list add-list idle">
+    <div class="list add-list idle {{ board.edit 'hide' }}">
         <form id="AddListForm"> 
             <span class="placeholder js-open-add-list">Add a list…</span> 
             <input type="text" class="list-name-input" placeholder="Add a list…" autocomplete="off"> 

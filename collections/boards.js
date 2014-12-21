@@ -13,6 +13,9 @@ Boards.allow({
 Boards.helpers({
     lists: function() {
         return Lists.find({ boardId: this._id }, { sort: { sort: 1 }});
+    },
+    edit: function(yes, no) {
+        return !Meteor.user() ? yes : (no || '');
     }
 });
 

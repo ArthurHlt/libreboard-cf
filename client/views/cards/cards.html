@@ -14,7 +14,7 @@
         {{/each}}
         {{ > addCardForm }}
     </div>
-    <a class="open-card-composer js-open-card-composer" href="#">Add a card…</a>
+    <a class="open-card-composer js-open-card-composer {{ board.edit 'hide' }}" href="#">Add a card…</a>
 </template>
 
 <template name="addCardForm">

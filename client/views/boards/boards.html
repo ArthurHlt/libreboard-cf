@@ -24,10 +24,10 @@
     {{# if board }}
         <div class="board-wrapper disabled-all-widgets">
             <div class="board-header clearfix js-board-header">
-                <a href="#" class="board-header-btn board-header-btn-name js-rename-board" popoffset='boardName' title="Rename the board."> 
+                <a href="#" class="board-header-btn board-header-btn-name js-rename-board {{ board.edit 'no-edit' }}" popoffset='boardName' title="Rename the board."> 
                     <span class="board-header-btn-text"> {{ board.title }} </span> 
                 </a>
-                <a href="#" class="board-header-btn perms-btn js-change-vis" id="permission-level" popoffset='boardPermission'>
+                <a href="#" class="board-header-btn perms-btn js-change-vis {{ board.edit 'no-edit' }}" id="permission-level" popoffset='boardPermission'>
                     <span class="board-header-btn-icon icon-sm icon-{{ toLowerCase board.permission }}"></span> 
                     <span class="board-header-btn-text">{{ board.permission }}</span> 
                 </a>
