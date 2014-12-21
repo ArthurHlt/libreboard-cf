@@ -12,7 +12,7 @@ Template.cards.rendered = function() {
         start: function (event, ui) {
             $('.list-card.placeholder').height(ui.item.height());
         },
-        update: function(event, ui) {
+        stop: function(event, ui) {
             var list = ui.item.parents('.list-cards'),
                 cards = list.find('.list-card');
             cards.each(function(i, card) {

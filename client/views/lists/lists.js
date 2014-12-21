@@ -13,7 +13,7 @@ Template.lists.rendered = function() {
         start: function (event, ui) {
             $('.list.placeholder').height(ui.item.height());
         },
-        update: function(event, ui) {
+        stop: function(event, ui) {
             lists.find('.list:not(.add-list)').each(function(i, list) {
                 var data = Blaze.getData(list);
                 Lists.update(data._id, { 
