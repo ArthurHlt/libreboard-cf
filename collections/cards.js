@@ -23,6 +23,8 @@ Cards.helpers({
 // CARDS BEFORE HOOK
 Cards.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
-    doc.userId = userId;
     doc.closed = false;
+
+    // userId native set.
+    if (!doc.userId) doc.userId = userId;
 });

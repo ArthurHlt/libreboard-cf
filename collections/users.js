@@ -32,11 +32,12 @@ Users.after.insert(function(userId, doc) {
         _.forEach(['Basics', 'Advanced'], function(title) {
             var list = {
                 title: title,
-                boardId: boardId
+                boardId: boardId,
+                userId: ExampleBoard.userId
             };
 
             // insert List
-            Lists.insert({ title: title, boardId: boardId });
+            Lists.insert(list);
         });
     });
 });

@@ -5,7 +5,7 @@ Lists  = new Mongo.Collection('lists');
 Lists.allow({
     insert: function(userId, doc) { return doc.userId === userId; },
     update: function(userId, doc) { return doc.userId === userId; },
-    remove: function(userId, doc) { return doc.userId === userId; },
+    remove: function(userId, doc) { return doc.userId === userId; }
 });
 
 
@@ -24,8 +24,10 @@ Lists.helpers({
 Lists.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
     doc.updatedAt = new Date();
-    doc.userId = userId;
     doc.closed = false;
+
+    // userId native set.
+    if (!doc.userId) doc.userId = userId;
 });
 
 
