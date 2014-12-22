@@ -46,5 +46,6 @@ Router.configure({
 
 Router.route('/', {
     name: 'Home',
-    template: 'home'
+    template: 'home',
+    layoutTemplate: 'LandingLayout'
 });

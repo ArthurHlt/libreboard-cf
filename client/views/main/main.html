@@ -11,6 +11,10 @@
     </div>
 </template>
 
+<template name="LandingLayout">
+    {{ > yield }}
+</template>
+
 <template name="layout">
     <div id="surface">
         <div id="header">
@@ -66,12 +70,17 @@
     <div class="whiteBg">
         <header id="landingHeader" class="landing-header"> 
             <img id="landingLogo" title="Trello logo" src="/logo.png">
-            <h2>Organize anything, together</h2>
+            <h2 class="mt50">Organize anything, together</h2>
         </header> 
         <section id="landingFirstSignUpButton" class="landing-section"> 
-            <div class="width-wrapper tac pb100"> 
-                <a class="button primary" href="{{ pathFor route='Signup' }}"> Sign Up—It’s Free! </a> 
+            <div class="width-wrapper tac"> 
+                <a class="button primary primarys" href="{{ pathFor route='Signup' }}"> Sign Up—It’s Free! </a> 
             </div> 
+            <div class="layout-twothirds-center tac"> 
+                <p> 
+                    <a href="{{ pathFor route='Login' }}" class="quiet" data-track="Login" style="padding: 1em 2em;"> Or log in </a> 
+                </p> 
+            </div>
         </section>
     </div>
 </template>
