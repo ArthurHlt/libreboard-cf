@@ -19,6 +19,10 @@ Boards.helpers({
     }
 });
 
+// BOARDSMEMBERS BEFORE HOOK INSERT
+BoardMembers.before.insert(function(userId, doc) {
+    doc.createdAt = new Date();
+});
 
 // BOARDS BEFORE HOOK INSERT
 Boards.before.insert(function(userId, doc) {
@@ -28,6 +32,15 @@ Boards.before.insert(function(userId, doc) {
 
     // userId native set.
     if (!doc.userId) doc.userId = userId;
+
+    // Members insert admin
+    if (doc._id) {
+        BoardMembers.insert({
+            boardId: doc._id,
+            userId: doc.userId,
+            memberType: "admin"
+        });
+    }
 });
 
 
