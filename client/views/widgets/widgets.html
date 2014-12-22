@@ -18,7 +18,7 @@
                 </div> 
                 <div class="board-widgets-content-wrapper">
                     <div class="board-widgets-content default fancy-scrollbar short">
-                        {{ > menuWidget }}
+                        {{ > menuWidget board=board }}
                         {{ > membersWidget }}
                     </div>
                 </div> 
@@ -40,8 +40,7 @@
                     Archived Items 
                 </a>
             </li> 
-            <hr>
-            <li> 
+            <li class='{{ board.edit 'hide' }}'> 
                 <a class="nav-list-item nav-list-sub-item js-close-board" href="#" popOffset='boardRemove'> Close Board… </a> 
             </li>   
         </ul>
@@ -66,7 +65,7 @@
                     </div>
                 {{ /each }}
             </div> 
-            <a href="#" class="button-link js-open-manage-board-members" popOffset='membersAdd'> 
+            <a href="#" class="button-link js-open-manage-board-members {{ board.edit 'hide' }}" popOffset='membersAdd'> 
                 <span class="icon-sm icon-member"></span> Add Members… 
             </a>  
         </div> 
