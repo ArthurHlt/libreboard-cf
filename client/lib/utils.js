@@ -9,7 +9,7 @@ Utils = {
             board.height($(window).height() - 100);
             
             // call
-            callbak && callback();
+            callback && callback();
         }
     },
 

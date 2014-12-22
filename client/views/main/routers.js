@@ -6,7 +6,6 @@ Session.setDefault('error', false);
 * configure a global Router option.
 */
 Router.configure({
-    layoutTemplate: 'layout',
     loadingTemplate: 'loading',
     notFoundTemplate: 'notfound',
 
@@ -15,9 +14,10 @@ Router.configure({
     * and no longer take a pause() argument. So the default behaviour is reversed. 
     * ClassMapper body add, remove class.
     */
-    onBeforeAction: function() {
+    onBeforeAction: function(pause) {
         var body = $('body'),
-            bodyClass = this.route.options["bodyClass"];
+            options = this.route.options,
+            bodyClass = options["bodyClass"];
      
         // Remove class attribute body
         body.removeAttr('class');
@@ -29,7 +29,17 @@ Router.configure({
         Session.set('error', false);
         Session.set('pop', false);
 
-        // next
+        // Layout template found then set render this.route options layout.
+        if (!options.layoutTemplate) {
+        
+            // if user undefined then layout render 
+            if (!Meteor.user()) this.layout('layout');  
+
+            // user found then AuthLayout render  
+            else this.layout('AuthLayout'); 
+        }
+
+        // Next 
         this.next();
     }
 });
