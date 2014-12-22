@@ -4,7 +4,7 @@
             {{# each board.lists }} 
                 <div class="list" popoffset='list'>
                     <div class="list-header js-list-header non-empty clearfix {{ board.edit '' 'editable' }}">
-                        <h2 class="list-header-name hide-on-edit js-list-name current">{{ title }}</h2>
+                        <h2 class="list-header-name js-list-name current {{ board.edit '' 'hide-on-edit' }}">{{ title }}</h2>
                         {{ > listTitleEditForm list=this }}
                         <a href="#" class="list-header-menu-icon icon-sm icon-menu dark-hover js-open-list-menu {{ board.edit 'hide' }}"></a>
                     </div>

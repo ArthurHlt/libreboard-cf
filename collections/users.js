@@ -1,6 +1,5 @@
 Users = Meteor.users;
 
-
 // HELPERS
 Users.helpers({
     boards: function() {

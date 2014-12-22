@@ -1,4 +1,12 @@
 Template.board.rendered = function() {
+
+    // update height add, update, remove resize board height.
+    Boards.find().observe({
+        added: Utils.resizeHeight('.board-canvas'),
+        updated: Utils.resizeHeight('.board-canvas'),
+        removed: Utils.resizeHeight('.board-canvas')
+    });
+
     // resize not update observe changed.
     jQuery(window).resize(Utils.resizeHeight('.board-canvas'));
 };

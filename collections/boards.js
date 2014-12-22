@@ -1,5 +1,5 @@
 Boards = new Mongo.Collection('boards');
-
+BoardMembers = new Mongo.Collection('board_members');
 
 // ALLOWS
 Boards.allow({
@@ -7,7 +7,6 @@ Boards.allow({
     update: function(userId, doc) { return doc.userId === userId; },
     remove: function(userId, doc) { return doc.userId === userId; },
 });
-
 
 // HELPERS
 Boards.helpers({
