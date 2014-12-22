@@ -63,6 +63,39 @@ Template.lists.events({
         // open pop
         Utils.Pop.open('listActionPop', 'List Actions', list[0], this);
         event.preventDefault();
+    },
+    'click .hide-on-edit': function(event, t) {
+        var $this = $(event.currentTarget),
+            listHeader = $this.parents('.list-header');
+
+        // remove all editing classes
+        $('.js-list-header').removeClass('editing');
+
+        // and current editing open.
+        listHeader.addClass('editing');
+
+        // focus current form title
+        listHeader.find('.single-line').focus();
+    }
+});
+
+Template.listTitleEditForm.events({
+    'submit #ListTitleEditForm': function(event, t) {
+        var title = t.find('.js-title-input').value;
+        if ($.trim(title)) {
+            Lists.update(this.list._id, {
+                $set: {
+                    title: title
+                }
+            });
+
+            // all editing remove
+            $('.js-list-header').removeClass('editing');
+        }
+        event.preventDefault();
+    },
+    'click .js-cancel-edit': function(event, t) {
+        $('.js-list-header').removeClass('editing');
     }
 });
 

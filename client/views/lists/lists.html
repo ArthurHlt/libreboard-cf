@@ -5,13 +5,7 @@
                 <div class="list" popoffset='list'>
                     <div class="list-header js-list-header non-empty clearfix {{ board.edit '' 'editable' }}">
                         <h2 class="list-header-name hide-on-edit js-list-name current">{{ title }}</h2>
-                        <div class="edit edit-heavy clearfix"> 
-                            <textarea type="text" class="field single-line" style="height: 66px;">{{ title }}</textarea>      
-                            <div class="edit-controls clearfix"> 
-                                <input type="submit" class="primary confirm js-save-edit" value="Save"> 
-                                <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
-                            </div>
-                        </div>
+                        {{ > listTitleEditForm list=this }}
                         <a href="#" class="list-header-menu-icon icon-sm icon-menu dark-hover js-open-list-menu {{ board.edit 'hide' }}"></a>
                     </div>
                     {{ > cards cards=cards listId=_id board=board }}
@@ -20,6 +14,18 @@
             {{ > addlistForm }}
         </div>
     </div>
+</template>
+
+<template name="listTitleEditForm">
+    <form id="ListTitleEditForm">
+        <div class="edit edit-heavy clearfix"> 
+        <textarea type="text" class="field fieldSingle single-line js-title-input">{{ list.title }}</textarea>
+            <div class="edit-controls clearfix"> 
+                <input type="submit" class="primary confirm js-save-edit" value="Save"> 
+                <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
+            </div>
+        </div>
+    </form>
 </template>
 
 <template name="addlistForm">
