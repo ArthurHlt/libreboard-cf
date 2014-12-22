@@ -9,7 +9,7 @@ Meteor.publishComposite('profile', function(username) {
 Meteor.publishComposite('boards', function() {
     return {
         find: function() {
-            return Boards.find({ userId: this.userId });
+            return Boards.find({ userId: this.userId, closed: false });
         }
     }
 });
@@ -17,13 +17,13 @@ Meteor.publishComposite('boards', function() {
 Meteor.publishComposite('board', function(boardId) {
     return {
         find: function() {
-            var boards = Boards.find({ _id: boardId, userId: this.userId });
+            var boards = Boards.find({ _id: boardId, userId: this.userId, closed: false });
 
             // currentUser Private or Public board
             if (boards.count()) return boards;
 
             // Public board
-            return Boards.find({ _id: boardId, permission: 'Public' });
+            return Boards.find({ _id: boardId, permission: 'Public', closed: false });
         },
         children: [
             {

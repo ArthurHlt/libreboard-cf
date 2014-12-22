@@ -1,3 +1,21 @@
+var Offsets = {
+    headerUser: function(offset) {
+        return { left: (offset.left - 118), top: (offset.top + 40) }
+    },
+    list: function(offset) {
+        return { left: (offset.left + 230), top: (offset.top + 25) }
+    },
+    boardName: function(offset) {
+        return { left: (offset.left), top: (offset.top + 35) }
+    },
+    boardPermission: function(offset) { 
+        return this.boardName(offset); 
+    },
+    boardRemove: function(offset) {
+        return { left: (offset.left - 61), top: (offset.top - 8) }
+    }
+};
+
 Utils = {
     error: function(err) {
         Session.set("error", (err && err.message || false));       
@@ -30,23 +48,9 @@ Utils = {
 
     // Pop
     Pop: {
-        Offsets: {
-            headerUser: function(offset) {
-                return { left: (offset.left - 118), top: (offset.top + 40) }
-            },
-            list: function(offset) {
-                return { left: (offset.left + 230), top: (offset.top + 25) }
-            },
-            boardName: function(offset) {
-                return { left: (offset.left), top: (offset.top + 35) }
-            },
-            boardPermission: function(offset) {
-                return this.boardName(offset);
-            }
-        },
         getOffset: function($el) {
             var $this = $($el),
-                offset = this.Offsets[$this.attr('popOffset')]($this.offset());
+                offset = Offsets[$this.attr('popOffset')]($this.offset());
             return offset;
         },
         open: function(template, label, $el, data) {

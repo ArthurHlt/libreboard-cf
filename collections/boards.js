@@ -23,6 +23,7 @@ Boards.helpers({
 // BOARDS BEFORE HOOK INSERT
 Boards.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
+    doc.openWidgets = true;
     doc.closed = false;
 
     // userId native set.

@@ -1,0 +1,80 @@
+<template name="boardWidgets">
+    <a href="#" class="sidebar-show-btn dark-hover js-show-sidebar"> 
+        <span class="icon-sm icon-leftarrow"></span> 
+        <span class="text">Show sidebar</span> 
+    </a>
+    {{# if board.openWidgets }}
+        <div class="board-widgets">
+            <div>
+                <a href="#" class="sidebar-hide-btn dark-hover js-hide-sidebar" title="Close the board sidebar."> 
+                    <span class="icon-sm icon-rightarrow"></span> 
+                </a> 
+                <div class="board-widgets-title clearfix"> 
+                    <a href="#" class="board-sidebar-back-btn js-pop-widget-view">
+                        <span class="left-arrow"></span>Back
+                    </a> 
+                    <h3 class="text"></h3> 
+                    <hr> 
+                </div> 
+                <div class="board-widgets-content-wrapper">
+                    <div class="board-widgets-content default fancy-scrollbar short">
+                        {{ > menuWidget }}
+                        {{ > membersWidget }}
+                    </div>
+                </div> 
+            </div>
+        </div>
+    {{ /if }}
+</template>
+
+<template name="menuWidget">
+    <div class="board-widget board-widget-nav clearfix collapsed"> 
+        <h3 class="dark-hover toggle-widget-nav js-toggle-widget-nav">Menu 
+            <span class="icon-sm icon-menu toggle-menu-icon"></span> 
+        </h3> 
+        <ul class="nav-list"> 
+            <hr style="margin-top: 0;">       
+            <li> 
+                <a href="#" class="nav-list-item js-open-archive"> 
+                    <span class="icon-sm icon-archive icon-type"></span> 
+                    Archived Items 
+                </a>
+            </li> 
+            <hr>
+            <li> 
+                <a class="nav-list-item nav-list-sub-item js-close-board" href="#" popOffset='boardRemove'> Close Board… </a> 
+            </li>   
+        </ul>
+    </div> 
+</template>
+
+<template name="membersWidget">
+    <hr>
+    <div class="board-widget board-widget-members clearfix"> 
+        <div class="board-widget-title"> 
+            <h3>Members</h3> 
+        </div>
+        <div class="board-widget-content"> 
+            <div class="board-widget-members js-list-board-members clearfix js-list-draggable-board-members">
+                <div class="member ui-draggable">  
+                    <span class="member-initials" title="dksdksj (dksdksj)"> D  </span>
+                    <span class="member-status active"></span> 
+                    <span class="member-type admin"></span>   
+                    <span class="member-gold-badge"></span> 
+                </div>
+            </div> 
+            <a href="#" class="button-link js-open-manage-board-members"> 
+                <span class="icon-sm icon-member"></span> Add Members… 
+            </a>  
+        </div> 
+    </div>
+</template>
+
+
+<template name="closeBoardPop">
+    <p> 
+        You can re-open the board by clicking the "Boards" menu from the header, selecting 
+        "View Closed Boards", finding the board and clicking "Re-open". 
+    </p> 
+    <input type="submit" class="js-confirm negate full" value="Close">
+</template>

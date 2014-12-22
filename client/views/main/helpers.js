@@ -18,6 +18,9 @@ var Helpers = {
         // Template tag {{# if isTrue a b consl }}
         if (_.isBoolean(consl)) console.log(a, b, a==b);
         return a == b;
+    },
+    isTrueThen: function(a, b, then) {
+        return a == b ? then : false;
     }
 };
 
