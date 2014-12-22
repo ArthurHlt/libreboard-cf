@@ -19,7 +19,7 @@
 <template name="listTitleEditForm">
     <form id="ListTitleEditForm">
         <div class="edit edit-heavy clearfix"> 
-        <textarea type="text" class="field fieldSingle single-line js-title-input">{{ list.title }}</textarea>
+            <input type="text" class="field fieldSingle single-line js-title-input" value="{{ list.title }}">
             <div class="edit-controls clearfix"> 
                 <input type="submit" class="primary confirm js-save-edit" value="Save"> 
                 <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
