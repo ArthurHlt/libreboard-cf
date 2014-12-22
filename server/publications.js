@@ -50,7 +50,7 @@ Meteor.publishComposite('board', function(boardId) {
                     // Member Users
                     {
                         find: function(member, board) {
-                            Users.find({ _id: member.userId });
+                            return Users.find({ _id: member.userId });
                         } 
                     }    
                 ]
