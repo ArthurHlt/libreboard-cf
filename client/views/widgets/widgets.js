@@ -52,7 +52,7 @@ Template.closeBoardPop.events({
             }
         }, function(err) {
             // go boards Page 
-            Router.go('Boards');
+            if (!err) Router.go('Boards');
         });
     }
 });

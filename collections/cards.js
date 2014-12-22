@@ -3,9 +3,15 @@ Cards  = new Mongo.Collection('cards');
 
 // ALLOWS
 Cards.allow({
-    insert: function(userId, doc) { return doc.userId === userId; },
-    update: function(userId, doc) { return doc.userId === userId; },
-    remove: function(userId, doc) { return doc.userId === userId; },
+    insert: function(userId, doc) { 
+        return !!BoardMembers.findOne(_.pick(doc, ['userId', 'boardId']));
+    },
+    update: function(userId, doc) {
+        return !!BoardMembers.findOne(_.pick(doc, ['userId', 'boardId']));
+    },
+    remove: function(userId, doc) { 
+        return !!BoardMembers.findOne(_.pick(doc, ['userId', 'boardId']));
+    }
 });
 
 

@@ -23,9 +23,19 @@ Boards.helpers({
     members: function() {
         return BoardMembers.find({});         
     },
-    edit: function(yes, no) {
-        var member = BoardMembers.findOne({ userId: Meteor.userId() });
-        return member ? yes : no ;
+    edit: function(yes, no, memberType) {
+        var filter = { 
+            $or: [] 
+        };
+
+        _.forEach(memberType.split(','), function(type, i) {
+            filter.$or.push({
+                userId: Meteor.userId(), 
+                memberType: type
+            });
+        });
+
+        return BoardMembers.findOne(filter) ? yes : no;
     }
 });
 
