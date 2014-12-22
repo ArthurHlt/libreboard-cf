@@ -1,5 +1,10 @@
 Users = Meteor.users;
 
+Users.initEasySearch('username', {
+    field: 'username',
+    use: 'mongo-db'
+});
+
 // HELPERS
 Users.helpers({
     boards: function() {

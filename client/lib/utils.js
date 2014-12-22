@@ -13,6 +13,9 @@ var Offsets = {
     },
     boardRemove: function(offset) {
         return { left: (offset.left - 61), top: (offset.top - 8) }
+    },
+    membersAdd: function(offset) {
+        return { left: (offset.left - 61), top: (offset.top + 35) }
     }
 };
 

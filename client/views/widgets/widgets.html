@@ -66,7 +66,7 @@
                     </div>
                 {{ /each }}
             </div> 
-            <a href="#" class="button-link js-open-manage-board-members"> 
+            <a href="#" class="button-link js-open-manage-board-members" popOffset='membersAdd'> 
                 <span class="icon-sm icon-member"></span> Add Members… 
             </a>  
         </div> 
@@ -80,4 +80,49 @@
         "View Closed Boards", finding the board and clicking "Re-open". 
     </p> 
     <input type="submit" class="js-confirm negate full" value="Close">
+</template>
+
+<template name="addMemberPop">
+    <div class="search-with-spinner"> 
+        {{> esInput index="users" }}
+    </div>
+
+    <div class="manage-member-section hide js-search-results" style="display: block;"> 
+        <ul class="pop-over-member-list options js-list">
+            {{# esEach index="users"}}
+                <li class="item js-member-item {{ member _id 'disabled' }}"> 
+                    <a href="#" class="name js-select-member {{ member _id 'multi-line' }}" title="{{ profile.fullname }} ({{ username }})">
+                        <span class="member js-member">  
+                            <span class="member-initials"> Y  </span>
+                        </span>
+                        <span class="full-name" name="Test (ali09)">
+                            {{ profile.fullname }}  (<span class="username">{{ username }}</span>) 
+                        </span>
+                       {{# if member _id 'disabled' }} 
+                           <div class="extra-text quiet">(joined)</div>
+                       {{/if}}
+                        <span class="icon-sm icon-rightarrow light option js-open-option"></span>  
+                    </a> 
+                </li>
+            {{/esEach }}
+        </ul> 
+    </div>
+
+    {{# ifEsIsSearching index='users' }}
+        <div class="tac">
+            <span class="tabbed-pane-main-col-loading-spinner spinner"></span> 
+        </div>
+    {{ /ifEsIsSearching }}
+
+     {{# ifEsHasNoResults index="users" }}
+        <div class="manage-member-section js-no-results"> 
+            <p class="quiet center" style="padding: 16px 4px;">No results</p> 
+        </div>
+    {{ /ifEsHasNoResults }}
+
+    <div class="manage-member-section js-helper"> 
+        <p class="bottom quiet" style="padding: 6px;"> 
+            Search for a person in Metrello by name or email address, or enter an email address to invite someone new. 
+        </p> 
+    </div>
 </template>

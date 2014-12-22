@@ -1,3 +1,9 @@
+Template.addMemberPop.helpers({
+    member: function(userId, klass) {
+        return BoardMembers.findOne({ userId: userId}) ? klass : '';        
+    }
+});
+
 Template.boardWidgets.events({
     'click .js-show-sidebar': function(event, t) {
         Boards.update(this.board._id, {
@@ -51,4 +57,21 @@ Template.closeBoardPop.events({
     }
 });
 
-Template.membersWidget.events({});
+Template.membersWidget.events({
+    'click .js-open-manage-board-members': function(event, t) {
+        Utils.Pop.open('addMemberPop', 'Members', event.currentTarget, Boards.findOne());
+        event.preventDefault();
+    }
+});
+
+Template.addMemberPop.events({
+    'click .pop-over-member-list li:not(.disabled)': function(event, t) {
+        BoardMembers.insert({
+            boardId: t.data._id,
+            userId: this._id,
+            memberType: 'normal'
+        }, function(err, memberId) {
+            Utils.Pop.close();
+        });
+    }
+});

@@ -3237,6 +3237,10 @@ button.loud-text-button:hover {
     text-decoration: underline
 }
 
+
+.pop-over-member-list li.disabled a { cursor:default;  }
+.pop-over-member-list li:not(.disabled):hover a { background-color: #318ec4; color: #fff; }
+
 .pop-over-label-list li a,.pop-over-member-list li a,.pop-over-emoji-list li a,.pop-over-card-list li a {
     border-radius: 3px;
     display: block;
@@ -6652,37 +6656,6 @@ textarea.list-card-composer-textarea,textarea.list-card-composer-textarea:focus 
     width: 108px
 }
 
-.attachment-thumbnail-preview-dropbox-logo {
-    background-image: url(https://d78fikflryjgj.cloudfront.net/images/services/275d8a966e5d9d2b8e22ade7ea2c9ddd/dropbox-preview-logo.svg)
-}
-
-.attachment-thumbnail-preview-fogbugz-logo {
-    background-image: url(https://d78fikflryjgj.cloudfront.net/images/services/3875991b3c671e428a421b8999fbe1bb/fogbugz-preview-logo.svg)
-}
-
-.attachment-thumbnail-preview-github-logo {
-    background-image: url(https://d78fikflryjgj.cloudfront.net/images/services/346c8ad70711bd0f575babb6254994ca/github-preview-logo.svg)
-}
-
-.attachment-thumbnail-preview-google-drive-logo {
-    background-image: url(https://d78fikflryjgj.cloudfront.net/images/services/64011cc7e495af6d55d07cb64233250d/google-drive-preview-logo.svg)
-}
-
-.attachment-thumbnail-preview-kiln-logo {
-    background-image: url(https://d78fikflryjgj.cloudfront.net/images/services/d23187d129d386fcae7b929f94451dcf/kiln-preview-logo.svg)
-}
-
-.attachment-thumbnail-preview-trello-logo {
-    background-image: url(https://d78fikflryjgj.cloudfront.net/images/services/07db7adfabb199709ad3d9c8fcede6a7/trello-preview-logo.svg)
-}
-
-.attachment-thumbnail-preview-one-drive-logo {
-    background-image: url(https://d78fikflryjgj.cloudfront.net/images/services/e4e5ea0947583d430483bcdbbb9fab64/onedrive-preview-logo.svg)
-}
-
-.attachment-thumbnail-preview-box-logo {
-    background-image: url(https://d78fikflryjgj.cloudfront.net/images/services/f49ae2b057b81e9080b0db7e7f5b5a3a/box-preview-logo.svg)
-}
 
 .attachment-thumbnail-preview-ext {
     color: #8c8c8c;
