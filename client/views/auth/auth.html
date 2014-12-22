@@ -60,7 +60,7 @@
 
 <template name="memberMenuPop">
     <ul class="pop-over-list"> 
-        <li><a class="js-profile" href="{{ pathFor route='Profile' _id=currentUser._id }}">Profile</a></li> 
+        <li><a class="js-profile" href="{{ pathFor route='Profile' username=currentUser.username }}">Profile</a></li> 
         <li><a class="js-cards" href="{{ pathFor route='Settings' }}">Settings</a></li>  
     </ul>
     <hr>
