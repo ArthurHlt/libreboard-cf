@@ -1,7 +1,3 @@
-Template.memberHeader.helpers({});
-Template.login.helpers({});
-Template.signup.helpers({});
-
 Template.login.events({
     'submit #LoginForm': function(event, t) {
         var email = $.trim(t.find('#email').value),
@@ -80,5 +76,33 @@ Template.memberMenuPop.events({
         Meteor.logout(function() {
             Router.go('Home');
         });
+    }
+});
+
+Template.profileEditForm.events({
+    'click .js-edit-profile': function() {
+        Session.set('ProfileEditForm', true);
+    },
+    'click .js-cancel-edit-profile': function() {
+        Session.set('ProfileEditForm', false);
+    },
+    'submit #ProfileEditForm': function(event, t) {
+        var fullname = t.find('#fullname').value,
+            bio = t.find('#bio').value;
+
+        // trim and update
+        if ($.trim(fullname)) {
+            Users.update(this.profile()._id, {
+                $set: {
+                    'profile.fullname': fullname,
+                    'profile.bio': bio
+                }
+            }, function() {
+
+                // update complete close profileEditForm
+                Session.set('ProfileEditForm', false);
+            });
+        }
+        event.preventDefault();
     }
 });

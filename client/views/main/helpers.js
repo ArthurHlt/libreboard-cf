@@ -13,6 +13,11 @@ var Helpers = {
     },
     session: function(prop) {
         return Session.get(prop);
+    },
+    isTrue: function(a, b, consl) {
+        // Template tag {{# if isTrue a b consl }}
+        if (_.isBoolean(consl)) console.log(a, b, a==b);
+        return a == b;
     }
 };
 

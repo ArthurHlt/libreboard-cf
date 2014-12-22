@@ -1,3 +1,11 @@
+Meteor.publishComposite('profile', function(username) {
+    return {
+        find: function() {
+            return Users.find({ username: username });
+        }
+    }
+});
+
 Meteor.publishComposite('boards', function() {
     return {
         find: function() {

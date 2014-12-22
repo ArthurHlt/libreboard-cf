@@ -71,21 +71,23 @@
     <div class="tabbed-pane-header">
         <div class="tabbed-pane-header-wrapper clearfix"> 
             <a class="tabbed-pane-header-image profile-image ed js-change-avatar-profile" href="#">
-                <span class="profile-image-initials">{{ firstChar currentUser.profile.fullname }}</span>
-                <span class="change-text"> Change Avatar </span>
+                <span class="profile-image-initials">{{ firstChar profile.profile.fullname }}</span>
+                {{#if isTrue currentUser.username profile.username }}
+                    <span class="change-text"> Change Avatar </span>
+                {{ /if }}
             </a> 
             <div class="tabbed-pane-header-details"> 
                 <div class="js-current-details">
                     <div class="tabbed-pane-header-details-name">
-                        <h1 class="inline"> {{ currentUser.profile.fullname }} </h1> 
-                        <p class="window-title-extra quiet"> @{{ currentUser.username }} </p>  
+                        <h1 class="inline"> {{ profile.profile.fullname }} </h1> 
+                        <p class="window-title-extra quiet"> @{{ profile.username }} </p>  
                     </div> 
+                    <div class="tabbed-pane-header-details-content"> 
+                        <p>{{ profile.profile.bio }}</p>
+                    </div>
                     <div class="tabbed-pane-header-details-content"></div>  
-                    <a class="button-link tabbed-pane-header-details-edit js-edit-profile" href="#">
-                        <span class="icon-sm icon-edit"></span> 
-                        Edit profile
-                    </a>  
                 </div>    
+                {{ > profileEditForm }}
             </div>  
         </div> 
     </div>
@@ -117,4 +119,29 @@
             </div>       
         </div> 
     </div>
+</template>
+
+<template name="profileEditForm">
+    {{#if isTrue currentUser.username profile.username }}
+        {{# if session 'ProfileEditForm' }}
+            <form id="ProfileEditForm" class="js-profile-form">
+                <p class="error js-profile-form-error hide"></p> 
+                <label>Username</label> 
+                <input type="text" id="username" value="{{ profile.username }}" disabled> 
+                <label>Full Name</label> 
+                <input type="text" id="fullname" value="{{ profile.profile.fullname }}"> 
+                <label>
+                    Bio <span class="quiet">(optional)</span>
+                </label> 
+                <textarea id="bio">{{ profile.profile.bio }}</textarea> 
+                <input type="submit" class="primary wide js-submit-profile" value="Save"> 
+                <input type="button" class="js-cancel-edit-profile" value="Cancel"> 
+            </form>
+        {{ else }}
+            <a class="button-link tabbed-pane-header-details-edit js-edit-profile" href="#">
+                <span class="icon-sm icon-edit"></span> 
+                Edit profile
+            </a>  
+        {{ /if }}
+    {{ /if }}
 </template>

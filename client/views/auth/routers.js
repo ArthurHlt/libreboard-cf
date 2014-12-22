@@ -12,11 +12,21 @@ Router.route('/signup', {
     bodyClass: 'account-page'
 });
 
-Router.route('/profile/:_id', {
+Router.route('/profile/:username', {
     name: 'Profile',
     template: 'profile',
-    layoutTemplate: 'AuthLayout',
-    bodyClass: 'page-index chrome chrome-39 mac large-window body-webkit-scrollbars tabbed-page'
+    bodyClass: 'page-index chrome chrome-39 mac large-window body-webkit-scrollbars tabbed-page',
+    waitOn: function() {
+        return Meteor.subscribe('profile', this.params.username);
+    },
+    data: function() {
+        var params = this.params; 
+        return {
+            profile: function() {
+                return Users.findOne({ username: params.username });
+            }
+        }      
+    }
 });
 
 Router.route('/settings', {
