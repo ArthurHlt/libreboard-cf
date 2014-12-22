@@ -1,3 +1,8 @@
+Template.board.rendered = function() {
+    // resize not update observe changed.
+    jQuery(window).resize(Utils.resizeHeight('.board-canvas'));
+};
+
 Template.boards.helpers({
     boards: function() {
         return Boards.find({});

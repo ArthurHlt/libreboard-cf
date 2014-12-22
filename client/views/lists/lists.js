@@ -27,6 +27,14 @@ Template.lists.rendered = function() {
             }
         }).disableSelection();
     } 
+
+
+    // update height add, update, remove resize board height.
+    Lists.find().observe({
+        added: Utils.resizeHeight('.board-canvas'),
+        updated: Utils.resizeHeight('.board-canvas'),
+        removed: Utils.resizeHeight('.board-canvas')
+    });
 };
 
 Template.addlistForm.helpers({});

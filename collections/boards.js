@@ -15,6 +15,7 @@ Boards.helpers({
         return Lists.find({ boardId: this._id }, { sort: { sort: 1 }});
     },
     edit: function(yes, no) {
+        var no = _.isString(no) && no || '';
         return !Meteor.user() ? yes : (no || '');
     }
 });

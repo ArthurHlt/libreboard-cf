@@ -36,9 +36,6 @@ Template.cards.rendered = function() {
         updated: Utils.resizeHeight('.board-canvas'),
         removed: Utils.resizeHeight('.board-canvas')
     });
-
-    // resize not update observe changed.
-    jQuery(window).resize(Utils.resizeHeight('.board-canvas'));
 };
 
 Template.addCardForm.helpers({});
