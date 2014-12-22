@@ -3,7 +3,7 @@ Template.lists.rendered = function() {
         data = this.data,
         lists = _this.$(".lists");
 
-    if (!data.board.edit('yes')) {
+    if (data.board.edit('yes')) {
         lists.sortable({
             connectWith: ".lists",
             handle: ".list-header",

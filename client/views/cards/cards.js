@@ -3,7 +3,7 @@ Template.cards.rendered = function() {
         data = this.data,
         cards = _this.$(".cards");
 
-    if (!data.board.edit('yes')) {
+    if (data.board.edit('yes')) {
         cards.sortable({
             connectWith: ".cards",
             tolerance: 'pointer',

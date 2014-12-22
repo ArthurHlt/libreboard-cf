@@ -24,8 +24,8 @@ Boards.helpers({
         return BoardMembers.find({});         
     },
     edit: function(yes, no) {
-        var no = _.isString(no) && no || '';
-        return !Meteor.user() ? yes : (no || '');
+        var member = BoardMembers.findOne({ userId: Meteor.userId() });
+        return member ? yes : no ;
     }
 });
 
