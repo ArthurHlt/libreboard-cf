@@ -8,10 +8,20 @@ Boards.allow({
     remove: function(userId, doc) { return doc.userId === userId; },
 });
 
+
+BoardMembers.helpers({
+    user: function() {
+        return Users.findOne({ _id: this.userId });
+    }
+});
+
 // HELPERS
 Boards.helpers({
     lists: function() {
         return Lists.find({ boardId: this._id }, { sort: { sort: 1 }});
+    },
+    members: function() {
+        return BoardMembers.find({});         
     },
     edit: function(yes, no) {
         var no = _.isString(no) && no || '';

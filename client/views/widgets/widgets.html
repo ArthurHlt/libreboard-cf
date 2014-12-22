@@ -56,12 +56,15 @@
         </div>
         <div class="board-widget-content"> 
             <div class="board-widget-members js-list-board-members clearfix js-list-draggable-board-members">
-                <div class="member ui-draggable">  
-                    <span class="member-initials" title="dksdksj (dksdksj)"> D  </span>
-                    <span class="member-status active"></span> 
-                    <span class="member-type admin"></span>   
-                    <span class="member-gold-badge"></span> 
-                </div>
+                {{# each board.members }} 
+                    <div class="member ui-draggable">  
+                        <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.username}})">
+                            {{ firstChar user.profile.fullname }}
+                        </span>
+                        <span class="member-status active"></span> 
+                        <span class="member-type {{ memberType }}"></span>   
+                    </div>
+                {{ /each }}
             </div> 
             <a href="#" class="button-link js-open-manage-board-members"> 
                 <span class="icon-sm icon-member"></span> Add Members… 
