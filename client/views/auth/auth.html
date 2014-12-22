@@ -68,29 +68,33 @@
 </template>
 
 <template name='profile'>
-    <div class="tabbed-pane-header">
-        <div class="tabbed-pane-header-wrapper clearfix"> 
-            <a class="tabbed-pane-header-image profile-image ed js-change-avatar-profile" href="#">
-                <span class="profile-image-initials">{{ firstChar profile.profile.fullname }}</span>
-                {{#if isTrue currentUser.username profile.username }}
-                    <span class="change-text"> Change Avatar </span>
-                {{ /if }}
-            </a> 
-            <div class="tabbed-pane-header-details"> 
-                <div class="js-current-details">
-                    <div class="tabbed-pane-header-details-name">
-                        <h1 class="inline"> {{ profile.profile.fullname }} </h1> 
-                        <p class="window-title-extra quiet"> @{{ profile.username }} </p>  
-                    </div> 
-                    <div class="tabbed-pane-header-details-content"> 
-                        <p>{{ profile.profile.bio }}</p>
-                    </div>
-                    <div class="tabbed-pane-header-details-content"></div>  
-                </div>    
-                {{ > profileEditForm }}
-            </div>  
-        </div> 
-    </div>
+    {{ # if profile }}
+        <div class="tabbed-pane-header">
+            <div class="tabbed-pane-header-wrapper clearfix"> 
+                <a class="tabbed-pane-header-image profile-image ed js-change-avatar-profile" href="#">
+                    <span class="profile-image-initials">{{ firstChar profile.profile.fullname }}</span>
+                    {{#if isTrue currentUser.username profile.username }}
+                        <span class="change-text"> Change Avatar </span>
+                    {{ /if }}
+                </a> 
+                <div class="tabbed-pane-header-details"> 
+                    <div class="js-current-details">
+                        <div class="tabbed-pane-header-details-name">
+                            <h1 class="inline"> {{ profile.profile.fullname }} </h1> 
+                            <p class="window-title-extra quiet"> @{{ profile.username }} </p>  
+                        </div> 
+                        <div class="tabbed-pane-header-details-content"> 
+                            <p>{{ profile.profile.bio }}</p>
+                        </div>
+                        <div class="tabbed-pane-header-details-content"></div>  
+                    </div>    
+                    {{ > profileEditForm }}
+                </div>  
+            </div> 
+        </div>
+    {{ else }}
+        {{ > message label='User Profile not found.' }}
+    {{ /if }}
 </template>
 
 <template name="settings">

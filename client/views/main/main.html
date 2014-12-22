@@ -95,7 +95,7 @@
 <template name='message'>
     <div class="big-message quiet {{ color }}"> 
         <h1>{{ label }}</h1>   
-        <p> This page may be private. If someone gave you this link, they may need to invite you to one of their boards.</p>  
+        <p> This page may be private. You may be able to view it by <a href="{{ pathFor route='Login' }}">logging in</a>. </p>
     </div>
 </template>
 
