@@ -3,6 +3,16 @@ Utils = {
         Session.set("error", (err && err.message || false));       
     },
 
+    resizeHeight: function(selector, callback) {
+        return function() {
+            var board = jQuery(selector);
+            board.height($(window).height() - 100);
+            
+            // call
+            callbak && callback();
+        }
+    },
+
     // scroll
     Scroll: function(selector) {
         var $el = $(selector);

@@ -29,6 +29,13 @@ Template.cards.rendered = function() {
 
         }).disableSelection();
     }
+
+    // update height add, update, remove resize board height.
+    Cards.find().observe({
+        added: Utils.resizeHeight('.board-canvas'),
+        updated: Utils.resizeHeight('.board-canvas'),
+        removed: Utils.resizeHeight('.board-canvas')
+    });
 };
 
 Template.addCardForm.helpers({});
