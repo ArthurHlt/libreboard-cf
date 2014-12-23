@@ -8,7 +8,16 @@
                 <div class="list-card-details clearfix"> 
                     <a class="list-card-title clear js-card-name" href="#">{{ title }}</a>  
                     <div class="badges"></div> 
-                    <div class="list-card-members js-list-card-members"></div> 
+                    <div class="list-card-members js-list-card-members">
+                        {{# each members }}
+                            <div class="member js-member-on-card-menu"> 
+                                <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.username }})">
+                                    {{ firstChar user.profile.fullname }}
+                                </span>
+                                <span class="member-type {{ boardMember.memberType }}"></span>   
+                            </div>
+                        {{/each}}
+                    </div>
                 </div> 
             </div>
         {{/each}}

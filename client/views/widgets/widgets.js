@@ -1,3 +1,15 @@
+Template.membersWidget.rendered = function() {
+    Utils.liveEvent('mouseover', function($this) {
+        $this.find('.ui-draggable').draggable({
+            appendTo: "body",
+            helper: "clone",
+            revert: "invalid", 
+            snap: "true", 
+            snapMode: "inner"
+        });
+    });
+};
+
 Template.addMemberPop.helpers({
     member: function(userId, klass) {
         return BoardMembers.findOne({ userId: userId}) ? klass : '';        

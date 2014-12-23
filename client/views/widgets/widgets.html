@@ -56,7 +56,7 @@
         <div class="board-widget-content"> 
             <div class="board-widget-members js-list-board-members clearfix js-list-draggable-board-members">
                 {{# each board.members }} 
-                    <div class="member ui-draggable" popOffset='member'>  
+                    <div class="ui-draggable member" popOffset='member'>  
                         <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.username}})">
                             {{ firstChar user.profile.fullname }}
                         </span>
@@ -119,7 +119,7 @@
                 <li class="item js-member-item {{ member _id 'disabled' }}"> 
                     <a href="#" class="name js-select-member {{ member _id 'multi-line' }}" title="{{ profile.fullname }} ({{ username }})">
                         <span class="member js-member">  
-                            <span class="member-initials"> Y  </span>
+                            <span class="member-initials">{{ firstChar profile.fullname }}</span>
                         </span>
                         <span class="full-name" name="Test (ali09)">
                             {{ profile.fullname }}  (<span class="username">{{ username }}</span>) 

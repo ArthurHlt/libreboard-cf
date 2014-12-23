@@ -103,6 +103,12 @@ Utils = {
         return board && Router.go('Board', { _id: board._id, slug: board.slug });
     },
 
+    liveEvent: function(events, callback) {
+        $(document).on(events, function() {
+            callback($(this));
+        });
+    },
+
     // memberType admin $or normal
     isMemberFilter: function(filter) {
         return (this.is_authenticated() && BoardMembers.findOne(filter));

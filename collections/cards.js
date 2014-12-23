@@ -15,13 +15,32 @@ Cards.allow({
 });
 
 
+CardMembers.allow({
+    insert: function(userId, doc) {
+        var member = CardMembers.findOne(_.pick(doc, ['userId', 'cardId', 'boardId']));
+        return userId && !member;
+    }
+});
+
 // HELPERS
 Cards.helpers({
     list: function() {
         return Cards.find({ listId: this.listId });
     },
+    members: function() {
+        return CardMembers.find({ cardId: this._id });
+    },
     board: function() {
         return Boards.findOne(this.boardId);
+    }
+});
+
+CardMembers.helpers({
+    user: function() {
+        return Users.findOne(this.userId); 
+    },
+    boardMember: function() {
+        return BoardMembers.findOne({ userId: this.userId, boardId: this.boardId });
     }
 });
 
@@ -33,4 +52,10 @@ Cards.before.insert(function(userId, doc) {
 
     // userId native set.
     if (!doc.userId) doc.userId = userId;
+});
+
+
+// CARDMEMBERS BEFORE HOOK
+CardMembers.before.insert(function(userId, doc) {
+    doc.createdAt = new Date();
 });

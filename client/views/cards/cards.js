@@ -30,6 +30,24 @@ Template.cards.rendered = function() {
             }
 
         }).disableSelection();
+
+        Utils.liveEvent('mouseover', function($this) {
+            $this.find('.card').droppable({
+                hoverClass: "active-card",
+                drop: function(event, ui) {
+                    var user = Blaze.getData(ui.draggable.get(0)),
+                        card = Blaze.getData(this);
+                        
+                    // insert Member
+                    CardMembers.insert({
+                        cardId: card._id,
+                        userId: user.userId,
+                        boardId: user.boardId,
+                        listId: card.listId
+                    });
+                }
+            });
+        });
     }
 
     // update height add, update, remove resize board height.
