@@ -56,7 +56,7 @@
         <div class="board-widget-content"> 
             <div class="board-widget-members js-list-board-members clearfix js-list-draggable-board-members">
                 {{# each board.members }} 
-                    <div class="ui-draggable member" popOffset='member'>  
+                    <div class="member js-member" popOffset='member'>  
                         <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.username}})">
                             {{ firstChar user.profile.fullname }}
                         </span>

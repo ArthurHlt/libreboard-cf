@@ -1,11 +1,12 @@
 Template.membersWidget.rendered = function() {
     Utils.liveEvent('mouseover', function($this) {
-        $this.find('.ui-draggable').draggable({
+        $this.find('.js-member').draggable({
             appendTo: "body",
             helper: "clone",
             revert: "invalid", 
+            revertDuration: 100,
             snap: "true", 
-            snapMode: "inner"
+            snapMode: "inner",
         });
     });
 };
