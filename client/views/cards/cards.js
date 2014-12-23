@@ -28,7 +28,6 @@ Template.cards.rendered = function() {
                     });
                 });
             }
-
         }).disableSelection();
 
         Utils.liveEvent('mouseover', function($this) {

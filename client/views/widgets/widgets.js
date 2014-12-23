@@ -1,14 +1,16 @@
 Template.membersWidget.rendered = function() {
-    Utils.liveEvent('mouseover', function($this) {
-        $this.find('.js-member').draggable({
-            appendTo: "body",
-            helper: "clone",
-            revert: "invalid", 
-            revertDuration: 100,
-            snap: "true", 
-            snapMode: "inner",
+    if (Utils.isMemberAll(true, false)) {
+        Utils.liveEvent('mouseover', function($this) {
+            $this.find('.js-member').draggable({
+                appendTo: "body",
+                helper: "clone",
+                revert: "invalid", 
+                revertDuration: 100,
+                snap: "true", 
+                snapMode: "inner",
+            });
         });
-    });
+    }
 };
 
 Template.addMemberPop.helpers({
