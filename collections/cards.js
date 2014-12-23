@@ -1,5 +1,5 @@
-Cards  = new Mongo.Collection('cards');
-
+Cards = new Mongo.Collection('cards');
+CardMembers = new Mongo.Collection('card_members');
 
 // ALLOWS
 Cards.allow({

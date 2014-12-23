@@ -9,7 +9,14 @@ Meteor.publishComposite('profile', function(username) {
 Meteor.publishComposite('boards', function() {
     return {
         find: function() {
-            return Boards.find({ userId: this.userId, closed: false });
+            // Flat id list
+            var boardIds = BoardMembers.find({ userId: this.userId }).map(function(b) {
+                // members [boardId, boardId] flats
+                return b.boardId;
+            });
+
+            // Board members 
+            return Boards.find({ _id: { $in: boardIds }, closed: false });
         }
     }
 });
