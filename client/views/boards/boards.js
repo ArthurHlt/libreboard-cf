@@ -46,18 +46,11 @@ Template.createBoardPop.events({
 
         // trim value title 
         if ($.trim(title.val())) {
-
             // İnsert Board title
-            Boards.insert({
+            var boardId = Boards.insert({ title: title.val(), permission : 'Public' });
 
-                title: title.val(),
-                permission : 'Public'
-
-            }, function(err, boardId) {
-                 
-                // insert complete goto board page
-                Router.go('Board', { _id: boardId });
-            }); 
+            // Go to Board _id
+            Utils.goBoardId(boardId);
         }
         event.preventDefault();    
     }

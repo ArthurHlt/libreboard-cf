@@ -7,11 +7,12 @@ Router.route('/boards', {
     }
 });
 
-Router.route('/boards/:_id', {
+Router.route('/boards/:_id/:slug', {
     name: 'Board',
     template: 'board',
     bodyClass: 'page-index chrome chrome-39 mac extra-large-window body-webkit-scrollbars body-board-view bgBoard',
     waitOn: function() {
-        return Meteor.subscribe('board', this.params._id);
+        var params = this.params;
+        return Meteor.subscribe('board', params._id, params.slug);
     }
 });

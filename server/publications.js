@@ -14,16 +14,20 @@ Meteor.publishComposite('boards', function() {
     }
 });
 
-Meteor.publishComposite('board', function(boardId) {
+Meteor.publishComposite('board', function(boardId, slug) {
     return {
         find: function() {
-            var boards = Boards.find({ _id: boardId, userId: this.userId, closed: false });
+            var boards = Boards.find({ 
+                _id: boardId, slug: slug, userId: this.userId, closed: false 
+            });
 
             // currentUser Private or Public board
             if (boards.count()) return boards;
 
             // Public board
-            return Boards.find({ _id: boardId, permission: 'Public', closed: false });
+            return Boards.find({ 
+                _id: boardId, slug: slug, permission: 'Public', closed: false 
+            });
         },
         children: [
 

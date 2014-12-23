@@ -75,6 +75,11 @@ Utils = {
         }
     },
 
+    goBoardId: function(_id) {
+        var board = Boards.findOne({ _id: _id });
+        return board && Router.go('Board', { _id: board._id, slug: board.slug });
+    },
+
     // memberType admin $or normal
     isMemberFilter: function(filter) {
         return (this.is_authenticated() && BoardMembers.findOne(filter));

@@ -32,6 +32,7 @@ BoardMembers.before.insert(function(userId, doc) {
 
 // BOARDS BEFORE HOOK INSERT
 Boards.before.insert(function(userId, doc) {
+    doc.slug = slugify(doc.title);
     doc.createdAt = new Date();
     doc.openWidgets = true;
     doc.closed = false;
