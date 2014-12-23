@@ -21,6 +21,15 @@ var Helpers = {
     },
     isTrueThen: function(a, b, then) {
         return a == b ? then : false;
+    },
+    isMemberAdmin: function(yesKlass, noKlass) {
+        return Utils.isMemberAdmin(yesKlass, noKlass);
+    },
+    isMemberNormal: function(yesKlass, noKlass) {
+        return Utils.isMemberNormal(yesKlass, noKlass);
+    },
+    isMemberAll: function(yesKlass, noKlass) {
+        return Utils.isMemberAll(yesKlass, noKlass);
     }
 };
 

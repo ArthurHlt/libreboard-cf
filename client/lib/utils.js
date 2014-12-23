@@ -24,6 +24,10 @@ Utils = {
         Session.set("error", (err && err.message || false));       
     },
 
+    is_authenticated: function() {
+        return Meteor.user() ? true : false;
+    },
+
     resizeHeight: function(selector, callback) {
         return function() {
             var board = jQuery(selector);
@@ -69,5 +73,30 @@ Utils = {
         close: function() {
             Session.set('pop', false);
         }
+    },
+
+    // memberType admin $or normal
+    isMemberFilter: function(filter) {
+        return (this.is_authenticated() && BoardMembers.findOne(filter));
+    },
+
+    isMemberAdmin: function(yesKlass, noKlass) {
+        var filter = { userId: Meteor.userId(), memberType: 'admin' };
+        return this.isMemberFilter(filter) ? yesKlass : noKlass;
+    },
+
+    isMemberNormal: function(yesKlass, noKlass) {
+        var filter = { userId: Meteor.userId(), memberType: 'normal' };
+        return this.isMemberFilter(filter) ? yesKlass : noKlass;
+    },
+
+    isMemberAll: function(yesKlass, noKlass) {
+        var filter = { 
+            $or: [ 
+                { userId: Meteor.userId(), memberType: 'admin' },
+                { userId: Meteor.userId(), memberType: 'normal' }
+            ]
+        };
+        return this.isMemberFilter(filter) ? yesKlass : noKlass;
     }
 };

@@ -3,7 +3,7 @@ Template.lists.rendered = function() {
         data = this.data,
         lists = _this.$(".lists");
 
-    if (data.board.edit(true, false, 'normal,admin')) {
+    if (Utils.isMemberAll(true, false)) {
         lists.sortable({
             connectWith: ".lists",
             handle: ".list-header",
