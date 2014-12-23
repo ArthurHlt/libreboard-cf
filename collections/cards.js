@@ -4,21 +4,23 @@ CardMembers = new Mongo.Collection('card_members');
 // ALLOWS
 Cards.allow({
     insert: function(userId, doc) { 
-        return !!BoardMembers.findOne(_.pick(doc, ['userId', 'boardId']));
+        return allowBoardMembers(userId, doc.boardId);
     },
     update: function(userId, doc) {
-        return !!BoardMembers.findOne(_.pick(doc, ['userId', 'boardId']));
+        return allowBoardMembers(userId, doc.boardId);
     },
     remove: function(userId, doc) { 
-        return !!BoardMembers.findOne(_.pick(doc, ['userId', 'boardId']));
+        return allowBoardMembers(userId, doc.boardId);
     }
 });
 
 
 CardMembers.allow({
     insert: function(userId, doc) {
-        var member = CardMembers.findOne(_.pick(doc, ['userId', 'cardId', 'boardId']));
-        return userId && !member;
+        return allowCardMembers(userId, doc);
+    },
+    remove: function(userId, doc) {
+        return allowBoardMembers(userId, doc.boardId);
     }
 });
 

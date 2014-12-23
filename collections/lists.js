@@ -4,13 +4,13 @@ Lists  = new Mongo.Collection('lists');
 // ALLOWS
 Lists.allow({
     insert: function(userId, doc) { 
-        return !!BoardMembers.findOne(_.pick(doc, ['userId', 'boardId']));
+        return allowBoardMembers(userId, doc.boardId);
     },
     update: function(userId, doc) {
-        return !!BoardMembers.findOne(_.pick(doc, ['userId', 'boardId']));
+        return allowBoardMembers(userId, doc.boardId);
     },
     remove: function(userId, doc) { 
-        return !!BoardMembers.findOne(_.pick(doc, ['userId', 'boardId']));
+        return allowBoardMembers(userId, doc.boardId);
     }
 });
 

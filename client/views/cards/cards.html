@@ -9,7 +9,7 @@
                     <div class="badges"></div> 
                     <div class="list-card-members js-list-card-members">
                         {{# each members }}
-                            <div class="member js-member-on-card-menu"> 
+                            <div class="member js-member-on-card-menu" popOffset='membersAdd'> 
                                 <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.username }})">
                                     {{ firstChar user.profile.fullname }}
                                 </span>
@@ -23,6 +23,25 @@
         {{ > addCardForm }}
     </div>
     <a class="open-card-composer js-open-card-composer {{ isMemberAll '' 'hide' }}" href="#">Add a card…</a>
+</template>
+
+<template name="cardMemberPop">
+    <div class="board-member-menu">
+        <div class="mini-profile-info"> 
+            <div class="member-large">  
+                <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.profile.username}})">{{ firstChar user.profile.fullname }}</span>
+            </div> 
+            <div class="info"> 
+                <h3 class="bottom" style="margin-right: 40px;">
+                    <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.fullname }}</a>
+                </h3> 
+                <p class="quiet bottom">@{{ user.username }}</p>
+            </div> 
+        </div> 
+        <ul class="pop-over-list"> 
+            <li><a class="js-remove-member">Remove from Card</a></li>
+        </ul> 
+    </div>
 </template>
 
 <template name="addCardForm">

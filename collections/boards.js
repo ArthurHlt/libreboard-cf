@@ -8,6 +8,17 @@ Boards.allow({
     remove: function(userId, doc) { return doc.userId === userId; },
 });
 
+BoardMembers.allow({
+    insert: function(userId, doc) {
+        return allowMemberTypeAdmin(userId, doc.boardId);
+    },
+    update: function(userId, doc) {
+        return allowMemberTypeAdmin(userId, doc.boardId);
+    },
+    remove: function(userId, doc) {
+        return allowMemberTypeAdmin(userId, doc.boardId);
+    }
+});
 
 BoardMembers.helpers({
     user: function() {

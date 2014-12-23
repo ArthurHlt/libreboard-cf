@@ -73,30 +73,28 @@
 </template>
 
 <template name='memberPop'>
-    <div class="content clearfix fancy-scrollbar js-tab-parent">
-        <div class="board-member-menu">
-            <div class="mini-profile-info"> 
-                <div class="member-large">  
-                    <span class="member-initials" title="{{ user.profile.fullname}} ({{ user.profile.username}})">{{ firstChar user.profile.fullname }}</span>
-                </div> 
-                <div class="info"> 
-                    <h3 class="bottom" style="margin-right: 40px;">
-                        <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.fullname }}</a>
-                    </h3> 
-                    <p class="quiet bottom">@{{ user.username }}</p>
-                </div> 
+    <div class="board-member-menu">
+        <div class="mini-profile-info"> 
+            <div class="member-large">  
+                <span class="member-initials" title="{{ user.profile.fullname}} ({{ user.profile.username}})">{{ firstChar user.profile.fullname }}</span>
             </div> 
-            <ul class="pop-over-list"> 
-                <li> 
-                    <a class="js-change-role {{ isMemberAdmin '' 'disabled' }}" href="#"> 
-                        Change permissions… <span class="quiet" style="font-weight: normal;">({{ memberType }})</span> 
-                    </a> 
-                </li> 
-                <li>
-                    <a class="js-remove-member {{ isMemberAdmin '' 'disabled' }}">Remove from Board…</a> 
-                </li>     
-            </ul> 
-        </div>
+            <div class="info"> 
+                <h3 class="bottom" style="margin-right: 40px;">
+                    <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.fullname }}</a>
+                </h3> 
+                <p class="quiet bottom">@{{ user.username }}</p>
+            </div> 
+        </div> 
+        <ul class="pop-over-list"> 
+            <li> 
+                <a class="js-change-role {{ isMemberAdmin '' 'disabled' }}" href="#"> 
+                    Change permissions… <span class="quiet" style="font-weight: normal;">({{ memberType }})</span> 
+                </a> 
+            </li> 
+            <li>
+                <a class="js-remove-member {{ isMemberAdmin '' 'disabled' }}">Remove from Board…</a> 
+            </li>     
+        </ul> 
     </div>
 </template>
 

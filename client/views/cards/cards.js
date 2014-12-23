@@ -98,3 +98,20 @@ Template.addCardForm.events({
         event.preventDefault();
     }
 });
+
+Template.cards.events({
+    'click .member': function(event, t) {
+        Utils.Pop.open('cardMemberPop', false, event.currentTarget, {
+            memberId: this._id,
+            user: this.user()
+        });
+    }
+});
+
+Template.cardMemberPop.events({
+    'click .js-remove-member': function(event, t) {
+        CardMembers.remove(this.memberId, function(err) {
+            if (!err) Utils.Pop.close();
+        });
+    }
+});
