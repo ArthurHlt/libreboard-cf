@@ -38,6 +38,13 @@ Utils = {
         }
     },
 
+    widgetsHeight: function() {
+        var wrapper = $('.board-wrapper'),
+            widgets = $('.board-widgets');
+        
+        // set height widgets
+        widgets.height(wrapper.height());
+    },
     // scroll
     Scroll: function(selector) {
         var $el = $(selector);
