@@ -80,23 +80,23 @@ Utils = {
         return (this.is_authenticated() && BoardMembers.findOne(filter));
     },
 
-    isMemberAdmin: function(yesKlass, noKlass) {
+    isMemberAdmin: function(yes, no) {
         var filter = { userId: Meteor.userId(), memberType: 'admin' };
-        return this.isMemberFilter(filter) ? yesKlass : noKlass;
+        return this.isMemberFilter(filter) ? yes : no;
     },
 
-    isMemberNormal: function(yesKlass, noKlass) {
+    isMemberNormal: function(yes, no) {
         var filter = { userId: Meteor.userId(), memberType: 'normal' };
-        return this.isMemberFilter(filter) ? yesKlass : noKlass;
+        return this.isMemberFilter(filter) ? yes : no;
     },
 
-    isMemberAll: function(yesKlass, noKlass) {
+    isMemberAll: function(yes, no) {
         var filter = { 
             $or: [ 
                 { userId: Meteor.userId(), memberType: 'admin' },
                 { userId: Meteor.userId(), memberType: 'normal' }
             ]
         };
-        return this.isMemberFilter(filter) ? yesKlass : noKlass;
+        return this.isMemberFilter(filter) ? yes : no;
     }
 };

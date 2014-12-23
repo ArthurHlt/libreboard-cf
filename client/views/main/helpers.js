@@ -22,14 +22,14 @@ var Helpers = {
     isTrueThen: function(a, b, then) {
         return a == b ? then : false;
     },
-    isMemberAdmin: function(yesKlass, noKlass) {
-        return Utils.isMemberAdmin(yesKlass, noKlass);
+    isMemberAdmin: function(yes, no) {
+        return Utils.isMemberAdmin(yes, no);
     },
-    isMemberNormal: function(yesKlass, noKlass) {
-        return Utils.isMemberNormal(yesKlass, noKlass);
+    isMemberNormal: function(yes, no) {
+        return Utils.isMemberNormal(yes, no);
     },
-    isMemberAll: function(yesKlass, noKlass) {
-        return Utils.isMemberAll(yesKlass, noKlass);
+    isMemberAll: function(yes, no) {
+        return Utils.isMemberAll(yes, no);
     }
 };
 
