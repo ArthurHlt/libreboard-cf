@@ -12,6 +12,9 @@ Boards.allow({
 BoardMembers.helpers({
     user: function() {
         return Users.findOne({ _id: this.userId });
+    },
+    board: function() {
+        return Boards.findOne({ _id: this.boardId });       
     }
 });
 

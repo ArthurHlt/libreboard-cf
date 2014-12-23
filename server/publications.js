@@ -17,17 +17,14 @@ Meteor.publishComposite('boards', function() {
 Meteor.publishComposite('board', function(boardId, slug) {
     return {
         find: function() {
-            var boards = Boards.find({ 
-                _id: boardId, slug: slug, userId: this.userId, closed: false 
-            });
+            var filter = { _id: boardId, slug: slug, closed: false },
+                member = BoardMembers.findOne({ userId: this.userId, boardId: boardId });
 
-            // currentUser Private or Public board
-            if (boards.count()) return boards;
+            // if user is authenticated then and private public permission return Boards.
+            if (member) return Boards.find(filter);
 
-            // Public board
-            return Boards.find({ 
-                _id: boardId, slug: slug, permission: 'Public', closed: false 
-            });
+            // Public board if not is authenticated then publish public boards
+            return Boards.find(_.extend({ permission: 'Public' }, filter));
         },
         children: [
 
@@ -50,6 +47,7 @@ Meteor.publishComposite('board', function(boardId, slug) {
                 find: function(board) {
                     return BoardMembers.find({ boardId: board._id });
                 },
+
                 children: [
                     // Member Users
                     {
