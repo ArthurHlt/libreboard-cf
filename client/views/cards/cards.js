@@ -16,12 +16,14 @@ Template.cards.rendered = function() {
             },
             stop: function(event, ui) {
                 var list = ui.item.parents('.list-cards'),
-                    cards = list.find('.list-card');
+                    cards = list.find('.card');
                 cards.each(function(i, card) {
-                    Cards.update(Blaze.getData(card)._id, {
+                    var cardD = Blaze.getData(card),
+                        listD = Blaze.getData(list.get(0));
+                    Cards.update(cardD._id, {
                         $set: {
                             sort: i,
-                            listId: Blaze.getData(list.get(0)).listId
+                            listId: listD.listId
                         }
                     });
                 });
