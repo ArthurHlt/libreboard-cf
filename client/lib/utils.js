@@ -16,6 +16,10 @@ var Offsets = {
     },
     membersAdd: function(offset) {
         return { left: (offset.left - 61), top: (offset.top + 35) }
+    },
+    member: function(offset) {
+        var width = $(window).width();
+        return { left: (width - 310), top: (offset.top + 35) }
     }
 };
 

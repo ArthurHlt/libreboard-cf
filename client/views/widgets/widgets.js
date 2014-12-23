@@ -61,6 +61,12 @@ Template.membersWidget.events({
     'click .js-open-manage-board-members': function(event, t) {
         Utils.Pop.open('addMemberPop', 'Members', event.currentTarget, Boards.findOne());
         event.preventDefault();
+    },
+    'click .member': function(event, t) {
+        Utils.Pop.open('memberPop', false, event.currentTarget, { 
+            memberType: this.memberType,
+            user: this.user()
+        });
     }
 });
 
