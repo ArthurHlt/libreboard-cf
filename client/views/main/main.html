@@ -30,6 +30,7 @@
                 <a class="header-btn header-login js-toggle-login-popover no-right-margin" href="{{ pathFor route='Login' }}">Log In</a>  
             </div>
         </div>
+        {{ > warning }}
         <div id="content">
             {{ > yield }}
         </div>
@@ -48,7 +49,8 @@
             </div>
             {{ > search }}
             {{ > memberHeader }}
-        </div>
+        </div> 
+        {{ > warning }}
         <div id="content">
             {{ > yield }}
         </div>
@@ -92,6 +94,10 @@
     </div>
 </template>
 
+<template name="notfound">
+    {{ > message label='Page not found.'}}
+</template>
+
 <template name='message'>
     <div class="big-message quiet {{ color }}"> 
         <h1>{{ label }}</h1>   
@@ -99,8 +105,19 @@
     </div>
 </template>
 
-<template name="notfound">
-    {{ > message label='Page not found.'}}
+<template name="warning">
+    {{# if session 'warning' }}
+        <div class="header-banner header-banner-warning">
+            <p class="bottom">  
+                <span class="inline-block">{{ warning.desc }}</span>  
+                <span class="inline-block"> 
+                    <a class="button primary" href="{{ pathFor route='Signup' }}" style="margin: 0 4px;">
+                        Sign up for free
+                    </a> 
+                </span> 
+            </p> 
+        </div>
+    {{/if}}
 </template>
 
 <template name="pop">

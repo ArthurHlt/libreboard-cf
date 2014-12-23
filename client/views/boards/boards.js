@@ -9,6 +9,9 @@ Template.board.rendered = function() {
 
     // resize not update observe changed.
     jQuery(window).resize(Utils.resizeHeight('.board-canvas', Utils.widgetsHeight));
+
+    // if not is authenticated then show warning..
+    if (!Utils.is_authenticated()) Utils.Warning.open('Want to subscribe to these cards?');
 };
 
 Template.boards.helpers({

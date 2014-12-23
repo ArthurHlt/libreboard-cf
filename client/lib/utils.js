@@ -82,6 +82,18 @@ Utils = {
         }
     },
 
+    Warning: {
+        get: function() {
+            return Session.get('warning');     
+        },
+        open: function(desc) {
+            Session.set('warning', { desc: desc });
+        },
+        close: function() {
+            Session.set('warning', false);
+        }        
+    },
+
     goBoardId: function(_id) {
         var board = Boards.findOne({ _id: _id });
         return board && Router.go('Board', { _id: board._id, slug: board.slug });
