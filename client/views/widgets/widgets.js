@@ -72,6 +72,17 @@ Template.closeBoardPop.events({
     }
 });
 
+Template.memberPop.events({
+    'click .js-change-role': function(event, t) {},
+    'click .js-remove-member': function(event, t) {
+        Utils.Pop.open('removeMemberPop', 'Remove Member?', event.currentTarget, {
+            user: this.user,
+            board: Boards.findOne(),
+            memberId: this.memberId
+        });
+    }
+});
+
 Template.membersWidget.events({
     'click .js-open-manage-board-members': function(event, t) {
         Utils.Pop.open('addMemberPop', 'Members', event.currentTarget, Boards.findOne());
@@ -79,6 +90,7 @@ Template.membersWidget.events({
     },
     'click .member': function(event, t) {
         Utils.Pop.open('memberPop', false, event.currentTarget, { 
+            memberId: this._id,
             memberType: this.memberType,
             user: this.user()
         });
@@ -96,6 +108,17 @@ Template.addMemberPop.events({
         });
 
         // member insert pop close 
+        Utils.Pop.close();
+    }
+});
+
+Template.removeMemberPop.events({
+    'click .js-confirm': function(event, t) {
+
+        // remove Member
+        BoardMembers.remove(this.memberId);
+
+        // pop close
         Utils.Pop.close();
     }
 });

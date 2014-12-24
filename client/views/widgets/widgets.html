@@ -91,8 +91,8 @@
                     Change permissions… <span class="quiet" style="font-weight: normal;">({{ memberType }})</span> 
                 </a> 
             </li> 
-            <li>
-                <a class="js-remove-member {{ isMemberAdmin '' 'disabled' }}">Remove from Board…</a> 
+            <li class="{{ isTrueThen memberType 'admin' 'hide' }}">
+                <a class="js-remove-member {{ isMemberAdmin '' 'disabled' }}" popoffset='removeMember'>Remove from Board…</a> 
             </li>     
         </ul> 
     </div>
@@ -104,6 +104,11 @@
         "View Closed Boards", finding the board and clicking "Re-open". 
     </p> 
     <input type="submit" class="js-confirm negate full" value="Close">
+</template>
+
+<template name="removeMemberPop">
+    <p> Remove {{ user.profile.fullname }} ({{ user.username }}) from {{ board.title }}? The member will be removed from all cards on this board. They will receive a notification. </p>
+    <input type="submit" class="js-confirm negate full" value="Remove Member">
 </template>
 
 <template name="addMemberPop">
@@ -119,7 +124,7 @@
                         <span class="member js-member">  
                             <span class="member-initials">{{ firstChar profile.fullname }}</span>
                         </span>
-                        <span class="full-name" name="Test (ali09)">
+                        <span class="full-name">
                             {{ profile.fullname }}  (<span class="username">{{ username }}</span>) 
                         </span>
                        {{# if member _id 'disabled' }} 

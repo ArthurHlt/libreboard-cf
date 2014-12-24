@@ -14,16 +14,19 @@ Template.cards.rendered = function() {
             start: function (event, ui) {
                 $('.list-card.placeholder').height(ui.item.height());
             },
-            update: function(event, ui) {
+            stop: function(event, ui) {
                 var list = ui.item.parents('.list-cards'),
-                    cards = list.find('.card');
-                cards.each(function(i, card) {
-                    var cardD = Blaze.getData(card),
-                        listD = Blaze.getData(list.get(0));
-                    Cards.update(cardD._id, {
+                    data = Blaze.getData(list.get(0));
+
+                // each cards
+                list.find('.card').each(function(i, el) {
+                    var card = Blaze.getData(el);
+
+                    // update collection 
+                    Cards.update(card._id, {
                         $set: {
                             sort: i,
-                            listId: listD.listId
+                            listId: data.listId
                         }
                     });
                 });
@@ -35,15 +38,14 @@ Template.cards.rendered = function() {
                 hoverClass: "active-card",
                 accept: '.js-member',
                 drop: function(event, ui) {
-                    var user = Blaze.getData(ui.draggable.get(0)),
+                    var member = Blaze.getData(ui.draggable.get(0)),
                         card = Blaze.getData(this);
-                    
+
                     // insert Member
                     CardMembers.insert({
-                        cardId: card._id,
-                        userId: user.userId,
-                        boardId: user.boardId,
-                        listId: card.listId
+                        memberId: member._id,
+                        boardId: member.boardId,
+                        cardId: card._id
                     });
                 }
             });
@@ -103,8 +105,8 @@ Template.addCardForm.events({
 Template.cards.events({
     'click .member': function(event, t) {
         Utils.Pop.open('cardMemberPop', false, event.currentTarget, {
-            memberId: this._id,
-            user: this.user()
+            member: this,
+            user: this.member().user(),
         });
     }
 });
@@ -113,7 +115,7 @@ Template.cardMemberPop.events({
     'click .js-remove-member': function(event, t) {
 
         // remove member 
-        CardMembers.remove(this.memberId);
+        CardMembers.remove(this.member._id);
 
         // close pop
         Utils.Pop.close();

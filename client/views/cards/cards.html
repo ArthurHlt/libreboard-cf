@@ -10,10 +10,10 @@
                     <div class="list-card-members js-list-card-members">
                         {{# each members }}
                             <div class="member js-member-on-card-menu" popOffset='membersAdd'> 
-                                <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.username }})">
-                                    {{ firstChar user.profile.fullname }}
+                                <span class="member-initials" title="{{ member.user.profile.fullname }} ({{ member.user.username }})">
+                                    {{ firstChar member.user.profile.fullname }}
                                 </span>
-                                <span class="member-type {{ boardMember.memberType }}"></span>   
+                                <span class="member-type {{ member.memberType }}"></span>   
                             </div>
                         {{/each}}
                     </div>

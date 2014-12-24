@@ -4,23 +4,22 @@ CardMembers = new Mongo.Collection('card_members');
 // ALLOWS
 Cards.allow({
     insert: function(userId, doc) { 
-        return allowBoardMembers(userId, doc.boardId);
+        return allowIsBoardMember(userId, doc.boardId);
     },
     update: function(userId, doc) {
-        return allowBoardMembers(userId, doc.boardId);
+        return allowIsBoardMember(userId, doc.boardId);
     },
     remove: function(userId, doc) { 
-        return allowBoardMembers(userId, doc.boardId);
+        return allowIsBoardMember(userId, doc.boardId);
     }
 });
-
 
 CardMembers.allow({
     insert: function(userId, doc) {
         return allowCardMembers(userId, doc);
     },
     remove: function(userId, doc) {
-        return allowBoardMembers(userId, doc.boardId);
+        return allowIsBoardMember(userId, doc.boardId);
     }
 });
 
@@ -38,11 +37,8 @@ Cards.helpers({
 });
 
 CardMembers.helpers({
-    user: function() {
-        return Users.findOne(this.userId); 
-    },
-    boardMember: function() {
-        return BoardMembers.findOne({ userId: this.userId, boardId: this.boardId });
+    member: function() {
+        return BoardMembers.findOne(this.memberId);
     }
 });
 

@@ -44,6 +44,14 @@ BoardMembers.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
 });
 
+
+// BOARDSMEMBERS BEFORE HOOK INSERT
+BoardMembers.before.remove(function(userId, doc) {
+
+    // remove method members
+    Meteor.call('removeCardMember', doc._id);
+});
+
 // BOARDS BEFORE HOOK INSERT
 Boards.before.insert(function(userId, doc) {
     doc.slug = slugify(doc.title);

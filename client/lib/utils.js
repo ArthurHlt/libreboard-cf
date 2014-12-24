@@ -20,6 +20,10 @@ var Offsets = {
     member: function(offset) {
         var width = $(window).width();
         return { left: (width - 310), top: (offset.top + 35) }
+    },
+    removeMember: function(offset) {
+        var width = $(window).width();
+        return { left: (width - 310), top: (offset.top - 103) }
     }
 };
 
