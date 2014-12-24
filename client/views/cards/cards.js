@@ -59,6 +59,7 @@ Template.cards.rendered = function() {
 };
 
 Template.addCardForm.helpers({});
+
 Template.addCardForm.events({
     'click .js-cancel': function(event, t) {
         var composer = t.$('.card-composer');

@@ -17,6 +17,7 @@
 
 <template name="layout">
     <div id="surface">
+        {{# if session 'pop' }}{{ > pop }}{{/if}}
         <div id="header">
             <a class="header-btn header-logo bgnone" href="{{ pathFor route='Home' }}">
                 <span class="logo"></span>

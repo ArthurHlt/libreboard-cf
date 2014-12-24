@@ -85,7 +85,7 @@
                 <p class="quiet bottom">@{{ user.username }}</p>
             </div> 
         </div> 
-        <ul class="pop-over-list"> 
+        <ul class="pop-over-list {{ isMemberAll '' 'hide' }}"> 
             <li> 
                 <a class="js-change-role {{ isMemberAdmin '' 'disabled' }}" href="#"> 
                     Change permissions… <span class="quiet" style="font-weight: normal;">({{ memberType }})</span> 
