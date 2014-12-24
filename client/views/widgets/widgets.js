@@ -87,12 +87,15 @@ Template.membersWidget.events({
 
 Template.addMemberPop.events({
     'click .pop-over-member-list li:not(.disabled)': function(event, t) {
+
+        // insert member
         BoardMembers.insert({
             boardId: t.data._id,
             userId: this._id,
             memberType: 'normal'
-        }, function(err, memberId) {
-            Utils.Pop.close();
         });
+
+        // member insert pop close 
+        Utils.Pop.close();
     }
 });

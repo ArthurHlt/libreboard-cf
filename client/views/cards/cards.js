@@ -110,8 +110,11 @@ Template.cards.events({
 
 Template.cardMemberPop.events({
     'click .js-remove-member': function(event, t) {
-        CardMembers.remove(this.memberId, function(err) {
-            if (!err) Utils.Pop.close();
-        });
+
+        // remove member 
+        CardMembers.remove(this.memberId);
+
+        // close pop
+        Utils.Pop.close();
     }
 });
