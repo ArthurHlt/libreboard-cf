@@ -1,6 +1,3 @@
-// Default sessions
-Session.setDefault('error', false);
-
 /*
 * If you want to use a default layout template for all routes you can 
 * configure a global Router option.

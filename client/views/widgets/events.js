@@ -1,24 +1,3 @@
-Template.membersWidget.rendered = function() {
-    if (Utils.isMemberAll(true, false)) {
-        Utils.liveEvent('mouseover', function($this) {
-            $this.find('.js-member').draggable({
-                appendTo: "body",
-                helper: "clone",
-                revert: "invalid", 
-                revertDuration: 150,
-                snap: false,
-                snapMode: "both"
-            });
-        });
-    }
-};
-
-Template.addMemberPop.helpers({
-    member: function(userId, klass) {
-        return BoardMembers.findOne({ userId: userId}) ? klass : '';        
-    }
-});
-
 Template.boardWidgets.events({
     'click .js-show-sidebar': function(event, t) {
         Boards.update(this.board._id, {

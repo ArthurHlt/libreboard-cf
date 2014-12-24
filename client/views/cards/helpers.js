@@ -1,0 +1,1 @@
+Template.addCardForm.helpers({});

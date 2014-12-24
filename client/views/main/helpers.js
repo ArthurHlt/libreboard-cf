@@ -33,5 +33,17 @@ var Helpers = {
     }
 };
 
+Template.warning.helpers({
+    warning: function() {
+        return Utils.Warning.get();          
+    }
+});
+
+Template.pop.helpers({
+    pop: function() {
+        return Session.get('pop');
+    }        
+});
+
 // Register all Helpers
 _.each(Helpers, function(fn, name) { Blaze.registerHelper(name, fn); });
