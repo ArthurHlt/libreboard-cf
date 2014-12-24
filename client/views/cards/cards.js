@@ -5,16 +5,16 @@ Template.cards.rendered = function() {
 
     if (Utils.isMemberAll(true, false)) {
         cards.sortable({
-            connectWith: ".cards",
+            connectWith: ".js-sortable",
             tolerance: 'pointer',
             appendTo: 'body',
             helper: "clone",
-            items: '.list-card:not(.js-composer)',
+            items: '.list-card:not(.placeholder, .hide, .js-composer)',
             placeholder: 'list-card placeholder',
             start: function (event, ui) {
                 $('.list-card.placeholder').height(ui.item.height());
             },
-            stop: function(event, ui) {
+            update: function(event, ui) {
                 var list = ui.item.parents('.list-cards'),
                     cards = list.find('.card');
                 cards.each(function(i, card) {

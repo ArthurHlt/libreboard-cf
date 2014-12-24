@@ -5,9 +5,9 @@ Template.membersWidget.rendered = function() {
                 appendTo: "body",
                 helper: "clone",
                 revert: "invalid", 
-                revertDuration: 100,
-                snap: "true", 
-                snapMode: "inner",
+                revertDuration: 150,
+                snap: false,
+                snapMode: "both"
             });
         });
     }
