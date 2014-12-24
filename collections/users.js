@@ -1,7 +1,6 @@
 Users = Meteor.users;
 
-Users.initEasySearch('username', {
-    field: 'username',
+Users.initEasySearch(['username', 'profile.fullname'], {
     use: 'mongo-db'
 });
 
