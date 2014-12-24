@@ -10,17 +10,17 @@ Metrello Development is http://metrello.meteor.com/boards/FNJpvwkyGsbDqyYHP/metr
 Installation
 ==================
 ##### install nodejs on Ubuntu
-sudo apt-get install python-software-properties
-sudo add-apt-repository ppa:chris-lea/node.js
-sudo apt-get update
-sudo apt-get install nodejs nodejs-dev npm
+    $ sudo apt-get install python-software-properties
+    $ sudo add-apt-repository ppa:chris-lea/node.js
+    $ sudo apt-get update
+    $ sudo apt-get install nodejs nodejs-dev npm
 
 ##### install nodejs on Mac OSX
-brew update
-brew install node
+    $ brew update
+    $ brew install node
 
 ##### install meteor
-$ curl https://install.meteor.com/ | sh
+    $ curl https://install.meteor.com/ | sh
 
 ##### Clone and run
     $ git clone https://github.com/yasaricli/metrello.git
