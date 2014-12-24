@@ -15,6 +15,9 @@ Users.helpers({
 // BEFORE HOOK
 Users.before.insert(function (userId, doc) {
 
+    // connect profile.status default
+    doc.profile.status = 'offline';
+
     // slugify to username 
     doc.username = slugify(doc.profile.fullname);
 });

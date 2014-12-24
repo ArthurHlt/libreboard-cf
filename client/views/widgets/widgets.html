@@ -60,7 +60,7 @@
                         <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.username}})">
                             {{ firstChar user.profile.fullname }}
                         </span>
-                        <span class="member-status active"></span> 
+                        <span class="member-status {{ isTrueThen user.profile.status 'online' 'active' }}"></span> 
                         <span class="member-type {{ memberType }}"></span>   
                     </div>
                 {{ /each }}

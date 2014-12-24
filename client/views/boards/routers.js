@@ -13,6 +13,14 @@ Router.route('/boards/:_id/:slug', {
     bodyClass: 'page-index chrome chrome-39 mac extra-large-window body-webkit-scrollbars body-board-view bgBoard',
     waitOn: function() {
         var params = this.params;
-        return Meteor.subscribe('board', params._id, params.slug);
+
+        return [
+            
+            // Update currentUser profile status 
+            Meteor.subscribe('connectUser'),
+
+            // Board page list, cards members vs 
+            Meteor.subscribe('board', params._id, params.slug)
+        ]
     }
 });
