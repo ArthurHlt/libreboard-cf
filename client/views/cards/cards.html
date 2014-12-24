@@ -13,6 +13,7 @@
                                 <span class="member-initials" title="{{ member.user.profile.fullname }} ({{ member.user.username }})">
                                     {{ firstChar member.user.profile.fullname }}
                                 </span>
+                                <span class="member-status {{ isTrueThen member.user.profile.status 'online' 'active' }}"></span> 
                                 <span class="member-type {{ member.memberType }}"></span>   
                             </div>
                         {{/each}}
