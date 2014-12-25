@@ -18,8 +18,8 @@ Users.before.insert(function (userId, doc) {
     // connect profile.status default
     doc.profile.status = 'offline';
 
-    // slugify to username 
-    doc.username = slugify(doc.profile.fullname);
+    // slugify to username
+    doc.username = getSlug(doc.profile.fullname);
 });
 
 
@@ -33,7 +33,7 @@ Users.after.insert(function(userId, doc) {
 
     // Welcome Board insert and list, card :)
     Boards.insert(ExampleBoard, function(err, boardId) {
-        
+
         // lists
         _.forEach(['Basics', 'Advanced'], function(title) {
             var list = {
