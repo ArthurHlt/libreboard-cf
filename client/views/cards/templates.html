@@ -63,3 +63,23 @@
         </form>
     </div>
 </template>
+
+<template name="cardDetailWindow">
+    <div class="card-detail-window clearfix"> 
+        <div class="window-header clearfix"> 
+            <span class="window-header-icon icon-lg icon-card"></span> 
+            <div class="window-title card-detail-title non-empty inline {{ isMemberAll 'editable' '' }}"> 
+                <h2 class="window-title-text current hide-on-edit js-card-title">{{ card.title }}</h2>  
+                <div class="edit edit-heavy"> 
+                    <textarea type="text" class="field single-line"></textarea> 
+                </div>  
+                <div class="quiet hide-on-edit window-header-inline-content js-current-list">
+                    <p class="inline-block bottom">
+                        in list 
+                        <a href="#" class="{{ isMemberAll 'js-open-move-from-header' 'disabled' }}"><strong>{{ list.title }}</strong></a>
+                    </p> 
+                </div> 
+            </div> 
+        </div>
+    </div>
+</template>

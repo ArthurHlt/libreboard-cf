@@ -102,6 +102,29 @@ Utils = {
         }        
     },
 
+    Overlay: {
+        get: function() {
+            return Session.get('windowOverlay');     
+        },
+        open: function(opt) {
+            // default close window
+            this.close();
+
+            // add Class up
+            $('body').addClass('window-up');
+
+            // set window
+            Session.set('windowOverlay', _.extend({
+                template: '',
+                data: {}            
+            }, opt));
+        },
+        close: function() {
+            $('body').removeClass('window-up');
+            Session.set('windowOverlay', false);
+        }        
+    },
+
     goBoardId: function(_id) {
         var board = Boards.findOne({ _id: _id });
         return board && Router.go('Board', { _id: board._id, slug: board.slug });

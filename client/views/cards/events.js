@@ -44,6 +44,12 @@ Template.cards.events({
             member: this,
             user: this.member().user(),
         });
+    },
+    'click .list-card': function(event, t) {
+        Utils.Overlay.open({ template: 'cardDetailWindow', data: {
+            card: this,
+            list: this.list()
+        }})
     }
 });
 

@@ -26,7 +26,7 @@ CardMembers.allow({
 // HELPERS
 Cards.helpers({
     list: function() {
-        return Cards.find({ listId: this.listId });
+        return Lists.findOne(this.listId);
     },
     members: function() {
         return CardMembers.find({ cardId: this._id });

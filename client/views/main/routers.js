@@ -24,8 +24,9 @@ Router.configure({
 
         // reset default sessions
         Session.set('error', false);
-        Session.set('warning', false);
         Session.set('pop', false);
+        Session.set('warning', false);
+        Session.set('windowOverlay', false);
 
         // Layout template found then set render this.route options layout.
         if (!options.layoutTemplate) {
