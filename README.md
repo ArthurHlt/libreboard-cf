@@ -3,9 +3,9 @@ Metrello
 
 [![Build Status](https://travis-ci.org/yasaricli/metrello.png)](https://travis-ci.org/yasaricli/metrello)
 
-A trello clone, it is used as training material for the Mastering Meteor class.
+A trello clone implemented in MeteorJs for showcase, use for educational purposes only.
 
-Metrello Development is http://metrello.meteor.com/boards/FNJpvwkyGsbDqyYHP/metrello
+You can watch main Metrello development at http://metrello.meteor.com/boards/FNJpvwkyGsbDqyYHP/metrello
 
 Installation
 ==================
