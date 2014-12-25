@@ -33,6 +33,9 @@ Cards.helpers({
     },
     board: function() {
         return Boards.findOne(this.boardId);
+    },
+    user: function() {
+        return Users.findOne(this.userId);
     }
 });
 
@@ -46,6 +49,8 @@ CardMembers.helpers({
 // CARDS BEFORE HOOK
 Cards.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
+
+    // defaults
     doc.closed = false;
 
     // userId native set.

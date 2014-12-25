@@ -68,17 +68,26 @@ Template.cardDetailWindow.events({
         var editable = t.$('.card-detail-title');
 
         // add class editing and focus 
+        $('.editing').removeClass('editing');
         editable.addClass('editing');
-        editable.find('textarea').focus();
+        editable.find('#title').focus();
+    },
+    'click .js-edit-desc': function(event, t) {
+        var editable = t.$('.card-detail-item'); 
+
+        // editing remove based and add current editing.
+        $('.editing').removeClass('editing');
+        editable.addClass('editing');
+        editable.find('#desc').focus();
+
+        event.preventDefault();
     },
     'click .js-cancel-edit': function(event, t) {
-        var editable = t.$('.card-detail-title'); 
-
         // remove editing hide.
-        editable.removeClass('editing');
+        $('.editing').removeClass('editing');
     },
     'submit #WindowTitleEdit': function(event, t) {
-        var title = t.find('textarea').value;
+        var title = t.find('#title').value;
         if ($.trim(title)) {
             Cards.update(this.cardId, {
                 $set: {
@@ -86,9 +95,33 @@ Template.cardDetailWindow.events({
                 }
             }, function(err) {
                 // close editing
-                if (!err) $('.card-detail-title').removeClass('editing');
+                if (!err) $('.editing').removeClass('editing');
             });
         }
+
         event.preventDefault();
+    },
+    'submit #WindowDescEdit': function(event, t) {
+        Cards.update(this.cardId, { 
+            $set: {
+                description: t.find('#desc').value
+            }
+        }, function(err) {
+            if (!err) $('.editing').removeClass('editing');
+        });
+        event.preventDefault();
+    }
+});
+
+Template.WindowActivityModule.events({
+    'click .js-new-comment:not(.focus)': function(event, t) {
+        var $this = $(event.currentTarget);
+        $this.addClass('focus');
+    },
+    'click .js-show-mem-menu': function(event, t) {
+        Utils.Pop.open('userPop', false, event.currentTarget, { 
+            user: this.card.user()
+        });
+        event.preventDefault();  
     }
 });

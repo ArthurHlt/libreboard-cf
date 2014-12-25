@@ -21,6 +21,9 @@ var Offsets = {
         var width = $(window).width();
         return { left: (width - 310), top: (offset.top + 35) }
     },
+    user: function(offset) {
+        return { left: (offset.left), top: (offset.top + 20) }
+    },
     removeMember: function(offset) {
         var width = $(window).width();
         return { left: (width - 310), top: (offset.top - 103) }

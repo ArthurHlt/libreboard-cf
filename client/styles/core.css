@@ -2877,7 +2877,7 @@ button.loud-text-button:hover {
     right: -9999px;
     top: -9999px;
     width: 300px;
-    z-index: 20
+    z-index: 99999
 }
 
 .pop-over hr {
@@ -6312,7 +6312,9 @@ textarea.list-card-composer-textarea,textarea.list-card-composer-textarea:focus 
 .new-comment.focus .new-comment-input {
     min-height: 108px;
     color: #4d4d4d;
-    cursor: auto
+    cursor: auto;
+    overflow: hidden; 
+    word-wrap: break-word; 
 }
 
 .new-comment .too-long {

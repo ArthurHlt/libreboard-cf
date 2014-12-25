@@ -14,6 +14,12 @@ var Helpers = {
     session: function(prop) {
         return Session.get(prop);
     },
+    isThen: function(a, then) {
+        return a ? then : '';
+    },
+    isNotThen: function(a, then) {
+        return a ? '' : then;
+    },
     isTrue: function(a, b, consl) {
         // Template tag {{# if isTrue a b consl }}
         if (_.isBoolean(consl)) console.log(a, b, a==b);

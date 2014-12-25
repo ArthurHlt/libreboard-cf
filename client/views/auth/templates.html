@@ -149,3 +149,19 @@
         {{ /if }}
     {{ /if }}
 </template>
+
+<template name="userPop">
+    <div class="board-member-menu">
+        <div class="mini-profile-info"> 
+            <div class="member-large">  
+                <span class="member-initials" title="{{ user.profile.fullname}} ({{ user.profile.username}})">{{ firstChar user.profile.fullname }}</span>
+            </div> 
+            <div class="info"> 
+                <h3 class="bottom" style="margin-right: 40px;">
+                    <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.fullname }}</a>
+                </h3> 
+                <p class="quiet bottom">@{{ user.username }}</p>
+            </div> 
+        </div> 
+    </div>
+</template>
