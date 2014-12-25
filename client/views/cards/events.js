@@ -47,8 +47,7 @@ Template.cards.events({
     },
     'click .list-card': function(event, t) {
         Utils.Overlay.open({ template: 'cardDetailWindow', data: {
-            card: this,
-            list: this.list()
+            cardId: this._id
         }})
     }
 });
@@ -61,5 +60,35 @@ Template.cardMemberPop.events({
 
         // close pop
         Utils.Pop.close();
+    }
+});
+
+Template.cardDetailWindow.events({
+    'click .editable .js-card-title': function(event, t) {
+        var editable = t.$('.card-detail-title');
+
+        // add class editing and focus 
+        editable.addClass('editing');
+        editable.find('textarea').focus();
+    },
+    'click .js-cancel-edit': function(event, t) {
+        var editable = t.$('.card-detail-title'); 
+
+        // remove editing hide.
+        editable.removeClass('editing');
+    },
+    'submit #WindowTitleEdit': function(event, t) {
+        var title = t.find('textarea').value;
+        if ($.trim(title)) {
+            Cards.update(this.cardId, {
+                $set: {
+                    title: title
+                }
+            }, function(err) {
+                // close editing
+                if (!err) $('.card-detail-title').removeClass('editing');
+            });
+        }
+        event.preventDefault();
     }
 });
