@@ -36,7 +36,10 @@ Boards.helpers({
     },
     members: function() {
         return BoardMembers.find({});
-    }
+    },
+    activities: function() {
+        return Activities.find({ boardId: this._id });
+    } 
 });
 
 // BOARDSMEMBERS BEFORE HOOK INSERT

@@ -104,6 +104,13 @@ Meteor.publishComposite('board', function(boardId, slug) {
                         } 
                     }    
                 ]
+            },
+
+            // Activities
+            {
+                find: function(board) {
+                    return Activities.find({ boardId: board._id });
+                }
             }
         ]
     }

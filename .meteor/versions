@@ -9,6 +9,7 @@ blaze-tools@1.0.2
 boilerplate-generator@1.0.2
 callback-hook@1.0.2
 check@1.0.3
+copleykj:livestamp@1.1.5
 dburles:collection-helpers@1.0.1
 ddp@1.0.13
 deps@1.0.6
@@ -47,6 +48,7 @@ minimongo@1.0.6
 mobile-status-bar@1.0.2
 mongo@1.0.11
 mongo-livedata@1.0.7
+mrt:moment@2.8.1
 npm-bcrypt@0.7.7
 observe-sequence@1.0.4
 ongoworks:speakingurl@1.0.3
