@@ -112,6 +112,7 @@ Utils = {
         open: function(opt) {
             // default close window
             this.close();
+            Utils.Pop.close();
 
             // add Class up
             $('body').addClass('window-up');
