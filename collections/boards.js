@@ -16,7 +16,7 @@ BoardMembers.allow({
         return allowMemberTypeAdmin(userId, doc.boardId);
     },
     remove: function(userId, doc) {
-        return allowMemberTypeAdmin(userId, doc.boardId);
+        return allowIsBoardMember(userId, doc.boardId);
     }
 });
 

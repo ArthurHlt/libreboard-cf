@@ -59,6 +59,9 @@ Template.memberPop.events({
             board: Boards.findOne(),
             memberId: this.memberId
         });
+    },
+    'click .js-remove-member': function(event, t) {
+        BoardMembers.remove(this.memberId);
     }
 });
 
