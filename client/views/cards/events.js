@@ -44,6 +44,8 @@ Template.cards.events({
             member: this,
             user: this.member().user(),
         });
+        event.preventDefault();
+        event.stopPropagation();
     },
     'click .list-card:not(.js-composer)': function(event, t) {
         Utils.Overlay.open({ template: 'cardDetailWindow', data: {
