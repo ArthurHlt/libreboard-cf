@@ -53,7 +53,7 @@ Template.closeBoardPop.events({
 
 Template.memberPop.events({
     'click .js-change-role': function(event, t) {},
-    'click .js-remove-member': function(event, t) {
+    'click .js-remove-member:not(.disabled)': function(event, t) {
         Utils.Pop.open('removeMemberPop', 'Remove Member?', event.currentTarget, {
             user: this.user,
             board: Boards.findOne(),
