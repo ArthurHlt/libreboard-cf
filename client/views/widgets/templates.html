@@ -126,10 +126,10 @@
                     Change permissions… <span class="quiet" style="font-weight: normal;">({{ memberType }})</span> 
                 </a> 
             </li> 
-            <li class="{{ isMemberAdmin '' 'hide' }}">
+            <li class="{{ isTrueThen memberType 'admin' 'hide' }}">
                 <a class="js-remove-member {{ isMemberAdmin '' 'disabled' }}" popoffset='removeMember'>Remove from Board…</a> 
             </li>
-            <li class="{{ isMemberAdmin 'hide' '' }}"> <a class="js-remove-member">Leave Board…</a> </li>
+            <li class="{{ isMemberAdmin 'hide' '' }}"> <a class="js-leave-member">Leave Board…</a> </li>
         </ul> 
     </div>
 </template>

@@ -60,8 +60,11 @@ Template.memberPop.events({
             memberId: this.memberId
         });
     },
-    'click .js-remove-member': function(event, t) {
+    'click .js-leave-member': function(event, t) {
         BoardMembers.remove(this.memberId);
+        
+        // pop close
+        Utils.Pop.close();
     }
 });
 
