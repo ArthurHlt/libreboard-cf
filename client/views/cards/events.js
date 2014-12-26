@@ -45,7 +45,7 @@ Template.cards.events({
             user: this.member().user(),
         });
     },
-    'click .list-card': function(event, t) {
+    'click .list-card:not(.js-composer)': function(event, t) {
         Utils.Overlay.open({ template: 'cardDetailWindow', data: {
             cardId: this._id
         }})
