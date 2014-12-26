@@ -117,6 +117,7 @@
             </div>
             {{ > WindowActivityModule card=card }}
         </div>
+        {{ > WindowSidebarModule card=card }}
     </div>
 </template>
 
@@ -151,5 +152,19 @@
                 </p> 
             </div>
         </div>
+    </div>
+</template>
+
+<template name="WindowSidebarModule">
+    <div class="window-sidebar" style="position: relative;">      
+        <div class="window-module other-actions clearfix"> 
+            <h3>Actions</h3> 
+            <div class="clearfix">     
+                <hr> 
+                <a href="#" class="button-link js-archive-card" title="Remove the card from the board."> 
+                    <span class="icon-sm icon-archive"></span> Archive 
+                </a>  
+            </div> 
+        </div>   
     </div>
 </template>

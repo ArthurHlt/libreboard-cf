@@ -60,7 +60,7 @@ Boards.before.insert(function(userId, doc) {
     doc.slug = getSlug(doc.title);
     doc.createdAt = new Date();
     doc.openWidgets = true;
-    doc.closed = false;
+    doc.archived = false;
 
     // userId native set.
     if (!doc.userId) doc.userId = userId;

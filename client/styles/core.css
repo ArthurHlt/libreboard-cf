@@ -2510,12 +2510,6 @@ button.loud-text-button:hover {
     display: flex
 }
 
-.window-up #surface .button-link {
-    background-image: none;
-    background-color: #fafafa;
-    color: #4d4d4d
-}
-
 .window-up #surface .action-comment,.window-up .list-link.visible.last-visible-link {
     -webkit-box-shadow: none;
     box-shadow: none

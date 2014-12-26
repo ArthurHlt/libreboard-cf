@@ -42,7 +42,7 @@ Template.closeBoardPop.events({
         // update board close
         Boards.update(this._id, {
             $set: {
-                closed: true
+                archived: true
             }
         }, function(err) {
             // go boards Page 

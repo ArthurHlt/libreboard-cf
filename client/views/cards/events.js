@@ -125,3 +125,19 @@ Template.WindowActivityModule.events({
         event.preventDefault();  
     }
 });
+
+Template.WindowSidebarModule.events({
+    'click .js-archive-card': function(event, t) {
+        Cards.update(this.card._id, { 
+            $set: {
+                archived: true
+            }
+        }, function(err) {
+        
+            // close overlay
+            Utils.Overlay.close();
+        });
+
+        event.preventDefault();
+    }
+});

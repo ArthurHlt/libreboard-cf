@@ -30,7 +30,7 @@ Lists.helpers({
 Lists.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
     doc.updatedAt = new Date();
-    doc.closed = false;
+    doc.archived = false;
 
     // userId native set.
     if (!doc.userId) doc.userId = userId;

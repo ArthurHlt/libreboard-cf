@@ -48,7 +48,7 @@ Meteor.publishComposite('boards', function() {
             });
 
             // Board members 
-            return Boards.find({ _id: { $in: boardIds }, closed: false });
+            return Boards.find({ _id: { $in: boardIds }, archived: false });
         }
     }
 });
@@ -56,7 +56,7 @@ Meteor.publishComposite('boards', function() {
 Meteor.publishComposite('board', function(boardId, slug) {
     return {
         find: function() {
-            var filter = { _id: boardId, slug: slug, closed: false },
+            var filter = { _id: boardId, slug: slug, archived: false },
                 member = BoardMembers.findOne({ userId: this.userId, boardId: boardId });
 
             // if user is authenticated then and private public permission return Boards.
@@ -70,12 +70,12 @@ Meteor.publishComposite('board', function(boardId, slug) {
             // Lists and Cards
             {
                 find: function(board) {
-                    return Lists.find({ boardId: board._id, closed: false });
+                    return Lists.find({ boardId: board._id, archived: false });
                 },
                 children: [
                     {
                         find: function(list, board) {
-                            return Cards.find({ listId: list._id, closed: false });
+                            return Cards.find({ listId: list._id, archived: false });
                         },
 
                         // CardMembers

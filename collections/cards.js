@@ -51,7 +51,7 @@ Cards.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
 
     // defaults
-    doc.closed = false;
+    doc.archived = false;
 
     // userId native set.
     if (!doc.userId) doc.userId = userId;

@@ -90,7 +90,7 @@ Template.listActionPop.events({
     'click .js-close-list': function(event, t) {
         Lists.update(this._id, { 
             $set: {
-                closed: true
+                archived: true
             }
         }, function(err, listId) {
             // close pop
