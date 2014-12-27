@@ -51,7 +51,7 @@ mongo-livedata@1.0.7
 mrt:moment@2.8.1
 npm-bcrypt@0.7.7
 observe-sequence@1.0.4
-ongoworks:speakingurl@1.0.4
+ongoworks:speakingurl@1.0.3
 ordered-dict@1.0.2
 random@1.0.2
 reactive-dict@1.0.5
@@ -74,3 +74,4 @@ underscore@1.0.2
 url@1.0.3
 webapp@1.1.5
 webapp-hashing@1.0.2
+yasaricli:slugify@0.0.1

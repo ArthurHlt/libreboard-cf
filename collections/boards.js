@@ -57,7 +57,7 @@ BoardMembers.before.remove(function(userId, doc) {
 
 // BOARDS BEFORE HOOK INSERT
 Boards.before.insert(function(userId, doc) {
-    doc.slug = getSlug(doc.title);
+    doc.slug = slugify(doc.title);
     doc.createdAt = new Date();
     doc.openWidgets = true;
     doc.archived = false;
