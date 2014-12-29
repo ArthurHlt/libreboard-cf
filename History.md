@@ -16,7 +16,7 @@
 * Profile page and edit Profile
 
 
-## v0.0.1
+## v0.0.2
 * Activities right widget and card detail
 * Template member and users pop fixed.
 * CardMembers subscribe fixed.
