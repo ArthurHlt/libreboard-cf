@@ -32,7 +32,7 @@
 * Card Window actions show hide fixed
 * Wigdets show hide fixed
 
-## v0.0.6
+## v0.0.5
 * Comment remove can not be deleted in review activities.
 
 ## v0.0.6
