@@ -26,6 +26,7 @@ Router.configure({
         Session.set('error', false);
         Session.set('pop', false);
         Session.set('warning', false);
+        Session.set('widgets', true);
         Session.set('windowOverlay', false);
 
         // Layout template found then set render this.route options layout.

@@ -22,7 +22,7 @@
 
 <template name="board">
     {{# if board }}
-        <div class="board-wrapper {{ isTrueThen board.openWidgets false 'disabled-all-widgets' }}">
+        <div class="board-wrapper {{ isTrueThen openWidgets false 'disabled-all-widgets' }}">
             <div class="board-header clearfix js-board-header">
                 <a href="#" class="board-header-btn board-header-btn-name js-rename-board {{ isMemberAdmin '' 'no-edit' }}" popoffset='boardName' title="Rename the board."> 
                     <span class="board-header-btn-text"> {{ board.title }} </span> 

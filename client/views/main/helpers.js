@@ -39,6 +39,9 @@ var Helpers = {
     },
     isMemberAll: function(yes, no) {
         return Utils.isMemberAll(yes, no);
+    },
+    openWidgets: function() {
+        return Session.get('widgets');
     }
 };
 

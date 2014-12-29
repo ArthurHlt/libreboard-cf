@@ -1,17 +1,9 @@
 Template.boardWidgets.events({
     'click .js-show-sidebar': function(event, t) {
-        Boards.update(this.board._id, {
-            $set: {
-                openWidgets: true
-            }
-        });
+        Session.set('widgets', true);
     },
     'click .js-hide-sidebar': function() {
-        Boards.update(this.board._id, {
-            $set: {
-                openWidgets: false
-            }
-        });
+        Session.set('widgets', false);
     }
 });
 

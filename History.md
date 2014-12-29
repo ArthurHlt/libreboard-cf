@@ -27,3 +27,7 @@
 * Card list description and vs icons.
 * Card comments add, remove, edit and Comment Activities
 * Right Widgets Activities list height fixed
+
+## v0.0.4
+* Card Window actions show hide fixed
+* Wigdets show hide fixed

@@ -3,29 +3,27 @@
         <span class="icon-sm icon-leftarrow"></span> 
         <span class="text">Show sidebar</span> 
     </a>
-    {{# if board.openWidgets }}
-        <div class="board-widgets">
-            <div>
-                <a href="#" class="sidebar-hide-btn dark-hover js-hide-sidebar" title="Close the board sidebar."> 
-                    <span class="icon-sm icon-rightarrow"></span> 
+    <div class="board-widgets {{ isTrueThen openWidgets 'show' 'hide' }}">
+        <div>
+            <a href="#" class="sidebar-hide-btn dark-hover js-hide-sidebar" title="Close the board sidebar."> 
+                <span class="icon-sm icon-rightarrow"></span> 
+            </a> 
+            <div class="board-widgets-title clearfix"> 
+                <a href="#" class="board-sidebar-back-btn js-pop-widget-view">
+                    <span class="left-arrow"></span>Back
                 </a> 
-                <div class="board-widgets-title clearfix"> 
-                    <a href="#" class="board-sidebar-back-btn js-pop-widget-view">
-                        <span class="left-arrow"></span>Back
-                    </a> 
-                    <h3 class="text"></h3> 
-                    <hr> 
-                </div> 
-                <div class="board-widgets-content-wrapper">
-                    <div class="board-widgets-content default fancy-scrollbar short">
-                        {{ > menuWidget board=board }}
-                        {{ > membersWidget }}
-                        {{ > activityWidget }}
-                    </div>
-                </div> 
-            </div>
+                <h3 class="text"></h3> 
+                <hr> 
+            </div> 
+            <div class="board-widgets-content-wrapper">
+                <div class="board-widgets-content default fancy-scrollbar short">
+                    {{ > menuWidget board=board }}
+                    {{ > membersWidget }}
+                    {{ > activityWidget }}
+                </div>
+            </div> 
         </div>
-    {{ /if }}
+    </div>
 </template>
 
 <template name="menuWidget">

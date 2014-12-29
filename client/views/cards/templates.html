@@ -129,7 +129,9 @@
             </div>
             {{ > WindowActivityModule card=card }}
         </div>
-        {{ > WindowSidebarModule card=card }}
+        {{# if isMemberAll true false }}
+            {{ > WindowSidebarModule card=card }}
+        {{/if}}
     </div>
 </template>
 
