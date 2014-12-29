@@ -5,16 +5,12 @@ SCRIPT="$APP/main.js"
 PID="$APP/metrello.pid"
 LOG="$APP/metrello.log"
 
-#remove .build 
-rm -rf .build 
-
-# meteor build  and extract
-meteor build .build
-cd .build
-tar -xvf metrello.tar.gz
+# meteor build in a directory
+meteor build .build --directory
 
 # npm install dep
-cd bundle/programs/server
+cd $APP
+cd programs/server
 npm install
 
 # exports 
