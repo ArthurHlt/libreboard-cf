@@ -39,14 +39,17 @@ Template.cards.rendered = function() {
                 accept: '.js-member',
                 drop: function(event, ui) {
                     var member = Blaze.getData(ui.draggable.get(0)),
-                        card = Blaze.getData(this);
+                        card = Blaze.getData(this),
+                        cardMember = CardMembers.findOne({ memberId: member._id, cardId: card._id });
 
-                    // insert Member
-                    CardMembers.insert({
-                        memberId: member._id,
-                        boardId: member.boardId,
-                        cardId: card._id
-                    });
+                    if (!cardMember) {
+                        // insert Member
+                        CardMembers.insert({
+                            memberId: member._id,
+                            boardId: member.boardId,
+                            cardId: card._id
+                        });
+                    }
                 }
             });
         });

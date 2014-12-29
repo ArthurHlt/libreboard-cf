@@ -82,25 +82,7 @@
             </div>
             <div class="board-widget-content">
                 <div class="board-actions-list fancy-scrollbar" style="max-height: 223px;">
-                    <div class="js-sidebar-list-actions">
-                        {{# each board.activities }}
-                            <div class="phenom phenom-action clearfix phenom-other">
-                                <div class="creator member js-show-mem-menu">   
-                                    <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.username }})">{{ firstChar user.profile.fullname }}</span>       
-                                </div>
-                                <div class="phenom-desc"> 
-                                    <a class="inline-object js-show-mem-menu" href="{{ pathFor route='Profile' username=user.username }}">{{ user.username }}</a>
-                                    created this board.
-                                </div>
-                                <p class="phenom-meta quiet"> 
-                                    <span class="date js-hide-on-sending">{{ livestamp createdAt }}</span>  
-                                    <span class="js-spinner hide">
-                                        <span class="spinner small left" style="margin-right: 4px;"></span> Sending…
-                                    </span>    
-                                </p>
-                            </div>
-                        {{ /each }}
-                    </div>
+                    {{ > activities }}
                 </div>
             </div>
         </div>

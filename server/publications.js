@@ -42,7 +42,7 @@ Meteor.publishComposite('boards', function() {
     return {
         find: function() {
             // Flat id list
-            var boardIds = BoardMembers.find({ userId: this.userId }).map(function(b) {
+            var boardIds = BoardMembers.find({ userId: this.userId, approved: true }).map(function(b) {
                 // members [boardId, boardId] flats
                 return b.boardId;
             });
@@ -70,12 +70,12 @@ Meteor.publishComposite('board', function(boardId, slug) {
             // Lists and Cards
             {
                 find: function(board) {
-                    return Lists.find({ boardId: board._id, archived: false });
+                    return Lists.find({ boardId: board._id });
                 },
                 children: [
                     {
                         find: function(list, board) {
-                            return Cards.find({ listId: list._id, archived: false });
+                            return Cards.find({ listId: list._id });
                         },
 
                         // CardMembers

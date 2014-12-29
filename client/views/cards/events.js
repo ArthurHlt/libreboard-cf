@@ -50,7 +50,7 @@ Template.cards.events({
     'click .list-card:not(.js-composer)': function(event, t) {
         Utils.Overlay.open({ template: 'cardDetailWindow', data: {
             cardId: this._id
-        }})
+        }});
     }
 });
 
@@ -119,12 +119,6 @@ Template.WindowActivityModule.events({
     'click .js-new-comment:not(.focus)': function(event, t) {
         var $this = $(event.currentTarget);
         $this.addClass('focus');
-    },
-    'click .js-show-mem-menu': function(event, t) {
-        Utils.Pop.open('userPop', false, event.currentTarget, { 
-            user: this.card.user()
-        });
-        event.preventDefault();  
     }
 });
 
@@ -139,7 +133,6 @@ Template.WindowSidebarModule.events({
             // close overlay
             Utils.Overlay.close();
         });
-
         event.preventDefault();
     }
 });

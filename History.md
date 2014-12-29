@@ -14,3 +14,11 @@
 * Add, remove, Board Members
 * Search Members and add Board
 * Profile page and edit Profile
+
+
+## v0.0.1
+* Activities 
+* Template member and users pop fixed.
+* CardMembers subscribe fixed.
+* Boards page publish subscribe fixed
+* Livestamp added.

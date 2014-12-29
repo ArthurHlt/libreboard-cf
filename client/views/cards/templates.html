@@ -142,10 +142,7 @@
                     <span class="member-initials" title="{{ card.user.profile.fullname }} ({{ card.user.username }})">{{ firstChar card.user.profile.fullname }}</span>       
                 </div>   
                 <div class="phenom-desc"> 
-                    <a class="inline-object js-show-mem-menu" href="{{ pathFor route='Profile' username=card.user.username }}" popoffset="user">
-                        {{ card.user.profile.fullname }} ({{ card.user.username }})
-                    </a> 
-                    added this card to {{ card.list.title }}.
+                    {{ > memberName user=card.user offset='user' }} added this card to {{ card.list.title }}.
                 </div> 
                 <p class="phenom-meta quiet"> 
                     <span class="date js-hide-on-sending">{{ livestamp card.createdAt }}</span>  

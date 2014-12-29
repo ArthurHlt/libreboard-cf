@@ -39,6 +39,7 @@ Cards.helpers({
     }
 });
 
+
 CardMembers.helpers({
     member: function() {
         return BoardMembers.findOne(this.memberId);
@@ -61,4 +62,28 @@ Cards.before.insert(function(userId, doc) {
 // CARDMEMBERS BEFORE HOOK
 CardMembers.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
+});
+
+isServer(function() {
+    Cards.after.insert(function(userId, doc) {
+        Activities.insert({
+            activityType: "createCard", 
+            boardId: doc.boardId,
+            listId: doc.listId,
+            cardId: doc._id,
+            userId: userId
+        });
+    });
+
+    Cards.after.update(function(userId, doc) {
+        if (doc.archived) {
+            Activities.insert({
+                activityType: "archivedCard",
+                boardId: doc.boardId,
+                listId: doc.listId,
+                cardId: doc._id,
+                userId: userId
+            });
+        }
+    });
 });

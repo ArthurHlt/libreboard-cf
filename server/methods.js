@@ -13,6 +13,10 @@
 // METHODS
 Meteor.methods({
     removeCardMember: function(_id) {
-        CardMembers.remove({ memberId: _id });
+        CardMembers.update({ memberId: _id }, {
+            $set: {
+                approved: false
+            }
+        });
     }
 });

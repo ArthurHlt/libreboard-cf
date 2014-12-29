@@ -13,7 +13,7 @@ BoardMembers.allow({
         return allowMemberTypeAdmin(userId, doc.boardId);
     },
     update: function(userId, doc) {
-        return allowMemberTypeAdmin(userId, doc.boardId);
+        return allowIsBoardMember(userId, doc.boardId);
     },
     remove: function(userId, doc) {
         return allowIsBoardMember(userId, doc.boardId);
@@ -32,30 +32,24 @@ BoardMembers.helpers({
 // HELPERS
 Boards.helpers({
     lists: function() {
-        return Lists.find({ boardId: this._id }, { sort: { sort: 1 }});
+        return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 }});
     },
     members: function() {
-        return BoardMembers.find({});
+        return BoardMembers.find({ approved: true });
     },
     activities: function() {
-        return Activities.find({ boardId: this._id });
+        return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
     } 
 });
 
-// BOARDSMEMBERS BEFORE HOOK INSERT
 BoardMembers.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
 });
 
-
-// BOARDSMEMBERS BEFORE HOOK INSERT
 BoardMembers.before.remove(function(userId, doc) {
-
-    // remove method members
     Meteor.call('removeCardMember', doc._id);
 });
 
-// BOARDS BEFORE HOOK INSERT
 Boards.before.insert(function(userId, doc) {
     doc.slug = slugify(doc.title);
     doc.createdAt = new Date();
@@ -64,19 +58,49 @@ Boards.before.insert(function(userId, doc) {
 
     // userId native set.
     if (!doc.userId) doc.userId = userId;
-
-    // Members insert admin
-    if (doc._id) {
-        BoardMembers.insert({
-            boardId: doc._id,
-            userId: doc.userId,
-            memberType: "admin"
-        });
-    }
 });
 
-
-// BOARDS BEFORE HOOK UPDATE
 Boards.before.update(function(userId, doc, fieldNames, modifier) {
     modifier.$set.modifiedAt = new Date();
+});
+
+isServer(function() {
+    Boards.after.insert(function(userId, doc) {
+
+        // admin member insert
+        BoardMembers.insert({
+            boardId: doc._id,
+            userId: userId,
+            memberType: "admin",
+            approved: true
+        });
+
+        // activity insert
+        Activities.insert({
+            activityTypeId: doc._id,
+            activityType: "createBoard", 
+            boardId: doc._id,
+            userId: userId
+        });
+    });
+
+    BoardMembers.after.insert(function(userId, doc) {
+        Activities.insert({
+            activityType: "addBoardMember", 
+            boardId: doc.boardId,
+            userId: userId,
+            memberId: doc._id
+        });
+    });
+
+    BoardMembers.after.update(function(userId, doc) {
+        if (doc.approved) {
+            Activities.insert({
+                activityType: "addBoardMember", 
+                memberId: doc._id,
+                boardId: doc.boardId,
+                userId: userId
+            });
+        }
+    });
 });

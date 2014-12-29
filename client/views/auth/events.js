@@ -106,3 +106,13 @@ Template.profileEditForm.events({
         event.preventDefault();
     }
 });
+
+
+Template.memberName.events({
+    'click .js-show-mem-menu': function(event, t) {
+        Utils.Pop.open('userPop', false, event.currentTarget, { 
+            user: this.user
+        });
+        event.preventDefault();  
+    }
+});

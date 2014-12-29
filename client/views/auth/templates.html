@@ -165,3 +165,13 @@
         </div> 
     </div>
 </template>
+
+
+<template name="memberName">
+    <a class="inline-object js-show-mem-menu" href="{{ pathFor route='Profile' username=user.username }}" popoffset='{{ offset }}'>
+        {{ user.profile.fullname }} 
+        {{# if username }}
+            ({{ user.username }})
+        {{ /if }}
+    </a>
+</template>
