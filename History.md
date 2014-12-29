@@ -31,3 +31,9 @@
 ## v0.0.4
 * Card Window actions show hide fixed
 * Wigdets show hide fixed
+
+## v0.0.6
+* Comment remove can not be deleted in review activities.
+
+## v0.0.6
+* Profile Activities tab.
