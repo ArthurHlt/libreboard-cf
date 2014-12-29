@@ -51,10 +51,12 @@ Utils = {
 
     widgetsHeight: function() {
         var wrapper = $('.board-wrapper'),
-            widgets = $('.board-widgets');
-        
+            widgets = $('.board-widgets'),
+            boardActions = $('.board-actions-list');
+       
         // set height widgets
         widgets.height(wrapper.height());
+        boardActions.height(wrapper.height() - 215); 
     },
     // scroll
     Scroll: function(selector) {

@@ -28,6 +28,9 @@ var Helpers = {
     isTrueThen: function(a, b, then) {
         return a == b ? then : false;
     },
+    isUserThen: function(a, b) {
+        return this.userId == Meteor.userId() ? a : b;            
+    },
     isMemberAdmin: function(yes, no) {
         return Utils.isMemberAdmin(yes, no);
     },

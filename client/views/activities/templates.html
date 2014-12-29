@@ -40,6 +40,17 @@
                             added {{ > memberName user=member.user offset='member' }} to <a href="#" class="action-card" popOffset='membersAdd'>{{ card.title }}</a>.
                         {{/if}}
                     {{ /if }}
+
+                    {{# if isTrue activityType 'addComment' }} 
+                        <div class="phenom-desc"> 
+                            on <a href="#" class="action-card" popOffset='membersAdd'>{{ card.title }}</a>
+                            <div class="action-comment markeddown">   
+                                <div class="current-comment">
+                                    <p>{{ comment.text }}</p>
+                                </div> 
+                            </div>
+                        </div> 
+                    {{ /if }}
                 </div>
                 <p class="phenom-meta quiet"> 
                     <span class="date js-hide-on-sending">
@@ -53,6 +64,35 @@
 
 <template name="cardActivities">
         <div class="js-list-actions">
+            {{# each card.comments }} 
+                <div class="phenom phenom-action clearfix phenom-comment"> 
+                    <div class="creator member js-show-mem-menu">  
+                        <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.username }})">{{ firstChar user.profile.fullname }}</span>       
+                    </div>   
+                    <form>
+                        <div class="phenom-desc"> 
+                            {{ > memberName user=user offset='user' }}
+                            <div class="action-comment markeddown">   
+                                <div class="current-comment">
+                                    <p>{{ text }}</p>
+                                </div> 
+                                <textarea class="js-text" tabindex="1">{{ text }}</textarea>  
+                            </div>              
+                        </div> 
+                        <div class="edit-controls clearfix">   
+                            <input type="submit" class="primary confirm js-save-edit" value="Save" tabindex="2"> 
+                        </div>
+                    </form>
+                    <p class="phenom-meta quiet"> 
+                        <span class="date js-hide-on-sending">{{ livestamp createdAt }}</span>  
+                        <span class="js-hide-on-sending {{ isUserThen '' 'hide'}}">
+                            - <a href="#" class="js-edit-action">Edit</a>   
+                            - <a href="#" class="js-confirm-delete-action">Delete</a>
+                        </span>  
+                    </p> 
+                </div>
+            {{/each}}
+
             {{# each card.activities }}
                 <div class="phenom phenom-action clearfix phenom-other"> 
                     <div class="creator member js-show-mem-menu">   

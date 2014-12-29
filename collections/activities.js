@@ -18,6 +18,9 @@ Activities.helpers({
     },
     card: function() {
         return Cards.findOne(this.cardId);
+    },
+    comment: function() {
+        return CardComments.findOne(this.commentId);
     }
 });
 

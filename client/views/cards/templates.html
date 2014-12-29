@@ -6,7 +6,19 @@
                 <span class="list-card-operation icon-sm icon-edit dark-hover js-open-quick-card-editor js-card-menu"></span> 
                 <div class="list-card-details clearfix"> 
                     <a class="list-card-title clear js-card-name" href="#">{{ title }}</a>  
-                    <div class="badges"></div> 
+                    <div class="badges">
+                        {{# if comments.count }}
+                            <div title="This card has {{ comments.count }} comment." class="badge">
+                                <span class="badge-icon icon-sm icon-comment"></span> 
+                                <span class="badge-text">{{ comments.count }}</span> 
+                            </div>
+                        {{/if}}
+                        {{# if description }}
+                            <div title="{{ description }}" class="badge badge-state-image-only">
+                                <span class="badge-icon icon-sm icon-desc"></span>  
+                            </div>
+                        {{/if}}
+                    </div> 
                     <div class="list-card-members js-list-card-members">
                         {{# each members }}
                             <div class="member js-member-on-card-menu" popOffset='membersAdd'> 
@@ -127,15 +139,19 @@
             <span class="window-module-title-icon icon-lg icon-activity"></span> 
             <h3>Activity</h3> 
         </div>
-        <div class="new-comment js-new-comment hide">  
-            <div class="member member-no-menu">
-                <span class="member-initials" title="{{ currentUser.profile.fullname }} ({{ currentUser.username }})">{{ firstChar currentUser.profile.fullname }}</span>
-            </div>  
-            <textarea class="new-comment-input js-new-comment-input" placeholder="Write a comment…" tabindex="1"></textarea> 
-            <div class="add-controls clearfix">   
-                <input type="submit" class="primary confirm clear js-add-comment" value="Comment" tabindex="2"> 
+        {{# if isMemberAll true false }}
+            <div class="new-comment js-new-comment">  
+                <div class="member member-no-menu">
+                    <span class="member-initials" title="{{ currentUser.profile.fullname }} ({{ currentUser.username }})">{{ firstChar currentUser.profile.fullname }}</span>
+                </div>  
+                <form id="CommentForm">
+                    <textarea class="new-comment-input js-new-comment-input" placeholder="Write a comment…" tabindex="1"></textarea> 
+                    <div class="add-controls clearfix">   
+                        <input type="submit" class="primary confirm clear js-add-comment" value="Comment" tabindex="2"> 
+                    </div>
+                </form>
             </div>
-        </div>
+        {{/if}}
         {{ > cardActivities }}
     </div>
 </template>

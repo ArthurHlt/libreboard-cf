@@ -22,3 +22,7 @@
 * CardMembers subscribe fixed.
 * Boards page publish subscribe fixed
 * Livestamp added.
+
+## v0.0.3
+* Card list description and vs icons.
+* Card omments add, remove, edit and Comment Activities

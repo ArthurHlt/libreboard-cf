@@ -1,5 +1,6 @@
 Cards = new Mongo.Collection('cards');
 CardMembers = new Mongo.Collection('card_members');
+CardComments = new Mongo.Collection('card_comments');
 
 // ALLOWS
 Cards.allow({
@@ -23,6 +24,7 @@ CardMembers.allow({
     }
 });
 
+
 // HELPERS
 Cards.helpers({
     list: function() {
@@ -39,9 +41,11 @@ Cards.helpers({
     },
     activities: function() {
         return Activities.find({ type: 'card', cardId: this._id }, { sort: { createdAt: -1 }});
+    },
+    comments: function() {
+        return CardComments.find({ cardId: this._id }, { sort: { createdAt: -1 }});
     }
 });
-
 
 CardMembers.helpers({
     member: function() {
@@ -49,6 +53,11 @@ CardMembers.helpers({
     }
 });
 
+CardComments.helpers({
+    user: function() {
+        return Users.findOne(this.userId);
+    }
+});
 
 // CARDS BEFORE HOOK
 Cards.before.insert(function(userId, doc) {
@@ -65,6 +74,12 @@ Cards.before.insert(function(userId, doc) {
 // CARDMEMBERS BEFORE HOOK
 CardMembers.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
+});
+
+
+CardComments.before.insert(function(userId, doc) {
+    doc.createdAt = new Date();
+    doc.userId = userId;
 });
 
 isServer(function() {
@@ -99,6 +114,17 @@ isServer(function() {
             memberId: doc.memberId,
             boardId: doc.boardId,
             cardId: doc.cardId,
+            userId: userId
+        });
+    });
+
+    CardComments.after.insert(function(userId, doc) {
+        Activities.insert({
+            type: 'comment',
+            activityType: "addComment", 
+            boardId: doc.boardId,
+            cardId: doc.cardId,
+            commentId: doc._id,
             userId: userId
         });
     });
