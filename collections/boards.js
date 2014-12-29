@@ -4,8 +4,8 @@ BoardMembers = new Mongo.Collection('board_members');
 // ALLOWS
 Boards.allow({
     insert: function(userId, doc) { return doc.userId === userId; },
-    update: function(userId, doc) { return doc.userId === userId; },
-    remove: function(userId, doc) { return doc.userId === userId; },
+    update: function(userId, doc) { return allowMemberTypeAdmin(userId, doc._id); },
+    remove: function(userId, doc) { return allowMemberTypeAdmin(userId, doc._id); },
 });
 
 BoardMembers.allow({

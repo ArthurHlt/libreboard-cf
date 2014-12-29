@@ -31,15 +31,17 @@ Template.menuWidget.events({
 
 Template.closeBoardPop.events({
     'click .js-confirm': function(event, t) {
-        // update board close
         Boards.update(this._id, {
             $set: {
                 archived: true
             }
         }, function(err) {
+            console.log(err);
             // go boards Page 
             if (!err) Router.go('Boards');
         });
+
+        event.preventDefault();
     }
 });
 
