@@ -25,4 +25,5 @@
 
 ## v0.0.3
 * Card list description and vs icons.
-* Card omments add, remove, edit and Comment Activities
+* Card comments add, remove, edit and Comment Activities
+* Right Widgets Activities list height fixed
