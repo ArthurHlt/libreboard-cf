@@ -17,7 +17,7 @@
 
 
 ## v0.0.1
-* Activities 
+* Activities right widget and card detail
 * Template member and users pop fixed.
 * CardMembers subscribe fixed.
 * Boards page publish subscribe fixed
