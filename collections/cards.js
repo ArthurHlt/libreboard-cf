@@ -140,4 +140,11 @@ isServer(function() {
             userId: userId
         });
     });
+
+    CardComments.after.remove(function(userId, doc) {
+        var activity = Activities.findOne({ commentId: doc._id });
+        if (activity) {
+            Activities.remove(activity._id);
+        }
+    });
 });
