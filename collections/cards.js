@@ -15,6 +15,18 @@ Cards.allow({
     }
 });
 
+CardComments.allow({
+    insert: function(userId, doc) { 
+        return allowIsBoardMember(userId, doc.boardId);
+    },
+    update: function(userId, doc) {
+        return userId === doc.userId;
+    },
+    remove: function(userId, doc) { 
+        return userId === doc.userId;
+    }
+});
+
 CardMembers.allow({
     insert: function(userId, doc) {
         return allowCardMembers(userId, doc);
