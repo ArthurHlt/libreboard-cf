@@ -77,6 +77,7 @@ isServer(function() {
 
         // activity insert
         Activities.insert({
+            type: 'board',
             activityTypeId: doc._id,
             activityType: "createBoard", 
             boardId: doc._id,
@@ -86,6 +87,7 @@ isServer(function() {
 
     BoardMembers.after.insert(function(userId, doc) {
         Activities.insert({
+            type: 'member',
             activityType: "addBoardMember", 
             boardId: doc.boardId,
             userId: userId,
@@ -96,6 +98,7 @@ isServer(function() {
     BoardMembers.after.update(function(userId, doc) {
         if (doc.approved) {
             Activities.insert({
+                type: 'member',
                 activityType: "addBoardMember", 
                 memberId: doc._id,
                 boardId: doc.boardId,

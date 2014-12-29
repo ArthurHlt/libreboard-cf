@@ -38,6 +38,7 @@ Lists.before.update(function(userId, doc, fieldNames, modifier) {
 isServer(function() {
     Lists.after.insert(function(userId, doc) {
         Activities.insert({
+            type: 'list',
             activityType: "createList", 
             boardId: doc.boardId,
             listId: doc._id,
@@ -48,6 +49,7 @@ isServer(function() {
     Lists.after.update(function(userId, doc) {
         if (doc.archived) {
             Activities.insert({
+                type: 'list',
                 activityType: "archivedList",
                 listId: doc._id,
                 boardId: doc.boardId,

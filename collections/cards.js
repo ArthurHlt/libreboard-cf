@@ -36,6 +36,9 @@ Cards.helpers({
     },
     user: function() {
         return Users.findOne(this.userId);
+    },
+    activities: function() {
+        return Activities.find({ type: 'card', cardId: this._id }, { sort: { createdAt: -1 }});
     }
 });
 
@@ -67,6 +70,7 @@ CardMembers.before.insert(function(userId, doc) {
 isServer(function() {
     Cards.after.insert(function(userId, doc) {
         Activities.insert({
+            type: 'card',
             activityType: "createCard", 
             boardId: doc.boardId,
             listId: doc.listId,
@@ -78,6 +82,7 @@ isServer(function() {
     Cards.after.update(function(userId, doc) {
         if (doc.archived) {
             Activities.insert({
+                type: 'card',
                 activityType: "archivedCard",
                 boardId: doc.boardId,
                 listId: doc.listId,
@@ -85,5 +90,16 @@ isServer(function() {
                 userId: userId
             });
         }
+    });
+
+    CardMembers.after.insert(function(userId, doc) {
+        Activities.insert({
+            type: 'card',
+            activityType: "joinMember", 
+            memberId: doc.memberId,
+            boardId: doc.boardId,
+            cardId: doc.cardId,
+            userId: userId
+        });
     });
 });

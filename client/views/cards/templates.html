@@ -136,19 +136,7 @@
                 <input type="submit" class="primary confirm clear js-add-comment" value="Comment" tabindex="2"> 
             </div>
         </div>
-        <div class="js-list-actions">
-            <div class="phenom phenom-action clearfix phenom-other"> 
-                <div class="creator member js-show-mem-menu">   
-                    <span class="member-initials" title="{{ card.user.profile.fullname }} ({{ card.user.username }})">{{ firstChar card.user.profile.fullname }}</span>       
-                </div>   
-                <div class="phenom-desc"> 
-                    {{ > memberName user=card.user offset='user' }} added this card to {{ card.list.title }}.
-                </div> 
-                <p class="phenom-meta quiet"> 
-                    <span class="date js-hide-on-sending">{{ livestamp card.createdAt }}</span>  
-                </p> 
-            </div>
-        </div>
+        {{ > cardActivities }}
     </div>
 </template>
 

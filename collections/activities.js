@@ -17,7 +17,7 @@ Activities.helpers({
         return Lists.findOne(this.listId);      
     },
     card: function() {
-        return Cards.findOne(this.cardId);      
+        return Cards.findOne(this.cardId);
     }
 });
 
