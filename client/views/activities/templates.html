@@ -22,11 +22,11 @@
                     {{ /if }}
 
                     {{# if isTrue activityType 'createCard' }} 
-                        added <a href="#" class="action-card" popOffset='membersAdd'>{{ card.title }}</a> to {{ list.title }}.
+                        added <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a> to {{ list.title }}.
                     {{ /if }}
 
                     {{# if isTrue activityType 'archivedCard' }} 
-                        archived <a href="#" class="action-card" popOffset='membersAdd'>{{ card.title }}</a>
+                        archived <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>
                     {{ /if }}
 
                     {{# if isTrue activityType 'addBoardMember' }} 
@@ -35,15 +35,15 @@
 
                     {{# if isTrue activityType 'joinMember' }} 
                         {{# if isTrue currentUser._id member.user._id }} 
-                            joined <a href="#" class="action-card" popOffset='membersAdd'>{{ card.title }}</a>.
+                            joined <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
                         {{ else }} 
-                            added {{ > memberName user=member.user offset='member' }} to <a href="#" class="action-card" popOffset='membersAdd'>{{ card.title }}</a>.
+                            added {{ > memberName user=member.user offset='member' }} to <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
                         {{/if}}
                     {{ /if }}
 
                     {{# if isTrue activityType 'addComment' }} 
                         <div class="phenom-desc"> 
-                            on <a href="#" class="action-card" popOffset='membersAdd'>{{ card.title }}</a>
+                            on <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>
                             <div class="action-comment markeddown">   
                                 <div class="current-comment">
                                     <p>{{ comment.text }}</p>

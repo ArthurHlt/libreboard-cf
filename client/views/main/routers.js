@@ -27,7 +27,9 @@ Router.configure({
         Session.set('pop', false);
         Session.set('warning', false);
         Session.set('widgets', true);
-        Session.set('windowOverlay', false);
+
+        // all pages pop close
+        Utils.Pop.close();
 
         // Layout template found then set render this.route options layout.
         if (!options.layoutTemplate) {

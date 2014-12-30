@@ -39,4 +39,5 @@
 * remove Boards fixed.
 
 ## v0.6
-* Profile Activities tab.
+* Card Detail Page
+* Boards and Cards helper add absoluteUrl method.

@@ -32,7 +32,6 @@
             </div>
         </div>
         {{ > warning }}
-        {{ > windowOverlay }}
         <div id="content">
             {{ > yield }}
         </div>
@@ -53,7 +52,6 @@
             {{ > memberHeader }}
         </div> 
         {{ > warning }}
-        {{ > windowOverlay }}
         <div id="content">
             {{ > yield }}
         </div>
@@ -138,17 +136,4 @@
             {{> UI.dynamic template=pop.template data=pop.data }}
         </div> 
     </div>
-</template>
-
-<template name="windowOverlay">
-    {{# if session 'windowOverlay' }} 
-        <div class="window-overlay show">
-            <div class="window show">
-                <div class="window-wrapper clearfix js-tab-parent"> 
-                    <a class="icon-lg icon-close dialog-close-button js-close-window" href="#" title="Close this dialog window."></a>
-                    {{> UI.dynamic template=overlay.template data=overlay.data }}
-                </div>
-            </div>      
-        </div>
-    {{/if}}
 </template>

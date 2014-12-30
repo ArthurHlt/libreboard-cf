@@ -39,7 +39,10 @@ Boards.helpers({
     },
     activities: function() {
         return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
-    } 
+    } ,
+    absoluteUrl: function() {
+        return Router.path("Board", { boardId: this._id, slug: this.slug });           
+    }
 });
 
 BoardMembers.before.insert(function(userId, doc) {

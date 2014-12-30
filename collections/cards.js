@@ -56,6 +56,10 @@ Cards.helpers({
     },
     comments: function() {
         return CardComments.find({ cardId: this._id }, { sort: { createdAt: -1 }});
+    },
+    absoluteUrl: function() {
+        var board = this.board();
+        return Router.path("Card", { boardId: board._id, slug: board.slug, cardId: this._id });
     }
 });
 

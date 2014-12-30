@@ -57,11 +57,5 @@ Template.pop.helpers({
     }        
 });
 
-Template.windowOverlay.helpers({
-    overlay: function() {
-        return Utils.Overlay.get();         
-    }    
-});
-
 // Register all Helpers
 _.each(Helpers, function(fn, name) { Blaze.registerHelper(name, fn); });

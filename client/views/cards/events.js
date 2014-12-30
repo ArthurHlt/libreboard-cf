@@ -46,11 +46,6 @@ Template.cards.events({
         });
         event.preventDefault();
         event.stopPropagation();
-    },
-    'click .list-card:not(.js-composer)': function(event, t) {
-        Utils.Overlay.open({ template: 'cardDetailWindow', data: {
-            cardId: this._id
-        }});
     }
 });
 
@@ -91,7 +86,7 @@ Template.cardDetailWindow.events({
     'submit #WindowTitleEdit': function(event, t) {
         var title = t.find('#title').value;
         if ($.trim(title)) {
-            Cards.update(this.cardId, {
+            Cards.update(this.card._id, {
                 $set: {
                     title: title
                 }
@@ -104,7 +99,7 @@ Template.cardDetailWindow.events({
         event.preventDefault();
     },
     'submit #WindowDescEdit': function(event, t) {
-        Cards.update(this.cardId, { 
+        Cards.update(this.card._id, { 
             $set: {
                 description: t.find('#desc').value
             }
@@ -137,15 +132,17 @@ Template.WindowActivityModule.events({
 
 Template.WindowSidebarModule.events({
     'click .js-archive-card': function(event, t) {
+
+        // Update 
         Cards.update(this.card._id, { 
             $set: {
                 archived: true
             }
-        }, function(err) {
-        
-            // close overlay
-            Utils.Overlay.close();
         });
+
+        // redirect board
+        Utils.goBoardId(this.card.board()._id);
+
         event.preventDefault();
     }
 });

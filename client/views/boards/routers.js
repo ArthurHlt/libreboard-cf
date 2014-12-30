@@ -7,7 +7,7 @@ Router.route('/boards', {
     }
 });
 
-Router.route('/boards/:_id/:slug', {
+Router.route('/boards/:boardId/:slug', {
     name: 'Board',
     template: 'board',
     bodyClass: 'page-index chrome chrome-39 mac extra-large-window body-webkit-scrollbars body-board-view bgBoard',
@@ -20,7 +20,7 @@ Router.route('/boards/:_id/:slug', {
             Meteor.subscribe('connectUser'),
 
             // Board page list, cards members vs 
-            Meteor.subscribe('board', params._id, params.slug)
+            Meteor.subscribe('board', params.boardId, params.slug)
         ]
     }
 });

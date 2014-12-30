@@ -1,11 +1,3 @@
-Template.activities.events({
-    'click .action-card': function(event, t) {
-        Utils.Overlay.open({ template: 'cardDetailWindow', data: {
-            cardId: this.cardId
-        }});
-    }
-});
-
 Template.cardActivities.events({
     'click .js-edit-action': function(event, t) {
         var $this = $(event.currentTarget),

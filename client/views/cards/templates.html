@@ -4,8 +4,8 @@
             <div class="list-card card js-member-droppable">
                 <div class="list-card-labels clearfix js-card-labels"></div> 
                 <span class="list-card-operation icon-sm icon-edit dark-hover js-open-quick-card-editor js-card-menu"></span> 
-                <div class="list-card-details clearfix"> 
-                    <a class="list-card-title clear js-card-name" href="#">{{ title }}</a>  
+                <a class="list-card-details clearfix show" href="{{ absoluteUrl }}"> 
+                    <div class="list-card-title clear js-card-name">{{ title }}</div>  
                     <div class="badges">
                         {{# if comments.count }}
                             <div title="This card has {{ comments.count }} comment." class="badge">
@@ -30,12 +30,17 @@
                             </div>
                         {{/each}}
                     </div>
-                </div> 
+                </a> 
             </div>
         {{/each}}
         {{ > addCardForm }}
     </div>
     <a class="open-card-composer js-open-card-composer {{ isMemberAll '' 'hide' }}" href="#">Add a card…</a>
+</template>
+
+<template name="card">
+    {{ > modal template='cardDetailWindow' card=card board=board }}
+    {{ > board }} 
 </template>
 
 <template name="cardMemberPop">
