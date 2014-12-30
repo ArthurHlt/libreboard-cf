@@ -13,6 +13,9 @@ Template.lists.events({
         composer.removeClass('hide');
         composer.find('.js-card-title').focus();
         $el.addClass('hide');
+
+        // stop click hash
+        event.preventDefault();
     },
     'click .js-open-list-menu': function(event, t) {
         var $this = $(event.currentTarget),
@@ -34,6 +37,9 @@ Template.lists.events({
 
         // focus current form title
         listHeader.find('.single-line').focus();
+
+        // stop click hash
+        event.preventDefault();
     }
 });
 

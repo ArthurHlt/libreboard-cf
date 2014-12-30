@@ -1,8 +1,10 @@
 Users = Meteor.users;
 
+// Search subscribe mongodb fields ['username', 'profile.fullname']
 Users.initEasySearch(['username', 'profile.fullname'], {
     use: 'mongo-db'
 });
+
 
 // HELPERS
 Users.helpers({
