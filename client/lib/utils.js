@@ -52,11 +52,19 @@ Utils = {
     widgetsHeight: function() {
         var wrapper = $('.board-wrapper'),
             widgets = $('.board-widgets'),
-            boardActions = $('.board-actions-list');
-       
+            boardActions = $('.board-actions-list'),
+            pop = $('.pop-over');
+
         // set height widgets
         widgets.height(wrapper.height());
         boardActions.height(wrapper.height() - 215); 
+        pop.find('.content').css('max-height', widgets.height() / 2);
+     
+        // resize and default pop offset
+        if (pop[0]) {
+            var popOffset = Utils.Pop.getOffset($('.openPop').get());
+            pop.css({ top: popOffset.top, left: popOffset.left });
+        } 
     },
     // scroll
     Scroll: function(selector) {
@@ -89,9 +97,13 @@ Utils = {
                 top: offset.top,
                 data: data || {}
             });
+
+            // openPop
+            $($el).addClass('openPop');
         },
         close: function() {
             Session.set('pop', false);
+            $('.openPop').removeClass('openPop');
         }
     },
 

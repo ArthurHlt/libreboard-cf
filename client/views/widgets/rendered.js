@@ -12,3 +12,9 @@ Template.membersWidget.rendered = function() {
         });
     }
 };
+
+Template.addMemberPop.rendered = function() {
+
+    // resize widgets
+    Utils.widgetsHeight();
+};
