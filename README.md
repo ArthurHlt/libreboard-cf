@@ -3,7 +3,12 @@ Metrello
 
 [![Build Status](https://travis-ci.org/yasaricli/metrello.png)](https://travis-ci.org/yasaricli/metrello)
 
-A trello clone implemented in MeteorJs for showcase, use for educational purposes only.
+We like using [Trello](https://trello.com/) everyday and we started to develop [Metrello](http://metrello.meteor.com/) just for fun.
+Metrello aims to show different capabilities of [Meteor](https://www.meteor.com/) to people who are already familiar with
+that fantastic project [Trello](https://trello.com/).
+Metrello uses base CSS structure of [Trello](https://trello.com/), all the other cool stuff is developed using [Meteor](https://www.meteor.com/).
+It's a non-commercial software, just for educational purposes.
+
 
 You can watch main Metrello development at http://metrello.meteor.com/boards/FNJpvwkyGsbDqyYHP/metrello
 
