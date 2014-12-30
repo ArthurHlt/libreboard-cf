@@ -1,5 +1,7 @@
 ## v.NEXT
 
+Start issue Meteor 1.0 update #19 see: https://github.com/yasaricli/metrello/issues/19
+
 ## v0.1
 * Register, Login
 * Create, Update, Remove Board
