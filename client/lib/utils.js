@@ -153,5 +153,54 @@ Utils = {
             ]
         };
         return this.isMemberFilter(filter) ? yes : no;
+    },
+
+    // new getCardData(cardEl)
+    getCardData: function(item) {
+        var el = item.get(0),
+            card = Blaze.getData(el),
+            list = Blaze.getData(item.parents('.list').get(0)),
+            before = item.prev('.card').get(0),
+            after = item.next('.card').get(0);
+
+        this.listId = list._id;
+        this.cardId = card._id;
+        this.oldSort = card.sort;
+
+        // if before and after undefined then sort 0 
+        if (!before && !after) {
+
+            // set sort 0
+            this.sort = 0;
+        } else {
+        
+            /*
+            *
+            * Blaze.getData takes as a parameter an html element
+            * and will return the data context that was bound when
+            * that html element was rendered!
+            */
+            if(!before) { 
+
+                /*
+                * if it was dragged into the first position grab the
+                * next element's data context and subtract one from the rank 
+                */
+                this.sort = Blaze.getData(after).sort - 1;
+            } else if(!after) { 
+                /*
+                * if it was dragged into the last position grab the
+                * previous element's data context and add one to the rank 
+                */
+                this.sort = Blaze.getData(before).sort + 1;
+            } else {
+                
+                /*
+                * else take the average of the two ranks of the previous
+                *  and next elements
+                */
+                this.sort = (Blaze.getData(after).sort + Blaze.getData(before).sort) / 2;
+            }
+        }
     }
 };

@@ -18,5 +18,10 @@ Meteor.methods({
                 approved: false
             }
         });
+    },
+    updateCard: function(_id, $set) {
+        Cards.update(_id, {
+            $set: $set
+        });            
     }
 });

@@ -78,6 +78,7 @@ CardComments.helpers({
 // CARDS BEFORE HOOK
 Cards.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
+    doc.dateLastActivity = new Date();
 
     // defaults
     doc.archived = false;
@@ -110,7 +111,7 @@ isServer(function() {
         });
     });
 
-    Cards.after.update(function(userId, doc) {
+    Cards.after.update(function(userId, doc, fieldNames, modifier) {
         if (doc.archived) {
             Activities.insert({
                 type: 'card',

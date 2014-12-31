@@ -15,7 +15,7 @@ Lists.allow({
 
 Lists.helpers({
     cards: function() {
-        return Cards.find({ listId: this._id, archived: false }, { sort: { sort: 1 }});
+        return Cards.find({ listId: this._id, archived: false }, { sort: ['sort'] });
     },
     board: function() {
         return Boards.findOne(this.boardId);

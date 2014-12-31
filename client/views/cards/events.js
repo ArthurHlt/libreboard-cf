@@ -17,7 +17,9 @@ Template.addCardForm.events({
     },
     'submit #AddCardForm': function(event, t) {
         var title = t.$('.js-card-title'),
-            list = title.parents('.list');
+            list = title.parents('.list'),
+            cards = list.find('.card'),
+            sort = cards.last().length ? (Blaze.getData(cards.last()[0]).sort +1) : 0;
             
         // title trim if not empty then
         if ($.trim(title.val())) {
@@ -25,7 +27,7 @@ Template.addCardForm.events({
                 title: title.val(),
                 listId: this.listId,
                 boardId: this.board._id,
-                sort: list.find('.list-card').length
+                sort: sort
             });
 
             // empty and focus.

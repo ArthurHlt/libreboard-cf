@@ -1,6 +1,5 @@
 Template.cards.rendered = function() {
     var _this = this,
-        data = this.data,
         cards = _this.$(".cards");
 
     if (Utils.isMemberAll(true, false)) {
@@ -15,20 +14,12 @@ Template.cards.rendered = function() {
                 $('.list-card.placeholder').height(ui.item.height());
             },
             stop: function(event, ui) {
-                var list = ui.item.parents('.list-cards'),
-                    data = Blaze.getData(list.get(0));
+                var data = new Utils.getCardData(ui.item);
 
-                // each cards
-                list.find('.card').each(function(i, el) {
-                    var card = Blaze.getData(el);
-
-                    // update collection 
-                    Cards.update(card._id, {
-                        $set: {
-                            sort: i,
-                            listId: data.listId
-                        }
-                    });
+                // update card
+                Meteor.call('updateCard', data.cardId, {
+                    listId: data.listId,
+                    sort: data.sort
                 });
             }
         }).disableSelection();
