@@ -88,10 +88,8 @@ Template.cardDetailWindow.events({
     'submit #WindowTitleEdit': function(event, t) {
         var title = t.find('#title').value;
         if ($.trim(title)) {
-            Cards.update(this.card._id, {
-                $set: {
-                    title: title
-                }
+            Meteor.call('updateCard', this.card._id, {
+                title: title
             }, function(err) {
                 // close editing
                 if (!err) $('.editing').removeClass('editing');

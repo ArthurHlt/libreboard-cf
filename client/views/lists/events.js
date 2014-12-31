@@ -98,10 +98,11 @@ Template.listActionPop.events({
             $set: {
                 archived: true
             }
-        }, function(err, listId) {
-            // close pop
-            Utils.Pop.close();
-        }); 
+        });
+
+        // close pop
+        Utils.Pop.close();
+
         event.preventDefault();    
     },
     'click .js-add-card': function(event, t) {},

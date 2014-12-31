@@ -35,12 +35,12 @@ Template.closeBoardPop.events({
             $set: {
                 archived: true
             }
-        }, function(err) {
-            console.log(err);
-            // go boards Page 
-            if (!err) Router.go('Boards');
         });
 
+        // boards page 
+        Router.go('Boards');
+
+        // prevent default
         event.preventDefault();
     }
 });
