@@ -139,6 +139,18 @@ Template.WindowSidebarModule.events({
                 archived: true
             }
         });
+        event.preventDefault();
+    },
+    'click .js-unarchive-card': function(event, t) {
+        Cards.update(this.card._id, {
+            $set: {
+                archived: false
+            }
+        });
+        event.preventDefault();
+    },
+    'click .js-delete-card': function(event, t) {
+        Cards.remove(this.card._id);
 
         // redirect board
         Utils.goBoardId(this.card.board()._id);
