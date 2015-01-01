@@ -10,6 +10,9 @@ Users.initEasySearch(['username', 'profile.fullname'], {
 Users.helpers({
     boards: function() {
         return Boards.find({ userId: this._id });
+    },
+    hasStarred: function(boardId) {
+        return this.profile.starredBoards && _.contains(this.profile.starredBoards, boardId);
     }
 });
 

@@ -1,6 +1,23 @@
-Template.boards.events({});
+var toggleBoardStar = function(boardId) {
+    var queryType = Meteor.user().hasStarred(boardId) ? '$pull' : '$addToSet';
+    var query = {};
+    query[queryType] = {
+        'profile.starredBoards': boardId
+    };
+    Meteor.users.update(Meteor.userId(), query);
+};
+
+Template.boards.events({
+    'click .js-star-board': function(event, t) {
+        toggleBoardStar(this._id);
+        event.preventDefault();
+    }
+});
 
 Template.board.events({
+    'click .js-star-board': function(event, t) {
+        toggleBoardStar(Boards.findOne()._id);
+    },
     'click .js-rename-board:not(.no-edit)': function(event, t) {
         Utils.Pop.open('changeBoardTitlePop', 'Rename Board', event.currentTarget, Boards.findOne());
     },
