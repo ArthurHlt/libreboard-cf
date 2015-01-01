@@ -83,6 +83,12 @@
 
 <template name="cardDetailWindow">
     <div class="card-detail-window clearfix"> 
+        {{ #if card.archived }}
+            <div class="window-archive-banner js-archive-banner">
+                <span class="icon-lg icon-archive window-archive-banner-icon"></span>
+                <p class="window-archive-banner-text">This card is archived.</p>
+            </div>
+        {{ /if }}
         <div class="window-header clearfix"> 
             <span class="window-header-icon icon-lg icon-card"></span> 
             <div class="window-title card-detail-title non-empty inline {{ isMemberAll 'editable' '' }}"> 
