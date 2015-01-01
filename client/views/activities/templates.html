@@ -29,6 +29,10 @@
                         archived <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>
                     {{ /if }}
 
+                    {{# if isTrue activityType 'restoredCard' }}
+                        sent <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a> to the board.
+                    {{ /if }}
+
                     {{# if isTrue activityType 'addBoardMember' }} 
                         added  {{ > memberName user=member.user offset='member' }} to this board.
                     {{ /if }}
@@ -109,9 +113,12 @@
                             added this card to {{ > memberName user=member.user offset='user' }}
                         {{/if}}
                     {{/if}}
-                    {{# if isTrue activityType 'archivedCard' }} 
-                        archived <a href="#" class="action-card" popOffset='membersAdd'>{{ card.title }}</a>
+                    {{# if isTrue activityType 'archivedCard' }}
+                        archived this card.
                     {{ /if }}
+                    {{# if isTrue activityType 'restoredCard' }}
+                        sent this card to the board.
+                    {{/ if }}
                 </div>
             {{/each}}
         </div>

@@ -112,15 +112,26 @@ isServer(function() {
     });
 
     Cards.after.update(function(userId, doc, fieldNames, modifier) {
-        if (doc.archived) {
-            Activities.insert({
-                type: 'card',
-                activityType: "archivedCard",
-                boardId: doc.boardId,
-                listId: doc.listId,
-                cardId: doc._id,
-                userId: userId
-            });
+        if (_.contains(fieldNames, 'archived')) {
+            if (doc.archived) {
+                Activities.insert({
+                    type: 'card',
+                    activityType: "archivedCard",
+                    boardId: doc.boardId,
+                    listId: doc.listId,
+                    cardId: doc._id,
+                    userId: userId
+                });
+            } else {
+                Activities.insert({
+                    type: 'card',
+                    activityType: "restoredCard",
+                    boardId: doc.boardId,
+                    listId: doc.listId,
+                    cardId: doc._id,
+                    userId: userId
+                });
+            }
         }
     });
 
