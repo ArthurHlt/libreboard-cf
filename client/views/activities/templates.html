@@ -49,9 +49,9 @@
                         <div class="phenom-desc">
                             on <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>
                             <div class="action-comment markeddown">
-                                <div class="current-comment">
+                                <a href="{{ card.absoluteUrl }}" class="current-comment show tdn">
                                     <p>{{ comment.text }}</p>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     {{ /if }}

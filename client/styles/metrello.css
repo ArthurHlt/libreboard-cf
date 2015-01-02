@@ -12,6 +12,7 @@
 .mt50 { margin-top:50px; }
 .list-header-name { word-wrap: break-word; }
 .list-card-details:hover { background:#f2f2f2;border-bottom-color:#b3b3b3; }
+.tdn { text-decoration:none; }
 
 .header-member { min-width:105px!important; text-align:center; }
 
