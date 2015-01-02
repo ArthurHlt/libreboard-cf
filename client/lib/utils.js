@@ -27,6 +27,9 @@ var Offsets = {
     removeMember: function(offset) {
         var width = $(window).width();
         return { left: (width - 310), top: (offset.top - 103) }
+    },
+    button: function(offset) {
+        return { left: offset.left, top: (offset.top + 40) }
     }
 };
 

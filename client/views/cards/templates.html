@@ -62,6 +62,11 @@
     </div>
 </template>
 
+<template name="deleteCardPop">
+    <p> All actions will be removed from the activity feed and you won't be able to re-open the card. There is no undo. You can archive a card to remove it from the board and preserve the activity. </p>
+    <input type="submit" class="js-confirm negate full" value="Delete">
+</template>
+
 <template name="addCardForm">
     <div class="card-composer hide">
         <form id="AddCardForm">
@@ -179,7 +184,7 @@
                     <a href="#" class="button-link js-unarchive-card" title="Send the card back to the board.">
                         <span class="icon-sm icon-reopen"></span> Send to board
                     </a>
-                        <a href="#" class="button-link negate js-delete-card" title="Delete the card and all history associated with it. It can’t be retrieved.">
+                    <a href="#" class="button-link negate js-delete-card" title="Delete the card and all history associated with it. It can’t be retrieved." popoffset="button">
                         <span class="icon-sm icon-remove"></span> Delete
                     </a>
                 {{ else }}

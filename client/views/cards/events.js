@@ -150,11 +150,20 @@ Template.WindowSidebarModule.events({
         event.preventDefault();
     },
     'click .js-delete-card': function(event, t) {
-        Cards.remove(this.card._id);
-
-        // redirect board
-        Utils.goBoardId(this.card.board()._id);
+        Utils.Pop.open('deleteCardPop', 'Delete Card?', event.currentTarget, {
+            cardId: this.card._id,
+            boardId: this.card.board()._id
+        });
 
         event.preventDefault();
+    }
+});
+
+Template.deleteCardPop.events({
+    'click .js-confirm': function() {
+        Cards.remove(this.cardId);
+
+        // redirect board
+        Utils.goBoardId(this.boardId);
     }
 });
