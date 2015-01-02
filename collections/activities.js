@@ -14,7 +14,7 @@ Activities.helpers({
         return BoardMembers.findOne(this.memberId);
     },
     list: function() {
-        return Lists.findOne(this.listId);      
+        return Lists.findOne(this.listId);
     },
     card: function() {
         return Cards.findOne(this.cardId);

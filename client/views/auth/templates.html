@@ -2,66 +2,66 @@
     {{ > authHeader }}
     <div class="account-content clearfix">
         <form id="SignUpForm" class="primary-col">
-            <h2>Create an Account</h2> 
+            <h2>Create an Account</h2>
             {{#if error }} <p class="error">{{ error }}</p> {{/if}}
-            <label for="fullname"> Name </label> 
+            <label for="fullname"> Name </label>
             <input type="text" id="fullname" tabindex="1" autofocus="" placeholder="e.g., Dr. Frankenstein">
-            <label for="email"> Email </label> 
+            <label for="email"> Email </label>
             <input type="email" id="email" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" placeholder="e.g., doc@frankenstein.com">
-            <label for="password"> Password </label> 
+            <label for="password"> Password </label>
             <input type="password" id="password" placeholder="e.g., ••••••••••••••••">
             <input type="submit" class="primary" value="Create New Account">
-            <p class="quiet clear"> 
-                Already have an account? <a href="{{ pathFor route='Login' }}"><strong>Log In.</strong></a> 
+            <p class="quiet clear">
+                Already have an account? <a href="{{ pathFor route='Login' }}"><strong>Log In.</strong></a>
             </p>
         </form>
-    </div> 
+    </div>
 </template>
 
 <template name="login">
     {{ > authHeader }}
     <div class="account-content clearfix">
         <form id="LoginForm" class="primary-col">
-            <h2> Log In </h2> 
+            <h2> Log In </h2>
             {{#if error }} <p class="error">{{error }}</p> {{/if}}
-            <label for="email"> Email or username </label> 
-            <input type="text" id="email" tabindex="1" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" autofocus=""> 
-            <label for="password"> Password </label> 
-            <input type="password" id="password" tabindex="2" placeholder="e.g., ••••••••••••••••"> 
-            <input type="submit" class="primary" value="Log In" tabindex="3"> 
-            <p class="quiet clear"> New here? <a href="{{ pathFor route='Signup' }}"><strong>Create an Account.</strong></a> </p> 
+            <label for="email"> Email or username </label>
+            <input type="text" id="email" tabindex="1" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" autofocus="">
+            <label for="password"> Password </label>
+            <input type="password" id="password" tabindex="2" placeholder="e.g., ••••••••••••••••">
+            <input type="submit" class="primary" value="Log In" tabindex="3">
+            <p class="quiet clear"> New here? <a href="{{ pathFor route='Signup' }}"><strong>Create an Account.</strong></a> </p>
         </form>
-    </div> 
+    </div>
 </template>
 
 <template name="authHeader">
-    <div class="account-header"> 
-        <img src="/logo_blue.png"> 
+    <div class="account-header">
+        <img src="/logo_blue.png">
     </div>
 </template>
 
 <template name="memberHeader">
-    <div class="header-user" popOffset='headerUser'>  
-        <a class="header-btn js-open-add-menu" href="#" title="Add a new board"> 
-            <span class="header-btn-icon icon-lg icon-add light"></span> 
-        </a> 
-        <a class="header-btn header-member js-open-header-member-menu" href="#"> 
-            <span class="member">  
-                <span class="member-initials"> {{ firstChar currentUser.profile.fullname }}  </span>
-                <span class="member-gold-badge" title="This member has Trello Gold."></span> 
-            </span> 
-            <span class="header-btn-text js-member-name">{{ currentUser.profile.fullname }}</span> 
+    <div class="header-user" popOffset='headerUser'>
+        <a class="header-btn js-open-add-menu" href="#" title="Add a new board">
+            <span class="header-btn-icon icon-lg icon-add light"></span>
         </a>
-        <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 Notifications."> 
-            <span class="header-btn-icon icon-lg icon-notification light"></span> 
-        </a>      
+        <a class="header-btn header-member js-open-header-member-menu" href="#">
+            <span class="member">
+                <span class="member-initials"> {{ firstChar currentUser.profile.fullname }}  </span>
+                <span class="member-gold-badge" title="This member has Trello Gold."></span>
+            </span>
+            <span class="header-btn-text js-member-name">{{ currentUser.profile.fullname }}</span>
+        </a>
+        <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 Notifications.">
+            <span class="header-btn-icon icon-lg icon-notification light"></span>
+        </a>
     </div>
 </template>
 
 <template name="memberMenuPop">
-    <ul class="pop-over-list"> 
-        <li><a class="js-profile" href="{{ pathFor route='Profile' username=currentUser.username }}">Profile</a></li> 
-        <li><a class="js-cards" href="{{ pathFor route='Settings' }}">Settings</a></li>  
+    <ul class="pop-over-list">
+        <li><a class="js-profile" href="{{ pathFor route='Profile' username=currentUser.username }}">Profile</a></li>
+        <li><a class="js-cards" href="{{ pathFor route='Settings' }}">Settings</a></li>
     </ul>
     <hr>
     <ul class="pop-over-list"><li><a class="js-logout" href="#">Log Out</a></li></ul>
@@ -70,27 +70,27 @@
 <template name='profile'>
     {{ # if profile }}
         <div class="tabbed-pane-header">
-            <div class="tabbed-pane-header-wrapper clearfix"> 
+            <div class="tabbed-pane-header-wrapper clearfix">
                 <a class="tabbed-pane-header-image profile-image ed js-change-avatar-profile" href="#">
                     <span class="profile-image-initials">{{ firstChar profile.profile.fullname }}</span>
                     {{#if isTrue currentUser.username profile.username }}
                         <span class="change-text"> Change Avatar </span>
                     {{ /if }}
-                </a> 
-                <div class="tabbed-pane-header-details"> 
+                </a>
+                <div class="tabbed-pane-header-details">
                     <div class="js-current-details">
                         <div class="tabbed-pane-header-details-name">
-                            <h1 class="inline"> {{ profile.profile.fullname }} </h1> 
-                            <p class="window-title-extra quiet"> @{{ profile.username }} </p>  
-                        </div> 
-                        <div class="tabbed-pane-header-details-content"> 
+                            <h1 class="inline"> {{ profile.profile.fullname }} </h1>
+                            <p class="window-title-extra quiet"> @{{ profile.username }} </p>
+                        </div>
+                        <div class="tabbed-pane-header-details-content">
                             <p>{{ profile.profile.bio }}</p>
                         </div>
-                        <div class="tabbed-pane-header-details-content"></div>  
-                    </div>    
+                        <div class="tabbed-pane-header-details-content"></div>
+                    </div>
                     {{ > profileEditForm }}
-                </div>  
-            </div> 
+                </div>
+            </div>
         </div>
     {{ else }}
         {{ > message label='User Profile not found.' }}
@@ -99,29 +99,29 @@
 
 <template name="settings">
     {{ > profile profile=currentUser }}
-    <div class="tabbed-pane-main-col clearfix"> 
-        <div class="tabbed-pane-main-col-loading hide js-loading-page"> 
-            <span class="tabbed-pane-main-col-loading-spinner spinner"></span> 
-        </div> 
+    <div class="tabbed-pane-main-col clearfix">
+        <div class="tabbed-pane-main-col-loading hide js-loading-page">
+            <span class="tabbed-pane-main-col-loading-spinner spinner"></span>
+        </div>
         <div class="tabbed-pane-main-col-wrapper js-content">
-            <div class="window-module clearfix"> 
-                <div class="window-module-title"> 
-                    <h3>Account Details</h3> 
-                </div> 
-                <a class="big-link js-change-name-and-bio" href="#"> 
-                    <span class="text">Change Name, Initials, or Bio</span> 
-                </a> 
-                <a class="big-link js-change-avatar" href="#"> 
-                    <span class="text">Change Avatar</span> 
-                </a> 
-                <a class="big-link js-change-password" href="#"> 
-                    <span class="text">Change Password</span> 
-                </a> 
-                <a class="big-link js-change-email" href="#"> 
-                    <span class="text">Change Email</span> 
-                </a> 
-            </div>       
-        </div> 
+            <div class="window-module clearfix">
+                <div class="window-module-title">
+                    <h3>Account Details</h3>
+                </div>
+                <a class="big-link js-change-name-and-bio" href="#">
+                    <span class="text">Change Name, Initials, or Bio</span>
+                </a>
+                <a class="big-link js-change-avatar" href="#">
+                    <span class="text">Change Avatar</span>
+                </a>
+                <a class="big-link js-change-password" href="#">
+                    <span class="text">Change Password</span>
+                </a>
+                <a class="big-link js-change-email" href="#">
+                    <span class="text">Change Email</span>
+                </a>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -129,47 +129,47 @@
     {{#if isTrue currentUser.username profile.username }}
         {{# if session 'ProfileEditForm' }}
             <form id="ProfileEditForm" class="js-profile-form">
-                <p class="error js-profile-form-error hide"></p> 
-                <label>Username</label> 
-                <input type="text" id="username" value="{{ profile.username }}" disabled> 
-                <label>Full Name</label> 
-                <input type="text" id="fullname" value="{{ profile.profile.fullname }}"> 
+                <p class="error js-profile-form-error hide"></p>
+                <label>Username</label>
+                <input type="text" id="username" value="{{ profile.username }}" disabled>
+                <label>Full Name</label>
+                <input type="text" id="fullname" value="{{ profile.profile.fullname }}">
                 <label>
                     Bio <span class="quiet">(optional)</span>
-                </label> 
-                <textarea id="bio">{{ profile.profile.bio }}</textarea> 
-                <input type="submit" class="primary wide js-submit-profile" value="Save"> 
-                <input type="button" class="js-cancel-edit-profile" value="Cancel"> 
+                </label>
+                <textarea id="bio">{{ profile.profile.bio }}</textarea>
+                <input type="submit" class="primary wide js-submit-profile" value="Save">
+                <input type="button" class="js-cancel-edit-profile" value="Cancel">
             </form>
         {{ else }}
             <a class="button-link tabbed-pane-header-details-edit js-edit-profile" href="#">
-                <span class="icon-sm icon-edit"></span> 
+                <span class="icon-sm icon-edit"></span>
                 Edit profile
-            </a>  
+            </a>
         {{ /if }}
     {{ /if }}
 </template>
 
 <template name="userPop">
     <div class="board-member-menu">
-        <div class="mini-profile-info"> 
-            <div class="member-large">  
+        <div class="mini-profile-info">
+            <div class="member-large">
                 <span class="member-initials" title="{{ user.profile.fullname}} ({{ user.profile.username}})">{{ firstChar user.profile.fullname }}</span>
-            </div> 
-            <div class="info"> 
+            </div>
+            <div class="info">
                 <h3 class="bottom" style="margin-right: 40px;">
                     <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.fullname }}</a>
-                </h3> 
+                </h3>
                 <p class="quiet bottom">@{{ user.username }}</p>
-            </div> 
-        </div> 
+            </div>
+        </div>
     </div>
 </template>
 
 
 <template name="memberName">
     <a class="inline-object js-show-mem-menu" href="{{ pathFor route='Profile' username=user.username }}" popoffset='{{ offset }}'>
-        {{ user.profile.fullname }} 
+        {{ user.profile.fullname }}
         {{# if username }}
             ({{ user.username }})
         {{ /if }}

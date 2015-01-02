@@ -4,7 +4,7 @@ Template.membersWidget.rendered = function() {
             $this.find('.js-member').draggable({
                 appendTo: "body",
                 helper: "clone",
-                revert: "invalid", 
+                revert: "invalid",
                 revertDuration: 150,
                 snap: false,
                 snapMode: "both"

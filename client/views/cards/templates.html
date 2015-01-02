@@ -1,36 +1,36 @@
 <template name="cards">
     <div class="list-cards cards fancy-scrollbar clearfix js-list-cards js-sortable ui-sortable">
-        {{# each cards }} 
+        {{# each cards }}
             <div class="list-card card js-member-droppable">
-                <div class="list-card-labels clearfix js-card-labels"></div> 
-                <span class="list-card-operation icon-sm icon-edit dark-hover js-open-quick-card-editor js-card-menu"></span> 
-                <a class="list-card-details clearfix show" href="{{ absoluteUrl }}"> 
-                    <div class="list-card-title clear js-card-name">{{ title }}</div>  
+                <div class="list-card-labels clearfix js-card-labels"></div>
+                <span class="list-card-operation icon-sm icon-edit dark-hover js-open-quick-card-editor js-card-menu"></span>
+                <a class="list-card-details clearfix show" href="{{ absoluteUrl }}">
+                    <div class="list-card-title clear js-card-name">{{ title }}</div>
                     <div class="badges">
                         {{# if comments.count }}
                             <div title="This card has {{ comments.count }} comment." class="badge">
-                                <span class="badge-icon icon-sm icon-comment"></span> 
-                                <span class="badge-text">{{ comments.count }}</span> 
+                                <span class="badge-icon icon-sm icon-comment"></span>
+                                <span class="badge-text">{{ comments.count }}</span>
                             </div>
                         {{/if}}
                         {{# if description }}
                             <div title="{{ description }}" class="badge badge-state-image-only">
-                                <span class="badge-icon icon-sm icon-desc"></span>  
+                                <span class="badge-icon icon-sm icon-desc"></span>
                             </div>
                         {{/if}}
-                    </div> 
+                    </div>
                     <div class="list-card-members js-list-card-members">
                         {{# each members }}
-                            <div class="member js-member-on-card-menu" popOffset='membersAdd'> 
+                            <div class="member js-member-on-card-menu" popOffset='membersAdd'>
                                 <span class="member-initials" title="{{ member.user.profile.fullname }} ({{ member.user.username }})">
                                     {{ firstChar member.user.profile.fullname }}
                                 </span>
-                                <span class="member-status {{ isTrueThen member.user.profile.status 'online' 'active' }}"></span> 
-                                <span class="member-type {{ member.memberType }}"></span>   
+                                <span class="member-status {{ isTrueThen member.user.profile.status 'online' 'active' }}"></span>
+                                <span class="member-type {{ member.memberType }}"></span>
                             </div>
                         {{/each}}
                     </div>
-                </a> 
+                </a>
             </div>
         {{/each}}
         {{ > addCardForm }}
@@ -40,82 +40,82 @@
 
 <template name="card">
     {{ > modal template='cardDetailWindow' card=card board=board }}
-    {{ > board }} 
+    {{ > board }}
 </template>
 
 <template name="cardMemberPop">
     <div class="board-member-menu">
-        <div class="mini-profile-info"> 
-            <div class="member-large">  
+        <div class="mini-profile-info">
+            <div class="member-large">
                 <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.profile.username}})">{{ firstChar user.profile.fullname }}</span>
-            </div> 
-            <div class="info"> 
+            </div>
+            <div class="info">
                 <h3 class="bottom" style="margin-right: 40px;">
                     <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.fullname }}</a>
-                </h3> 
+                </h3>
                 <p class="quiet bottom">@{{ user.username }}</p>
-            </div> 
-        </div> 
-        <ul class="pop-over-list {{ isMemberAll '' 'hide' }}"> 
+            </div>
+        </div>
+        <ul class="pop-over-list {{ isMemberAll '' 'hide' }}">
             <li><a class="js-remove-member">Remove from Card</a></li>
-        </ul> 
+        </ul>
     </div>
 </template>
 
 <template name="addCardForm">
     <div class="card-composer hide">
         <form id="AddCardForm">
-            <div class="list-card js-composer"> 
-                <div class="list-card-labels clearfix js-list-card-composer-labels"></div> 
-                <div class="list-card-details clearfix"> 
-                    <textarea class="list-card-composer-textarea js-card-title" style="overflow: hidden; word-wrap: break-word; height: 36px;"></textarea> 
-                    <div class="list-card-members js-list-card-composer-members"></div> 
-                </div> 
-            </div> 
-            <div class="cc-controls clearfix"> 
-                <input type="submit" class="primary confirm js-add-card" value="Add"> 
-                <a class="icon-lg icon-close dark-hover js-cancel" href="#"></a> 
-                <a class="cc-opt icon-lg icon-menu dark-hover js-cc-menu" href="#"></a> 
-            </div> 
+            <div class="list-card js-composer">
+                <div class="list-card-labels clearfix js-list-card-composer-labels"></div>
+                <div class="list-card-details clearfix">
+                    <textarea class="list-card-composer-textarea js-card-title" style="overflow: hidden; word-wrap: break-word; height: 36px;"></textarea>
+                    <div class="list-card-members js-list-card-composer-members"></div>
+                </div>
+            </div>
+            <div class="cc-controls clearfix">
+                <input type="submit" class="primary confirm js-add-card" value="Add">
+                <a class="icon-lg icon-close dark-hover js-cancel" href="#"></a>
+                <a class="cc-opt icon-lg icon-menu dark-hover js-cc-menu" href="#"></a>
+            </div>
         </form>
     </div>
 </template>
 
 <template name="cardDetailWindow">
-    <div class="card-detail-window clearfix"> 
+    <div class="card-detail-window clearfix">
         {{ #if card.archived }}
             <div class="window-archive-banner js-archive-banner">
                 <span class="icon-lg icon-archive window-archive-banner-icon"></span>
                 <p class="window-archive-banner-text">This card is archived.</p>
             </div>
         {{ /if }}
-        <div class="window-header clearfix"> 
-            <span class="window-header-icon icon-lg icon-card"></span> 
-            <div class="window-title card-detail-title non-empty inline {{ isMemberAll 'editable' '' }}"> 
-                <h2 class="window-title-text current hide-on-edit js-card-title">{{ card.title }}</h2>  
-                <div class="edit edit-heavy"> 
+        <div class="window-header clearfix">
+            <span class="window-header-icon icon-lg icon-card"></span>
+            <div class="window-title card-detail-title non-empty inline {{ isMemberAll 'editable' '' }}">
+                <h2 class="window-title-text current hide-on-edit js-card-title">{{ card.title }}</h2>
+                <div class="edit edit-heavy">
                     <form id="WindowTitleEdit">
-                        <textarea type="text" class="field single-line" id="title">{{ card.title }}</textarea> 
-                        <div class="edit-controls clearfix"> 
-                            <input type="submit" class="primary confirm js-title-save-edit" value="Save"> 
-                            <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>    
+                        <textarea type="text" class="field single-line" id="title">{{ card.title }}</textarea>
+                        <div class="edit-controls clearfix">
+                            <input type="submit" class="primary confirm js-title-save-edit" value="Save">
+                            <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
                         </div>
                     </form>
-                </div>  
+                </div>
                 <div class="quiet hide-on-edit window-header-inline-content js-current-list">
                     <p class="inline-block bottom">
-                        in list 
+                        in list
                         <a href="#" class="{{ isMemberAll 'js-open-move-from-header' 'disabled' }}"><strong>{{ card.list.title }}</strong></a>
-                    </p> 
-                </div> 
-            </div> 
+                    </p>
+                </div>
+            </div>
         </div>
         <div class="window-main-col clearfix">
             <div class="card-detail-data gutter clearfix">
-                <div class="card-detail-item card-detail-item-block clear clearfix editable"> 
+                <div class="card-detail-item card-detail-item-block clear clearfix editable">
                     {{# if card.description }}
-                        <h3 class="card-detail-item-header js-show-with-desc">Description</h3>  
-                        <a href="#" class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc {{ isMemberAll '' 'hide' }}">Edit</a>  
+                        <h3 class="card-detail-item-header js-show-with-desc">Description</h3>
+                        <a href="#" class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc {{ isMemberAll '' 'hide' }}">Edit</a>
                         <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc">
                             <p>{{ card.description }}</p>
                         </div>
@@ -125,17 +125,17 @@
                                 <span class="icon-sm icon-desc"></span>
                                 Edit the description…
                             </a>
-                        </p> 
+                        </p>
                     {{ /if }}
-                    <div class="card-detail-edit edit"> 
+                    <div class="card-detail-edit edit">
                         <form id="WindowDescEdit">
-                            <textarea class="field single-line2" id="desc">{{ card.description }}</textarea>   
-                            <div class="edit-controls clearfix"> 
-                                <input type="submit" class="primary confirm js-title-save-edit" value="Save"> 
-                                <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>    
+                            <textarea class="field single-line2" id="desc">{{ card.description }}</textarea>
+                            <div class="edit-controls clearfix">
+                                <input type="submit" class="primary confirm js-title-save-edit" value="Save">
+                                <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
                             </div>
                         </form>
-                    </div> 
+                    </div>
                 </div>
             </div>
             {{ > WindowActivityModule card=card }}
@@ -147,20 +147,20 @@
 </template>
 
 <template name="WindowActivityModule">
-    <div class="window-module"> 
-        <div class="window-module-title window-module-title-no-divider"> 
-            <span class="window-module-title-icon icon-lg icon-activity"></span> 
-            <h3>Activity</h3> 
+    <div class="window-module">
+        <div class="window-module-title window-module-title-no-divider">
+            <span class="window-module-title-icon icon-lg icon-activity"></span>
+            <h3>Activity</h3>
         </div>
         {{# if isMemberAll true false }}
-            <div class="new-comment js-new-comment">  
+            <div class="new-comment js-new-comment">
                 <div class="member member-no-menu">
                     <span class="member-initials" title="{{ currentUser.profile.fullname }} ({{ currentUser.username }})">{{ firstChar currentUser.profile.fullname }}</span>
-                </div>  
+                </div>
                 <form id="CommentForm">
-                    <textarea class="new-comment-input js-new-comment-input" placeholder="Write a comment…" tabindex="1"></textarea> 
-                    <div class="add-controls clearfix">   
-                        <input type="submit" class="primary confirm clear js-add-comment" value="Comment" tabindex="2"> 
+                    <textarea class="new-comment-input js-new-comment-input" placeholder="Write a comment…" tabindex="1"></textarea>
+                    <div class="add-controls clearfix">
+                        <input type="submit" class="primary confirm clear js-add-comment" value="Comment" tabindex="2">
                     </div>
                 </form>
             </div>
@@ -170,11 +170,11 @@
 </template>
 
 <template name="WindowSidebarModule">
-    <div class="window-sidebar" style="position: relative;">      
-        <div class="window-module other-actions clearfix"> 
-            <h3>Actions</h3> 
-            <div class="clearfix">     
-                <hr> 
+    <div class="window-sidebar" style="position: relative;">
+        <div class="window-module other-actions clearfix">
+            <h3>Actions</h3>
+            <div class="clearfix">
+                <hr>
                 {{ #if card.archived }}
                     <a href="#" class="button-link js-unarchive-card" title="Send the card back to the board.">
                         <span class="icon-sm icon-reopen"></span> Send to board
@@ -187,7 +187,7 @@
                         <span class="icon-sm icon-archive"></span> Archive
                     </a>
                 {{ /if }}
-            </div> 
-        </div>   
+            </div>
+        </div>
     </div>
 </template>

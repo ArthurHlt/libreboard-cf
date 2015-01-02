@@ -15,11 +15,11 @@ Router.route('/boards/:boardId/:slug', {
         var params = this.params;
 
         return [
-            
-            // Update currentUser profile status 
+
+            // Update currentUser profile status
             Meteor.subscribe('connectUser'),
 
-            // Board page list, cards members vs 
+            // Board page list, cards members vs
             Meteor.subscribe('board', params.boardId, params.slug)
         ]
     }

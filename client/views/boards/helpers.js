@@ -20,5 +20,5 @@ Template.board.helpers({
 Template.changePermissionBoardPop.helpers({
     check: function(perm) {
         return this.permission == perm;
-    } 
+    }
 });

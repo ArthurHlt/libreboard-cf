@@ -6307,8 +6307,8 @@ textarea.list-card-composer-textarea,textarea.list-card-composer-textarea:focus 
     min-height: 108px;
     color: #4d4d4d;
     cursor: auto;
-    overflow: hidden; 
-    word-wrap: break-word; 
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 .new-comment .too-long {

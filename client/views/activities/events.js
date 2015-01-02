@@ -8,7 +8,7 @@ Template.cardActivities.events({
         container.find('textarea').focus();
     },
     'click .js-confirm-delete-action': function(event, t) {
-        CardComments.remove(this._id); 
+        CardComments.remove(this._id);
     },
     'submit form': function(event, t) {
         var $this = $(event.currentTarget),

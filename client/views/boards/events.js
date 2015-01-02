@@ -30,7 +30,7 @@ Template.createBoardPop.events({
     'submit #CreateBoardForm': function(event, t) {
         var title = t.$('#boardNewTitle');
 
-        // trim value title 
+        // trim value title
         if ($.trim(title.val())) {
             // İnsert Board title
             var boardId = Boards.insert({ title: title.val(), permission : 'Public' });
@@ -38,7 +38,7 @@ Template.createBoardPop.events({
             // Go to Board _id
             Utils.goBoardId(boardId);
         }
-        event.preventDefault();    
+        event.preventDefault();
     }
 });
 
@@ -46,13 +46,13 @@ Template.changeBoardTitlePop.events({
     'submit #ChangeBoardTitleForm': function(event, t) {
         var title = t.$('.js-board-name');
         if ($.trim(title.val())) {
-            Boards.update(this._id, { 
+            Boards.update(this._id, {
                 $set: {
-                    title: title.val()     
+                    title: title.val()
                 }
             });
 
-            // pop close 
+            // pop close
             Utils.Pop.close();
         }
         event.preventDefault();
@@ -65,13 +65,13 @@ Template.changePermissionBoardPop.events({
             permission = $this.attr('name');
 
         // update permission
-        Boards.update(this._id, { 
+        Boards.update(this._id, {
             $set: {
                 permission: permission
-            } 
+            }
         });
 
-        // pop close 
+        // pop close
         Utils.Pop.close();
     }
 });
