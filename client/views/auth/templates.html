@@ -4,8 +4,8 @@
         <form id="SignUpForm" class="primary-col">
             <h2>Create an Account</h2>
             {{#if error }} <p class="error">{{ error }}</p> {{/if}}
-            <label for="fullname"> Name </label>
-            <input type="text" id="fullname" tabindex="1" autofocus="" placeholder="e.g., Dr. Frankenstein">
+            <label for="name"> Name </label>
+            <input type="text" id="name" tabindex="1" autofocus="" placeholder="e.g., Dr. Frankenstein">
             <label for="email"> Email </label>
             <input type="email" id="email" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" placeholder="e.g., doc@frankenstein.com">
             <label for="password"> Password </label>
@@ -47,10 +47,10 @@
         </a>
         <a class="header-btn header-member js-open-header-member-menu" href="#">
             <span class="member">
-                <span class="member-initials"> {{ firstChar currentUser.profile.fullname }}  </span>
+                <span class="member-initials"> {{ firstChar currentUser.profile.name }}  </span>
                 <span class="member-gold-badge" title="This member has Trello Gold."></span>
             </span>
-            <span class="header-btn-text js-member-name">{{ currentUser.profile.fullname }}</span>
+            <span class="header-btn-text js-member-name">{{ currentUser.profile.name }}</span>
         </a>
         <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 Notifications.">
             <span class="header-btn-icon icon-lg icon-notification light"></span>
@@ -72,7 +72,7 @@
         <div class="tabbed-pane-header">
             <div class="tabbed-pane-header-wrapper clearfix">
                 <a class="tabbed-pane-header-image profile-image ed js-change-avatar-profile" href="#">
-                    <span class="profile-image-initials">{{ firstChar profile.profile.fullname }}</span>
+                    <span class="profile-image-initials">{{ firstChar profile.profile.name }}</span>
                     {{#if isTrue currentUser.username profile.username }}
                         <span class="change-text"> Change Avatar </span>
                     {{ /if }}
@@ -80,7 +80,7 @@
                 <div class="tabbed-pane-header-details">
                     <div class="js-current-details">
                         <div class="tabbed-pane-header-details-name">
-                            <h1 class="inline"> {{ profile.profile.fullname }} </h1>
+                            <h1 class="inline"> {{ profile.profile.name }} </h1>
                             <p class="window-title-extra quiet"> @{{ profile.username }} </p>
                         </div>
                         <div class="tabbed-pane-header-details-content">
@@ -133,7 +133,7 @@
                 <label>Username</label>
                 <input type="text" id="username" value="{{ profile.username }}" disabled>
                 <label>Full Name</label>
-                <input type="text" id="fullname" value="{{ profile.profile.fullname }}">
+                <input type="text" id="name" value="{{ profile.profile.name }}">
                 <label>
                     Bio <span class="quiet">(optional)</span>
                 </label>
@@ -154,11 +154,11 @@
     <div class="board-member-menu">
         <div class="mini-profile-info">
             <div class="member-large">
-                <span class="member-initials" title="{{ user.profile.fullname}} ({{ user.profile.username}})">{{ firstChar user.profile.fullname }}</span>
+                <span class="member-initials" title="{{ user.profile.name}} ({{ user.profile.username}})">{{ firstChar user.profile.name }}</span>
             </div>
             <div class="info">
                 <h3 class="bottom" style="margin-right: 40px;">
-                    <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.fullname }}</a>
+                    <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.name }}</a>
                 </h3>
                 <p class="quiet bottom">@{{ user.username }}</p>
             </div>
@@ -169,7 +169,7 @@
 
 <template name="memberName">
     <a class="inline-object js-show-mem-menu" href="{{ pathFor route='Profile' username=user.username }}" popoffset='{{ offset }}'>
-        {{ user.profile.fullname }}
+        {{ user.profile.name }}
         {{# if username }}
             ({{ user.username }})
         {{ /if }}

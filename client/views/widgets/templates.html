@@ -56,8 +56,8 @@
             <div class="board-widget-members js-list-board-members clearfix js-list-draggable-board-members">
                 {{# each board.members }}
                     <div class="member js-member" popOffset='member'>
-                        <span class="member-initials" title="{{ user.profile.fullname }} ({{ user.username}})">
-                            {{ firstChar user.profile.fullname }}
+                        <span class="member-initials" title="{{ user.profile.name }} ({{ user.username}})">
+                            {{ firstChar user.profile.name }}
                         </span>
                         <span class="member-status {{ isTrueThen user.profile.status 'online' 'active' }}"></span>
                         <span class="member-type {{ memberType }}"></span>
@@ -93,11 +93,11 @@
     <div class="board-member-menu">
         <div class="mini-profile-info">
             <div class="member-large">
-                <span class="member-initials" title="{{ user.profile.fullname}} ({{ user.profile.username}})">{{ firstChar user.profile.fullname }}</span>
+                <span class="member-initials" title="{{ user.profile.name}} ({{ user.profile.username}})">{{ firstChar user.profile.name }}</span>
             </div>
             <div class="info">
                 <h3 class="bottom" style="margin-right: 40px;">
-                    <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.fullname }}</a>
+                    <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.name }}</a>
                 </h3>
                 <p class="quiet bottom">@{{ user.username }}</p>
             </div>
@@ -125,7 +125,7 @@
 </template>
 
 <template name="removeMemberPop">
-    <p> Remove {{ user.profile.fullname }} ({{ user.username }}) from {{ board.title }}? The member will be removed from all cards on this board. They will receive a notification. </p>
+    <p> Remove {{ user.profile.name }} ({{ user.username }}) from {{ board.title }}? The member will be removed from all cards on this board. They will receive a notification. </p>
     <input type="submit" class="js-confirm negate full" value="Remove Member">
 </template>
 
@@ -138,12 +138,12 @@
         <ul class="pop-over-member-list options js-list">
             {{# esEach index="users"}}
                 <li class="item js-member-item {{ member _id 'disabled' }}">
-                    <a href="#" class="name js-select-member {{ member _id 'multi-line' }}" title="{{ profile.fullname }} ({{ username }})">
+                    <a href="#" class="name js-select-member {{ member _id 'multi-line' }}" title="{{ profile.name }} ({{ username }})">
                         <span class="member js-member">
-                            <span class="member-initials">{{ firstChar profile.fullname }}</span>
+                            <span class="member-initials">{{ firstChar profile.name }}</span>
                         </span>
                         <span class="full-name">
-                            {{ profile.fullname }}  (<span class="username">{{ username }}</span>)
+                            {{ profile.name }}  (<span class="username">{{ username }}</span>)
                         </span>
                        {{# if member _id 'disabled' }}
                            <div class="extra-text quiet">(joined)</div>

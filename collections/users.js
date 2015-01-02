@@ -1,7 +1,7 @@
 Users = Meteor.users;
 
-// Search subscribe mongodb fields ['username', 'profile.fullname']
-Users.initEasySearch(['username', 'profile.fullname'], {
+// Search subscribe mongodb fields ['username', 'profile.name']
+Users.initEasySearch(['username', 'profile.name'], {
     use: 'mongo-db'
 });
 
@@ -24,7 +24,7 @@ Users.before.insert(function (userId, doc) {
     doc.profile.status = 'offline';
 
     // slugify to username
-    doc.username = slugify(doc.profile.fullname, '');
+    doc.username = slugify(doc.profile.name, '');
 });
 
 

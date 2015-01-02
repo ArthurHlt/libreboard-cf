@@ -22,17 +22,17 @@ Template.login.events({
 Template.signup.events({
     'submit #SignUpForm': function(event, t) {
         var email = $.trim(t.find('#email').value),
-            fullname = $.trim(t.find('#fullname').value),
+            name = $.trim(t.find('#name').value),
             password = $.trim(t.find('#password').value),
             options = {
                 email: email,
                 password: password,
                 profile: {
-                    fullname: fullname
+                    name: name
                 }
             };
 
-        if (email && fullname && password) {
+        if (email && name && password) {
             Accounts.createUser(options, function(err) {
 
                 // show error and return false;
@@ -50,7 +50,7 @@ Template.signup.events({
 Template.memberHeader.events({
     'click .js-open-header-member-menu': function(event, t) {
         var user = Meteor.user(),
-            label = user.profile.fullname + ' ('+ user.username +')';
+            label = user.profile.name + ' ('+ user.username +')';
 
         // open pop
         Utils.Pop.open('memberMenuPop', label, t.firstNode);
@@ -87,14 +87,14 @@ Template.profileEditForm.events({
         Session.set('ProfileEditForm', false);
     },
     'submit #ProfileEditForm': function(event, t) {
-        var fullname = t.find('#fullname').value,
+        var name = t.find('#name').value,
             bio = t.find('#bio').value;
 
         // trim and update
-        if ($.trim(fullname)) {
+        if ($.trim(name)) {
             Users.update(this.profile()._id, {
                 $set: {
-                    'profile.fullname': fullname,
+                    'profile.name': name,
                     'profile.bio': bio
                 }
             }, function() {
