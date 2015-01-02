@@ -6,10 +6,11 @@
         </div> 
         <ul class="board-list gutter js-board-list clearfix">
             {{# each boards }} 
-                <li class="board">
+                <li class="{{# if isStarred }}starred{{/ if}}">
                     <a href="{{ pathFor route='Board' boardId=_id }}" class="js-open-board highlight-icon" style="background-color: #23719F;">
                         <span class="details"> 
                             <span class="board-list-item-name">{{ title }}</span>
+                            <span class="icon-sm icon-star js-star-board {{# if isStarred }}icon-star-active{{/ if}}" title="Click to star this board. It will show up at top of your boards list."></span>
                         </span>
                     </a>
                 </li>
@@ -27,10 +28,15 @@
                 <a href="#" class="board-header-btn board-header-btn-name js-rename-board {{ isMemberAdmin '' 'no-edit' }}" popoffset='boardName' title="Rename the board."> 
                     <span class="board-header-btn-text"> {{ board.title }} </span> 
                 </a>
-                <a href="#" class="board-header-btn perms-btn js-change-vis {{ isMemberAdmin '' 'no-edit' }}" id="permission-level" popoffset='boardPermission'>
-                    <span class="board-header-btn-icon icon-sm icon-{{ toLowerCase board.permission }}"></span> 
-                    <span class="board-header-btn-text">{{ board.permission }}</span> 
-                </a>
+                <div class="board-header-btns left">
+                    <a href="#" class="board-header-btn js-star-board {{#if isStarred }}board-header-btn-enabled{{/ if }}" title="Click to star or unstar this board. Starred boards show up at the top of your boards list.">
+                        <span class="board-header-btn-icon icon-sm icon-star"></span>
+                    </a>
+                    <a href="#" class="board-header-btn perms-btn js-change-vis {{ isMemberAdmin '' 'no-edit' }}" id="permission-level" popoffset='boardPermission'>
+                        <span class="board-header-btn-icon icon-sm icon-{{ toLowerCase board.permission }}"></span>
+                        <span class="board-header-btn-text">{{ board.permission }}</span>
+                    </a>
+                </div>
             </div>
             {{ > boardWidgets board=board }}
             {{ > lists board=board }}
