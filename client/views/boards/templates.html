@@ -1,5 +1,23 @@
 <template name="boards">
     <div class="member-boards-view">
+        {{# if starredBoards }}
+            <div class="window-module-title window-module-title-no-divider">
+                <span class="icon-lg window-module-title-icon icon-star"></span>
+                <h3>Starred Boards</h3>
+            </div>
+            <ul class="board-list gutter js-board-list clearfix">
+                {{# each starredBoards }}
+                    <li class="starred">
+                        <a href="{{ pathFor route='Board' boardId=_id }}" class="js-open-board highlight-icon" style="background-color: #23719F;">
+                            <span class="details">
+                                <span class="board-list-item-name">{{ title }}</span>
+                                <span class="icon-sm icon-star js-star-board icon-star-active"></span>
+                            </span>
+                        </a>
+                    </li>
+                {{/ each }}
+            </ul>
+        {{/ if }}
         <div class="window-module-title window-module-title-no-divider">
             <span class="icon-lg window-module-title-icon icon-member"></span>
             <h3>My Boards</h3>
