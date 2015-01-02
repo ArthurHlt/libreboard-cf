@@ -10,7 +10,7 @@ boilerplate-generator@1.0.2
 callback-hook@1.0.2
 check@1.0.3
 copleykj:livestamp@1.1.5
-dburles:collection-helpers@1.0.1
+dburles:collection-helpers@1.0.2
 ddp@1.0.13
 deps@1.0.6
 ejson@1.0.5
@@ -39,7 +39,7 @@ linto:jquery-ui@1.11.2
 livedata@1.0.12
 localstorage@1.0.2
 logging@1.0.6
-matb33:collection-hooks@0.7.6
+matb33:collection-hooks@0.7.7
 matteodem:easy-search@1.4.5
 meteor@1.1.4
 meteor-platform@1.2.1
@@ -74,4 +74,4 @@ underscore@1.0.2
 url@1.0.3
 webapp@1.1.5
 webapp-hashing@1.0.2
-yasaricli:slugify@0.0.1
+yasaricli:slugify@0.0.2
