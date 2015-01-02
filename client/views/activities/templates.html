@@ -33,6 +33,10 @@
                         sent <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a> to the board.
                     {{ /if }}
 
+                    {{# if isTrue activityType 'moveCard' }}
+                        moved <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a> from {{ oldList.title }} to {{ list.title }}.
+                    {{ /if }}
+
                     {{# if isTrue activityType 'addBoardMember' }}
                         added  {{ > memberName user=member.user offset='member' }} to this board.
                     {{ /if }}
@@ -118,6 +122,9 @@
                     {{ /if }}
                     {{# if isTrue activityType 'restoredCard' }}
                         sent this card to the board.
+                    {{/ if }}
+                    {{# if isTrue activityType 'moveCard' }}
+                        moved this card from {{ oldList.title }} to {{ list.title }}.
                     {{/ if }}
                 </div>
             {{/each}}

@@ -42,6 +42,9 @@ Cards.helpers({
     list: function() {
         return Lists.findOne(this.listId);
     },
+    oldList: function() {
+        return Lists.findOne(this.oldListId);
+    },
     members: function() {
         return CardMembers.find({ cardId: this._id });
     },
@@ -132,6 +135,19 @@ isServer(function() {
                     userId: userId
                 });
             }
+        }
+
+        // card move to other list
+        if (doc.listId != doc.oldListId) {
+            Activities.insert({
+                type: 'card',
+                activityType: "moveCard",
+                listId: doc.listId,
+                oldListId: doc.oldListId,
+                boardId: doc.boardId,
+                cardId: doc._id,
+                userId: userId
+            });
         }
     });
 

@@ -180,6 +180,7 @@ Utils = {
             after = item.next('.card').get(0);
 
         this.listId = list._id;
+        this.oldListId = card.listId;
         this.cardId = card._id;
         this.oldSort = card.sort;
 

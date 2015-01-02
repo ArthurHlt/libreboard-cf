@@ -18,6 +18,7 @@ Template.cards.rendered = function() {
 
                 // update card
                 Meteor.call('updateCard', data.cardId, {
+                    oldListId: data.oldListId,
                     listId: data.listId,
                     sort: data.sort
                 });
