@@ -1,4 +1,6 @@
 Template.board.rendered = function() {
+    var _this = this,
+        board = _this.$('#board');
 
     // update height add, update, remove resize board height.
     Boards.find().observe({
@@ -12,4 +14,7 @@ Template.board.rendered = function() {
 
     // if not is authenticated then show warning..
     if (!Utils.is_authenticated()) Utils.Warning.open('Want to subscribe to these cards?');
+
+    // scroll Left getSession
+    Utils.boardScrollLeft();
 };

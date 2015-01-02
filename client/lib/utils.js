@@ -52,6 +52,19 @@ Utils = {
         }
     },
 
+    boardScrollLeft: function() {
+        var el = jQuery('#board'),
+            data = Blaze.getData(el.get(0)),
+            sessionName = data.board ? 'scrollBoardLeft-' + data.board._id : false;
+
+        if (sessionName) {
+            el.scroll(function() {
+                Session.set(sessionName, $(this).scrollLeft());
+            });
+            el.scrollLeft(Session.get(sessionName));
+        }
+    },
+
     widgetsHeight: function() {
         var wrapper = $('.board-wrapper'),
             widgets = $('.board-widgets'),
