@@ -47,13 +47,15 @@
                     <span class="board-header-btn-text"> {{ board.title }} </span>
                 </a>
                 <div class="board-header-btns left">
-                    <a href="#" class="board-header-btn js-star-board {{#if isStarred }}board-header-btn-enabled{{/ if }}" title="Click to {{# if isStarred }}unstar{{ else }}star{{/ if }} this board. Starred boards show up at the top of your boards list.">
-                        <span class="board-header-btn-icon icon-sm icon-star"></span>
-                    </a>
-                    <a href="#" class="board-header-btn perms-btn js-change-vis {{# unless currentUser.isBoardAdmin }}no-edit {{/ unless}}" id="permission-level" popoffset='boardPermission'>
-                        <span class="board-header-btn-icon icon-sm icon-{{ toLowerCase board.permission }}"></span>
-                        <span class="board-header-btn-text">{{ board.permission }}</span>
-                    </a>
+                    {{# unless isSandstorm }}
+                        <a href="#" class="board-header-btn js-star-board {{#if isStarred }}board-header-btn-enabled{{/ if }}" title="Click to {{# if isStarred }}unstar{{ else }}star{{/ if }} this board. Starred boards show up at the top of your boards list.">
+                            <span class="board-header-btn-icon icon-sm icon-star"></span>
+                        </a>
+                        <a href="#" class="board-header-btn perms-btn js-change-vis {{# unless currentUser.isBoardAdmin }}no-edit {{/ unless}}" id="permission-level" popoffset='boardPermission'>
+                            <span class="board-header-btn-icon icon-sm icon-{{ toLowerCase board.permission }}"></span>
+                            <span class="board-header-btn-text">{{ board.permission }}</span>
+                        </a>
+                    {{/ unless }}
                 </div>
             </div>
             {{ > boardWidgets board=board }}

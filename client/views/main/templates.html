@@ -44,19 +44,21 @@
     {{ > yield "modal" }}
     <div id="surface">
         {{# if session 'pop' }}{{ > pop }}{{/if}}
-        <div id="header">
-            <div class="header-boards-button">
-                <a class="header-btn header-boards js-boards-menu" title="View list of boards" href="{{ pathFor route='Boards' }}">
-                    <span class="header-btn-icon icon-lg icon-board light"></span>
-                    <span class="header-btn-text">Boards</span>
+        {{# unless isSandstorm }}
+            <div id="header">
+                <div class="header-boards-button">
+                    <a class="header-btn header-boards js-boards-menu" title="View list of boards" href="{{ pathFor route='Boards' }}">
+                        <span class="header-btn-icon icon-lg icon-board light"></span>
+                        <span class="header-btn-text">Boards</span>
+                    </a>
+                </div>
+                {{ > search }}
+                <a href="{{pathFor 'Home'}}" title="Go back to your boards page." class="header-logo">
+                    <span class="header-logo-default"></span>
                 </a>
+                {{ > memberHeader }}
             </div>
-            {{ > search }}
-            <a href="{{pathFor 'Home'}}" title="Go back to your boards page." class="header-logo">
-                <span class="header-logo-default"></span>
-            </a>
-            {{ > memberHeader }}
-        </div>
+        {{/ unless }}
         {{ > warning }}
         <div id="content">
             {{ > yield }}

@@ -37,26 +37,28 @@ Users.before.insert(function (userId, doc) {
 
 
 // AFTER HOOK
-Users.after.insert(function(userId, doc) {
-    var ExampleBoard = {
-        title: 'Welcome Board',
-        userId: doc._id,
-        permission: 'Private' // Private || Public
-    };
+isServer(function() {
+    Users.after.insert(function(userId, doc) {
+        var ExampleBoard = {
+            title: 'Welcome Board',
+            userId: doc._id,
+            permission: 'Private' // Private || Public
+        };
 
-    // Welcome Board insert and list, card :)
-    Boards.insert(ExampleBoard, function(err, boardId) {
+        // Welcome Board insert and list, card :)
+        Boards.insert(ExampleBoard, function(err, boardId) {
 
-        // lists
-        _.forEach(['Basics', 'Advanced'], function(title) {
-            var list = {
-                title: title,
-                boardId: boardId,
-                userId: ExampleBoard.userId
-            };
+            // lists
+            _.forEach(['Basics', 'Advanced'], function(title) {
+                var list = {
+                    title: title,
+                    boardId: boardId,
+                    userId: ExampleBoard.userId
+                };
 
-            // insert List
-            Lists.insert(list);
+                // insert List
+                Lists.insert(list);
+            });
         });
     });
 });

@@ -45,7 +45,8 @@ Utils = {
     resizeHeight: function(selector, callback) {
         return function() {
             var board = jQuery(selector);
-            board.height($(window).height() - 100);
+            var headerSize = $('#header').outerHeight();
+            board.height($(window).height() - 60 - headerSize);
 
             // call
             callback && callback();

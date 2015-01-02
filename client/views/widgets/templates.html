@@ -39,11 +39,13 @@
                     Archived Items
                 </a>
             </li>
-            {{# if currentUser.isBoardAdmin }}
-                <li>
-                    <a class="nav-list-item nav-list-sub-item js-close-board" href="#" popOffset='boardRemove'> Close Board… </a>
-                </li>
-            {{/ if }}
+            {{# unless isSandstorm }}
+                {{# if currentUser.isBoardAdmin }}
+                    <li>
+                        <a class="nav-list-item nav-list-sub-item js-close-board" href="#" popOffset='boardRemove'> Close Board… </a>
+                    </li>
+                {{/ if }}
+            {{/ unless }}
         </ul>
     </div>
 </template>
