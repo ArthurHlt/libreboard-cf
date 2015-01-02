@@ -7,7 +7,7 @@ Template.boards.helpers({
     starredBoards: function() {
         var cursor = Boards.find({
             _id: {
-                $in: Meteor.user().profile.starredBoards
+                $in: Meteor.user().profile.starredBoards || []
             }
         }, {
             sort: ["title"]
