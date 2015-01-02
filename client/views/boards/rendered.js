@@ -1,6 +1,4 @@
 Template.board.rendered = function() {
-    var _this = this,
-        board = _this.$('#board');
 
     // update height add, update, remove resize board height.
     Boards.find().observe({
