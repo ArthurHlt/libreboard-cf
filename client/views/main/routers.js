@@ -14,7 +14,18 @@ Router.configure({
     onBeforeAction: function(pause) {
         var body = $('body'),
             options = this.route.options,
-            bodyClass = options["bodyClass"];
+            bodyClass = options["bodyClass"],
+            authenticate = options['authenticated'];
+
+        // authenticated
+        if (!Meteor.user() && authenticate) {
+
+            // redirect 
+            this.redirect(authenticate);
+
+            // options authenticate not next().
+            return;
+        }
 
         // Remove class attribute body
         body.removeAttr('class');

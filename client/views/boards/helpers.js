@@ -3,7 +3,8 @@ Template.boards.helpers({
         return Boards.find({});
     },
     isStarred: function() {
-        return Meteor.user().hasStarred(this._id);
+        var user = Meteor.user();
+        return user && user.hasStarred(this._id);
     }
 });
 
@@ -12,8 +13,9 @@ Template.board.helpers({
         return Boards.findOne({});
     },
     isStarred: function() {
-        var boardId = Boards.findOne()._id;
-        return boardId && Meteor.user().hasStarred(boardId);
+        var boardId = Boards.findOne()._id,
+            user = Meteor.user();
+        return boardId && user && user.hasStarred(boardId);
     }
 });
 

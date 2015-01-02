@@ -2,6 +2,7 @@ Router.route('/boards', {
     name: 'Boards',
     template: 'boards',
     bodyClass: 'page-index large-window tabbed-page',
+    authenticated: 'Login', 
     waitOn: function() {
         return Meteor.subscribe('boards');
     }
