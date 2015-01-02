@@ -8,8 +8,8 @@ var Offsets = {
     boardName: function(offset) {
         return { left: (offset.left), top: (offset.top + 35) }
     },
-    boardPermission: function(offset) { 
-        return this.boardName(offset); 
+    boardPermission: function(offset) {
+        return this.boardName(offset);
     },
     boardRemove: function(offset) {
         return { left: (offset.left - 61), top: (offset.top - 8) }
@@ -32,7 +32,7 @@ var Offsets = {
 
 Utils = {
     error: function(err) {
-        Session.set("error", (err && err.message || false));       
+        Session.set("error", (err && err.message || false));
     },
 
     is_authenticated: function() {
@@ -43,7 +43,7 @@ Utils = {
         return function() {
             var board = jQuery(selector);
             board.height($(window).height() - 100);
-            
+
             // call
             callback && callback();
         }
@@ -57,14 +57,14 @@ Utils = {
 
         // set height widgets
         widgets.height(wrapper.height());
-        boardActions.height(wrapper.height() - 215); 
+        boardActions.height(wrapper.height() - 215);
         pop.find('.content').css('max-height', widgets.height() / 2);
-     
+
         // resize and default pop offset
         if (pop[0]) {
             var popOffset = Utils.Pop.getOffset($('.openPop').get());
             pop.css({ top: popOffset.top, left: popOffset.left });
-        } 
+        }
     },
     // scroll
     Scroll: function(selector) {
@@ -90,10 +90,10 @@ Utils = {
         },
         open: function(template, label, $el, data) {
             var offset = this.getOffset($el);
-            Session.set('pop', { 
-                template: template, 
+            Session.set('pop', {
+                template: template,
                 label: label,
-                left: offset.left, 
+                left: offset.left,
                 top: offset.top,
                 data: data || {}
             });
@@ -109,14 +109,14 @@ Utils = {
 
     Warning: {
         get: function() {
-            return Session.get('warning');     
+            return Session.get('warning');
         },
         open: function(desc) {
             Session.set('warning', { desc: desc });
         },
         close: function() {
             Session.set('warning', false);
-        }        
+        }
     },
 
     goBoardId: function(_id) {
@@ -146,8 +146,8 @@ Utils = {
     },
 
     isMemberAll: function(yes, no) {
-        var filter = { 
-            $or: [ 
+        var filter = {
+            $or: [
                 { userId: Meteor.userId(), memberType: 'admin', approved: true },
                 { userId: Meteor.userId(), memberType: 'normal', approved: true }
             ]
@@ -167,34 +167,34 @@ Utils = {
         this.cardId = card._id;
         this.oldSort = card.sort;
 
-        // if before and after undefined then sort 0 
+        // if before and after undefined then sort 0
         if (!before && !after) {
 
             // set sort 0
             this.sort = 0;
         } else {
-        
+
             /*
             *
             * Blaze.getData takes as a parameter an html element
             * and will return the data context that was bound when
             * that html element was rendered!
             */
-            if(!before) { 
+            if(!before) {
 
                 /*
                 * if it was dragged into the first position grab the
-                * next element's data context and subtract one from the rank 
+                * next element's data context and subtract one from the rank
                 */
                 this.sort = Blaze.getData(after).sort - 1;
-            } else if(!after) { 
+            } else if(!after) {
                 /*
                 * if it was dragged into the last position grab the
-                * previous element's data context and add one to the rank 
+                * previous element's data context and add one to the rank
                 */
                 this.sort = Blaze.getData(before).sort + 1;
             } else {
-                
+
                 /*
                 * else take the average of the two ranks of the previous
                 *  and next elements

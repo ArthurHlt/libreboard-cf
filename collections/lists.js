@@ -1,13 +1,13 @@
 Lists  = new Mongo.Collection('lists');
 
 Lists.allow({
-    insert: function(userId, doc) { 
+    insert: function(userId, doc) {
         return allowIsBoardMember(userId, doc.boardId);
     },
     update: function(userId, doc) {
         return allowIsBoardMember(userId, doc.boardId);
     },
-    remove: function(userId, doc) { 
+    remove: function(userId, doc) {
         return allowIsBoardMember(userId, doc.boardId);
     }
 });
@@ -39,7 +39,7 @@ isServer(function() {
     Lists.after.insert(function(userId, doc) {
         Activities.insert({
             type: 'list',
-            activityType: "createList", 
+            activityType: "createList",
             boardId: doc.boardId,
             listId: doc._id,
             userId: userId

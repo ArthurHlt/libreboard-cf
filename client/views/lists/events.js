@@ -9,7 +9,7 @@ Template.lists.events({
         allComposers.addClass('hide');
         t.$('.js-open-card-composer').removeClass('hide');
 
-        // click open composer and focus 
+        // click open composer and focus
         composer.removeClass('hide');
         composer.find('.js-card-title').focus();
         $el.addClass('hide');
@@ -74,9 +74,9 @@ Template.addlistForm.events({
     'submit #AddListForm': function(event, t) {
         var title = t.find('.list-name-input');
         if ($.trim(title.value)) {
-            // insert 
-            Lists.insert({ 
-                title: title.value, 
+            // insert
+            Lists.insert({
+                title: title.value,
                 boardId: this.board._id,
                 sort: $('.list').length
             }, function() {
@@ -85,7 +85,7 @@ Template.addlistForm.events({
                 Utils.Scroll('#board').left(270, true);
             });
 
-            // clear input 
+            // clear input
             title.value = '';
         }
         event.preventDefault();
@@ -94,7 +94,7 @@ Template.addlistForm.events({
 
 Template.listActionPop.events({
     'click .js-close-list': function(event, t) {
-        Lists.update(this._id, { 
+        Lists.update(this._id, {
             $set: {
                 archived: true
             }
@@ -103,7 +103,7 @@ Template.listActionPop.events({
         // close pop
         Utils.Pop.close();
 
-        event.preventDefault();    
+        event.preventDefault();
     },
     'click .js-add-card': function(event, t) {},
     'click .js-list-subscribe': function(event, t) {}

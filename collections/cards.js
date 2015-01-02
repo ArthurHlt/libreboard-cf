@@ -4,25 +4,25 @@ CardComments = new Mongo.Collection('card_comments');
 
 // ALLOWS
 Cards.allow({
-    insert: function(userId, doc) { 
+    insert: function(userId, doc) {
         return allowIsBoardMember(userId, doc.boardId);
     },
     update: function(userId, doc) {
         return allowIsBoardMember(userId, doc.boardId);
     },
-    remove: function(userId, doc) { 
+    remove: function(userId, doc) {
         return allowIsBoardMember(userId, doc.boardId);
     }
 });
 
 CardComments.allow({
-    insert: function(userId, doc) { 
+    insert: function(userId, doc) {
         return allowIsBoardMember(userId, doc.boardId);
     },
     update: function(userId, doc) {
         return userId === doc.userId;
     },
-    remove: function(userId, doc) { 
+    remove: function(userId, doc) {
         return userId === doc.userId;
     }
 });
@@ -103,7 +103,7 @@ isServer(function() {
     Cards.after.insert(function(userId, doc) {
         Activities.insert({
             type: 'card',
-            activityType: "createCard", 
+            activityType: "createCard",
             boardId: doc.boardId,
             listId: doc.listId,
             cardId: doc._id,
@@ -138,7 +138,7 @@ isServer(function() {
     CardMembers.after.insert(function(userId, doc) {
         Activities.insert({
             type: 'card',
-            activityType: "joinMember", 
+            activityType: "joinMember",
             memberId: doc.memberId,
             boardId: doc.boardId,
             cardId: doc.cardId,
@@ -149,7 +149,7 @@ isServer(function() {
     CardComments.after.insert(function(userId, doc) {
         Activities.insert({
             type: 'comment',
-            activityType: "addComment", 
+            activityType: "addComment",
             boardId: doc.boardId,
             cardId: doc.cardId,
             commentId: doc._id,

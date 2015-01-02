@@ -41,7 +41,7 @@ Boards.helpers({
         return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
     } ,
     absoluteUrl: function() {
-        return Router.path("Board", { boardId: this._id, slug: this.slug });           
+        return Router.path("Board", { boardId: this._id, slug: this.slug });
     }
 });
 
@@ -82,7 +82,7 @@ isServer(function() {
         Activities.insert({
             type: 'board',
             activityTypeId: doc._id,
-            activityType: "createBoard", 
+            activityType: "createBoard",
             boardId: doc._id,
             userId: userId
         });
@@ -91,7 +91,7 @@ isServer(function() {
     BoardMembers.after.insert(function(userId, doc) {
         Activities.insert({
             type: 'member',
-            activityType: "addBoardMember", 
+            activityType: "addBoardMember",
             boardId: doc.boardId,
             userId: userId,
             memberId: doc._id
@@ -102,7 +102,7 @@ isServer(function() {
         if (doc.approved) {
             Activities.insert({
                 type: 'member',
-                activityType: "addBoardMember", 
+                activityType: "addBoardMember",
                 memberId: doc._id,
                 boardId: doc.boardId,
                 userId: userId

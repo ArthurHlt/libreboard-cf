@@ -13,7 +13,7 @@ cd $APP
 cd programs/server
 npm install
 
-# exports 
+# exports
 export PORT=5000
 export MONGO_URL="mongodb://localhost:27017/metrello"
 export ROOT_URL="https://metrello.com"

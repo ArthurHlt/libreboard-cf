@@ -29,7 +29,7 @@ var Helpers = {
         return a == b ? then : false;
     },
     isUserThen: function(a, b) {
-        return this.userId == Meteor.userId() ? a : b;            
+        return this.userId == Meteor.userId() ? a : b;
     },
     isMemberAdmin: function(yes, no) {
         return Utils.isMemberAdmin(yes, no);
@@ -47,14 +47,14 @@ var Helpers = {
 
 Template.warning.helpers({
     warning: function() {
-        return Utils.Warning.get();          
+        return Utils.Warning.get();
     }
 });
 
 Template.pop.helpers({
     pop: function() {
         return Session.get('pop');
-    }        
+    }
 });
 
 // Register all Helpers

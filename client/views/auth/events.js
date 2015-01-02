@@ -2,7 +2,7 @@ Template.login.events({
     'submit #LoginForm': function(event, t) {
         var email = $.trim(t.find('#email').value),
             password = $.trim(t.find('#password').value);
-        
+
         if (email && password) {
             Meteor.loginWithPassword(email, password, function(err) {
 
@@ -31,10 +31,10 @@ Template.signup.events({
                     fullname: fullname
                 }
             };
-        
+
         if (email && fullname && password) {
-            Accounts.createUser(options, function(err) { 
-                  
+            Accounts.createUser(options, function(err) {
+
                 // show error and return false;
                 if (err) { Utils.error(err); return; }
 
@@ -64,7 +64,7 @@ Template.memberHeader.events({
         Utils.Pop.open('createBoardPop', 'Create Board', t.firstNode);
 
         // return false;
-        event.preventDefault(); 
+        event.preventDefault();
     }
 });
 
@@ -110,9 +110,9 @@ Template.profileEditForm.events({
 
 Template.memberName.events({
     'click .js-show-mem-menu': function(event, t) {
-        Utils.Pop.open('userPop', false, event.currentTarget, { 
+        Utils.Pop.open('userPop', false, event.currentTarget, {
             user: this.user
         });
-        event.preventDefault();  
+        event.preventDefault();
     }
 });

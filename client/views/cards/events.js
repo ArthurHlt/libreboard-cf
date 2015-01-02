@@ -20,10 +20,10 @@ Template.addCardForm.events({
             list = title.parents('.list'),
             cards = list.find('.card'),
             sort = cards.last().length ? (Blaze.getData(cards.last()[0]).sort +1) : 0;
-            
+
         // title trim if not empty then
         if ($.trim(title.val())) {
-            Cards.insert({ 
+            Cards.insert({
                 title: title.val(),
                 listId: this.listId,
                 boardId: this.board._id,
@@ -54,7 +54,7 @@ Template.cards.events({
 Template.cardMemberPop.events({
     'click .js-remove-member': function(event, t) {
 
-        // remove member 
+        // remove member
         CardMembers.remove(this.member._id);
 
         // close pop
@@ -66,13 +66,13 @@ Template.cardDetailWindow.events({
     'click .editable .js-card-title': function(event, t) {
         var editable = t.$('.card-detail-title');
 
-        // add class editing and focus 
+        // add class editing and focus
         $('.editing').removeClass('editing');
         editable.addClass('editing');
         editable.find('#title').focus();
     },
     'click .js-edit-desc': function(event, t) {
-        var editable = t.$('.card-detail-item'); 
+        var editable = t.$('.card-detail-item');
 
         // editing remove based and add current editing.
         $('.editing').removeClass('editing');
@@ -99,7 +99,7 @@ Template.cardDetailWindow.events({
         event.preventDefault();
     },
     'submit #WindowDescEdit': function(event, t) {
-        Cards.update(this.card._id, { 
+        Cards.update(this.card._id, {
             $set: {
                 description: t.find('#desc').value
             }
@@ -118,7 +118,7 @@ Template.WindowActivityModule.events({
     'submit #CommentForm': function(event, t) {
         var text = t.$('.js-new-comment-input');
         if ($.trim(text.val())) {
-            CardComments.insert({ 
+            CardComments.insert({
                 boardId: this.card.boardId,
                 cardId: this.card._id,
                 text: text.val()
@@ -133,8 +133,8 @@ Template.WindowActivityModule.events({
 Template.WindowSidebarModule.events({
     'click .js-archive-card': function(event, t) {
 
-        // Update 
-        Cards.update(this.card._id, { 
+        // Update
+        Cards.update(this.card._id, {
             $set: {
                 archived: true
             }

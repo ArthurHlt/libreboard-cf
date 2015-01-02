@@ -37,7 +37,7 @@ Template.closeBoardPop.events({
             }
         });
 
-        // boards page 
+        // boards page
         Router.go('Boards');
 
         // prevent default
@@ -57,10 +57,10 @@ Template.memberPop.events({
     'click .js-leave-member': function(event, t) {
         BoardMembers.update(this.memberId, {
             $set: {
-                approved: false 
+                approved: false
             }
         });
-        
+
         // pop close
         Utils.Pop.close();
     }
@@ -72,7 +72,7 @@ Template.membersWidget.events({
         event.preventDefault();
     },
     'click .member': function(event, t) {
-        Utils.Pop.open('memberPop', false, event.currentTarget, { 
+        Utils.Pop.open('memberPop', false, event.currentTarget, {
             memberId: this._id,
             memberType: this.memberType,
             user: this.user()
@@ -85,9 +85,9 @@ Template.addMemberPop.events({
         var filter = { boardId: t.data._id, userId: this._id, memberType: 'normal' },
             member = BoardMembers.findOne(filter);
         if (member) {
-            BoardMembers.update(member._id, { 
-                $set: { 
-                    approved: true 
+            BoardMembers.update(member._id, {
+                $set: {
+                    approved: true
                 }
             });
         } else {
@@ -105,7 +105,7 @@ Template.removeMemberPop.events({
         // remove Member
         BoardMembers.update(this.memberId, {
             $set: {
-                approved: false 
+                approved: false
             }
         });
 

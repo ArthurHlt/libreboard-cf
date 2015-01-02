@@ -18,15 +18,15 @@ Template.lists.rendered = function() {
             stop: function(event, ui) {
                 lists.find('.list:not(.add-list)').each(function(i, list) {
                     var data = Blaze.getData(list);
-                    Lists.update(data._id, { 
+                    Lists.update(data._id, {
                         $set: {
                             sort: i
-                        } 
+                        }
                     });
                 });
             }
         }).disableSelection();
-    } 
+    }
 
     // update height add, update, remove resize board height.
     Lists.find().observe({

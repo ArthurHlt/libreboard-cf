@@ -7,7 +7,7 @@ Meteor.publishComposite('boards', function() {
                 return b.boardId;
             });
 
-            // Board members 
+            // Board members
             return Boards.find({ _id: { $in: boardIds }, archived: false });
         }
     }
@@ -49,12 +49,12 @@ Meteor.publishComposite('board', function(boardId, slug) {
                                 find: function(card) {
                                     return CardComments.find({ cardId: card._id });
                                 }
-                            }    
+                            }
                         ]
                     }
                 ]
             },
-            
+
             // Members
             {
                 find: function(board) {
@@ -66,8 +66,8 @@ Meteor.publishComposite('board', function(boardId, slug) {
                     {
                         find: function(member, board) {
                             return Users.find({ _id: member.userId });
-                        } 
-                    }    
+                        }
+                    }
                 ]
             },
 
