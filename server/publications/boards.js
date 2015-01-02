@@ -65,7 +65,7 @@ Meteor.publishComposite('board', function(boardId, slug) {
                     // Member Users
                     {
                         find: function(member, board) {
-                            return Users.find({ _id: member.userId });
+                            return Users.find({ _id: member.userId }, { fields: { profile: true, username: true }});
                         }
                     }
                 ]
