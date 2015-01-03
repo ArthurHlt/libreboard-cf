@@ -16,11 +16,12 @@ Template.cards.rendered = function() {
             stop: function(event, ui) {
                 var data = new Utils.getCardData(ui.item);
 
-                // update card
-                Meteor.call('updateCard', data.cardId, {
-                    oldListId: data.oldListId,
-                    listId: data.listId,
-                    sort: data.sort
+                Cards.update(data.cardId, {
+                    $set: {
+                        oldListId: data.oldListId,
+                        listId: data.listId,
+                        sort: data.sort
+                    }
                 });
             }
         }).disableSelection();

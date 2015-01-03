@@ -19,12 +19,5 @@ Meteor.methods({
                 approved: false
             }
         });
-    },
-    updateCard: function(_id, $set) {
-        check(_id, String);
-        check($set, Object);
-        Cards.update(_id, {
-            $set: $set
-        });
     }
 });
