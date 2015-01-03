@@ -138,7 +138,7 @@ isServer(function() {
         }
 
         // card move to other list
-        if (doc.listId != doc.oldListId) {
+        if (_.contains(fieldNames, "listId") && doc.listId !== doc.oldListId) {
             Activities.insert({
                 type: 'card',
                 activityType: "moveCard",
