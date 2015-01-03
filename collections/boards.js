@@ -45,6 +45,18 @@ Boards.helpers({
     }
 });
 
+// METHODS
+Meteor.methods({
+    removeCardMember: function(_id) {
+        check(_id, String);
+        CardMembers.update({ memberId: _id }, {
+            $set: {
+                approved: false
+            }
+        });
+    }
+});
+
 BoardMembers.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
 });
