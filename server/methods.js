@@ -13,6 +13,7 @@
 // METHODS
 Meteor.methods({
     removeCardMember: function(_id) {
+        check(_id, String);
         CardMembers.update({ memberId: _id }, {
             $set: {
                 approved: false
@@ -20,6 +21,8 @@ Meteor.methods({
         });
     },
     updateCard: function(_id, $set) {
+        check(_id, String);
+        check($set, Object);
         Cards.update(_id, {
             $set: $set
         });

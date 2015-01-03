@@ -14,6 +14,8 @@ Meteor.publishComposite('boards', function() {
 });
 
 Meteor.publishComposite('board', function(boardId, slug) {
+    check(boardId, String);
+    check(slug, String);
     return {
         find: function() {
             var filter = { _id: boardId, slug: slug, archived: false },

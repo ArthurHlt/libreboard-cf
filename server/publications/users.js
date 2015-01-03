@@ -31,6 +31,7 @@ Meteor.publish('connectUser', function() {
 });
 
 Meteor.publishComposite('profile', function(username) {
+    check(username, String);
     return {
         find: function() {
             return Users.find({ username: username });
