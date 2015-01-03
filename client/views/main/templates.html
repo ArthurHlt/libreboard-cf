@@ -39,6 +39,7 @@
 </template>
 
 <template name='AuthLayout'>
+    {{ > yield "modal" }}
     <div id="surface">
         {{# if session 'pop' }}{{ > pop }}{{/if}}
         <div id="header">

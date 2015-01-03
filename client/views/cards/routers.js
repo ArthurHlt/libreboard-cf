@@ -1,7 +1,12 @@
 Router.route('/boards/:boardId/:slug/:cardId', {
     name: 'Card',
-    template: 'card',
+    template: 'board',
     bodyClass: 'page-index chrome chrome-39 mac extra-large-window body-webkit-scrollbars body-board-view bgBoard window-up',
+    yieldRegions: {
+        'cardModal': {
+            to: 'modal'
+        }
+    },
     waitOn: function() {
         var params = this.params;
         return [

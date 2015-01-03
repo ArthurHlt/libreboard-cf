@@ -42,9 +42,8 @@
     <a class="open-card-composer js-open-card-composer {{ isMemberAll '' 'hide' }}" href="#">Add a card…</a>
 </template>
 
-<template name="card">
+<template name="cardModal">
     {{ > modal template='cardDetailWindow' card=card board=board }}
-    {{ > board }}
 </template>
 
 <template name="cardMemberPop">

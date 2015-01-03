@@ -6,6 +6,12 @@ Router.configure({
     loadingTemplate: 'loading',
     notFoundTemplate: 'notfound',
 
+    yieldRegions: {
+        '': {
+            to: 'modal'
+        }
+    },
+
     /*
     * onBeforeAction hooks now require you to call this.next(),
     * and no longer take a pause() argument. So the default behaviour is reversed.
@@ -20,7 +26,7 @@ Router.configure({
         // authenticated
         if (!Meteor.user() && authenticate) {
 
-            // redirect 
+            // redirect
             this.redirect(authenticate);
 
             // options authenticate not next().
