@@ -30,7 +30,7 @@ Template.cards.rendered = function() {
                 hoverClass: "active-card",
                 accept: '.js-member',
                 drop: function(event, ui) {
-                    var member = Blaze.getData(ui.draggable.get(0)),
+                    var member = Blaze.getData(ui.draggable.get(0)).member,
                         card = Blaze.getData(this),
                         cardMember = CardMembers.findOne({ memberId: member._id, cardId: card._id });
 

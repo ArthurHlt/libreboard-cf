@@ -25,9 +25,7 @@
                     </div>
                     <div class="list-card-members js-list-card-members">
                         {{# each members }}
-                            <div class="member js-member-on-card-menu" popOffset='membersAdd'>
-                                {{> avatar }}
-                            </div>
+                            {{> avatar member=member }}
                         {{/each}}
                     </div>
                 </a>
@@ -138,11 +136,9 @@
                         <div class="card-detail-item card-detail-item-members clearfix js-card-detail-members">
                             <h3 class="card-detail-item-header">Members</h3>
                             <div class="js-card-detail-members-list clearfix">
-                                <div class="member js-member-on-card-menu">
-                                    {{# each card.members }}
-                                        {{> avatar}}
-                                    {{/ each }}
-                                </div>
+                                {{# each card.members }}
+                                    {{> avatar member=member }}
+                                {{/ each }}
                                 {{!
                                     <a class="card-detail-item-add-button dark-hover js-details-edit-members">
                                         <span class="icon-sm icon-add"></span>
