@@ -26,11 +26,7 @@
                     <div class="list-card-members js-list-card-members">
                         {{# each members }}
                             <div class="member js-member-on-card-menu" popOffset='membersAdd'>
-                                <span class="member-initials" title="{{ member.user.profile.name }} ({{ member.user.username }})">
-                                    {{ firstChar member.user.profile.name }}
-                                </span>
-                                <span class="member-status {{ isTrueThen member.user.profile.status 'online' 'active' }}"></span>
-                                <span class="member-type {{ member.memberType }}"></span>
+                                {{> avatar }}
                             </div>
                         {{/each}}
                     </div>
@@ -138,14 +134,33 @@
         <div class="window-main-col clearfix">
             <div class="card-detail-data gutter clearfix">
                 <div class="card-detail-item card-detail-item-block clear clearfix editable">
+                    {{# if card.members }}
+                        <div class="card-detail-item card-detail-item-members clearfix js-card-detail-members">
+                            <h3 class="card-detail-item-header">Members</h3>
+                            <div class="js-card-detail-members-list clearfix">
+                                <div class="member js-member-on-card-menu">
+                                    {{# each card.members }}
+                                        {{> avatar}}
+                                    {{/ each }}
+                                </div>
+                                {{!
+                                    <a class="card-detail-item-add-button dark-hover js-details-edit-members">
+                                        <span class="icon-sm icon-add"></span>
+                                    </a>
+                                }}
+                            </div>
+                        </div>
+                    {{/ if }}
                     {{# if card.labels }}
                         <div class="card-detail-item card-detail-item-labels clearfix js-card-detail-labels">
                             <h3 class="card-detail-item-header">Labels</h3>
                             <div class="js-card-detail-labels-list clearfix editable-labels js-edit-label">
                                 {{# each card.labels }}
-                                <span class="card-label card-label-{{color}}" title="{{name}}">  &nbsp; </span>
+                                    <span class="card-label card-label-{{color}}" title="{{name}}">  &nbsp; </span>
                                 {{/ each }}
-                            <a class="card-detail-item-add-button dark-hover js-details-edit-labels" popoffset="button"><span class="icon-sm icon-add"></span></a>
+                                <a class="card-detail-item-add-button dark-hover js-details-edit-labels" popoffset="button">
+                                    <span class="icon-sm icon-add"></span>
+                                </a>
                             </div>
                         </div>
                     {{/ if }}

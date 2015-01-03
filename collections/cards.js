@@ -46,7 +46,7 @@ Cards.helpers({
         return Lists.findOne(this.oldListId);
     },
     members: function() {
-        return CardMembers.find({ cardId: this._id });
+        return CardMembers.find({ cardId: this._id }).fetch();
     },
     board: function() {
         return Boards.findOne(this.boardId);
