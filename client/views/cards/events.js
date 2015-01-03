@@ -10,7 +10,9 @@ Template.addCardForm.events({
         $('.js-open-card-composer').removeClass('hide');
     },
     'keypress .js-card-title': function(event, t) {
-        if (event.charCode == 13) { 
+        var code = event.keyCode || event.which;
+        // Pressing enter submit the form and add the card
+        if (code === 13) { 
             t.$('#AddCardForm').submit();
             event.preventDefault();
         }
