@@ -221,3 +221,10 @@ Utils = {
         }
     }
 };
+
+InputsCache = new ReactiveDict('inputsCache');
+
+Blaze.registerHelper('inputCache', function (formName, formInstance) {
+    var key = formName.toString() + '-' + formInstance.toString();
+    return InputsCache.get(key);
+});

@@ -5,6 +5,8 @@
 
 meteor-platform
 random
+reactive-dict
+
 dburles:collection-helpers
 reywood:publish-composite
 matb33:collection-hooks
