@@ -51,6 +51,14 @@ Cards.helpers({
     board: function() {
         return Boards.findOne(this.boardId);
     },
+    labels: function() {
+        var self = this;
+        var boardLabels = self.board().labels;
+        var cardLabels = _.filter(boardLabels, function(label) {
+            return _.contains(self.labelIds, label._id);
+        });
+        return cardLabels;
+    },
     user: function() {
         return Users.findOne(this.userId);
     },

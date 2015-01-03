@@ -61,6 +61,17 @@ Boards.before.insert(function(userId, doc) {
 
     // userId native set.
     if (!doc.userId) doc.userId = userId;
+
+    // Handle labels
+    var defaultLabels = ['green', 'yellow', 'orange', 'red', 'purple', 'blue'];
+    doc.labels = [];
+    _.each(defaultLabels, function(val) {
+        doc.labels.push({
+            _id: Random.id(6),
+            name: '',
+            color: val
+        });
+    });
 });
 
 Boards.before.update(function(userId, doc, fieldNames, modifier) {

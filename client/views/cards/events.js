@@ -107,6 +107,14 @@ Template.cardDetailWindow.events({
             if (!err) $('.editing').removeClass('editing');
         });
         event.preventDefault();
+    },
+    'click .js-details-edit-labels': function(event, t) {
+        Utils.Pop.open('cardLabelsPop', 'Labels', event.currentTarget, {
+            labels: this.card.board().labels,
+            cardId: this.card._id
+        });
+
+        event.preventDefault();
     }
 });
 
@@ -131,8 +139,15 @@ Template.WindowActivityModule.events({
 });
 
 Template.WindowSidebarModule.events({
-    'click .js-archive-card': function(event, t) {
+    'click .js-edit-labels': function(event, t) {
+        Utils.Pop.open('cardLabelsPop', 'Labels', event.currentTarget, {
+            labels: this.card.board().labels,
+            cardId: this.card._id
+        });
 
+        event.preventDefault();
+    },
+    'click .js-archive-card': function(event, t) {
         // Update
         Cards.update(this.card._id, {
             $set: {
@@ -159,8 +174,36 @@ Template.WindowSidebarModule.events({
     }
 });
 
+Template.cardLabelsPop.events({
+    'click .js-select-label': function(event, tpl) {
+        var cardId = Template.parentData(2).data.cardId;
+        var labelId = this._id;
+        var operation;
+        if (Cards.find({ _id: cardId, labelIds: labelId}).count() === 0)
+            operation = '$addToSet';
+        else
+            operation = '$pull';
+
+        var query = {};
+        query[operation] = {
+            labelIds: this._id
+        };
+        Cards.update(cardId, query);
+        event.preventDefault();
+    }
+});
+
 Template.deleteCardPop.events({
     'click .js-confirm': function() {
+        Cards.remove(this.cardId);
+
+        // redirect board
+        Utils.goBoardId(this.boardId);
+    }
+});
+
+Template.cardLabelsPop.events({
+    'click .js-select-label': function() {
         Cards.remove(this.cardId);
 
         // redirect board

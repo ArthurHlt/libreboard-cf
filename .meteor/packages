@@ -5,6 +5,7 @@
 
 meteor-platform
 insecure
+random
 dburles:collection-helpers
 reywood:publish-composite
 matb33:collection-hooks
