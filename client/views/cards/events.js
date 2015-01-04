@@ -233,6 +233,9 @@ Template.editLabelPop.events({
         // update
         Boards.update(this.boardId, { $set: $set });   
 
+        // return to the previous popup view trigger
+        $('.js-edit-labels').trigger('click');
+
         event.preventDefault();
     },
     'click .js-palette-color': function(event, tpl) {
