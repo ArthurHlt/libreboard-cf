@@ -2,12 +2,12 @@
     <div class="list-cards cards fancy-scrollbar clearfix js-list-cards js-sortable ui-sortable">
         {{# each cards }}
             <div class="list-card card js-member-droppable">
-                <div class="list-card-labels clearfix js-card-labels">
-                    {{# each labels }}
-                        <span class="card-label card-label-{{color}}" title="{{name}}">&nbsp;</span>
-                    {{/ each}}
-                </div>
                 <a class="list-card-details clearfix show" href="{{ absoluteUrl }}">
+                    <div class="list-card-labels clearfix js-card-labels">
+                        {{# each labels }}
+                            <span class="card-label card-label-{{color}}" title="{{name}}">&nbsp;</span>
+                        {{/ each}}
+                    </div>
                     <div class="list-card-title clear js-card-name">{{ title }}</div>
                     <div class="badges">
                         {{# if comments.count }}
