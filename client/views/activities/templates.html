@@ -13,6 +13,7 @@
                     {{# if isTrue activityType 'createBoard' }}
                         created this board.
                     {{ /if }}
+
                     {{# if isTrue activityType 'createList' }}
                         added {{ list.title }} to this board.
                     {{ /if }}
@@ -38,14 +39,18 @@
                     {{ /if }}
 
                     {{# if isTrue activityType 'addBoardMember' }}
-                        added  {{ > memberName user=member.user offset='member' }} to this board.
+                        added {{ > memberName user=member offset='member' }} to this board.
+                    {{ /if }}
+
+                    {{# if isTrue activityType 'removeBoardMember' }}
+                        excluded {{ > memberName user=member offset='member' }} from this board.
                     {{ /if }}
 
                     {{# if isTrue activityType 'joinMember' }}
                         {{# if isTrue currentUser._id member.user._id }}
                             joined <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
                         {{ else }}
-                            added {{ > memberName user=member.user offset='member' }} to <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
+                            added {{ > memberName user=member offset='member' }} to <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
                         {{/if}}
                     {{ /if }}
 
@@ -93,10 +98,12 @@
                     </form>
                     <p class="phenom-meta quiet">
                         <span class="date js-hide-on-sending">{{ livestamp createdAt }}</span>
-                        <span class="js-hide-on-sending {{ isUserThen '' 'hide'}}">
-                            - <a href="#" class="js-edit-action">Edit</a>
-                            - <a href="#" class="js-confirm-delete-action">Delete</a>
-                        </span>
+                        {{# if currentUser }}
+                            <span class="js-hide-on-sending">
+                                - <a href="#" class="js-edit-action">Edit</a>
+                                - <a href="#" class="js-confirm-delete-action">Delete</a>
+                            </span>
+                        {{/ if }}
                     </p>
                 </div>
             {{/each}}

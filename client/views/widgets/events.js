@@ -45,8 +45,23 @@ Template.closeBoardPop.events({
     }
 });
 
+var getMemberIndex = function(board, searchId) {
+    for (var i = 0; i < board.members.length; i++) {
+        if (board.members[i].userId === searchId)
+            return i;
+    }
+    throw new Meteor.Error("Member not found");
+}
+
 Template.memberPop.events({
-    'click .js-change-role': function(event, t) {},
+    'click .js-change-role': function(event, t) {
+        var currentBoard = Boards.findOne();
+        var memberIndex = getMemberIndex(currentBoard, this.memberId);
+        var isAdmin = currentBoard.members[memberIndex].isAdmin;
+        var setQuery = {};
+        setQuery[['members', memberIndex, 'isAdmin'].join('.')] = !isAdmin;
+        Boards.update(currentBoard._id, { $set: setQuery });
+    },
     'click .js-remove-member:not(.disabled)': function(event, t) {
         Utils.Pop.open('removeMemberPop', 'Remove Member?', event.currentTarget, {
             user: this.user,
@@ -55,11 +70,7 @@ Template.memberPop.events({
         });
     },
     'click .js-leave-member': function(event, t) {
-        BoardMembers.update(this.memberId, {
-            $set: {
-                approved: false
-            }
-        });
+        // @TODO
 
         // pop close
         Utils.Pop.close();
@@ -74,43 +85,33 @@ Template.membersWidget.events({
     'click .member': function(event, t) {
         var member = this.member;
         Utils.Pop.open('memberPop', false, event.currentTarget, {
-            memberId: this._id,
-            memberType: member.memberType,
-            user: member.user()
+            memberId: this.memberId
         });
     }
 });
 
 Template.addMemberPop.events({
     'click .pop-over-member-list li:not(.disabled)': function(event, t) {
-        var filter = { boardId: t.data._id, userId: this._id, memberType: 'normal' },
-            member = BoardMembers.findOne(filter);
-        if (member) {
-            BoardMembers.update(member._id, {
-                $set: {
-                    approved: true
+        var userId = this._id;
+        var boardId = t.data._id;
+        Boards.update(boardId, {
+            $push: {
+                members: {
+                    userId: userId,
+                    isAdmin: false
                 }
-            });
-        } else {
-            BoardMembers.insert(_.extend({
-                approved: true
-            }, filter));
-        }
+            }
+        });
+
         Utils.Pop.close();
     }
 });
 
 Template.removeMemberPop.events({
     'click .js-confirm': function(event, t) {
+        var currentBoard = Boards.findOne();
+        Boards.update(currentBoard._id, {$pull: {members: {userId: this.memberId}}});
 
-        // remove Member
-        BoardMembers.update(this.memberId, {
-            $set: {
-                approved: false
-            }
-        });
-
-        // pop close
         Utils.Pop.close();
     }
 });

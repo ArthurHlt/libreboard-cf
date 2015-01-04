@@ -1,14 +1,14 @@
-Lists  = new Mongo.Collection('lists');
+Lists = new Mongo.Collection('lists');
 
 Lists.allow({
     insert: function(userId, doc) {
-        return allowIsBoardMember(userId, doc.boardId);
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
     update: function(userId, doc) {
-        return allowIsBoardMember(userId, doc.boardId);
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
     remove: function(userId, doc) {
-        return allowIsBoardMember(userId, doc.boardId);
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     }
 });
 

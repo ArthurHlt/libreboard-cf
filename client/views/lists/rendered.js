@@ -3,7 +3,7 @@ Template.lists.rendered = function() {
         data = this.data,
         lists = _this.$(".lists");
 
-    if (Utils.isMemberAll(true, false)) {
+    if (Meteor.user().isBoardMember()) {
         lists.sortable({
             connectWith: ".lists",
             handle: ".list-header",

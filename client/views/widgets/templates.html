@@ -3,7 +3,7 @@
         <span class="icon-sm icon-leftarrow"></span>
         <span class="text">Show sidebar</span>
     </a>
-    <div class="board-widgets {{ isTrueThen openWidgets 'show' 'hide' }}">
+    <div class="board-widgets {{#if openWidgets}}show{{else}}hide{{/if}} }}">
         <div>
             <a href="#" class="sidebar-hide-btn dark-hover js-hide-sidebar" title="Close the board sidebar.">
                 <span class="icon-sm icon-rightarrow"></span>
@@ -39,9 +39,11 @@
                     Archived Items
                 </a>
             </li>
-            <li class='{{ isMemberAdmin '' 'hide' }}'>
-                <a class="nav-list-item nav-list-sub-item js-close-board" href="#" popOffset='boardRemove'> Close Board… </a>
-            </li>
+            {{# if currentUser.isBoardAdmin }}
+                <li>
+                    <a class="nav-list-item nav-list-sub-item js-close-board" href="#" popOffset='boardRemove'> Close Board… </a>
+                </li>
+            {{/ if }}
         </ul>
     </div>
 </template>
@@ -55,12 +57,14 @@
         <div class="board-widget-content">
             <div class="board-widget-members js-list-board-members clearfix js-list-draggable-board-members">
                 {{# each board.members }}
-                    {{> avatar draggable=true member=this popOffset='member' }}
+                    {{> avatar draggable=true memberId=this.userId popOffset='member' }}
                 {{/ each }}
             </div>
-            <a href="#" class="button-link js-open-manage-board-members {{ isMemberAdmin '' 'hide' }}" popOffset='membersAdd'>
-                <span class="icon-sm icon-member"></span> Add Members…
-            </a>
+            {{# if currentUser.isBoardAdmin }}
+                <a href="#" class="button-link js-open-manage-board-members" popOffset='membersAdd'>
+                    <span class="icon-sm icon-member"></span> Add Members…
+                </a>
+            {{/ if }}
         </div>
     </div>
 </template>
@@ -96,17 +100,25 @@
                 <p class="quiet bottom">@{{ user.username }}</p>
             </div>
         </div>
-        <ul class="pop-over-list {{ isMemberAll '' 'hide' }}">
-            <li>
-                <a class="js-change-role {{ isMemberAdmin '' 'disabled' }}" href="#">
-                    Change permissions… <span class="quiet" style="font-weight: normal;">({{ memberType }})</span>
-                </a>
-            </li>
-            <li class="{{ isTrueThen memberType 'admin' 'hide' }}">
-                <a class="js-remove-member {{ isMemberAdmin '' 'disabled' }}" popoffset='removeMember'>Remove from Board…</a>
-            </li>
-            <li class="{{ isMemberAdmin 'hide' '' }}"> <a class="js-leave-member">Leave Board…</a> </li>
-        </ul>
+        {{# if currentUser.isBoardMember }}
+            <ul class="pop-over-list">
+                {{# if currentUser.isBoardAdmin }}
+                    <li>
+                        <a class="js-change-role" href="#">
+                            Change permissions… <span class="quiet" style="font-weight: normal;">({{ memberType }})</span>
+                        </a>
+                    </li>
+                {{/ if }}
+
+                <li>
+                    {{# if currentUser.isBoardAdmin }}
+                        <a class="js-remove-member" popoffset='removeMember'>Remove from Board…</a>
+                    {{ else }}
+                        <a class="js-leave-member">Leave Board…</a>
+                    {{/ if }}
+                </li>
+            </ul>
+        {{/ if }}
     </div>
 </template>
 
@@ -131,15 +143,15 @@
     <div class="manage-member-section hide js-search-results" style="display: block;">
         <ul class="pop-over-member-list options js-list">
             {{# esEach index="users"}}
-                <li class="item js-member-item {{ member _id 'disabled' }}">
-                    <a href="#" class="name js-select-member {{ member _id 'multi-line' }}" title="{{ profile.name }} ({{ username }})">
+                <li class="item js-member-item {{# if isBoardMember }}disabled{{/if}}">
+                    <a href="#" class="name js-select-member {{# if isBoardMember }}multi-line{{/if}}" title="{{ profile.name }} ({{ username }})">
                         <span class="member js-member">
                             <span class="member-initials">{{ firstChar profile.name }}</span>
                         </span>
                         <span class="full-name">
                             {{ profile.name }}  (<span class="username">{{ username }}</span>)
                         </span>
-                       {{# if member _id 'disabled' }}
+                       {{# if isBoardMember }}
                            <div class="extra-text quiet">(joined)</div>
                        {{/if}}
                         <span class="icon-sm icon-rightarrow light option js-open-option"></span>

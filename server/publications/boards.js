@@ -1,16 +1,8 @@
-Meteor.publishComposite('boards', function() {
-    return {
-        find: function() {
-            // Flat id list
-            var boardIds = BoardMembers.find({ userId: this.userId, approved: true }).map(function(b) {
-                // members [boardId, boardId] flats
-                return b.boardId;
-            });
-
-            // Board members
-            return Boards.find({ _id: { $in: boardIds }, archived: false });
-        }
-    }
+Meteor.publish('boards', function() {
+    return Boards.find({
+        'members.userId': this.userId,
+        archived: false
+    });
 });
 
 Meteor.publishComposite('board', function(boardId, slug) {
@@ -18,14 +10,19 @@ Meteor.publishComposite('board', function(boardId, slug) {
     check(slug, String);
     return {
         find: function() {
-            var filter = { _id: boardId, slug: slug, archived: false },
-                member = BoardMembers.findOne({ userId: this.userId, boardId: boardId });
+            var filter = {
+                _id: boardId,
+                slug: slug,
+                archived: false
+            };
 
-            // if user is authenticated then and private public permission return Boards.
-            if (member) return Boards.find(filter);
+            var board = Boards.findOne(filter);
 
-            // Public board if not is authenticated then publish public boards
-            return Boards.find(_.extend({ permission: 'Public' }, filter));
+            if (board.permission !== 'Public' && ! _.contains(boards.members.keys(), this.userId))
+                return new Meteor.Error(404, "Not found");
+
+            else
+                return Boards.find(filter, { limit: 1 });
         },
         children: [
 
@@ -40,13 +37,14 @@ Meteor.publishComposite('board', function(boardId, slug) {
                             return Cards.find({ listId: list._id });
                         },
 
-                        // CardMembers
                         children: [
+                            // Card members
                             {
                                 find: function(card) {
-                                    return CardMembers.find({ cardId: card._id });
+                                    return Users.find({ _id: { $in: card.members || [] }});
                                 }
                             },
+                            // Card comments
                             {
                                 find: function(card) {
                                     return CardComments.find({ cardId: card._id });
@@ -60,24 +58,24 @@ Meteor.publishComposite('board', function(boardId, slug) {
             // Members
             {
                 find: function(board) {
-                    return BoardMembers.find({ boardId: board._id });
-                },
-
-                children: [
-                    // Member Users
-                    {
-                        find: function(member, board) {
-                            return Users.find({ _id: member.userId }, { fields: { profile: true, username: true }});
-                        }
-                    }
-                ]
+                    return Users.find({ _id: { $in: _.pluck(board.members, 'userId') }});
+                }
             },
 
             // Activities
             {
                 find: function(board) {
                     return Activities.find({ boardId: board._id });
-                }
+                },
+                children: [
+                    // Card members
+                    {
+                        find: function(activity) {
+                            if (activity.memberId)
+                                return Users.find(activity.memberId);
+                        }
+                    }
+                ]
             }
         ]
     }

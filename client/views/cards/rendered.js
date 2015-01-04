@@ -2,7 +2,7 @@ Template.cards.rendered = function() {
     var _this = this,
         cards = _this.$(".cards");
 
-    if (Utils.isMemberAll(true, false)) {
+    if (Meteor.user().isBoardMember()) {
         cards.sortable({
             connectWith: ".js-sortable",
             tolerance: 'pointer',
@@ -31,18 +31,9 @@ Template.cards.rendered = function() {
                 hoverClass: "active-card",
                 accept: '.js-member',
                 drop: function(event, ui) {
-                    var member = Blaze.getData(ui.draggable.get(0)).member,
-                        card = Blaze.getData(this),
-                        cardMember = CardMembers.findOne({ memberId: member._id, cardId: card._id });
-
-                    if (!cardMember) {
-                        // insert Member
-                        CardMembers.insert({
-                            memberId: member._id,
-                            boardId: member.boardId,
-                            cardId: card._id
-                        });
-                    }
+                    var memberId = Blaze.getData(ui.draggable.get(0)).memberId;
+                    var cardId = Blaze.getData(this)._id;
+                    Cards.update(cardId, {$addToSet: { members: memberId}});
                 }
             });
         });

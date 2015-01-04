@@ -146,31 +146,6 @@ Utils = {
         });
     },
 
-    // memberType admin $or normal
-    isMemberFilter: function(filter) {
-        return (this.is_authenticated() && BoardMembers.findOne(filter));
-    },
-
-    isMemberAdmin: function(yes, no) {
-        var filter = { userId: Meteor.userId(), memberType: 'admin', approved: true };
-        return this.isMemberFilter(filter) ? yes : no;
-    },
-
-    isMemberNormal: function(yes, no) {
-        var filter = { userId: Meteor.userId(), memberType: 'normal', approved: true };
-        return this.isMemberFilter(filter) ? yes : no;
-    },
-
-    isMemberAll: function(yes, no) {
-        var filter = {
-            $or: [
-                { userId: Meteor.userId(), memberType: 'admin', approved: true },
-                { userId: Meteor.userId(), memberType: 'normal', approved: true }
-            ]
-        };
-        return this.isMemberFilter(filter) ? yes : no;
-    },
-
     // new getCardData(cardEl)
     getCardData: function(item) {
         var el = item.get(0),

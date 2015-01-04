@@ -132,7 +132,7 @@
 </template>
 
 <template name="pop">
-    <div class="pop-over clearfix {{ isTrueThen pop.label false 'miniprofile' }}" style="display: block; left: {{ pop.left }}px; top: {{ pop.top }}px;">
+    <div class="pop-over clearfix {{# unless pop.label }}miniprofile{{/ unless }}" style="display: block; left: {{ pop.left }}px; top: {{ pop.top }}px;">
         <div class="header clearfix">
             <a class="back-btn js-back-view" href="#" style="display: none;">
                 <span class="icon-sm icon-leftarrow"></span>
@@ -145,15 +145,5 @@
         <div class="content clearfix fancy-scrollbar js-tab-parent" style="max-height: 549px;">
             {{> UI.dynamic template=pop.template data=pop.data }}
         </div>
-    </div>
-</template>
-
-<template name="avatar">
-    <div class="member {{# if draggable }}js-member{{else}}js-member-on-card-menu{{/ if}}" popOffset='{{ popOffset }}'>
-        <span class="member-initials" title="{{ member.user.profile.name }} ({{ member.user.username }})">
-            {{ firstChar member.user.profile.name }}
-        </span>
-        <span class="member-status {{ isTrueThen member.user.profile.status 'online' 'active' }}"></span>
-        <span class="member-type {{ member.memberType }}"></span>
     </div>
 </template>

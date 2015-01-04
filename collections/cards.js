@@ -1,17 +1,16 @@
 Cards = new Mongo.Collection('cards');
-CardMembers = new Mongo.Collection('card_members');
 CardComments = new Mongo.Collection('card_comments');
 
 // ALLOWS
 Cards.allow({
     insert: function(userId, doc) {
-        return allowIsBoardMember(userId, doc.boardId);
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
     update: function(userId, doc) {
-        return allowIsBoardMember(userId, doc.boardId);
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
     remove: function(userId, doc) {
-        return allowIsBoardMember(userId, doc.boardId);
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     }
 });
 
@@ -27,15 +26,6 @@ CardComments.allow({
     }
 });
 
-CardMembers.allow({
-    insert: function(userId, doc) {
-        return allowCardMembers(userId, doc);
-    },
-    remove: function(userId, doc) {
-        return allowIsBoardMember(userId, doc.boardId);
-    }
-});
-
 
 // HELPERS
 Cards.helpers({
@@ -44,9 +34,6 @@ Cards.helpers({
     },
     oldList: function() {
         return Lists.findOne(this.oldListId);
-    },
-    members: function() {
-        return CardMembers.find({ cardId: this._id }).fetch();
     },
     board: function() {
         return Boards.findOne(this.boardId);
@@ -74,12 +61,6 @@ Cards.helpers({
     }
 });
 
-CardMembers.helpers({
-    member: function() {
-        return BoardMembers.findOne(this.memberId);
-    }
-});
-
 CardComments.helpers({
     user: function() {
         return Users.findOne(this.userId);
@@ -96,12 +77,6 @@ Cards.before.insert(function(userId, doc) {
 
     // userId native set.
     if (!doc.userId) doc.userId = userId;
-});
-
-
-// CARDMEMBERS BEFORE HOOK
-CardMembers.before.insert(function(userId, doc) {
-    doc.createdAt = new Date();
 });
 
 
@@ -122,6 +97,7 @@ isServer(function() {
         });
     });
 
+    // New activity for card (un)archivage
     Cards.after.update(function(userId, doc, fieldNames, modifier) {
         if (_.contains(fieldNames, 'archived')) {
             if (doc.archived) {
@@ -144,8 +120,10 @@ isServer(function() {
                 });
             }
         }
+    });
 
-        // card move to other list
+    // New activity for card moves
+    Cards.after.update(function(userId, doc, fieldNames, modifier) {
         if (_.contains(fieldNames, "listId") && doc.listId !== doc.oldListId) {
             Activities.insert({
                 type: 'card',
@@ -159,15 +137,36 @@ isServer(function() {
         }
     });
 
-    CardMembers.after.insert(function(userId, doc) {
-        Activities.insert({
-            type: 'card',
-            activityType: "joinMember",
-            memberId: doc.memberId,
-            boardId: doc.boardId,
-            cardId: doc.cardId,
-            userId: userId
-        });
+    // Add a new activity if we add or remove a member to the card
+    Cards.after.update(function(userId, doc, fieldNames, modifier) {
+        if (! _.contains(fieldNames, 'members'))
+            return;
+
+        // Say hello to the new member
+        if (modifier.$addToSet && modifier.$addToSet.members) {
+            var memberId = modifier.$addToSet.members;
+            Activities.insert({
+                type: 'card',
+                activityType: "joinMember",
+                boardId: doc.boardId,
+                cardId: doc._id,
+                userId: userId,
+                memberId: memberId
+            });
+        }
+
+        // Say goodbye to the former member
+        if (modifier.$pull && modifier.$pull.members) {
+            var memberId = modifier.$pull.members.userId;
+            Activities.insert({
+                type: 'card',
+                activityType: "unjoinMember",
+                boardId: doc.boardId,
+                cardId: doc._id,
+                userId: userId,
+                memberId: memberId
+            });
+        }
     });
 
     CardComments.after.insert(function(userId, doc) {

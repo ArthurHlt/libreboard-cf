@@ -1,5 +1,5 @@
 Template.membersWidget.rendered = function() {
-    if (Utils.isMemberAll(true, false)) {
+    if (Meteor.user().isBoardMember()) {
         Utils.liveEvent('mouseover', function($this) {
             $this.find('.js-member').draggable({
                 appendTo: "body",

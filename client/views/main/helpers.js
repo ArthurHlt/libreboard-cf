@@ -14,31 +14,11 @@ var Helpers = {
     session: function(prop) {
         return Session.get(prop);
     },
-    isThen: function(a, then) {
-        return a ? then : '';
-    },
-    isNotThen: function(a, then) {
-        return a ? '' : then;
-    },
-    isTrue: function(a, b, consl) {
-        // Template tag {{# if isTrue a b consl }}
-        if (_.isBoolean(consl)) console.log(a, b, a==b);
+    isTrue: function(a, b) {
         return a == b;
     },
     isTrueThen: function(a, b, trueThen, falseThen) {
         return a == b ? trueThen : (falseThen || false);
-    },
-    isUserThen: function(a, b) {
-        return this.userId == Meteor.userId() ? a : b;
-    },
-    isMemberAdmin: function(yes, no) {
-        return Utils.isMemberAdmin(yes, no);
-    },
-    isMemberNormal: function(yes, no) {
-        return Utils.isMemberNormal(yes, no);
-    },
-    isMemberAll: function(yes, no) {
-        return Utils.isMemberAll(yes, no);
     },
     openWidgets: function() {
         return Session.get('widgets');

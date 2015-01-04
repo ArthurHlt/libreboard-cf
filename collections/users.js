@@ -13,6 +13,14 @@ Users.helpers({
     },
     hasStarred: function(boardId) {
         return this.profile.starredBoards && _.contains(this.profile.starredBoards, boardId);
+    },
+    isBoardMember: function() {
+        var board = Boards.findOne(Router.current().params.boardId);
+        return _.contains(_.pluck(board.members, 'userId'), this._id);
+    },
+    isBoardAdmin: function() {
+        var board = Boards.findOne(Router.current().params.boardId);
+        return this.isBoardMember(board) && _.where(board.members, {userId: this._id})[0].isAdmin;
     }
 });
 

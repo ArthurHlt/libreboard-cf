@@ -1,41 +1,45 @@
 Boards = new Mongo.Collection('boards');
-BoardMembers = new Mongo.Collection('board_members');
 
 // ALLOWS
 Boards.allow({
-    insert: function(userId, doc) { return doc.userId === userId; },
-    update: function(userId, doc) { return allowMemberTypeAdmin(userId, doc._id); },
-    remove: function(userId, doc) { return allowMemberTypeAdmin(userId, doc._id); },
+    insert: Meteor.userId,
+    update: allowIsBoardAdmin,
+    remove: allowIsBoardAdmin
 });
 
-BoardMembers.allow({
-    insert: function(userId, doc) {
-        return allowMemberTypeAdmin(userId, doc.boardId);
-    },
-    update: function(userId, doc) {
-        return allowIsBoardMember(userId, doc.boardId);
-    },
-    remove: function(userId, doc) {
-        return allowIsBoardMember(userId, doc.boardId);
-    }
-});
+// We can't remove a member if it is the last administrator
+Boards.deny({
+    update: function(userId, doc, fieldNames, modifier) {
+        if (! _.contains(fieldNames, 'members'))
+            return false;
 
-BoardMembers.helpers({
-    user: function() {
-        return Users.findOne({ _id: this.userId });
-    },
-    board: function() {
-        return Boards.findOne({ _id: this.boardId });
+        // We only care in case of a $pull operation, ie remove a member
+        if (! _.isObject(modifier.$pull && modifier.$pull.members))
+            return false;
+
+        // If there is more than one admin, it's ok to remove anyone
+        var nbAdmins = _.filter(doc.members, function(member) {
+            return member.isAdmin;
+        }).length;
+        console.log(nbAdmins)
+        if (nbAdmins > 1)
+            return false;
+
+        // If all the previous conditions where verified, we can't remove
+        // a user if it's an admin
+        var removedMemberId = modifier.$pull.members.userId;
+        console.log(removedMemberId)
+        return !! _.findWhere(doc.members, {
+            userId: removedMemberId,
+            isAdmin: true
+        });
     }
-});
+})
 
 // HELPERS
 Boards.helpers({
     lists: function() {
         return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 }});
-    },
-    members: function() {
-        return BoardMembers.find({ approved: true });
     },
     activities: function() {
         return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
@@ -57,22 +61,15 @@ Meteor.methods({
     }
 });
 
-BoardMembers.before.insert(function(userId, doc) {
-    doc.createdAt = new Date();
-});
-
-BoardMembers.before.remove(function(userId, doc) {
-    Meteor.call('removeCardMember', doc._id);
-});
-
 Boards.before.insert(function(userId, doc) {
     doc.slug = slugify(doc.title);
     doc.createdAt = new Date();
     doc.openWidgets = true;
     doc.archived = false;
-
-    // userId native set.
-    if (!doc.userId) doc.userId = userId;
+    doc.members = [{
+        userId: userId,
+        isAdmin: true
+    }];
 
     // Handle labels
     var defaultLabels = ['green', 'yellow', 'orange', 'red', 'purple', 'blue'];
@@ -87,21 +84,23 @@ Boards.before.insert(function(userId, doc) {
 });
 
 Boards.before.update(function(userId, doc, fieldNames, modifier) {
+    if (! _.isObject(modifier.$set))
+        modifier.$set = {};
     modifier.$set.modifiedAt = new Date();
 });
 
 isServer(function() {
+
+    // Let MongoDB ensure that a member is not included twice in the same board
+    Meteor.startup(function() {
+        Boards._collection._ensureIndex({
+            '_id': 1,
+            'members.userId': 1
+        }, { unique: true });
+    });
+
+    // Genesis: the first activity of the newly created board
     Boards.after.insert(function(userId, doc) {
-
-        // admin member insert
-        BoardMembers.insert({
-            boardId: doc._id,
-            userId: userId,
-            memberType: "admin",
-            approved: true
-        });
-
-        // activity insert
         Activities.insert({
             type: 'board',
             activityTypeId: doc._id,
@@ -111,24 +110,32 @@ isServer(function() {
         });
     });
 
-    BoardMembers.after.insert(function(userId, doc) {
-        Activities.insert({
-            type: 'member',
-            activityType: "addBoardMember",
-            boardId: doc.boardId,
-            userId: userId,
-            memberId: doc._id
-        });
-    });
+    // Add a new activity if we add or remove a member to the board
+    Boards.after.update(function(userId, doc, fieldNames, modifier) {
+        if (! _.contains(fieldNames, 'members'))
+            return;
 
-    BoardMembers.after.update(function(userId, doc) {
-        if (doc.approved) {
+        // Say hello to the new member
+        if (modifier.$push && modifier.$push.members) {
+            var memberId = modifier.$push.members.userId;
             Activities.insert({
                 type: 'member',
                 activityType: "addBoardMember",
-                memberId: doc._id,
-                boardId: doc.boardId,
-                userId: userId
+                boardId: doc._id,
+                userId: userId,
+                memberId: memberId
+            });
+        }
+
+        // Say goodbye to the former member
+        if (modifier.$pull && modifier.$pull.members) {
+            var memberId = modifier.$pull.members.userId;
+            Activities.insert({
+                type: 'member',
+                activityType: "removeBoardMember",
+                boardId: doc._id,
+                userId: userId,
+                memberId: memberId
             });
         }
     });
