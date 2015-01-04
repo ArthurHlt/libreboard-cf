@@ -227,7 +227,7 @@ Template.editLabelPop.events({
         // set label index 
         $set[getLabel.key('name')] = name;
 
-        // color current not currentcolor
+        // set color
         $set[getLabel.key('color')] = selectLabel.color;
         
         // update
