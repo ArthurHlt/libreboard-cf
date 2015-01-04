@@ -71,7 +71,9 @@
                     <a href="#" class="card-label-edit-button icon-sm icon-edit js-edit-label"></a>
                     <span class="card-label card-label-selectable card-label-{{color}} js-select-label {{# if isLabelSelected ../cardId }}active{{/ if }}">
                         {{name}}
-                        <span class="card-label-selectable-icon icon-sm icon-check light" popoffset='button'></span>
+                        {{# if currentUser.isBoardAdmin }}
+                            <span class="card-label-selectable-icon icon-sm icon-check light" popoffset='button'></span>
+                        {{/ if }}
                     </span>
                 </li>
             {{/ each}}
