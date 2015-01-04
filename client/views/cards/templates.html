@@ -64,15 +64,32 @@
         <ul class="edit-labels-pop-over js-labels-list">
             {{# each labels }}
                 <li>
-                    {{! <a href="#" class="card-label-edit-button icon-sm icon-edit js-edit-label"></a> }}
+                    <a href="#" class="card-label-edit-button icon-sm icon-edit js-edit-label"></a>
                     <span class="card-label card-label-selectable card-label-{{color}} js-select-label {{# if isLabelSelected ../cardId }}active{{/ if }}">
                         {{name}}
-                        <span class="card-label-selectable-icon icon-sm icon-check light"></span>
+                        <span class="card-label-selectable-icon icon-sm icon-check light" popoffset='button'></span>
                     </span>
                 </li>
             {{/ each}}
         </ul>
     </div>
+</template>
+
+<template name="editLabelPop">
+    <form class="edit-label">
+        <div class="colors clearfix">
+            <label for="labelName">Name</label> 
+            <input id="labelName" type="text" name="name" class="js-autofocus js-label-name" value='{{ name }}'> 
+            <label>Select a color</label>                          
+            {{# each labels }}
+                <span class="card-label card-label--selectable card-label-{{ color }} palette-color js-palette-color"> 
+                    <span class="card-label-color-select-icon icon-sm icon-check light js-palette-select {{ isTrueThen color ../color '' 'hide' }}"></span> 
+                </span>
+            {{/each}}
+        </div>
+        <input type="submit" class="primary wide left js-submit" value="Save"> 
+        {{! <span class="right js-accessory-view-holder"><input type="submit" value="Delete" class="negate"></span> }}
+    </form>
 </template>
 
 <template name="deleteCardPop">
@@ -151,7 +168,7 @@
                             <h3 class="card-detail-item-header">Labels</h3>
                             <div class="js-card-detail-labels-list clearfix editable-labels js-edit-label">
                                 {{# each card.labels }}
-                                    <span class="card-label card-label-{{color}}" title="{{name}}">  &nbsp; </span>
+                                    <span class="card-label card-label-{{color}}" title="{{name}}">{{ name }}</span>
                                 {{/ each }}
                                 <a class="card-detail-item-add-button dark-hover js-details-edit-labels" popoffset="button">
                                     <span class="icon-sm icon-add"></span>

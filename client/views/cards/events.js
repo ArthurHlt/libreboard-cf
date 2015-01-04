@@ -5,7 +5,6 @@ Template.addCardForm.events({
         // Keep the old value in memory to display it again next time
         var inputCacheKey = "addCard-" + this.listId;
         var oldValue = composer.find('.js-card-title').val();
-        console.log(inputCacheKey, oldValue)
         InputsCache.set(inputCacheKey, oldValue);
 
         // add composer hide class
@@ -126,9 +125,11 @@ Template.cardDetailWindow.events({
         event.preventDefault();
     },
     'click .js-details-edit-labels': function(event, t) {
+        var board = this.card.board();
         Utils.Pop.open('cardLabelsPop', 'Labels', event.currentTarget, {
-            labels: this.card.board().labels,
-            cardId: this.card._id
+            labels: board.labels,
+            cardId: this.card._id,
+            boardId: board._id
         });
 
         event.preventDefault();
@@ -157,9 +158,11 @@ Template.WindowActivityModule.events({
 
 Template.WindowSidebarModule.events({
     'click .js-edit-labels': function(event, t) {
+        var board = this.card.board();
         Utils.Pop.open('cardLabelsPop', 'Labels', event.currentTarget, {
-            labels: this.card.board().labels,
-            cardId: this.card._id
+            labels: board.labels,
+            cardId: this.card._id,
+            boardId: board._id
         });
 
         event.preventDefault();
@@ -207,6 +210,39 @@ Template.cardLabelsPop.events({
         };
         Cards.update(cardId, query);
         event.preventDefault();
+    },
+    'click .js-edit-label': function(event, tpl) {
+        Utils.Pop.open('editLabelPop', 'Change Label', $('.openPop').get(0), _.extend({ boardId: tpl.data.boardId }, this));
+        event.preventDefault();
+    }
+});
+
+Template.editLabelPop.events({
+    'submit .edit-label': function(event, tpl) {
+        var name = tpl.find('#labelName').value,
+            getLabel = Utils.getLabelIndex(this.boardId, this._id),
+            selectLabel = Blaze.getData(tpl.$('.js-palette-select:not(.hide)').get(0)),
+            $set = {};
+
+        // set label index 
+        $set[getLabel.key('name')] = name;
+
+        // color current not currentcolor
+        $set[getLabel.key('color')] = selectLabel.color;
+        
+        // update
+        Boards.update(this.boardId, { $set: $set });   
+
+        event.preventDefault();
+    },
+    'click .js-palette-color': function(event, tpl) {
+        var $this = $(event.currentTarget);
+
+        // hide selected ll colors
+        $('.js-palette-select').addClass('hide');
+
+        // show select color
+        $this.find('.js-palette-select').removeClass('hide');
     }
 });
 

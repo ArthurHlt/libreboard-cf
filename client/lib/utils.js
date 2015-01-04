@@ -219,6 +219,19 @@ Utils = {
                 this.sort = (Blaze.getData(after).sort + Blaze.getData(before).sort) / 2;
             }
         }
+    },
+    getLabelIndex: function(boardId, labelId) {
+        var board = Boards.findOne(boardId),
+            labels = {};
+        _.each(board.labels, function(a, b) {
+            labels[a._id] = b;
+        });
+        return {
+            index: labels[labelId],
+            key: function(key) {
+                return 'labels.' + labels[labelId] + '.' + key;
+            }
+        }
     }
 };
 
