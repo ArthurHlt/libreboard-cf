@@ -9,7 +9,8 @@ Lists.allow({
     },
     remove: function(userId, doc) {
         return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-    }
+    },
+    fetch: ['boardId']
 });
 
 
@@ -22,7 +23,8 @@ Lists.helpers({
     }
 });
 
-
+// HOOKS
+Lists.hookOptions.after.update = { fetchPrevious: false };
 Lists.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
     doc.updatedAt = new Date();

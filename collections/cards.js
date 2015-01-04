@@ -11,19 +11,21 @@ Cards.allow({
     },
     remove: function(userId, doc) {
         return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-    }
+    },
+    fetch: ['boardId']
 });
 
 CardComments.allow({
     insert: function(userId, doc) {
-        return allowIsBoardMember(userId, doc.boardId);
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
     update: function(userId, doc) {
         return userId === doc.userId;
     },
     remove: function(userId, doc) {
         return userId === doc.userId;
-    }
+    },
+    fetch: ['userId, boardId']
 });
 
 
@@ -68,6 +70,7 @@ CardComments.helpers({
 });
 
 // CARDS BEFORE HOOK
+CardComments.hookOptions.after.update = { fetchPrevious: false };
 Cards.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
     doc.dateLastActivity = new Date();

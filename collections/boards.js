@@ -4,7 +4,8 @@ Boards = new Mongo.Collection('boards');
 Boards.allow({
     insert: Meteor.userId,
     update: allowIsBoardAdmin,
-    remove: allowIsBoardAdmin
+    remove: allowIsBoardAdmin,
+    fetch: ['members']
 });
 
 // We can't remove a member if it is the last administrator
@@ -21,19 +22,18 @@ Boards.deny({
         var nbAdmins = _.filter(doc.members, function(member) {
             return member.isAdmin;
         }).length;
-        console.log(nbAdmins)
         if (nbAdmins > 1)
             return false;
 
         // If all the previous conditions where verified, we can't remove
         // a user if it's an admin
         var removedMemberId = modifier.$pull.members.userId;
-        console.log(removedMemberId)
         return !! _.findWhere(doc.members, {
             userId: removedMemberId,
             isAdmin: true
         });
-    }
+    },
+    fetch: ['members']
 })
 
 // HELPERS
@@ -61,6 +61,7 @@ Meteor.methods({
     }
 });
 
+// HOOKS
 Boards.before.insert(function(userId, doc) {
     doc.slug = slugify(doc.title);
     doc.createdAt = new Date();
