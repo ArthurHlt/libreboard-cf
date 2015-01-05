@@ -71,6 +71,19 @@ Template.addlistForm.events({
     'click .js-cancel-edit': function(event, t) {
         t.$('.list').addClass('idle');
     },
+    // XXX We do something similar in the new card form event and should
+    // probably avoid repeating ourself
+    //
+    // Keydown (and not keypress) in necessary here because the `keyCode`
+    // property is consistent in all browsers, (there is not keyCode for the
+    // `keypress` event in firefox)
+    'keydown .list-name-input': function(event, t) {
+        var code = event.keyCode;
+        if (code === 27) {
+            t.$('.js-cancel-edit').click();
+            event.preventDefault();
+        }
+    },
     'submit #AddListForm': function(event, t) {
         var title = t.find('.list-name-input');
         if ($.trim(title.value)) {
