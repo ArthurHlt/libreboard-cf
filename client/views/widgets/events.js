@@ -72,10 +72,11 @@ Template.membersWidget.events({
         event.preventDefault();
     },
     'click .member': function(event, t) {
+        var member = this.member;
         Utils.Pop.open('memberPop', false, event.currentTarget, {
             memberId: this._id,
-            memberType: this.memberType,
-            user: this.user()
+            memberType: member.memberType,
+            user: this.member.user()
         });
     }
 });
