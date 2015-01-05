@@ -78,16 +78,16 @@
 <template name="editLabelPop">
     <form class="edit-label">
         <div class="colors clearfix">
-            <label for="labelName">Name</label> 
-            <input id="labelName" type="text" name="name" class="js-autofocus js-label-name" value='{{ name }}'> 
-            <label>Select a color</label>                          
+            <label for="labelName">Name</label>
+            <input id="labelName" type="text" name="name" class="js-autofocus js-label-name" value='{{ name }}'>
+            <label>Select a color</label>
             {{# each labels }}
-                <span class="card-label card-label--selectable card-label-{{ color }} palette-color js-palette-color"> 
-                    <span class="card-label-color-select-icon icon-sm icon-check light js-palette-select {{ isTrueThen color ../color '' 'hide' }}"></span> 
+                <span class="card-label card-label--selectable card-label-{{ color }} palette-color js-palette-color">
+                    <span class="card-label-color-select-icon icon-sm icon-check light js-palette-select {{ isTrueThen color ../color '' 'hide' }}"></span>
                 </span>
             {{/each}}
         </div>
-        <input type="submit" class="primary wide left js-submit" value="Save"> 
+        <input type="submit" class="primary wide left js-submit" value="Save">
         {{! <span class="right js-accessory-view-holder"><input type="submit" value="Delete" class="negate"></span> }}
     </form>
 </template>
@@ -181,7 +181,9 @@
                             <h3 class="card-detail-item-header js-show-with-desc">Description</h3>
                             <a href="#" class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc {{ isMemberAll '' 'hide' }}">Edit</a>
                             <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc">
-                                <p>{{ card.description }}</p>
+                              {{#markdown}}
+{{ card.description }}
+                              {{/markdown}}
                             </div>
                         {{ else }}
                             <p class="bottom {{ isMemberAll '' 'hide' }}">
