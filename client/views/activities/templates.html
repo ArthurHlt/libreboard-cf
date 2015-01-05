@@ -82,7 +82,7 @@
                             {{ > memberName user=user offset='user' }}
                             <div class="action-comment markeddown">
                                 <div class="current-comment">
-                                    <p>{{ text }}</p>
+                                  {{#markdown}}{{ text }}{{/markdown}}
                                 </div>
                                 <textarea class="js-text" tabindex="1">{{ text }}</textarea>
                             </div>

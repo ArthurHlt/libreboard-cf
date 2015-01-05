@@ -181,9 +181,7 @@
                             <h3 class="card-detail-item-header js-show-with-desc">Description</h3>
                             <a href="#" class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc {{ isMemberAll '' 'hide' }}">Edit</a>
                             <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc">
-                              {{#markdown}}
-{{ card.description }}
-                              {{/markdown}}
+                              {{#markdown}}{{ card.description }}{{/markdown}}
                             </div>
                         {{ else }}
                             <p class="bottom {{ isMemberAll '' 'hide' }}">
