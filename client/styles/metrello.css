@@ -51,6 +51,9 @@ a.list-card-details { text-decoration:none; }
 #header-search .header-btn{border-top-left-radius:0;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:0}
 #header-search input[type="submit"]{display:none}
 
-#landingHeader{clear:both;text-align:center;padding:50px 60px}
-#landingHeader h2{color:#81919b;font-weight:700;font-size:46px;line-height:1.2em}
-.width-wrapper{max-width:1080px;margin:0 auto;padding:0 60px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box; }
+#landingHeader { clear:both; text-align:center; padding: 25px 50px 25px 50px; }
+#landingHeader h2 {color:#81919b;font-weight:700;font-size:46px;line-height:1.2em}
+.width-wrapper {max-width:1080px;margin:0 auto;padding:0 60px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box; }
+
+.section-wrapper p { font-weight: 300; line-height: 1.44em; padding-bottom:30px; }
+.outline-link { border: 1px solid; border-radius: 3px; display: inline-block; margin: .6em 0; padding: .6em 1em; text-decoration: none; color: #5e98ba; background: transparent; }
