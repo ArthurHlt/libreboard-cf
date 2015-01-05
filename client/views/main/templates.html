@@ -140,7 +140,7 @@
 </template>
 
 <template name="avatar">
-    <div class="member {{# if draggable }}js-member{{else}}js-member-on-card-menu{{/ if}}" popOffset='membersAdd'>
+    <div class="member {{# if draggable }}js-member{{else}}js-member-on-card-menu{{/ if}}" popOffset='{{ popOffset }}'>
         <span class="member-initials" title="{{ member.user.profile.name }} ({{ member.user.username }})">
             {{ firstChar member.user.profile.name }}
         </span>

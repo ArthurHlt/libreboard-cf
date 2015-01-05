@@ -55,7 +55,7 @@
         <div class="board-widget-content">
             <div class="board-widget-members js-list-board-members clearfix js-list-draggable-board-members">
                 {{# each board.members }}
-                    {{> avatar draggable=true member=this }}
+                    {{> avatar draggable=true member=this popOffset='member' }}
                 {{/ each }}
             </div>
             <a href="#" class="button-link js-open-manage-board-members {{ isMemberAdmin '' 'hide' }}" popOffset='membersAdd'>
