@@ -76,7 +76,7 @@ Template.membersWidget.events({
         Utils.Pop.open('memberPop', false, event.currentTarget, {
             memberId: this._id,
             memberType: member.memberType,
-            user: this.member.user()
+            user: member.user()
         });
     }
 });
