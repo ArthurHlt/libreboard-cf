@@ -55,3 +55,7 @@ Template.cards.rendered = function() {
         removed: Utils.resizeHeight('.board-canvas')
     });
 };
+
+Template.editLabelPop.rendered = function() {
+    this.find('.js-autofocus').focus();
+};

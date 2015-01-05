@@ -14,6 +14,8 @@ Template.membersWidget.rendered = function() {
 };
 
 Template.addMemberPop.rendered = function() {
+    // Input autofocus
+    this.find('.search-with-spinner input').focus();
 
     // resize widgets
     Utils.widgetsHeight();

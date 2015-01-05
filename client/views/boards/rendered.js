@@ -16,3 +16,10 @@ Template.board.rendered = function() {
     // scroll Left getSession
     Utils.boardScrollLeft();
 };
+
+var jsAutofocus = function() {
+    this.find('.js-autofocus').focus();
+};
+
+Template.changeBoardTitlePop.rendered = jsAutofocus;
+Template.createBoardPop.rendered = jsAutofocus;
