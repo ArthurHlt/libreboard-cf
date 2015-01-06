@@ -1,5 +1,5 @@
 <head>
-    <title>Metrello</title>
+    <title>LibreBoard</title>
     <meta name="viewport" content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0">
 </head>
 
@@ -51,6 +51,9 @@
                 </a>
             </div>
             {{ > search }}
+            <a href="{{pathFor 'Home'}}" title="Go back to your boards page." class="header-logo">
+                Libre<strong>Board</strong>
+            </a>
             {{ > memberHeader }}
         </div>
         {{ > warning }}
@@ -73,9 +76,9 @@
 
 <template name="home">
     <div class="whiteBg">
-        <header id="landingHeader" class="landing-header">
-            <img id="landingLogo" title="Trello logo" src="/logo.png">
-        </header>
+        <h1 id="landingLogo">
+            Libre<strong>Board</strong>
+        </h1>
         <section id="landingFirstSignUpButton" class="landing-section">
             <div class="width-wrapper tac">
                 <a class="button primary primarys" href="{{ pathFor route='Signup' }}"> Sign Up—It’s Free! </a>
@@ -86,14 +89,14 @@
                 </p>
             </div>
         </section>
-        <section class="section-everything"> 
-            <div class="section-wrapper"> 
-                <div class="layout-twothirds-center tac"> 
+        <section class="section-everything">
+            <div class="section-wrapper">
+                <div class="layout-twothirds-center tac">
                     <p>
                         We are not affiliated, associated, authorized, endorsed by or in any way officially connected to <strong>Trello, Inc</strong> <a href="http://trello.com">www.trello.com</a>.
                     </p>
-                </div> 
-            </div> 
+                </div>
+            </div>
         </section>
     </div>
 </template>

@@ -2,8 +2,8 @@
 
 APP="$(pwd)/.build/bundle"
 SCRIPT="$APP/main.js"
-PID="$APP/metrello.pid"
-LOG="$APP/metrello.log"
+PID="$APP/libreboard.pid"
+LOG="$APP/libreboard.log"
 
 # meteor build in a directory
 meteor build .build --directory
@@ -15,8 +15,8 @@ npm install
 
 # exports
 export PORT=5000
-export MONGO_URL="mongodb://localhost:27017/metrello"
-export ROOT_URL="https://metrello.com"
+export MONGO_URL="mongodb://localhost:27017/libreboard"
+export ROOT_URL="https://libreboard.com"
 export DISABLE_WEBSOCKETS=true
 
 forever stop $SCRIPT

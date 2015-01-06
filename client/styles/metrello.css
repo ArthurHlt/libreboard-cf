@@ -34,9 +34,6 @@ a.list-card-details { text-decoration:none; }
 
 .promo-nav a#navLanding {background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAMAAAD6Ou7DAAAAM1BMVEUAAAD///////////////////////////////////////////////////////////////+3leKCAAAAEHRSTlMAlg/kKQc7w9X4AX9QUf799Yq2lgAAADZJREFUCB0FwYUBgAAAwCDs1v1/rQDcDwDjNI0AhhoA1q/eFVj2qn0BV1VdMB9VdcycW1XVdv5TywJ7mq6QbgAAAABJRU5ErkJggg==') no-repeat center bottom;cursor:default;color:#a2d6f4;padding-bottom:12px}
 
-.header-btn.header-logo .logo { background-image: url(/logo_middle.png); background-repeat: no-repeat; display: block; height: 30px; width: 80px; }
-.header-logo { left:auto!important; right:auto!important; top:auto!important; bottom:auto!important; margin-left:0px!important; opacity:9!important; }
-
 .base-loading { background:url('/img/middle_logo.png'); width:80px; height:30px; margin:50px auto; }
 .base-loading .loading-gif { background:url(/img/loading.gif); background-size: 18px 18px; height: 18px; left: 2px; position: relative; top: 6px; width: 18px; }
 
@@ -51,8 +48,19 @@ a.list-card-details { text-decoration:none; }
 #header-search .header-btn{border-top-left-radius:0;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:0}
 #header-search input[type="submit"]{display:none}
 
-#landingHeader { clear:both; text-align:center; padding: 25px 50px 25px 50px; }
-#landingHeader h2 {color:#81919b;font-weight:700;font-size:46px;line-height:1.2em}
+#landingLogo {
+    font-size: 70px;
+    clear:both;
+    text-align:center;
+    padding: 40px;
+    font-weight: normal;
+}
+
+.account-header #landingLogo {
+    font-size: 35px;
+    padding: 12px;
+}
+
 .width-wrapper {max-width:1080px;margin:0 auto;padding:0 60px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box; }
 
 .section-wrapper p { font-weight: 300; line-height: 1.44em; padding-bottom:30px; }

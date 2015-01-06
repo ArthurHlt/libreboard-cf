@@ -1000,27 +1000,23 @@ dd {
 .header-logo {
     bottom: 0;
     display: block;
-    height: 30px;
+    height: 17px;
     left: 50%;
-    margin-left: -40px;
     position: absolute;
-    top: 5px;
+    top: 13px;
     width: 80px;
+    margin-left: - @width/2;
     text-align: center;
     z-index: 2;
     opacity: .5;
     transition: opacity ease-in 85ms;
-
-    &.throb .header-logo-default {
-        width: 58px;
-    }
-
-    &.throb .header-logo-loading {
-        display: block;
-    }
+    color: white;
+    font-size: 22px;
+    text-decoration: none;
 
     &:hover {
         opacity: .8;
+        color: white;
     }
 }
 
