@@ -47,10 +47,18 @@
                     {{ /if }}
 
                     {{# if isTrue activityType 'joinMember' }}
-                        {{# if isTrue currentUser._id member.user._id }}
+                        {{# if isTrue currentUser._id member._id }}
                             joined <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
                         {{ else }}
                             added {{ > memberName user=member offset='member' }} to <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
+                        {{/if}}
+                    {{ /if }}
+
+                    {{# if isTrue activityType 'unjoinMember' }}
+                        {{# if isTrue currentUser._id member._id }}
+                            unjoined <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
+                        {{ else }}
+                            removed {{ > memberName user=member offset='member' }} from <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
                         {{/if}}
                     {{ /if }}
 
@@ -118,12 +126,19 @@
                         added this card to {{ list.title }}.
                     {{ /if }}
                     {{# if isTrue activityType 'joinMember' }}
-                        {{# if isTrue currentUser._id member.user._id }}
+                        {{# if isTrue currentUser._id member._id }}
                             joined this card.
                         {{ else }}
-                            added this card to {{ > memberName user=member.user offset='user' }}
+                            added this card to {{ > memberName user=member offset='user' }}.
                         {{/if}}
                     {{/if}}
+                    {{# if isTrue activityType 'unjoinMember' }}
+                        {{# if isTrue currentUser._id member._id }}
+                            unjoined this card.
+                        {{ else }}
+                            removed this card from {{ > memberName user=member offset='user' }}.
+                        {{/if}}
+                    {{ /if }}
                     {{# if isTrue activityType 'archivedCard' }}
                         archived this card.
                     {{ /if }}

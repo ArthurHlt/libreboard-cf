@@ -160,7 +160,7 @@ isServer(function() {
 
         // Say goodbye to the former member
         if (modifier.$pull && modifier.$pull.members) {
-            var memberId = modifier.$pull.members.userId;
+            var memberId = modifier.$pull.members;
             Activities.insert({
                 type: 'card',
                 activityType: "unjoinMember",
