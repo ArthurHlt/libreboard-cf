@@ -16,6 +16,7 @@
 </template>
 
 <template name="layout">
+    {{ > yield "modal" }}
     <div id="surface">
         {{# if session 'pop' }}{{ > pop }}{{/if}}
         <div id="header">
