@@ -25,7 +25,7 @@ CardComments.allow({
     remove: function(userId, doc) {
         return userId === doc.userId;
     },
-    fetch: ['userId, boardId']
+    fetch: ['userId', 'boardId']
 });
 
 
