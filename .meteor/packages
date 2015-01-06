@@ -3,20 +3,21 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 audit-argument-checks
+markdown
+meteor-platform
 random
 reactive-dict
 
-dburles:collection-helpers
-reywood:publish-composite
-matb33:collection-hooks
-iron:router
 accounts-password
-matteodem:easy-search
-linto:jquery-ui
 copleykj:livestamp
-ongoworks:speakingurl
+dburles:collection-helpers
+iron:router
+linto:jquery-ui
+matb33:collection-hooks
+matteodem:easy-search
 mquandalle:stylus
+ongoworks:speakingurl
+reywood:publish-composite
+seriousm:emoji-continued
 yasaricli:slugify
-markdown

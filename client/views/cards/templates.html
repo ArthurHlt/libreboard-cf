@@ -207,7 +207,7 @@
                                 <a href="#" class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc">Edit</a>
                             {{/ if }}
                             <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc">
-                              {{#markdown}}{{ card.description }}{{/markdown}}
+                              {{#markdown}}{{#emoji}}{{ card.description }}{{/emoji}}{{/markdown}}
                             </div>
                         {{ else }}
                             {{# if currentUser.isBoardMember }}

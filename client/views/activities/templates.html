@@ -95,7 +95,7 @@
                             {{ > memberName user=user offset='user' }}
                             <div class="action-comment markeddown">
                                 <div class="current-comment">
-                                  {{#markdown}}{{ text }}{{/markdown}}
+                                  {{#markdown}}{{#emoji}}{{ text }}{{/emoji}}{{/markdown}}
                                 </div>
                                 <textarea class="js-text" tabindex="1">{{ text }}</textarea>
                             </div>
