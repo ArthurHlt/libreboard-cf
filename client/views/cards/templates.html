@@ -62,6 +62,26 @@
     </div>
 </template>
 
+<template name="cardMembersPop">
+    <div>
+        {{! <input class="js-search-mem js-autofocus" placeholder="Search members…" type="text"> }}
+        <ul class="pop-over-member-list checkable js-mem-list">
+            {{# each members }}
+                <li class="item {{#if isCardMember}}active{{/if}} js-member-item">
+                    <a href="#" class="name js-select-member">
+                        {{> avatar memberId=userId }}
+                        <span class="full-name">
+                            {{ user.profile.name }} ({{ user.username }})
+                        </span>
+                        <span class="icon-sm icon-check checked-icon"></span>
+                        <span class="icon-sm icon-rightarrow light option js-open-option"></span>
+                    </a>
+                 </li>
+            {{/ each}}
+        </ul>
+    </div>
+</template>
+
 <template name="cardLabelsPop">
     <div>
         {{! <input id="labelSearch" name="search" class="js-autofocus js-label-search" placeholder="Search labels…" value="" type="text"> }}
@@ -161,11 +181,9 @@
                                 {{# each card.members }}
                                     {{> avatar memberId=this }}
                                 {{/ each }}
-                                {{!
-                                    <a class="card-detail-item-add-button dark-hover js-details-edit-members">
-                                        <span class="icon-sm icon-add"></span>
-                                    </a>
-                                }}
+                                <a class="card-detail-item-add-button dark-hover js-details-edit-members" popoffset="button">
+                                    <span class="icon-sm icon-add"></span>
+                                </a>
                             </div>
                         </div>
                     {{/ if }}
@@ -249,6 +267,9 @@
         <div class="window-module clearfix">
             <h3>Add</h3>
             <div class="clearfix">
+                <a href="#" class="button-link js-change-card-members" title="Add or remove members of the board from the card." popoffset="button">
+                    <span class="icon-sm icon-member"></span> Members
+                </a>
                 <a href="#" class="button-link js-edit-labels" title="Change the labels for the card." popoffset="button">
                     <span class="icon-sm icon-label"></span> Labels
                 </a>

@@ -124,6 +124,15 @@ Template.cardDetailWindow.events({
         });
         event.preventDefault();
     },
+    'click .js-details-edit-members': function(event, t) {
+        var board = this.card.board();
+        Utils.Pop.open('cardMembersPop', 'Members', event.currentTarget, {
+            members: board.members,
+            cardId: this.card._id
+        });
+
+        event.preventDefault();
+    },
     'click .js-details-edit-labels': function(event, t) {
         var board = this.card.board();
         Utils.Pop.open('cardLabelsPop', 'Labels', event.currentTarget, {
@@ -157,6 +166,15 @@ Template.WindowActivityModule.events({
 });
 
 Template.WindowSidebarModule.events({
+    'click .js-change-card-members': function(event, t) {
+        var board = this.card.board();
+        Utils.Pop.open('cardMembersPop', 'Members', event.currentTarget, {
+            members: board.members,
+            cardId: this.card._id
+        });
+
+        event.preventDefault();
+    },
     'click .js-edit-labels': function(event, t) {
         var board = this.card.board();
         Utils.Pop.open('cardLabelsPop', 'Labels', event.currentTarget, {
@@ -194,6 +212,25 @@ Template.WindowSidebarModule.events({
     }
 });
 
+Template.cardMembersPop.events({
+    'click .js-select-member': function(event, tpl) {
+        var cardId = Template.parentData(2).data.cardId;
+        var memberId = this.userId;
+        var operation;
+        if (Cards.find({ _id: cardId, members: memberId}).count() === 0)
+            operation = '$addToSet';
+        else
+            operation = '$pull';
+
+        var query = {};
+        query[operation] = {
+            members: memberId
+        };
+        Cards.update(cardId, query);
+        event.preventDefault();
+    }
+});
+
 Template.cardLabelsPop.events({
     'click .js-select-label': function(event, tpl) {
         var cardId = Template.parentData(2).data.cardId;
@@ -206,7 +243,7 @@ Template.cardLabelsPop.events({
 
         var query = {};
         query[operation] = {
-            labelIds: this._id
+            labelIds: labelId
         };
         Cards.update(cardId, query);
         event.preventDefault();
@@ -224,14 +261,14 @@ Template.editLabelPop.events({
             selectLabel = Blaze.getData(tpl.$('.js-palette-select:not(.hide)').get(0)),
             $set = {};
 
-        // set label index 
+        // set label index
         $set[getLabel.key('name')] = name;
 
         // set color
         $set[getLabel.key('color')] = selectLabel.color;
-        
+
         // update
-        Boards.update(this.boardId, { $set: $set });   
+        Boards.update(this.boardId, { $set: $set });
 
         // return to the previous popup view trigger
         $('.js-edit-labels').trigger('click');
