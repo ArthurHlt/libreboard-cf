@@ -11,7 +11,7 @@ Meteor.publish('connectUser', function() {
     if (user) {
 
         // status offline then
-        if (user.profile.status == 'offline') {
+        if (!user.profile.status) {
 
             // User profile.status update online
             Users.update(_this.userId, { $set: { 'profile.status': 'online' }});
@@ -21,7 +21,7 @@ Meteor.publish('connectUser', function() {
         _this.onStop(function() {
 
             // update offline user
-            Users.update(_this.userId, { $set: { 'profile.status': 'offline' }});
+            Users.update(_this.userId, { $set: { 'profile.status': false }});
         });
     }
 
