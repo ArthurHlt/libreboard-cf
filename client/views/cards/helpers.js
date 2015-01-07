@@ -19,11 +19,10 @@ Template.cardLabelsPop.helpers({
 
 Template.editLabelPop.helpers({
     labels: function() {
-        var defaultLabels = ['green', 'yellow', 'orange', 'red', 'purple', 'blue'],
-            labels = [];
-        _.forEach(defaultLabels, function(color) {
-            labels.push({ color: color, name: '' });
+        var colors = ['green', 'yellow', 'orange', 'red', 'purple', 'blue',
+        'sky', 'lime', 'pink', 'black'];
+        return _.map(colors, function(color) {
+            return { color: color, name: '' };
         });
-        return labels;
     }
 });
