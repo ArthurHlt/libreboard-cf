@@ -11,18 +11,20 @@ Meteor.publishComposite('board', function(boardId, slug) {
     return {
         find: function() {
             var filter = {
-                _id: boardId,
-                slug: slug,
-                archived: false
-            };
+                    _id: boardId,
+                    slug: slug,
+                    archived: false
+                },
+                board = Boards.findOne(filter);
 
-            var board = Boards.findOne(filter);
+            if (board) {
+                if (board.permission !== 'Public' && ! _.contains(boards.members.keys(), this.userId)) {
+                    return new Meteor.Error(404, "Not found");
+                }
 
-            if (board.permission !== 'Public' && ! _.contains(boards.members.keys(), this.userId))
-                return new Meteor.Error(404, "Not found");
-
-            else
+                // default return boards
                 return Boards.find(filter, { limit: 1 });
+            }
         },
         children: [
 
