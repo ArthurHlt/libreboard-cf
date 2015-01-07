@@ -114,6 +114,13 @@ Template.cardDetailWindow.events({
 
         event.preventDefault();
     },
+    // Pressing Ctrl+Enter should submit the form.
+    // XXX We don't want to duplicate this code every time we want this feature
+    'keydown #WindowDescEdit #desc': function(event, t) {
+        if (event.keyCode == 13 && (event.metaKey || event.ctrlKey)) {
+            t.$('#WindowDescEdit').submit();
+        }
+    },
     'submit #WindowDescEdit': function(event, t) {
         Cards.update(this.card._id, {
             $set: {
@@ -149,6 +156,11 @@ Template.WindowActivityModule.events({
     'click .js-new-comment:not(.focus)': function(event, t) {
         var $this = $(event.currentTarget);
         $this.addClass('focus');
+    },
+    'keydown #CommentForm textarea': function(event, t) {
+        if (event.keyCode == 13 && (event.metaKey || event.ctrlKey)) {
+            t.$('#CommentForm').submit();
+        }
     },
     'submit #CommentForm': function(event, t) {
         var text = t.$('.js-new-comment-input');
