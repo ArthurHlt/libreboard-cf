@@ -49,10 +49,9 @@ a.list-card-details { text-decoration:none; }
 #header-search input[type="submit"]{display:none}
 
 #landingLogo {
-    font-size: 70px;
     clear:both;
     text-align:center;
-    padding: 40px;
+    padding: 40px 40px 20px 40px;
     font-weight: normal;
 }
 
@@ -64,4 +63,11 @@ a.list-card-details { text-decoration:none; }
 .width-wrapper {max-width:1080px;margin:0 auto;padding:0 60px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box; }
 
 .section-wrapper p { font-weight: 300; line-height: 1.44em; padding-bottom:30px; }
-.outline-link { border: 1px solid; border-radius: 3px; display: inline-block; margin: .6em 0; padding: .6em 1em; text-decoration: none; color: #5e98ba; background: transparent; }
+.outline-link { border: 1px solid; border-radius: 3px; display: inline-block; margin: .6em 0; padding: .6em 1em; text-decoration: none; color: #5e98ba; background: transparent;}
+.tac h1 { font-size: 2em; }
+
+#Teams { margin: 20px auto; max-width: 890px; position: relative; font-family: "jaf-facitweb","Helvetica Neue",Arial,sans-serif; color:#4d4d4d; }
+#Teams .developer { display: inline-block; vertical-align: top; width: 250px; }
+#Teams .developer img { width:150px; border:1px solid #c7c7c7; border-radius:4px; }
+#Teams h4 { font-size:20px; }
+#Teams i { font-size:25px; margin-right:5px; }
