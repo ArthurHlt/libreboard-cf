@@ -1,4 +1,4 @@
-# LibreBoard [![Build Status](https://travis-ci.org/yasaricli/metrello.png)](https://travis-ci.org/yasaricli/metrello)
+# LibreBoard [![Build Status](https://travis-ci.org/libreboard/libreboard.svg)](https://travis-ci.org/yasaricli/metrello)
 
 LibreBoard is an open-source *kanban* board that let you organize things in
 cards, and cards in lists. You can use it alone, or with your team and family
