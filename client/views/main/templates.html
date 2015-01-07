@@ -171,3 +171,9 @@
         </div>
     </div>
 </template>
+
+<template name="editor">
+    <textarea class="{{class}}" placeholder="Write a comment…" id="{{id}}" tabindex="1">{{> UI.contentBlock }}</textarea>
+</template>
+
+<template name="viewer">{{#markdown}}{{#emoji}}{{> UI.contentBlock }}{{/emoji}}{{/markdown}}</template>

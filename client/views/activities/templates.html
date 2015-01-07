@@ -67,7 +67,7 @@
                             on <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>
                             <div class="action-comment markeddown">
                                 <a href="{{ card.absoluteUrl }}" class="current-comment show tdn">
-                                    <p>{{ comment.text }}</p>
+                                    <p>{{#viewer}}{{ comment.text }}{{/viewer}}</p>
                                 </a>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                             {{ > memberName user=user offset='user' }}
                             <div class="action-comment markeddown">
                                 <div class="current-comment">
-                                  {{#markdown}}{{#emoji}}{{ text }}{{/emoji}}{{/markdown}}
+                                  {{#viewer}}{{ text }}{{/viewer}}
                                 </div>
                                 <textarea class="js-text" tabindex="1">{{ text }}</textarea>
                             </div>

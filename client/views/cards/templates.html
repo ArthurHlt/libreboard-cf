@@ -207,7 +207,7 @@
                                 <a href="#" class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc">Edit</a>
                             {{/ if }}
                             <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc">
-                              {{#markdown}}{{#emoji}}{{ card.description }}{{/emoji}}{{/markdown}}
+                              {{#viewer}}{{ card.description }}{{/viewer}}
                             </div>
                         {{ else }}
                             {{# if currentUser.isBoardMember }}
@@ -221,7 +221,7 @@
                         {{/ if }}
                         <div class="card-detail-edit edit">
                             <form id="WindowDescEdit">
-                                <textarea class="field single-line2" id="desc">{{ card.description }}</textarea>
+                                {{#editor class="field single-line2" id="desc"}}{{ card.description }}{{/editor}}
                                 <div class="edit-controls clearfix">
                                     <input type="submit" class="primary confirm js-title-save-edit" value="Save">
                                     <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
@@ -251,7 +251,7 @@
                     <span class="member-initials" title="{{ currentUser.profile.name }} ({{ currentUser.username }})">{{ firstChar currentUser.profile.name }}</span>
                 </div>
                 <form id="CommentForm">
-                    <textarea class="new-comment-input js-new-comment-input" placeholder="Write a comment…" tabindex="1"></textarea>
+                    {{#editor class="new-comment-input js-new-comment-input"}}{{/editor}}
                     <div class="add-controls clearfix">
                         <input type="submit" class="primary confirm clear js-add-comment" value="Comment" tabindex="2">
                     </div>
