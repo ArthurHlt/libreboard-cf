@@ -18,7 +18,6 @@ Template.cards.rendered = function() {
 
                 Cards.update(data.cardId, {
                     $set: {
-                        oldListId: data.oldListId,
                         listId: data.listId,
                         sort: data.sort
                     }

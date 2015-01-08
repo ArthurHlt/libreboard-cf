@@ -34,9 +34,6 @@ Cards.helpers({
     list: function() {
         return Lists.findOne(this.listId);
     },
-    oldList: function() {
-        return Lists.findOne(this.oldListId);
-    },
     board: function() {
         return Boards.findOne(this.boardId);
     },
@@ -127,12 +124,13 @@ isServer(function() {
 
     // New activity for card moves
     Cards.after.update(function(userId, doc, fieldNames, modifier) {
-        if (_.contains(fieldNames, "listId") && doc.listId !== doc.oldListId) {
+        var oldListId = this.previous.listId;
+        if (_.contains(fieldNames, "listId") && doc.listId !== oldListId) {
             Activities.insert({
                 type: 'card',
                 activityType: "moveCard",
                 listId: doc.listId,
-                oldListId: doc.oldListId,
+                oldListId: oldListId,
                 boardId: doc.boardId,
                 cardId: doc._id,
                 userId: userId
