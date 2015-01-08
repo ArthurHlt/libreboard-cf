@@ -1,4 +1,6 @@
-/* CSS declarations go here */
+/**
+ * We should merge these declarations in the appropriate stylus files.
+ */
 
 #AddBoardForm input[type='text'] { width:234px; }
 .boardPage { background-color: rgb(35, 113, 159); }
@@ -30,7 +32,9 @@ a.list-card-details { text-decoration:none; }
 .rename_board { left:8px!important; top: 85px!important; display:block!important }
 .permission_level { left: 81px!important; top: 85px!important; max-height: 370px!important; display: block!important; }
 
-.bgBoard { background-color: rgb(14, 116, 175); }
+.bgBoard {
+  background-color: #00A3AD;
+}
 
 .promo-nav a#navLanding {background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAICAMAAAD6Ou7DAAAAM1BMVEUAAAD///////////////////////////////////////////////////////////////+3leKCAAAAEHRSTlMAlg/kKQc7w9X4AX9QUf799Yq2lgAAADZJREFUCB0FwYUBgAAAwCDs1v1/rQDcDwDjNI0AhhoA1q/eFVj2qn0BV1VdMB9VdcycW1XVdv5TywJ7mq6QbgAAAABJRU5ErkJggg==') no-repeat center bottom;cursor:default;color:#a2d6f4;padding-bottom:12px}
 

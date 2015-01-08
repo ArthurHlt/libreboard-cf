@@ -8,7 +8,7 @@
             <ul class="board-list gutter js-board-list clearfix">
                 {{# each starredBoards }}
                     <li class="starred">
-                        <a href="{{ pathFor route='Board' boardId=_id }}" class="js-open-board highlight-icon" style="background-color: #23719F;">
+                        <a href="{{ pathFor route='Board' boardId=_id }}" class="js-open-board highlight-icon" style="background-color: #00A3AD;">
                             <span class="details">
                                 <span class="board-list-item-name">{{ title }}</span>
                                 <span class="icon-sm icon-star js-star-board icon-star-active"></span>
@@ -25,7 +25,7 @@
         <ul class="board-list gutter js-board-list clearfix">
             {{# each boards }}
                 <li class="{{# if isStarred }}starred{{/ if}}">
-                    <a href="{{ pathFor route='Board' boardId=_id }}" class="js-open-board highlight-icon" style="background-color: #23719F;">
+                    <a href="{{ pathFor route='Board' boardId=_id }}" class="js-open-board highlight-icon" style="background-color: #00A3AD;">
                         <span class="details">
                             <span class="board-list-item-name">{{ title }}</span>
                             <span class="icon-sm icon-star js-star-board {{# if isStarred }}icon-star-active{{/ if}}" title="Click to star this board. It will show up at top of your boards list."></span>
