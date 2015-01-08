@@ -17,14 +17,15 @@ Meteor.publishComposite('board', function(boardId, slug) {
                 },
                 board = Boards.findOne(filter);
 
-            if (board) {
-                if (board.permission !== 'Public' && ! _.contains(boards.members.keys(), this.userId)) {
-                    return new Meteor.Error(404, "Not found");
-                }
-
-                // default return boards
+            if (board && _.findWhere(board.members, { userId: this.userId })) {
                 return Boards.find(filter, { limit: 1 });
             }
+
+            // permission
+            filter.permission = 'Public';
+
+            // default return boards
+            return Boards.find(filter, { limit: 1 });
         },
         children: [
 
