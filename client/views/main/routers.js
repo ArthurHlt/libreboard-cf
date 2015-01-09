@@ -21,7 +21,16 @@ Router.configure({
         var body = $('body'),
             options = this.route.options,
             bodyClass = options["bodyClass"],
-            authenticate = options['authenticated'];
+            authenticate = options['authenticated'],
+            redirectLoggedInUsers = options['redirectLoggedInUsers'];
+
+        // redirect logged in users to Boards view when they try to open Login or Signup views
+        if (Meteor.user() && redirectLoggedInUsers) {
+            // redirect
+            this.redirect('Boards');
+            this.next();
+            return
+        }
 
         // authenticated
         if (!Meteor.user() && authenticate) {
