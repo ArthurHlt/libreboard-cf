@@ -82,6 +82,18 @@
     </div>
 </template>
 
+<template name="cardMorePop">
+    <p class="quiet bottom">
+        <span class="clearfix">
+            <span>Link to this card</span>
+            <span class="icon-sm icon-{{ toLowerCase board.permission }}"></span>
+            <input class="js-url js-autoselect inline-input" type="text" readonly="readonly" value="{{ rootUrl }}">
+        </span>
+        Added <span class="date" title="{{ card.createdAt }}">{{ moment card.createdAt 'MMM D' }} at {{ moment card.createdAt 'HH:MM' }}</span> -
+        <a class="js-delete" href="#" title="Deleting is permanent. You will lose all actions associated with this card." popoffset="button">Delete</a>
+    </p>
+</template>
+
 <template name="cardLabelsPop">
     <div>
         {{! <input id="labelSearch" name="search" class="js-autofocus js-label-search" placeholder="Search labels…" value="" type="text"> }}
@@ -292,6 +304,11 @@
                     </a>
                 {{ /if }}
             </div>
+        </div>
+        <div class="window-module clearfix"> 
+            <p class="quiet bottom"> 
+                <a href="#" class="quiet-button js-more-menu" title="More options share, print, export, and delete." popoffset="button">Share and more…</a> 
+            </p> 
         </div>
     </div>
 </template>

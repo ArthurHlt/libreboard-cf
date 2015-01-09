@@ -22,6 +22,9 @@ var Helpers = {
     },
     openWidgets: function() {
         return Session.get('widgets');
+    },
+    moment: function(d, f) {
+        return moment(d).format(f);
     }
 };
 

@@ -58,3 +58,7 @@ Template.cards.rendered = function() {
 Template.editLabelPop.rendered = function() {
     this.find('.js-autofocus').focus();
 };
+
+Template.cardMorePop.rendered = function() {
+    this.find('.js-autoselect').select();
+};

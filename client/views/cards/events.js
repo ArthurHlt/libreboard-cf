@@ -209,6 +209,14 @@ Template.WindowSidebarModule.events({
         });
 
         event.preventDefault();
+    },
+    'click .js-more-menu': function(event, t) {
+        Utils.Pop.open('cardMorePop', 'More', event.currentTarget, {
+            card: this.card,
+            board: this.card.board(),
+            rootUrl: this.card.rootUrl()
+        });
+        event.preventDefault();
     }
 });
 
@@ -301,5 +309,15 @@ Template.cardLabelsPop.events({
 
         // redirect board
         Utils.goBoardId(this.boardId);
+    }
+});
+
+Template.cardMorePop.events({
+    'click .js-delete': function(event, t) {
+        Utils.Pop.open('deleteCardPop', 'Delete Card?', $('.openPop').get(0), {
+            cardId: this.card._id,
+            boardId: this.card.boardId
+        });
+        event.preventDefault();
     }
 });

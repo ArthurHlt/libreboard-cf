@@ -57,6 +57,9 @@ Cards.helpers({
     absoluteUrl: function() {
         var board = this.board();
         return Router.path("Card", { boardId: board._id, slug: board.slug, cardId: this._id });
+    },
+    rootUrl: function() {
+        return Meteor.absoluteUrl(this.absoluteUrl().replace('/', ''));
     }
 });
 
