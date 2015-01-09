@@ -68,7 +68,7 @@ Boards.before.insert(function(userId, doc) {
     doc.openWidgets = true;
     doc.archived = false;
     doc.members = [{
-        userId: doc.userId,
+        userId: userId || doc.userId,
         isAdmin: true
     }];
 
@@ -107,7 +107,7 @@ isServer(function() {
             activityTypeId: doc._id,
             activityType: "createBoard",
             boardId: doc._id,
-            userId: doc.userId
+            userId: userId || doc.userId
         });
     });
 
