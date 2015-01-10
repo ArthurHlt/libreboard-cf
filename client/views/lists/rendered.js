@@ -26,6 +26,12 @@ Template.lists.rendered = function() {
                 });
             }
         }).disableSelection();
+
+        // If there is no data in the board (ie, no lists) we autofocus the list
+        // creation form by clicking on the corresponding element.
+        if (data.board.lists().count() === 0) {
+            _this.$("#AddListForm .js-open-add-list").click();
+        }
     }
 
     // update height add, update, remove resize board height.
