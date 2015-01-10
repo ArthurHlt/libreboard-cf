@@ -2,17 +2,20 @@
     {{ > authHeader }}
     <div class="account-content clearfix">
         <form id="SignUpForm" class="primary-col">
-            <h2>Create an Account</h2>
+            <h2>{{_ 'create-account'}}</h2>
             {{#if error }} <p class="error">{{ error }}</p> {{/if}}
-            <label for="name"> Name </label>
-            <input type="text" id="name" tabindex="1" autofocus="" placeholder="e.g., Dr. Frankenstein">
-            <label for="email"> Email </label>
-            <input type="email" id="email" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" placeholder="e.g., doc@frankenstein.com">
-            <label for="password"> Password </label>
-            <input type="password" id="password" placeholder="e.g., ••••••••••••••••">
-            <input type="submit" class="primary" value="Create New Account">
+            <label for="name">{{_ 'name'}}</label>
+            <input type="text" id="name" tabindex="1" autofocus="" placeholder="{{_ 'name-placeholder'}}">
+            <label for="email">{{_ 'email'}}</label>
+            <input type="email" id="email" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" placeholder="{{_ 'email-placeholder'}}">
+            <label for="password">{{_ 'password'}}</label>
+            <input type="password" id="password" placeholder="{{_ 'password-placeholder'}}">
+            <input type="submit" class="primary" value="{{_ 'create-new-account'}}">
             <p class="quiet clear">
-                Already have an account? <a href="{{ pathFor route='Login' }}"><strong>Log In.</strong></a>
+                {{_ 'already-have-account-question'}}
+                <a href="{{ pathFor route='Login' }}">
+                    <strong>{{_ 'log-in'}}</strong>
+                </a>
             </p>
         </form>
     </div>
@@ -22,14 +25,19 @@
     {{ > authHeader }}
     <div class="account-content clearfix">
         <form id="LoginForm" class="primary-col">
-            <h2> Log In </h2>
-            {{#if error }} <p class="error">{{error }}</p> {{/if}}
-            <label for="email"> Email or username </label>
+            <h2>{{_ 'log-in'}}</h2>
+            {{#if error }}
+                <p class="error">{{error }}</p>
+            {{/if}}
+            <label for="email">{{_ 'email-or-username'}}</label>
             <input type="text" id="email" tabindex="1" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" autofocus="">
-            <label for="password"> Password </label>
-            <input type="password" id="password" tabindex="2" placeholder="e.g., ••••••••••••••••">
+            <label for="password">{{_ 'password'}}</label>
+            <input type="password" id="password" tabindex="2" placeholder="{{_ 'password-placeholder'}}">
             <input type="submit" class="primary" value="Log In" tabindex="3">
-            <p class="quiet clear"> New here? <a href="{{ pathFor route='Signup' }}"><strong>Create an Account.</strong></a> </p>
+            <p class="quiet clear">
+                {{_ "new-here-question"}}
+                <a href="{{ pathFor route='Signup' }}"><strong>{{_ "create-new-account"}}</strong></a>
+            </p>
         </form>
     </div>
 </template>
@@ -44,17 +52,16 @@
 
 <template name="memberHeader">
     <div class="header-user" popOffset='headerUser'>
-        <a class="header-btn js-open-add-menu" href="#" title="Add a new board">
+        <a class="header-btn js-open-add-menu" href="#" title="{{_ 'add-board'}}">
             <span class="header-btn-icon icon-lg icon-add light"></span>
         </a>
         <a class="header-btn header-member js-open-header-member-menu" href="#">
             <span class="member">
-                <span class="member-initials"> {{ firstChar currentUser.profile.name }}  </span>
-                <span class="member-gold-badge" title="This member has Trello Gold."></span>
+                <span class="member-initials">{{ firstChar currentUser.profile.name }}</span>
             </span>
             <span class="header-btn-text js-member-name">{{ currentUser.profile.name }}</span>
         </a>
-        <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 Notifications.">
+        <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 {{_ 'notifications-title'}}.">
             <span class="header-btn-icon icon-lg icon-notification light"></span>
         </a>
     </div>
@@ -62,11 +69,11 @@
 
 <template name="memberMenuPop">
     <ul class="pop-over-list">
-        <li><a class="js-profile" href="{{ pathFor route='Profile' username=currentUser.username }}">Profile</a></li>
-        <li><a class="js-cards" href="{{ pathFor route='Settings' }}">Settings</a></li>
+        <li><a class="js-profile" href="{{ pathFor route='Profile' username=currentUser.username }}">{{_ 'profile'}}</a></li>
+        <li><a class="js-cards" href="{{ pathFor route='Settings' }}">{{_ 'settings'}}</a></li>
     </ul>
     <hr>
-    <ul class="pop-over-list"><li><a class="js-logout" href="#">Log Out</a></li></ul>
+    <ul class="pop-over-list"><li><a class="js-logout" href="#">{{_ 'log-out'}}</a></li></ul>
 </template>
 
 <template name='profile'>
@@ -76,7 +83,7 @@
                 <a class="tabbed-pane-header-image profile-image ed js-change-avatar-profile" href="#">
                     <span class="profile-image-initials">{{ firstChar profile.profile.name }}</span>
                     {{#if isTrue currentUser.username profile.username }}
-                        <span class="change-text"> Change Avatar </span>
+                        <span class="change-text">{{_ 'change-avatar'}}</span>
                     {{ /if }}
                 </a>
                 <div class="tabbed-pane-header-details">
@@ -95,7 +102,7 @@
             </div>
         </div>
     {{ else }}
-        {{ > message label='User Profile not found.' }}
+        {{ > message label='user-profile-not-found' }}
     {{ /if }}
 </template>
 
@@ -108,19 +115,19 @@
         <div class="tabbed-pane-main-col-wrapper js-content">
             <div class="window-module clearfix">
                 <div class="window-module-title">
-                    <h3>Account Details</h3>
+                    <h3>{{_ "account-details"}}</h3>
                 </div>
                 <a class="big-link js-change-name-and-bio" href="#">
-                    <span class="text">Change Name, Initials, or Bio</span>
+                    <span class="text">{{_ 'change-name-initials-bio'}}</span>
                 </a>
                 <a class="big-link js-change-avatar" href="#">
-                    <span class="text">Change Avatar</span>
+                    <span class="text">{{_ 'change-avatar'}}</span>
                 </a>
                 <a class="big-link js-change-password" href="#">
-                    <span class="text">Change Password</span>
+                    <span class="text">{{_ 'change-password'}}</span>
                 </a>
                 <a class="big-link js-change-email" href="#">
-                    <span class="text">Change Email</span>
+                    <span class="text">{{_ 'change-email'}}</span>
                 </a>
             </div>
         </div>
@@ -132,21 +139,21 @@
         {{# if session 'ProfileEditForm' }}
             <form id="ProfileEditForm" class="js-profile-form">
                 <p class="error js-profile-form-error hide"></p>
-                <label>Username</label>
+                <label>{{_ "username"}}</label>
                 <input type="text" id="username" value="{{ profile.username }}" disabled>
-                <label>Full Name</label>
+                <label>{{_ "fullname"}}</label>
                 <input type="text" id="name" value="{{ profile.profile.name }}">
                 <label>
-                    Bio <span class="quiet">(optional)</span>
+                    {{_ "bio"}} <span class="quiet">({{_ 'optional'}})</span>
                 </label>
                 <textarea id="bio">{{ profile.profile.bio }}</textarea>
-                <input type="submit" class="primary wide js-submit-profile" value="Save">
-                <input type="button" class="js-cancel-edit-profile" value="Cancel">
+                <input type="submit" class="primary wide js-submit-profile" value="{{_ 'save'}}">
+                <input type="button" class="js-cancel-edit-profile" value="{{_ 'cancel'}}">
             </form>
         {{ else }}
             <a class="button-link tabbed-pane-header-details-edit js-edit-profile" href="#">
                 <span class="icon-sm icon-edit"></span>
-                Edit profile
+                {{_ "edit-profile"}}
             </a>
         {{ /if }}
     {{ /if }}

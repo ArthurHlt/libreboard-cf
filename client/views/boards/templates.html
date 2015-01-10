@@ -3,7 +3,7 @@
         {{# if starredBoards }}
             <div class="window-module-title window-module-title-no-divider">
                 <span class="icon-lg window-module-title-icon icon-star"></span>
-                <h3>Starred Boards</h3>
+                <h3>{{_ 'starred-boards'}}</h3>
             </div>
             <ul class="board-list gutter js-board-list clearfix">
                 {{# each starredBoards }}
@@ -20,7 +20,7 @@
         {{/ if }}
         <div class="window-module-title window-module-title-no-divider">
             <span class="icon-lg window-module-title-icon icon-member"></span>
-            <h3>My Boards</h3>
+            <h3>{{_ 'my-boards'}}</h3>
         </div>
         <ul class="board-list gutter js-board-list clearfix">
             {{# each boards }}
@@ -28,12 +28,12 @@
                     <a href="{{ pathFor route='Board' boardId=_id }}" class="js-open-board highlight-icon" style="background-color: #00A3AD;">
                         <span class="details">
                             <span class="board-list-item-name">{{ title }}</span>
-                            <span class="icon-sm icon-star js-star-board {{# if isStarred }}icon-star-active{{/ if}}" title="Click to star this board. It will show up at top of your boards list."></span>
+                            <span class="icon-sm icon-star js-star-board {{# if isStarred }}icon-star-active{{/ if}}" title="{{_ 'star-board-title'}}"></span>
                         </span>
                     </a>
                 </li>
             {{ else }}
-                <p class="quiet" style="padding: 8px 12px;">No boards.</p>
+                <p class="quiet" style="padding: 8px 12px;">{{_ 'no-boards'}}</p>
             {{ / each }}
         </ul>
     </div>
@@ -43,7 +43,7 @@
     {{# if board }}
         <div class="board-wrapper {{# unless openWidgets }}disabled-all-widgets{{/ unless }}">
             <div class="board-header clearfix js-board-header">
-                <a href="#" class="board-header-btn board-header-btn-name js-rename-board {{# unless currentUser.isBoardAdmin }}no-edit {{/ unless}}" popoffset='boardName' title="Rename the board.">
+                <a href="#" class="board-header-btn board-header-btn-name js-rename-board {{# unless currentUser.isBoardAdmin }}no-edit{{/ unless}}" popoffset='boardName' title="Rename the board.">
                     <span class="board-header-btn-text"> {{ board.title }} </span>
                 </a>
                 <div class="board-header-btns left">
@@ -51,7 +51,7 @@
                         <a href="#" class="board-header-btn js-star-board {{#if isStarred }}board-header-btn-enabled{{/ if }}" title="Click to {{# if isStarred }}unstar{{ else }}star{{/ if }} this board. Starred boards show up at the top of your boards list.">
                             <span class="board-header-btn-icon icon-sm icon-star"></span>
                         </a>
-                        <a href="#" class="board-header-btn perms-btn js-change-vis {{# unless currentUser.isBoardAdmin }}no-edit {{/ unless}}" id="permission-level" popoffset='boardPermission'>
+                        <a href="#" class="board-header-btn perms-btn js-change-vis {{# unless currentUser.isBoardAdmin }}no-edit{{/ unless}}" id="permission-level" popoffset='boardPermission'>
                             <span class="board-header-btn-icon icon-sm icon-{{ toLowerCase board.permission }}"></span>
                             <span class="board-header-btn-text">{{ board.permission }}</span>
                         </a>
@@ -62,27 +62,28 @@
             {{ > lists board=board }}
         </div>
     {{ else }}
-        {{ > message label='Board not found.' color='white'}}
+        {{ > message label='board-not-found' color='white'}}
     {{/if}}
 </template>
 
 <template name="createBoardPop">
     <div class="content clearfix fancy-scrollbar js-tab-parent">
         <form id="CreateBoardForm">
-            <label for="boardNewTitle">Title</label>
-            <input id="boardNewTitle" type="text" name="name" class="non-empty js-autofocus" placeholder="Like “Bucket List” for example…" autofocus>
+            <label for="boardNewTitle">{{_ 'title'}}</label>
+            <input id="boardNewTitle" type="text" name="name" class="non-empty js-autofocus" placeholder="{{_ 'bucket-example'}}" autofocus>
             <p class="quiet js-vis-display">
-                <span class="icon-sm icon-public"></span>This board will be <strong>public</strong>.</p>
-            <input type="submit" class="primary wide js-submit" value="Create">
+                <span class="icon-sm icon-public">{{{_ 'board-public-info'}}}</span>
+            </p>
+            <input type="submit" class="primary wide js-submit" value="{{_ 'create'}}">
         </form>
     </div>
 </template>
 
 <template name="changeBoardTitlePop">
     <form id="ChangeBoardTitleForm">
-        <label>Name</label>
+        <label>{{_ 'name'}}</label>
         <input type="text" class="js-board-name js-autofocus" value="{{ title }}" autofocus>
-        <input type="submit" class="primary wide js-rename-board" value="Rename">
+        <input type="submit" class="primary wide js-rename-board" value="{{_ 'rename'}}">
     </form>
 </template>
 
@@ -91,21 +92,21 @@
         <li>
             <a class="js-select light-hover" href="#" name="Private">
                 <span class="icon-sm icon-private vis-icon"></span>
-                Private
+                {{_ 'private'}}
                 {{# if check 'Private' }}
                     <span class="icon-sm icon-check"></span>
                 {{/if}}
-                <span class="sub-name"> This board is private.  Only people added to the board can view and edit it.  </span>
+                <span class="sub-name">{{_ 'private-desc'}}</span>
             </a>
         </li>
         <li>
             <a class="js-select light-hover" href="#" name="Public">
                 <span class="icon-sm icon-public vis-icon"></span>
-                Public
+                {{_ 'public'}}
                 {{# if check 'Public' }}
                     <span class="icon-sm icon-check"></span>
                 {{/if}}
-                <span class="sub-name"> This board is public. It's visible to anyone with the link and will show up in search engines like Google.  Only people added to the board can edit.  </span>
+                <span class="sub-name">{{_ 'public-desc'}}</span>
             </a>
         </li>
     </ul>

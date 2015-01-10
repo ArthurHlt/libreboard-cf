@@ -1,16 +1,16 @@
 <template name="boardWidgets">
     <a href="#" class="sidebar-show-btn dark-hover js-show-sidebar">
         <span class="icon-sm icon-leftarrow"></span>
-        <span class="text">Show sidebar</span>
+        <span class="text">{{_ 'show-sidebar'}}</span>
     </a>
     <div class="board-widgets {{#if openWidgets}}show{{else}}hide{{/if}} }}">
         <div>
-            <a href="#" class="sidebar-hide-btn dark-hover js-hide-sidebar" title="Close the board sidebar.">
+            <a href="#" class="sidebar-hide-btn dark-hover js-hide-sidebar" title="{{_ 'close-sidebar-title'}}">
                 <span class="icon-sm icon-rightarrow"></span>
             </a>
             <div class="board-widgets-title clearfix">
                 <a href="#" class="board-sidebar-back-btn js-pop-widget-view">
-                    <span class="left-arrow"></span>Back
+                    <span class="left-arrow"></span>{{_ 'back'}}
                 </a>
                 <h3 class="text"></h3>
                 <hr>
@@ -28,7 +28,7 @@
 
 <template name="menuWidget">
     <div class="board-widget board-widget-nav clearfix collapsed">
-        <h3 class="dark-hover toggle-widget-nav js-toggle-widget-nav">Menu
+        <h3 class="dark-hover toggle-widget-nav js-toggle-widget-nav">{{_ 'menu'}}
             <span class="icon-sm icon-menu toggle-menu-icon"></span>
         </h3>
         <ul class="nav-list">
@@ -36,13 +36,13 @@
             <li>
                 <a href="#" class="nav-list-item js-open-archive">
                     <span class="icon-sm icon-archive icon-type"></span>
-                    Archived Items
+                    {{_ 'archived-items'}}
                 </a>
             </li>
             {{# unless isSandstorm }}
                 {{# if currentUser.isBoardAdmin }}
                     <li>
-                        <a class="nav-list-item nav-list-sub-item js-close-board" href="#" popOffset='boardRemove'> Close Board… </a>
+                        <a class="nav-list-item nav-list-sub-item js-close-board" href="#" popOffset='boardRemove'>{{_ 'close-board'}}</a>
                     </li>
                 {{/ if }}
             {{/ unless }}
@@ -54,7 +54,7 @@
     <hr>
     <div class="board-widget board-widget-members clearfix">
         <div class="board-widget-title">
-            <h3>Members</h3>
+            <h3>{{_ 'members'}}</h3>
         </div>
         <div class="board-widget-content">
             <div class="board-widget-members js-list-board-members clearfix js-list-draggable-board-members">
@@ -64,7 +64,7 @@
             </div>
             {{# if currentUser.isBoardAdmin }}
                 <a href="#" class="button-link js-open-manage-board-members" popOffset='membersAdd'>
-                    <span class="icon-sm icon-member"></span> Add Members…
+                    <span class="icon-sm icon-member"></span> {{_ 'add-members'}}
                 </a>
             {{/ if }}
         </div>
@@ -76,7 +76,7 @@
         <hr>
         <div class="board-widget board-widget-activity bottom clearfix">
             <div class="board-widget-title">
-                <h3>Activity</h3>
+                <h3>{{_ 'activity'}}</h3>
             </div>
             <div class="board-widget-content">
                 <div class="activity-gradient-t"></div>
@@ -107,16 +107,16 @@
                 {{# if currentUser.isBoardAdmin }}
                     <li>
                         <a class="js-change-role" href="#">
-                            Change permissions… <span class="quiet" style="font-weight: normal;">({{ memberType }})</span>
+                            {{_ 'change-permissions'}} <span class="quiet" style="font-weight: normal;">({{ memberType }})</span>
                         </a>
                     </li>
                 {{/ if }}
 
                 <li>
                     {{# if currentUser.isBoardAdmin }}
-                        <a class="js-remove-member" popoffset='removeMember'>Remove from Board…</a>
+                        <a class="js-remove-member" popoffset='removeMember'>{{_ 'remove-from-board'}}</a>
                     {{ else }}
-                        <a class="js-leave-member">Leave Board…</a>
+                        <a class="js-leave-member">{{_ 'leave-board'}}</a>
                     {{/ if }}
                 </li>
             </ul>
@@ -125,16 +125,16 @@
 </template>
 
 <template name="closeBoardPop">
-    <p>
-        You can re-open the board by clicking the "Boards" menu from the header, selecting
-        "View Closed Boards", finding the board and clicking "Re-open".
-    </p>
-    <input type="submit" class="js-confirm negate full" value="Close">
+    <p>{{_ 'close-board-pop'}}</p>
+    <input type="submit" class="js-confirm negate full" value="{{_ 'close'}}">
 </template>
 
 <template name="removeMemberPop">
-    <p> Remove {{ user.profile.name }} ({{ user.username }}) from {{ board.title }}? The member will be removed from all cards on this board. They will receive a notification. </p>
-    <input type="submit" class="js-confirm negate full" value="Remove Member">
+    <p>{{_ 'remove-member-pop'
+            name=user.profile.name
+            username=user.username
+            boardTitle=board.title}}</p>
+    <input type="submit" class="js-confirm negate full" value="{{_ 'remove-member'}}">
 </template>
 
 <template name="addMemberPop">
@@ -154,7 +154,7 @@
                             {{ profile.name }}  (<span class="username">{{ username }}</span>)
                         </span>
                        {{# if isBoardMember }}
-                           <div class="extra-text quiet">(joined)</div>
+                           <div class="extra-text quiet">({{_ 'joined'}})</div>
                        {{/if}}
                         <span class="icon-sm icon-rightarrow light option js-open-option"></span>
                     </a>
@@ -171,13 +171,11 @@
 
      {{# ifEsHasNoResults index="users" }}
         <div class="manage-member-section js-no-results">
-            <p class="quiet center" style="padding: 16px 4px;">No results</p>
+            <p class="quiet center" style="padding: 16px 4px;">{{_ 'no-results'}}</p>
         </div>
     {{ /ifEsHasNoResults }}
 
     <div class="manage-member-section js-helper">
-        <p class="bottom quiet" style="padding: 6px;">
-            Search for a person in LibreBoard by name or email address, or enter an email address to invite someone new.
-        </p>
+        <p class="bottom quiet" style="padding: 6px;">{{_ 'search-member-desc'}}</p>
     </div>
 </template>

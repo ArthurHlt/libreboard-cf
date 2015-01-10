@@ -23,7 +23,7 @@
         <div class="edit edit-heavy clearfix">
             <input type="text" class="field fieldSingle single-line js-title-input" value="{{ list.title }}">
             <div class="edit-controls clearfix">
-                <input type="submit" class="primary confirm js-save-edit" value="Save">
+                <input type="submit" class="primary confirm js-save-edit" value="{{_ 'save'}}">
                 <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
             </div>
         </div>
@@ -34,10 +34,10 @@
     {{# if currentUser.isBoardMember }}
         <div class="list add-list idle">
             <form id="AddListForm">
-                <span class="placeholder js-open-add-list">Add a list…</span>
-                <input type="text" class="list-name-input" placeholder="Add a list…" autocomplete="off">
+                <span class="placeholder js-open-add-list">{{_ 'add-list'}}</span>
+                <input type="text" class="list-name-input" placeholder="{{_ 'add-list'}}" autocomplete="off">
                 <div class="edit-controls keep clearfix">
-                    <input type="submit" class="primary confirm js-save-edit" value="Save">
+                    <input type="submit" class="primary confirm js-save-edit" value="{{_ 'save'}}">
                     <a href="#" class="icon-lg icon-close dark-hover cancel js-cancel-edit"></a>
                 </div>
             </form>
@@ -47,11 +47,11 @@
 
 <template name="listActionPop">
     <ul class="pop-over-list">
-        <li><a class="js-add-card" href="#">Add Card…</a></li>
-        <li><a class="highlight-icon js-list-subscribe" href="#">Subscribe</a></li>
+        <li><a class="js-add-card" href="#">{{_ 'add-card'}}</a></li>
+        <li><a class="highlight-icon js-list-subscribe" href="#">{{_ 'subscribe'}}</a></li>
     </ul>
     <hr>
     <ul class="pop-over-list">
-        <li><a class="js-close-list" href="#">Archive This List</a></li>
+        <li><a class="js-close-list" href="#">{{_ 'archive-list'}}</a></li>
     </ul>
 </template>

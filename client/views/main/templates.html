@@ -25,12 +25,12 @@
                 <span class="header-logo-default"></span>
             </a>
             <nav class="promo-nav">
-                <a href="{{ pathFor route='Home' }}" id='navLanding'>Home</a>
-                <a href="{{ pathFor route='Info' }}">Info</a>
+                <a href="{{ pathFor route='Home' }}" id='navLanding'>{{_ "home"}}</a>
+                <a href="{{ pathFor route='Info' }}">{{_ "Info"}}</a>
             </nav>
             <div class="header-user">
-                <a class="header-btn header-signup" href="{{ pathFor route='Signup' }}">Sign Up</a>
-                <a class="header-btn header-login js-toggle-login-popover no-right-margin" href="{{ pathFor route='Login' }}">Log In</a>
+                <a class="header-btn header-signup" href="{{ pathFor route='Signup' }}">{{_ "sign-up"}}</a>
+                <a class="header-btn header-login js-toggle-login-popover no-right-margin" href="{{ pathFor route='Login' }}">{{_ "log-in"}}</a>
             </div>
         </div>
         {{ > warning }}
@@ -47,13 +47,13 @@
         {{# unless isSandstorm }}
             <div id="header">
                 <div class="header-boards-button">
-                    <a class="header-btn header-boards js-boards-menu" title="View list of boards" href="{{ pathFor route='Boards' }}">
+                    <a class="header-btn header-boards js-boards-menu" title="{{_ 'board-list-btn-title'}}" href="{{ pathFor route='Boards' }}">
                         <span class="header-btn-icon icon-lg icon-board light"></span>
-                        <span class="header-btn-text">Boards</span>
+                        <span class="header-btn-text">{{_ "boards"}}</span>
                     </a>
                 </div>
                 {{ > search }}
-                <a href="{{pathFor 'Home'}}" title="Go back to your boards page." class="header-logo">
+                <a href="{{pathFor 'Home'}}" title="{{_ 'header-logo-title'}}" class="header-logo">
                     <span class="header-logo-default"></span>
                 </a>
                 {{ > memberHeader }}
@@ -68,10 +68,10 @@
 
 <template name="search">
     <div id="header-search">
-        <label for="search-text">Global Search</label>
+        <label for="search-text">{{_ "gloabal-search"}}</label>
         <input id="search-text" type="text" autocomplete="off" autocorrect="off" spellcheck="false">
-        <input id="search-submit" type="submit" value="Search">
-        <a class="header-btn header-search js-search-submit" href="#" title="Search for boards, cards, members, and organizations.">
+        <input id="search-submit" type="submit" value="{{ _ 'search'}}">
+        <a class="header-btn header-search js-search-submit" href="#" title="{{ _ 'search-title'}}">
             <span class="header-btn-icon icon-lg icon-search light"></span>
         </a>
     </div>
@@ -84,27 +84,18 @@
         </h1>
         <section id="landingFirstSignUpButton" class="landing-section">
             <div class="width-wrapper tac">
-                <a class="button primary primarys" href="{{ pathFor route='Signup' }}"> Sign Up—It’s Free! </a>
+                <a class="button primary primarys" href="{{ pathFor route='Signup' }}">{{_ 'home-button'}}</a>
             </div>
             <div class="layout-twothirds-center tac">
                 <p>
-                    <a href="{{ pathFor route='Login' }}" class="quiet" data-track="Login" style="padding: 1em 2em;"> Or log in </a>
+                    <a href="{{ pathFor route='Login' }}" class="quiet" data-track="Login" style="padding: 1em 2em;">{{_ 'home-login'}}</a>
                 </p>
-            </div>
-        </section>
-        <section class="section-everything">
-            <div class="section-wrapper">
-                <div class="layout-twothirds-center tac">
-                    <p>
-                        We are not affiliated, associated, authorized, endorsed by or in any way officially connected to <strong>Trello, Inc</strong> <a href="http://trello.com">www.trello.com</a>.
-                    </p>
-                </div>
             </div>
         </section>
     </div>
     <section id="Team" class="landing-section tac">
         <div class="section-wrapper">
-            <div class="tac"> <h1>Team</h1> </div>
+            <div class="tac"> <h1>{{_ 'team'}}</h1> </div>
         </div>
         <div class="developer">
             <img src="/developers/yasaricli.png">
@@ -132,13 +123,15 @@
 </template>
 
 <template name="notfound">
-    {{ > message label='Page not found.'}}
+    {{ > message label='page-not-found'}}
 </template>
 
 <template name='message'>
     <div class="big-message quiet {{ color }}">
-        <h1>{{ label }}</h1>
-        <p> This page may be private. You may be able to view it by <a href="{{ pathFor route='Login' }}">logging in</a>. </p>
+        <h1>{{_ label}}</h1>
+        {{#with pathFor route='Login'}}
+            <p>{{{_ 'page-maybe-private' this}}}</p>
+        {{/with}}
     </div>
 </template>
 
@@ -149,7 +142,7 @@
                 <span class="inline-block">{{ warning.desc }}</span>
                 <span class="inline-block">
                     <a class="button primary" href="{{ pathFor route='Signup' }}" style="margin: 0 4px;">
-                        Sign up for free
+                        {{_ 'warning-signup'}}
                     </a>
                 </span>
             </p>
@@ -175,7 +168,7 @@
 </template>
 
 <template name="editor">
-    <textarea class="{{class}}" placeholder="Write a comment…" id="{{id}}" tabindex="1">{{> UI.contentBlock }}</textarea>
+    <textarea class="{{class}}" placeholder="{{_ 'comment-placeholder'}}" id="{{id}}" tabindex="1">{{> UI.contentBlock }}</textarea>
 </template>
 
 <template name="viewer">{{#markdown}}{{#emoji}}{{> UI.contentBlock }}{{/emoji}}{{/markdown}}</template>
