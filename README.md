@@ -6,6 +6,8 @@ thanks to our real-time synchronisation feature. Libreboard is a land of liberty
 and you can implement all sort of workflows on it using tags, comments, member
 assignation, and many more.
 
+![A LibreBoard](http://i.imgur.com/PMAh7qR.png)
+
 Since it is a free software, you don't have to trust us with your data. You can
 install LibreBoard on your own computer or server. In fact we encourage you to
 do that by providing one-click installation for the
