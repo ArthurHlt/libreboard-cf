@@ -12,5 +12,8 @@ do that by providing one-click installation for the
 [Sandstorm](https://sandstorm.io/) platform and verified
 [Docker](https://www.docker.com/) images.
 
-LibreBoard is released under the very permissive [MIT license](https://github.com/libreboard/libreboard/blob/master/LICENCE), and
+LibreBoard is released under the very permissive
+[MIT license](https://github.com/libreboard/libreboard/blob/master/LICENCE), and
 made with [Meteor](https://www.meteor.com/).
+
+[Our roadmap is available on LibreBoard](http://libreboard.com/boards/MeSsFJaSqeuo9M6bs/libreboard-roadmap).
