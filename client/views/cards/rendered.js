@@ -23,9 +23,8 @@ Template.cards.rendered = function() {
                 // correctly. It seems to happen when the server overwrite the
                 // latency compensated result in the DOM.
                 // The hack used here is to skirt the client operation by
-                // directly calling the server underlined method using the
-                // private `_collection` field.
-                Cards._collection.update(data.cardId, {
+                // directly calling the server underlined method.
+                Meteor.call('/cards/update', {_id: data.cardId}, {
                     $set: {
                         listId: data.listId,
                         sort: data.sort
