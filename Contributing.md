@@ -8,6 +8,16 @@ been reported.
 
 LibreBoard is made with [Meteor](https://www.meteor.com/).
 
+## Translations
+
+You are very welcome to translate — or improve the translation of — LibreBoard
+in your locale language. For that purpose we rely on
+[Transifex](https://www.transifex.com/organization/libreboard/dashboard/libreboard).
+So the first step is to create a Transifex account if you don't have one
+already. You can then send a request to join one of the translation teams. If
+there is no team for your language, contact us by email or with github issues
+and we will create a new one.
+
 ## Installation
 
 ## install nodejs on Ubuntu
