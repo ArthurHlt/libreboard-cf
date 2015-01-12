@@ -50,12 +50,10 @@ Router.configure({
 
         // reset default sessions
         Session.set('error', false);
-        Session.set('pop', false);
         Session.set('warning', false);
         Session.set('widgets', true);
 
-        // all pages pop close
-        Utils.Pop.close();
+        Popup.close();
 
         // Layout template found then set render this.route options layout.
         if (!options.layoutTemplate) {

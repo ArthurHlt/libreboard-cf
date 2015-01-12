@@ -51,7 +51,7 @@
 </template>
 
 <template name="memberHeader">
-    <div class="header-user" popOffset='headerUser'>
+    <div class="header-user">
         <a class="header-btn js-open-add-menu" href="#" title="{{_ 'add-board'}}">
             <span class="header-btn-icon icon-lg icon-add light"></span>
         </a>
@@ -67,7 +67,7 @@
     </div>
 </template>
 
-<template name="memberMenuPop">
+<template name="memberMenuPopup">
     <ul class="pop-over-list">
         <li><a class="js-profile" href="{{ pathFor route='Profile' username=currentUser.username }}">{{_ 'profile'}}</a></li>
         <li><a class="js-cards" href="{{ pathFor route='Settings' }}">{{_ 'settings'}}</a></li>
@@ -159,7 +159,7 @@
     {{ /if }}
 </template>
 
-<template name="userPop">
+<template name="userPopup">
     <div class="board-member-menu">
         <div class="mini-profile-info">
             <div class="member-large">
@@ -177,7 +177,7 @@
 
 
 <template name="memberName">
-    <a class="inline-object js-show-mem-menu" href="{{ pathFor route='Profile' username=user.username }}" popoffset='{{ offset }}'>
+    <a class="inline-object js-show-mem-menu" href="{{ pathFor route='Profile' username=user.username }}">
         {{ user.profile.name }}
         {{# if username }}
             ({{ user.username }})
@@ -186,7 +186,7 @@
 </template>
 
 <template name="avatar">
-    <div class="member {{# if draggable }}js-member{{else}}js-member-on-card-menu{{/ if}}" popOffset='{{ popOffset }}'>
+    <div class="member {{# if draggable }}js-member{{else}}js-member-on-card-menu{{/ if}}">
         <span class="member-initials" title="{{ user.profile.name }} ({{ user.username }})">
             {{ firstChar user.profile.name }}
         </span>

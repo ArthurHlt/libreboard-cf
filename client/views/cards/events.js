@@ -56,24 +56,16 @@ Template.addCardForm.events({
 });
 
 Template.cards.events({
-    'click .member': function(event, t) {
-        Utils.Pop.open('cardMemberPop', false, event.currentTarget, {
-            member: this,
-            user: this.member().user(),
-        });
-        event.preventDefault();
-        event.stopPropagation();
-    }
+    'click .member': Popup.open('cardMember')
 });
 
-Template.cardMemberPop.events({
+Template.cardMemberPopup.events({
     'click .js-remove-member': function(event, t) {
 
-        // remove member
-        CardMembers.remove(this.member._id);
+        // todo
 
         // close pop
-        Utils.Pop.close();
+        Popup.close();
     }
 });
 
@@ -124,25 +116,8 @@ Template.cardDetailWindow.events({
         });
         event.preventDefault();
     },
-    'click .js-details-edit-members': function(event, t) {
-        var board = this.card.board();
-        Utils.Pop.open('cardMembersPop', 'Members', event.currentTarget, {
-            members: board.members,
-            cardId: this.card._id
-        });
-
-        event.preventDefault();
-    },
-    'click .js-details-edit-labels': function(event, t) {
-        var board = this.card.board();
-        Utils.Pop.open('cardLabelsPop', 'Labels', event.currentTarget, {
-            labels: board.labels,
-            cardId: this.card._id,
-            boardId: board._id
-        });
-
-        event.preventDefault();
-    }
+    'click .js-details-edit-members': Popup.open('cardMembers'),
+    'click .js-details-edit-labels': Popup.open('cardLabels')
 });
 
 Template.WindowActivityModule.events({
@@ -166,25 +141,8 @@ Template.WindowActivityModule.events({
 });
 
 Template.WindowSidebarModule.events({
-    'click .js-change-card-members': function(event, t) {
-        var board = this.card.board();
-        Utils.Pop.open('cardMembersPop', 'Members', event.currentTarget, {
-            members: board.members,
-            cardId: this.card._id
-        });
-
-        event.preventDefault();
-    },
-    'click .js-edit-labels': function(event, t) {
-        var board = this.card.board();
-        Utils.Pop.open('cardLabelsPop', 'Labels', event.currentTarget, {
-            labels: board.labels,
-            cardId: this.card._id,
-            boardId: board._id
-        });
-
-        event.preventDefault();
-    },
+    'click .js-change-card-members': Popup.open('cardMembers'),
+    'click .js-edit-labels': Popup.open('cardLabels'),
     'click .js-archive-card': function(event, t) {
         // Update
         Cards.update(this.card._id, {
@@ -202,27 +160,18 @@ Template.WindowSidebarModule.events({
         });
         event.preventDefault();
     },
-    'click .js-delete-card': function(event, t) {
-        Utils.Pop.open('deleteCardPop', 'Delete Card?', event.currentTarget, {
-            cardId: this.card._id,
-            boardId: this.card.board()._id
-        });
+    'click .js-delete-card': Popup.afterConfirm('cardDelete', function() {
+        Cards.remove(this.card._id);
 
-        event.preventDefault();
-    },
-    'click .js-more-menu': function(event, t) {
-        Utils.Pop.open('cardMorePop', 'More', event.currentTarget, {
-            card: this.card,
-            board: this.card.board(),
-            rootUrl: this.card.rootUrl()
-        });
-        event.preventDefault();
-    }
+        // redirect board
+        Utils.goBoardId(this.card.board()._id);
+    }),
+    'click .js-more-menu': Popup.open('cardMore')
 });
 
-Template.cardMembersPop.events({
+Template.cardMembersPopup.events({
     'click .js-select-member': function(event, tpl) {
-        var cardId = Template.parentData(2).data.cardId;
+        var cardId = Template.parentData(2).data.card._id;
         var memberId = this.userId;
         var operation;
         if (Cards.find({ _id: cardId, members: memberId}).count() === 0)
@@ -239,9 +188,9 @@ Template.cardMembersPop.events({
     }
 });
 
-Template.cardLabelsPop.events({
+Template.cardLabelsPopup.events({
     'click .js-select-label': function(event, tpl) {
-        var cardId = Template.parentData(2).data.cardId;
+        var cardId = Template.parentData(2).data.card._id;
         var labelId = this._id;
         var operation;
         if (Cards.find({ _id: cardId, labelIds: labelId}).count() === 0)
@@ -256,18 +205,16 @@ Template.cardLabelsPop.events({
         Cards.update(cardId, query);
         event.preventDefault();
     },
-    'click .js-edit-label': function(event, tpl) {
-        Utils.Pop.open('editLabelPop', 'Change Label', $('.openPop').get(0), _.extend({ boardId: tpl.data.boardId }, this));
-        event.preventDefault();
-    }
+    'click .js-edit-label': Popup.open('editLabel')
 });
 
-Template.editLabelPop.events({
+Template.editLabelPopup.events({
     'submit .edit-label': function(event, tpl) {
-        var name = tpl.find('#labelName').value,
-            getLabel = Utils.getLabelIndex(this.boardId, this._id),
-            selectLabel = Blaze.getData(tpl.$('.js-palette-select:not(.hide)').get(0)),
-            $set = {};
+        var name = tpl.$('#labelName').val().trim();
+        var boardId = Router.current().params.boardId;
+        var getLabel = Utils.getLabelIndex(boardId, this._id);
+        var selectLabel = Blaze.getData(tpl.$('.js-palette-select:not(.hide)').get(0));
+        var $set = {};
 
         // set label index
         $set[getLabel.key('name')] = name;
@@ -276,10 +223,10 @@ Template.editLabelPop.events({
         $set[getLabel.key('color')] = selectLabel.color;
 
         // update
-        Boards.update(this.boardId, { $set: $set });
+        Boards.update(boardId, { $set: $set });
 
         // return to the previous popup view trigger
-        $('.js-edit-labels').trigger('click');
+        Popup.back();
 
         event.preventDefault();
     },
@@ -291,19 +238,7 @@ Template.editLabelPop.events({
 
         // show select color
         $this.find('.js-palette-select').removeClass('hide');
-    }
-});
-
-Template.deleteCardPop.events({
-    'click .js-confirm': function() {
-        Cards.remove(this.cardId);
-
-        // redirect board
-        Utils.goBoardId(this.boardId);
-    }
-});
-
-Template.cardLabelsPop.events({
+    },
     'click .js-select-label': function() {
         Cards.remove(this.cardId);
 
@@ -312,12 +247,11 @@ Template.cardLabelsPop.events({
     }
 });
 
-Template.cardMorePop.events({
-    'click .js-delete': function(event, t) {
-        Utils.Pop.open('deleteCardPop', 'Delete Card?', $('.openPop').get(0), {
-            cardId: this.card._id,
-            boardId: this.card.boardId
-        });
-        event.preventDefault();
-    }
+Template.cardMorePopup.events({
+    'click .js-delete': Popup.afterConfirm('cardDelete', function() {
+        Cards.remove(this.card._id);
+
+        // redirect board
+        Utils.goBoardId(this.card.board()._id);
+    })
 });

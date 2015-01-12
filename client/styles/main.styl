@@ -1684,6 +1684,7 @@ dd {
     top: -9999px;
     width: 300px;
     z-index: 99999;
+    margin-top: 5px;
 
     hr {
         margin: 8px 0;
@@ -1753,15 +1754,14 @@ dd {
         }
 
         .back-btn {
-            display: none;
             padding: 10px 4px 10px 10px;
             position: absolute;
             top: 0;
             left: 0;
-        }
 
-        .back-btn:hover .icon-sm {
-            color: #686868;
+            &:hover .icon-sm {
+                color: #686868;
+            }
         }
 
         .close-btn {
@@ -1769,10 +1769,10 @@ dd {
             position: absolute;
             top: 0;
             right: 0;
-        }
 
-        .close-btn:hover .icon-sm {
-            color: #686868;
+            &:hover .icon-sm {
+                color: #686868;
+            }
         }
     }
 

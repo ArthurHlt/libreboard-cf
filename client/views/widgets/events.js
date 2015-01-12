@@ -8,10 +8,15 @@ Template.boardWidgets.events({
 });
 
 Template.menuWidget.events({
-    'click .js-close-board': function(event, t) {
-        Utils.Pop.open('closeBoardPop', 'Close Board?', event.currentTarget, Boards.findOne());
-        event.preventDefault();
-    },
+    'click .js-close-board': Popup.afterConfirm('closeBoard', function() {
+        Boards.update(this.board._id, {
+            $set: {
+                archived: true
+            }
+        });
+
+        Router.go('Boards');
+    }),
     'click .js-toggle-widget-nav': function(event, t) {
         var content = $('.board-widgets-content'),
             listWidget = $('.board-widget-nav');
@@ -29,22 +34,6 @@ Template.menuWidget.events({
     }
 });
 
-Template.closeBoardPop.events({
-    'click .js-confirm': function(event, t) {
-        Boards.update(this._id, {
-            $set: {
-                archived: true
-            }
-        });
-
-        // boards page
-        Router.go('Boards');
-
-        // prevent default
-        event.preventDefault();
-    }
-});
-
 var getMemberIndex = function(board, searchId) {
     for (var i = 0; i < board.members.length; i++) {
         if (board.members[i].userId === searchId)
@@ -53,7 +42,7 @@ var getMemberIndex = function(board, searchId) {
     throw new Meteor.Error("Member not found");
 }
 
-Template.memberPop.events({
+Template.memberPopup.events({
     'click .js-change-role': function(event, t) {
         var currentBoard = Boards.findOne();
         var memberIndex = getMemberIndex(currentBoard, this.memberId);
@@ -62,38 +51,26 @@ Template.memberPop.events({
         setQuery[['members', memberIndex, 'isAdmin'].join('.')] = !isAdmin;
         Boards.update(currentBoard._id, { $set: setQuery });
     },
-    'click .js-remove-member:not(.disabled)': function(event, t) {
-        Utils.Pop.open('removeMemberPop', 'Remove Member?', event.currentTarget, {
-            user: this.user,
-            board: Boards.findOne(),
-            memberId: this.memberId
-        });
-    },
+    'click .js-remove-member:not(.disabled)': Popup.afterConfirm('removeMember', function(){
+        var currentBoard = Boards.findOne(Router.current().params.boardId);
+        Boards.update(currentBoard._id, {$pull: {members: {userId: this.memberId}}});
+    }),
     'click .js-leave-member': function(event, t) {
         // @TODO
 
-        // pop close
-        Utils.Pop.close();
+        Popup.close();
     }
 });
 
 Template.membersWidget.events({
-    'click .js-open-manage-board-members': function(event, t) {
-        Utils.Pop.open('addMemberPop', 'Members', event.currentTarget, Boards.findOne());
-        event.preventDefault();
-    },
-    'click .member': function(event, t) {
-        var member = this.member;
-        Utils.Pop.open('memberPop', false, event.currentTarget, {
-            memberId: this.memberId
-        });
-    }
+    'click .js-open-manage-board-members': Popup.open('addMember'),
+    'click .member': Popup.open('member')
 });
 
-Template.addMemberPop.events({
+Template.addMemberPopup.events({
     'click .pop-over-member-list li:not(.disabled)': function(event, t) {
         var userId = this._id;
-        var boardId = t.data._id;
+        var boardId = t.data.board._id;
         Boards.update(boardId, {
             $push: {
                 members: {
@@ -103,15 +80,6 @@ Template.addMemberPop.events({
             }
         });
 
-        Utils.Pop.close();
-    }
-});
-
-Template.removeMemberPop.events({
-    'click .js-confirm': function(event, t) {
-        var currentBoard = Boards.findOne();
-        Boards.update(currentBoard._id, {$pull: {members: {userId: this.memberId}}});
-
-        Utils.Pop.close();
+        Popup.close();
     }
 });

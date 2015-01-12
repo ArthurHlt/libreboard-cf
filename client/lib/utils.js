@@ -1,38 +1,3 @@
-var Offsets = {
-    headerUser: function(offset) {
-        return { left: (offset.left - 118), top: (offset.top + 40) }
-    },
-    list: function(offset) {
-        return { left: (offset.left + 230), top: (offset.top + 25) }
-    },
-    boardName: function(offset) {
-        return { left: (offset.left), top: (offset.top + 35) }
-    },
-    boardPermission: function(offset) {
-        return this.boardName(offset);
-    },
-    boardRemove: function(offset) {
-        return { left: (offset.left - 61), top: (offset.top - 8) }
-    },
-    membersAdd: function(offset) {
-        return { left: (offset.left - 61), top: (offset.top + 35) }
-    },
-    member: function(offset) {
-        var width = $(window).width();
-        return { left: (width - 310), top: (offset.top + 35) }
-    },
-    user: function(offset) {
-        return { left: (offset.left), top: (offset.top + 20) }
-    },
-    removeMember: function(offset) {
-        var width = $(window).width();
-        return { left: (width - 310), top: (offset.top - 103) }
-    },
-    button: function(offset) {
-        return { left: offset.left, top: (offset.top + 40) }
-    }
-};
-
 Utils = {
     error: function(err) {
         Session.set("error", (err && err.message || false));
@@ -78,13 +43,8 @@ Utils = {
         widgets.height(wrapper.height());
         boardActions.height(wrapper.height() - 215);
         pop.find('.content').css('max-height', widgets.height() / 2);
-
-        // resize and default pop offset
-        if (pop[0]) {
-            var popOffset = Utils.Pop.getOffset($('.openPop').get());
-            pop.css({ top: popOffset.top, left: popOffset.left });
-        }
     },
+
     // scroll
     Scroll: function(selector) {
         var $el = $(selector);
@@ -98,32 +58,6 @@ Utils = {
                 $el.animate({ scrollLeft: (add ? (l + px) : px) });
             }
         };
-    },
-
-    // Pop
-    Pop: {
-        getOffset: function($el) {
-            var $this = $($el),
-                offset = Offsets[$this.attr('popOffset')]($this.offset());
-            return offset;
-        },
-        open: function(template, label, $el, data) {
-            var offset = this.getOffset($el);
-            Session.set('pop', {
-                template: template,
-                label: label,
-                left: offset.left,
-                top: offset.top,
-                data: data || {}
-            });
-
-            // openPop
-            $($el).addClass('openPop');
-        },
-        close: function() {
-            Session.set('pop', false);
-            $('.openPop').removeClass('openPop');
-        }
     },
 
     Warning: {

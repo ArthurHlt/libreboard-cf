@@ -1,12 +1,6 @@
 Router.route('/boards/:boardId/:slug/:cardId', {
     name: 'Card',
-    template: 'board',
     bodyClass: 'page-index chrome chrome-39 mac extra-large-window body-webkit-scrollbars body-board-view bgBoard window-up',
-    yieldRegions: {
-        'cardModal': {
-            to: 'modal'
-        }
-    },
     waitOn: function() {
         var params = this.params;
         return [
@@ -18,15 +12,18 @@ Router.route('/boards/:boardId/:slug/:cardId', {
             Meteor.subscribe('board', params.boardId, params.slug)
         ]
     },
-    data: function() {
+    action: function() {
         var params = this.params;
-        return {
-            card: function() {
-                return Cards.findOne(params.cardId);
-            },
-            board: function() {
+        this.render('board', {
+            data: function() {
                 return Boards.findOne(params.boardId);
             }
-        }
+        });
+        this.render('cardModal', {
+            to: 'modal',
+            data: function() {
+                return Cards.findOne(params.cardId);
+            }
+        });
     }
 });

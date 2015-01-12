@@ -48,31 +48,14 @@ Template.signup.events({
 
 
 Template.memberHeader.events({
-    'click .js-open-header-member-menu': function(event, t) {
-        var user = Meteor.user(),
-            label = user.profile.name + ' ('+ user.username +')';
-
-        // open pop
-        Utils.Pop.open('memberMenuPop', label, t.firstNode);
-
-        // return false;
-        event.preventDefault();
-    },
-    'click .js-open-add-menu': function(event, t) {
-
-        // open pop
-        Utils.Pop.open('createBoardPop', 'Create Board', t.firstNode);
-
-        // return false;
-        event.preventDefault();
-    }
+    'click .js-open-header-member-menu': Popup.open('memberMenu'),
+    'click .js-open-add-menu': Popup.open('createBoard')
 });
 
-Template.memberMenuPop.events({
+Template.memberMenuPopup.events({
     'click .js-logout': function(event, t) {
         event.preventDefault();
 
-        // Logout
         Meteor.logout(function() {
             Router.go('Home');
         });
@@ -109,10 +92,5 @@ Template.profileEditForm.events({
 
 
 Template.memberName.events({
-    'click .js-show-mem-menu': function(event, t) {
-        Utils.Pop.open('userPop', false, event.currentTarget, {
-            user: this.user
-        });
-        event.preventDefault();
-    }
+    'click .js-show-mem-menu': Popup.open('user')
 });

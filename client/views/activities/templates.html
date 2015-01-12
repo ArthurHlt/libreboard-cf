@@ -8,7 +8,7 @@
                     </span>
                 </div>
                 <div class="phenom-desc">
-                    {{ > memberName user=user offset='member' }}
+                    {{ > memberName user=user }}
 
                     {{# if isTrue activityType 'createBoard' }}
                         {{_ 'activity-create-board'}}
@@ -50,18 +50,18 @@
                     {{ /if }}
 
                     {{# if isTrue activityType 'addBoardMember' }}
-                        added {{ > memberName user=member offset='member' }} to this board.
+                        added {{ > memberName user=member }} to this board.
                     {{ /if }}
 
                     {{# if isTrue activityType 'removeBoardMember' }}
-                        excluded {{ > memberName user=member offset='member' }} from this board.
+                        excluded {{ > memberName user=member }} from this board.
                     {{ /if }}
 
                     {{# if isTrue activityType 'joinMember' }}
                         {{# if isTrue currentUser._id member._id }}
                             joined <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
                         {{ else }}
-                            added {{ > memberName user=member offset='member' }} to <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
+                            added {{ > memberName user=member }} to <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
                         {{/if}}
                     {{ /if }}
 
@@ -69,7 +69,7 @@
                         {{# if isTrue currentUser._id member._id }}
                             unjoined <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
                         {{ else }}
-                            removed {{ > memberName user=member offset='member' }} from <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
+                            removed {{ > memberName user=member }} from <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
                         {{/if}}
                     {{ /if }}
 
@@ -103,7 +103,7 @@
                     </div>
                     <form>
                         <div class="phenom-desc">
-                            {{ > memberName user=user offset='user' }}
+                            {{ > memberName user=user }}
                             <div class="action-comment markeddown">
                                 <div class="current-comment">
                                   {{#viewer}}{{ text }}{{/viewer}}
@@ -132,7 +132,7 @@
                     <div class="creator member js-show-mem-menu">
                         <span class="member-initials" title="{{ user.profile.name }} ({{ user.username }})">{{ firstChar user.profile.name }}</span>
                     </div>
-                    {{ > memberName user=user offset='user' }}
+                    {{ > memberName user=user }}
                     {{# if isTrue activityType 'createCard' }}
                         added this card to {{ list.title }}.
                     {{ /if }}
@@ -140,14 +140,14 @@
                         {{# if isTrue currentUser._id member._id }}
                             joined this card.
                         {{ else }}
-                            added this card to {{ > memberName user=member offset='user' }}.
+                            added this card to {{ > memberName user=member }}.
                         {{/if}}
                     {{/if}}
                     {{# if isTrue activityType 'unjoinMember' }}
                         {{# if isTrue currentUser._id member._id }}
                             unjoined this card.
                         {{ else }}
-                            removed this card from {{ > memberName user=member offset='user' }}.
+                            removed this card from {{ > memberName user=member }}.
                         {{/if}}
                     {{ /if }}
                     {{# if isTrue activityType 'archivedCard' }}

@@ -4,11 +4,11 @@ Template.modal.events({
         // div itself, not a child (ie, not the overlay window)
         if (event.target !== event.currentTarget)
             return;
-        Utils.goBoardId(this.board._id);
+        Utils.goBoardId(this.card.board()._id);
         event.preventDefault();
     },
     'click .js-close-window': function(event) {
-        Utils.goBoardId(this.board._id);
+        Utils.goBoardId(this.card.board()._id);
         event.preventDefault();
     }
 });

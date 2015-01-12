@@ -23,5 +23,8 @@ Router.route('/boards/:boardId/:slug', {
             // Board page list, cards members vs
             Meteor.subscribe('board', params.boardId, params.slug)
         ]
+    },
+    data: function() {
+        return Boards.findOne(this.params.boardId);
     }
 });

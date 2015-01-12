@@ -21,9 +21,6 @@ Template.boards.helpers({
 });
 
 Template.board.helpers({
-    board: function() {
-        return Boards.findOne({});
-    },
     isStarred: function() {
         var boardId = Boards.findOne()._id,
             user = Meteor.user();
@@ -31,7 +28,7 @@ Template.board.helpers({
     }
 });
 
-Template.changePermissionBoardPop.helpers({
+Template.boardChangePermissionPopup.helpers({
     check: function(perm) {
         return this.permission == perm;
     }

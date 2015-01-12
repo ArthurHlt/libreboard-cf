@@ -116,5 +116,17 @@
     "title": "Title",
     "user-profile-not-found": "User Profile not found.",
     "username": "Username",
-    "warning-signup": "Sign up for free"
+    "warning-signup": "Sign up for free",
+    "cardLabelsPopup-title": "Labels",
+    "cardMembersPopup-title": "Members",
+    "cardMorePopup-title": "More",
+    "cardDeletePopup-title": "Delete Card?",
+    "boardChangeTitlePopup-title": "Rename Board",
+    "boardChangePermissionPopup-title": "Change Visibility",
+    "addMemberPopup-title": "Members",
+    "closeBoardPopup-title": "Close Board?",
+    "removeMemberPopup-title": "Remove Member?",
+    "createBoardPopup-title": "Create Board",
+    "listActionPopup-title": "List Actions",
+    "editLabelPopup-title": "Change Label"
 }

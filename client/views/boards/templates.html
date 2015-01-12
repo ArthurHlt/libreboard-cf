@@ -40,33 +40,33 @@
 </template>
 
 <template name="board">
-    {{# if board }}
+    {{# if this }}
         <div class="board-wrapper {{# unless openWidgets }}disabled-all-widgets{{/ unless }}">
             <div class="board-header clearfix js-board-header">
-                <a href="#" class="board-header-btn board-header-btn-name js-rename-board {{# unless currentUser.isBoardAdmin }}no-edit{{/ unless}}" popoffset='boardName' title="Rename the board.">
-                    <span class="board-header-btn-text"> {{ board.title }} </span>
+                <a href="#" class="board-header-btn board-header-btn-name js-rename-board {{# unless currentUser.isBoardAdmin }}no-edit{{/ unless}}" title="Rename the board.">
+                    <span class="board-header-btn-text"> {{ title }} </span>
                 </a>
                 <div class="board-header-btns left">
                     {{# unless isSandstorm }}
                         <a href="#" class="board-header-btn js-star-board {{#if isStarred }}board-header-btn-enabled{{/ if }}" title="Click to {{# if isStarred }}unstar{{ else }}star{{/ if }} this board. Starred boards show up at the top of your boards list.">
                             <span class="board-header-btn-icon icon-sm icon-star"></span>
                         </a>
-                        <a href="#" class="board-header-btn perms-btn js-change-vis {{# unless currentUser.isBoardAdmin }}no-edit{{/ unless}}" id="permission-level" popoffset='boardPermission'>
-                            <span class="board-header-btn-icon icon-sm icon-{{ toLowerCase board.permission }}"></span>
-                            <span class="board-header-btn-text">{{ board.permission }}</span>
+                        <a href="#" class="board-header-btn perms-btn js-change-vis {{# unless currentUser.isBoardAdmin }}no-edit{{/ unless}}" id="permission-level">
+                            <span class="board-header-btn-icon icon-sm icon-{{ toLowerCase permission }}"></span>
+                            <span class="board-header-btn-text">{{ permission }}</span>
                         </a>
                     {{/ unless }}
                 </div>
             </div>
-            {{ > boardWidgets board=board }}
-            {{ > lists board=board }}
+            {{ > boardWidgets board=this }}
+            {{ > lists board=this }}
         </div>
     {{ else }}
         {{ > message label='board-not-found' color='white'}}
     {{/if}}
 </template>
 
-<template name="createBoardPop">
+<template name="createBoardPopup">
     <div class="content clearfix fancy-scrollbar js-tab-parent">
         <form id="CreateBoardForm">
             <label for="boardNewTitle">{{_ 'title'}}</label>
@@ -79,7 +79,7 @@
     </div>
 </template>
 
-<template name="changeBoardTitlePop">
+<template name="boardChangeTitlePopup">
     <form id="ChangeBoardTitleForm">
         <label>{{_ 'name'}}</label>
         <input type="text" class="js-board-name js-autofocus" value="{{ title }}" autofocus>
@@ -87,7 +87,7 @@
     </form>
 </template>
 
-<template name="changePermissionBoardPop">
+<template name="boardChangePermissionPopup">
     <ul class="pop-over-list">
         <li>
             <a class="js-select light-hover" href="#" name="Private">

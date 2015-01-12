@@ -13,7 +13,7 @@ Template.membersWidget.rendered = function() {
     }
 };
 
-Template.addMemberPop.rendered = function() {
+Template.addMemberPopup.rendered = function() {
     // Input autofocus
     this.find('.search-with-spinner input').focus();
 

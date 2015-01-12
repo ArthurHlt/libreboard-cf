@@ -2,7 +2,7 @@
     <div class="board-canvas">
         <div id="board" class="lists fancy-scrollbar js-no-higher-edits js-list-sortable ui-sortable">
             {{# each board.lists }}
-                <div class="list" popoffset='list'>
+                <div class="list">
                     <div class="list-header js-list-header non-empty clearfix {{# if currentUser.isBoardMember }}editable{{/ if }}">
                         <h2 class="list-header-name js-list-name current {{# if currentUser.isBoardMember }}hide-on-edit{{/ if }}">{{ title }}</h2>
                         {{ > listTitleEditForm list=this }}
@@ -45,7 +45,7 @@
     {{/ if }}
 </template>
 
-<template name="listActionPop">
+<template name="listActionPopup">
     <ul class="pop-over-list">
         <li><a class="js-add-card" href="#">{{_ 'add-card'}}</a></li>
         <li><a class="highlight-icon js-list-subscribe" href="#">{{_ 'subscribe'}}</a></li>

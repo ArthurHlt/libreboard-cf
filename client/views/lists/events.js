@@ -17,14 +17,7 @@ Template.lists.events({
         // stop click hash
         event.preventDefault();
     },
-    'click .js-open-list-menu': function(event, t) {
-        var $this = $(event.currentTarget),
-            list = $this.parents('.list');
-
-        // open pop
-        Utils.Pop.open('listActionPop', 'List Actions', list[0], this);
-        event.preventDefault();
-    },
+    'click .js-open-list-menu': Popup.open('listAction'),
     'click .hide-on-edit': function(event, t) {
         var $this = $(event.currentTarget),
             listHeader = $this.parents('.list-header');
@@ -105,7 +98,7 @@ Template.addlistForm.events({
     }
 });
 
-Template.listActionPop.events({
+Template.listActionPopup.events({
     'click .js-close-list': function(event, t) {
         Lists.update(this._id, {
             $set: {
@@ -113,8 +106,7 @@ Template.listActionPop.events({
             }
         });
 
-        // close pop
-        Utils.Pop.close();
+        Popup.close();
 
         event.preventDefault();
     },

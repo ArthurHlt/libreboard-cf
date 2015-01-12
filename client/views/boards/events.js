@@ -16,17 +16,13 @@ Template.boards.events({
 
 Template.board.events({
     'click .js-star-board': function(event, t) {
-        toggleBoardStar(Boards.findOne()._id);
+        toggleBoardStar(this._id);
     },
-    'click .js-rename-board:not(.no-edit)': function(event, t) {
-        Utils.Pop.open('changeBoardTitlePop', 'Rename Board', event.currentTarget, Boards.findOne());
-    },
-    'click #permission-level:not(.no-edit)': function(event, t) {
-        Utils.Pop.open('changePermissionBoardPop', 'Change Visibility', event.currentTarget, Boards.findOne());
-    }
+    'click .js-rename-board:not(.no-edit)': Popup.open('boardChangeTitle'),
+    'click #permission-level:not(.no-edit)': Popup.open('boardChangePermission')
 });
 
-Template.createBoardPop.events({
+Template.createBoardPopup.events({
     'submit #CreateBoardForm': function(event, t) {
         var title = t.$('#boardNewTitle');
 
@@ -42,36 +38,31 @@ Template.createBoardPop.events({
     }
 });
 
-Template.changeBoardTitlePop.events({
+Template.boardChangeTitlePopup.events({
     'submit #ChangeBoardTitleForm': function(event, t) {
-        var title = t.$('.js-board-name');
-        if ($.trim(title.val())) {
+        var title = t.$('.js-board-name').val().trim();
+        if (title) {
             Boards.update(this._id, {
                 $set: {
-                    title: title.val()
+                    title: title
                 }
             });
-
-            // pop close
-            Utils.Pop.close();
+            Popup.close();
         }
         event.preventDefault();
     }
 });
 
-Template.changePermissionBoardPop.events({
+Template.boardChangePermissionPopup.events({
     'click .js-select': function(event, t) {
         var $this = $(event.currentTarget),
             permission = $this.attr('name');
 
-        // update permission
         Boards.update(this._id, {
             $set: {
                 permission: permission
             }
         });
-
-        // pop close
-        Utils.Pop.close();
+        Popup.close();
     }
 });

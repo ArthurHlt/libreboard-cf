@@ -42,7 +42,7 @@
             {{# unless isSandstorm }}
                 {{# if currentUser.isBoardAdmin }}
                     <li>
-                        <a class="nav-list-item nav-list-sub-item js-close-board" href="#" popOffset='boardRemove'>{{_ 'close-board'}}</a>
+                        <a class="nav-list-item nav-list-sub-item js-close-board" href="#">{{_ 'close-board'}}</a>
                     </li>
                 {{/ if }}
             {{/ unless }}
@@ -59,11 +59,11 @@
         <div class="board-widget-content">
             <div class="board-widget-members js-list-board-members clearfix js-list-draggable-board-members">
                 {{# each board.members }}
-                    {{> avatar draggable=true memberId=this.userId popOffset='member' }}
+                    {{> avatar draggable=true memberId=this.userId }}
                 {{/ each }}
             </div>
             {{# if currentUser.isBoardAdmin }}
-                <a href="#" class="button-link js-open-manage-board-members" popOffset='membersAdd'>
+                <a href="#" class="button-link js-open-manage-board-members">
                     <span class="icon-sm icon-member"></span> {{_ 'add-members'}}
                 </a>
             {{/ if }}
@@ -89,7 +89,7 @@
     {{/if}}
 </template>
 
-<template name='memberPop'>
+<template name='memberPopup'>
     <div class="board-member-menu">
         <div class="mini-profile-info">
             <div class="member-large">
@@ -114,7 +114,7 @@
 
                 <li>
                     {{# if currentUser.isBoardAdmin }}
-                        <a class="js-remove-member" popoffset='removeMember'>{{_ 'remove-from-board'}}</a>
+                        <a class="js-remove-member">{{_ 'remove-from-board'}}</a>
                     {{ else }}
                         <a class="js-leave-member">{{_ 'leave-board'}}</a>
                     {{/ if }}
@@ -124,12 +124,12 @@
     </div>
 </template>
 
-<template name="closeBoardPop">
+<template name="closeBoardPopup">
     <p>{{_ 'close-board-pop'}}</p>
     <input type="submit" class="js-confirm negate full" value="{{_ 'close'}}">
 </template>
 
-<template name="removeMemberPop">
+<template name="removeMemberPopup">
     <p>{{_ 'remove-member-pop'
             name=user.profile.name
             username=user.username
@@ -137,7 +137,7 @@
     <input type="submit" class="js-confirm negate full" value="{{_ 'remove-member'}}">
 </template>
 
-<template name="addMemberPop">
+<template name="addMemberPopup">
     <div class="search-with-spinner">
         {{> esInput index="users" }}
     </div>

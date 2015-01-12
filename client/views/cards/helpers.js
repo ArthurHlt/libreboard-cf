@@ -1,8 +1,8 @@
 Template.addCardForm.helpers({});
 
-Template.cardMembersPop.helpers({
+Template.cardMembersPopup.helpers({
     isCardMember: function() {
-        var cardId = Template.parentData().cardId;
+        var cardId = Template.parentData().card._id;
         var cardMembers = Cards.findOne(cardId).members || [];
         return _.contains(cardMembers, this.userId);
     },
@@ -11,13 +11,13 @@ Template.cardMembersPop.helpers({
     }
 });
 
-Template.cardLabelsPop.helpers({
+Template.cardLabelsPopup.helpers({
     isLabelSelected: function(cardId) {
         return _.contains(Cards.findOne(cardId).labelIds, this._id);
     }
 });
 
-Template.editLabelPop.helpers({
+Template.editLabelPopup.helpers({
     labels: function() {
         var colors = ['green', 'yellow', 'orange', 'red', 'purple', 'blue',
         'sky', 'lime', 'pink', 'black'];

@@ -21,5 +21,5 @@ var jsAutofocus = function() {
     this.find('.js-autofocus').focus();
 };
 
-Template.changeBoardTitlePop.rendered = jsAutofocus;
-Template.createBoardPop.rendered = jsAutofocus;
+Template.boardChangeTitlePopup.rendered = jsAutofocus;
+Template.createBoardPopup.rendered = jsAutofocus;
