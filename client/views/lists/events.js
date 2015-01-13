@@ -99,6 +99,17 @@ Template.addlistForm.events({
 });
 
 Template.listActionPopup.events({
+    'click .js-add-card': function(event, t) {},
+    'click .js-list-subscribe': function(event, t) {},
+    'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
+        Cards.find({listId: this._id}).forEach(function(card) {
+            Cards.update(card._id, {
+                $set: {
+                    archived: true
+                }
+            })
+        });
+    }),
     'click .js-close-list': function(event, t) {
         Lists.update(this._id, {
             $set: {
@@ -109,7 +120,5 @@ Template.listActionPopup.events({
         Popup.close();
 
         event.preventDefault();
-    },
-    'click .js-add-card': function(event, t) {},
-    'click .js-list-subscribe': function(event, t) {}
+    }
 });

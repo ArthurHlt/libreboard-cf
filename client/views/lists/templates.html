@@ -52,6 +52,15 @@
     </ul>
     <hr>
     <ul class="pop-over-list">
+        <li><a class="js-archive-cards" href="#">{{_ 'list-archive-cards'}}</a></li>
+    </ul>
+    <hr>
+    <ul class="pop-over-list">
         <li><a class="js-close-list" href="#">{{_ 'archive-list'}}</a></li>
     </ul>
+</template>
+
+<template name="listArchiveCardsPopup">
+    <p>{{_ 'list-archive-cards-pop'}}</p>
+    <input type="submit" class="js-confirm negate full" value="{{_ 'archive-all'}}">
 </template>

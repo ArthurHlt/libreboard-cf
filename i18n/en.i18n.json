@@ -17,6 +17,7 @@
     "added": "Added",
     "already-have-account-question": "Already have an account?",
     "archive": "Archive",
+    "archive-all": "Archive All",
     "archive-list": "Archive this list",
     "archive-title": "Remove the card from the board.",
     "archived-items": "Archived Items",
@@ -68,6 +69,8 @@
     "labels-title": "Change the labels for the card.",
     "leave-board": "Leave Board…",
     "link-card": "Link to this card",
+    "list-archive-cards": "Archive All Cards in This List…",
+    "list-archive-cards-pop": "This will remove all the cards in this list from the board. To view archived cards and bring them back to the board, click “Menu” > “Archived Items”.",
     "log-in": "Log In",
     "log-out": "Log Out",
     "members": "Members",
@@ -128,5 +131,6 @@
     "removeMemberPopup-title": "Remove Member?",
     "createBoardPopup-title": "Create Board",
     "listActionPopup-title": "List Actions",
-    "editLabelPopup-title": "Change Label"
+    "editLabelPopup-title": "Change Label",
+    "listArchiveCardsPopup-title": "Archive All Cards in this List?"
 }
