@@ -28,8 +28,7 @@ Router.configure({
         if (Meteor.user() && redirectLoggedInUsers) {
             // redirect
             this.redirect('Boards');
-            this.next();
-            return
+            return;
         }
 
         // authenticated
