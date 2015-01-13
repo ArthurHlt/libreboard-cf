@@ -2,11 +2,7 @@
     <div class="js-sidebar-list-actions">
         {{# each board.activities }}
             <div class="phenom phenom-action clearfix phenom-other">
-                <div class="creator member js-show-mem-menu">
-                    <span class="member-initials" title="{{ user.profile.name }} ({{ user.username }})">
-                        {{ firstChar user.profile.name }}
-                    </span>
-                </div>
+                {{> userAvatar user=user size="extra-small" class="creator js-show-mem-menu" }}
                 <div class="phenom-desc">
                     {{ > memberName user=user }}
 
@@ -98,9 +94,7 @@
         <div class="js-list-actions">
             {{# each card.comments }}
                 <div class="phenom phenom-action clearfix phenom-comment">
-                    <div class="creator member js-show-mem-menu">
-                        <span class="member-initials" title="{{ user.profile.name }} ({{ user.username }})">{{ firstChar user.profile.name }}</span>
-                    </div>
+                    {{> userAvatar user=user size="small" class="creator js-show-mem-menu" }}
                     <form>
                         <div class="phenom-desc">
                             {{ > memberName user=user }}
@@ -129,9 +123,7 @@
 
             {{# each card.activities }}
                 <div class="phenom phenom-action clearfix phenom-other">
-                    <div class="creator member js-show-mem-menu">
-                        <span class="member-initials" title="{{ user.profile.name }} ({{ user.username }})">{{ firstChar user.profile.name }}</span>
-                    </div>
+                    {{> userAvatar user=user size="extra-small" class="creator js-show-mem-menu" }}
                     {{ > memberName user=user }}
                     {{# if isTrue activityType 'createCard' }}
                         added this card to {{ list.title }}.

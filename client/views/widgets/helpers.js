@@ -7,16 +7,16 @@ Template.addMemberPopup.helpers({
 
 Template.memberPopup.helpers({
     user: function() {
-        return Users.findOne(this.memberId)
+        return Users.findOne(this.userId);
     },
     memberType: function() {
-        return Users.findOne(this.memberId).isBoardAdmin() ? 'admin' : 'normal';
+        return Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
     }
 });
 
 Template.removeMemberPopup.helpers({
     user: function() {
-        return Users.findOne(this.memberId)
+        return Users.findOne(this.userId)
     },
     board: function() {
         return Boards.findOne(Router.current().params.boardId);

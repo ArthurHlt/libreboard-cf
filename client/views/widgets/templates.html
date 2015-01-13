@@ -59,7 +59,7 @@
         <div class="board-widget-content">
             <div class="board-widget-members js-list-board-members clearfix js-list-draggable-board-members">
                 {{# each board.members }}
-                    {{> avatar draggable=true memberId=this.userId }}
+                    {{> userAvatar userId=this.userId draggable=true size="small" showBadges=true}}
                 {{/ each }}
             </div>
             {{# if currentUser.isBoardAdmin }}
@@ -89,12 +89,10 @@
     {{/if}}
 </template>
 
-<template name='memberPopup'>
+<template name="memberPopup">
     <div class="board-member-menu">
         <div class="mini-profile-info">
-            <div class="member-large">
-                <span class="member-initials" title="{{ user.profile.name}} ({{ user.profile.username}})">{{ firstChar user.profile.name }}</span>
-            </div>
+            {{> userAvatar user=user}}
             <div class="info">
                 <h3 class="bottom" style="margin-right: 40px;">
                     <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.name }}</a>
@@ -147,9 +145,7 @@
             {{# esEach index="users"}}
                 <li class="item js-member-item {{# if isBoardMember }}disabled{{/if}}">
                     <a href="#" class="name js-select-member {{# if isBoardMember }}multi-line{{/if}}" title="{{ profile.name }} ({{ username }})">
-                        <span class="member js-member">
-                            <span class="member-initials">{{ firstChar profile.name }}</span>
-                        </span>
+                        {{> userAvatar user=this size="small" }}
                         <span class="full-name">
                             {{ profile.name }}  (<span class="username">{{ username }}</span>)
                         </span>

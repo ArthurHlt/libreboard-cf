@@ -56,9 +56,7 @@
             <span class="header-btn-icon icon-lg icon-add light"></span>
         </a>
         <a class="header-btn header-member js-open-header-member-menu" href="#">
-            <span class="member">
-                <span class="member-initials">{{ firstChar currentUser.profile.name }}</span>
-            </span>
+            {{> userAvatar user=currentUser size="small" }}
             <span class="header-btn-text js-member-name">{{ currentUser.profile.name }}</span>
         </a>
         <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 {{_ 'notifications-title'}}.">
@@ -81,10 +79,7 @@
         <div class="tabbed-pane-header">
             <div class="tabbed-pane-header-wrapper clearfix">
                 <a class="tabbed-pane-header-image profile-image ed js-change-avatar-profile" href="#">
-                    <span class="profile-image-initials">{{ firstChar profile.profile.name }}</span>
-                    {{#if isTrue currentUser.username profile.username }}
-                        <span class="change-text">{{_ 'change-avatar'}}</span>
-                    {{ /if }}
+                    {{> userAvatar user=profile size="large"}}
                 </a>
                 <div class="tabbed-pane-header-details">
                     <div class="js-current-details">
@@ -162,9 +157,7 @@
 <template name="userPopup">
     <div class="board-member-menu">
         <div class="mini-profile-info">
-            <div class="member-large">
-                <span class="member-initials" title="{{ user.profile.name}} ({{ user.profile.username}})">{{ firstChar user.profile.name }}</span>
-            </div>
+            {{> userAvatar user=user}}
             <div class="info">
                 <h3 class="bottom" style="margin-right: 40px;">
                     <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.name }}</a>
@@ -185,12 +178,13 @@
     </a>
 </template>
 
-<template name="avatar">
-    <div class="member {{# if draggable }}js-member{{else}}js-member-on-card-menu{{/ if}}">
-        <span class="member-initials" title="{{ user.profile.name }} ({{ user.username }})">
-            {{ firstChar user.profile.name }}
-        </span>
-        <span class="member-status {{# if user.profile.status}}active{{/if}}"></span>
-        <span class="member-type {{ memberType }}"></span>
+<template name="userAvatar">
+    <div class="member {{size}} {{ class }} {{# if draggable }}js-member{{else}}js-member-on-card-menu{{/ if}}"
+         title="{{ userData.profile.name}} ({{ userData.username}})">
+        {{> avatar user=userData size=size }}
+        {{#if showBadges }}
+            <span class="member-status {{# if userData.profile.status}}active{{/if}}"></span>
+            <span class="member-type {{ memberType }}"></span>
+        {{/if }}
     </div>
 </template>

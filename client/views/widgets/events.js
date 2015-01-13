@@ -45,7 +45,7 @@ var getMemberIndex = function(board, searchId) {
 Template.memberPopup.events({
     'click .js-change-role': function(event, t) {
         var currentBoard = Boards.findOne();
-        var memberIndex = getMemberIndex(currentBoard, this.memberId);
+        var memberIndex = getMemberIndex(currentBoard, this.userId);
         var isAdmin = currentBoard.members[memberIndex].isAdmin;
         var setQuery = {};
         setQuery[['members', memberIndex, 'isAdmin'].join('.')] = !isAdmin;
@@ -53,7 +53,7 @@ Template.memberPopup.events({
     },
     'click .js-remove-member:not(.disabled)': Popup.afterConfirm('removeMember', function(){
         var currentBoard = Boards.findOne(Router.current().params.boardId);
-        Boards.update(currentBoard._id, {$pull: {members: {userId: this.memberId}}});
+        Boards.update(currentBoard._id, {$pull: {members: {userId: this.userId}}});
         Popup.close();
     }),
     'click .js-leave-member': function(event, t) {

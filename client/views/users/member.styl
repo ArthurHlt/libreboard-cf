@@ -16,15 +16,72 @@
     color: #4d4d4d;
     display: block;
     float: left;
-    height: 30px;
+    height: 50px;
     margin: 0 4px 4px 0;
     overflow: hidden;
     position: relative;
-    width: 30px;
+    width: 50px;
     cursor: pointer;
     user-select: none;
     z-index: 0;
     text-decoration: none;
+
+    .avatar-initials {
+        background-color: #dbdbdb;
+        color: #444444;
+        font-weight: bold;
+        max-width: 100%;
+        max-height: 100%;
+        font-size: 16px;
+        line-height: 50px;
+        width: 50px;
+    }
+
+    .avatar-image {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    &.extra-small {
+        .avatar-initials {
+            font-size: 9px;
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+        }
+
+        .avatar-image {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    &.small {
+        width: 30px;
+        height: 30px;
+
+        .avatar-initials {
+            font-size: 12px;
+            line-height: 30px;
+        }
+    }
+
+    &.large {
+        height: 85px;
+        line-height: 85px;
+        width: 85px;
+
+        .avatar {
+            width: 85px;
+            height: 85px;
+            .avatar-initials {
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 85px;
+                width: 85px;
+            }
+        }
+    }
 }
 
 .member:hover .member-avatar {

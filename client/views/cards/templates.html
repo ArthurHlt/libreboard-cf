@@ -24,7 +24,7 @@
                     </div>
                     <div class="list-card-members js-list-card-members">
                         {{# each members }}
-                            {{> avatar memberId=this }}
+                            {{> userAvatar userId=this size="small" showBadges=true}}
                         {{/each}}
                     </div>
                 </a>
@@ -44,9 +44,7 @@
 <template name="cardMemberPopup">
     <div class="board-member-menu">
         <div class="mini-profile-info">
-            <div class="member-large">
-                <span class="member-initials" title="{{ user.profile.name }} ({{ user.profile.username}})">{{ firstChar user.profile.name }}</span>
-            </div>
+            {{> userAvatar user=user }}
             <div class="info">
                 <h3 class="bottom" style="margin-right: 40px;">
                     <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.name }}</a>
@@ -69,7 +67,7 @@
             {{# each card.board.members }}
                 <li class="item {{#if isCardMember}}active{{/if}} js-member-item">
                     <a href="#" class="name js-select-member">
-                        {{> avatar memberId=userId }}
+                        {{> userAvatar user=user size="small" showBadges=true }}
                         <span class="full-name">
                             {{ user.profile.name }} ({{ user.username }})
                         </span>
@@ -212,7 +210,7 @@
                             <h3 class="card-detail-item-header">{{_ 'members'}}</h3>
                             <div class="js-card-detail-members-list clearfix">
                                 {{# each card.members }}
-                                    {{> avatar memberId=this }}
+                                    {{> userAvatar userId=this size="small" showBadges=true }}
                                 {{/ each }}
                                 <a class="card-detail-item-add-button dark-hover js-details-edit-members">
                                     <span class="icon-sm icon-add"></span>
@@ -280,9 +278,7 @@
         </div>
         {{# if currentUser.isBoardMember }}
             <div class="new-comment js-new-comment">
-                <div class="member member-no-menu">
-                    <span class="member-initials" title="{{ currentUser.profile.name }} ({{ currentUser.username }})">{{ firstChar currentUser.profile.name }}</span>
-                </div>
+                {{> userAvatar user=currentUser size="small" class="member-no-menu" }}
                 <form id="CommentForm">
                     {{#editor class="new-comment-input js-new-comment-input"}}{{/editor}}
                     <div class="add-controls clearfix">
