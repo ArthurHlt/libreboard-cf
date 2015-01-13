@@ -173,6 +173,13 @@ isServer(function() {
         }
     });
 
+    // Remove all activities associated with a card if we remove the card
+    Cards.after.remove(function(userId, doc) {
+        Activities.remove({
+            cardId: doc._id
+        });
+    });
+
     CardComments.after.insert(function(userId, doc) {
         Activities.insert({
             type: 'comment',
