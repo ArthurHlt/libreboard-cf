@@ -165,6 +165,7 @@ Template.WindowSidebarModule.events({
 
         // redirect board
         Utils.goBoardId(this.card.board()._id);
+        Popup.close();
     }),
     'click .js-more-menu': Popup.open('cardMore')
 });
@@ -205,10 +206,55 @@ Template.cardLabelsPopup.events({
         Cards.update(cardId, query);
         event.preventDefault();
     },
-    'click .js-edit-label': Popup.open('editLabel')
+    'click .js-edit-label': Popup.open('editLabel'),
+    'click .js-add-label': Popup.open('createLabel')
+});
+
+
+Template.formLabel.events({
+    'click .js-palette-color': function(event, tpl) {
+        var $this = $(event.currentTarget);
+
+        // hide selected ll colors
+        $('.js-palette-select').addClass('hide');
+
+        // show select color
+        $this.find('.js-palette-select').removeClass('hide');
+    }
+});
+
+Template.createLabelPopup.events({
+    // Create the new label
+    'submit .create-label': function(event, tpl) {
+        var name = tpl.$('#labelName').val().trim();
+        var boardId = Router.current().params.boardId;
+        var selectLabel = Blaze.getData(tpl.$('.js-palette-select:not(.hide)').get(0));
+        Boards.update(boardId, {
+            $push: {
+                labels: {
+                    _id: Random.id(6),
+                    name: name,
+                    color: selectLabel.color
+                }
+            }
+        });
+        Popup.back();
+        event.preventDefault();
+    }
 });
 
 Template.editLabelPopup.events({
+    'click .js-delete-label': Popup.afterConfirm('deleteLabel', function(){
+        var boardId = Router.current().params.boardId;
+        Boards.update(boardId, {
+            $pull: {
+                labels: {
+                    _id: this._id
+                }
+            }
+        });
+        Popup.back(2);
+    }),
     'submit .edit-label': function(event, tpl) {
         var name = tpl.$('#labelName').val().trim();
         var boardId = Router.current().params.boardId;
@@ -229,15 +275,6 @@ Template.editLabelPopup.events({
         Popup.back();
 
         event.preventDefault();
-    },
-    'click .js-palette-color': function(event, tpl) {
-        var $this = $(event.currentTarget);
-
-        // hide selected ll colors
-        $('.js-palette-select').addClass('hide');
-
-        // show select color
-        $this.find('.js-palette-select').removeClass('hide');
     },
     'click .js-select-label': function() {
         Cards.remove(this.cardId);

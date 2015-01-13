@@ -110,6 +110,7 @@ Template.listActionPopup.events({
                 }
             })
         });
+        Popup.close();
     }),
     'click .js-close-list': function(event, t) {
         Lists.update(this._id, {

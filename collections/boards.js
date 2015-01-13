@@ -90,6 +90,7 @@ Boards.before.update(function(userId, doc, fieldNames, modifier) {
     modifier.$set.modifiedAt = new Date();
 });
 
+
 isServer(function() {
 
     // Let MongoDB ensure that a member is not included twice in the same board
@@ -109,6 +110,27 @@ isServer(function() {
             boardId: doc._id,
             userId: userId || doc.userId
         });
+    });
+
+    // If the user remove one label from a board, we cant to remove reference of
+    // this label in any card of this board.
+    Boards.after.update(function(userId, doc, fieldNames, modifier) {
+        if (! _.contains(fieldNames, 'labels') ||
+            ! modifier.$pull ||
+            ! modifier.$pull.labels ||
+            ! modifier.$pull.labels._id)
+            return;
+
+        var removedLabelId = modifier.$pull.labels._id;
+        Cards.update(
+            { boardId: doc._id },
+            {
+                $pull: {
+                    labels: removedLabelId
+                }
+            },
+            { multi: true }
+        );
     });
 
     // Add a new activity if we add or remove a member to the board

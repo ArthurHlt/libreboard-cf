@@ -54,6 +54,7 @@ Template.memberPopup.events({
     'click .js-remove-member:not(.disabled)': Popup.afterConfirm('removeMember', function(){
         var currentBoard = Boards.findOne(Router.current().params.boardId);
         Boards.update(currentBoard._id, {$pull: {members: {userId: this.memberId}}});
+        Popup.close();
     }),
     'click .js-leave-member': function(event, t) {
         // @TODO

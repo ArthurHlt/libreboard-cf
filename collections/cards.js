@@ -69,7 +69,6 @@ CardComments.helpers({
     }
 });
 
-// CARDS BEFORE HOOK
 CardComments.hookOptions.after.update = { fetchPrevious: false };
 Cards.before.insert(function(userId, doc) {
     doc.createdAt = new Date();

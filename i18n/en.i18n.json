@@ -67,6 +67,8 @@
     "joined": "joined",
     "labels": "Labels",
     "labels-title": "Change the labels for the card.",
+    "label-create": "Create a new label",
+    "label-delete-pop": "There is no undo. This will remove this label from all cards and destroy its history.",
     "leave-board": "Leave Board…",
     "link-card": "Link to this card",
     "list-move-cards": "Move All Cards in This List…",
@@ -134,5 +136,7 @@
     "listActionPopup-title": "List Actions",
     "editLabelPopup-title": "Change Label",
     "listMoveCardsPopup-title": "Move All Cards in List",
-    "listArchiveCardsPopup-title": "Archive All Cards in this List?"
+    "listArchiveCardsPopup-title": "Archive All Cards in this List?",
+    "createLabelPopup-title": "Create Label",
+    "deleteLabelPopup-title": "Delete Label?"
 }

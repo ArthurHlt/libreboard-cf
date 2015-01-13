@@ -12,7 +12,7 @@ Popup = {
 
         return function(evt, tpl) {
             var $element = tpl.$(evt.currentTarget);
-            evt.originalEvent.clickInPopup = true
+            evt.originalEvent.clickInPopup = true;
             self._render({
                 __isPopup: true,
                 popupName: popupName,
@@ -44,10 +44,12 @@ Popup = {
 
     // In case the popup was opened from a parent popup we can get back to it
     // with this `Popup.back()` function.
-    back: function() {
-        if (this._stack.length >= 2) {
-            this._stack.pop();
-            this._render(this._stack.pop());
+    back: function(n) {
+        n = n || 1;
+        var self = this;
+        if (self._stack.length >= n + 1) {
+            _.times(n, function() { self._stack.pop() });
+            self._render(self._stack.pop());
         }
     },
 
@@ -60,7 +62,7 @@ Popup = {
         }
     },
 
-    // The template we use for the every popup
+    // The template we use for every popup
     template: Template.popup,
 
     // We only want to display one popup at a time and we keep the view object
@@ -135,7 +137,6 @@ Popup.template.events({
         Popup.close();
     },
     'click .js-confirm': function() {
-        Popup.close();
         this.__afterConfirmAction.call(this);
     }
 });

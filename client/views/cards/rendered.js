@@ -54,7 +54,7 @@ Template.cards.rendered = function() {
     });
 };
 
-Template.editLabelPopup.rendered = function() {
+Template.formLabel.rendered = function() {
     this.find('.js-autofocus').focus();
 };
 
