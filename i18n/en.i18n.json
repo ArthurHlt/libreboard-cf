@@ -69,6 +69,7 @@
     "labels-title": "Change the labels for the card.",
     "leave-board": "Leave Board…",
     "link-card": "Link to this card",
+    "list-move-cards": "Move All Cards in This List…",
     "list-archive-cards": "Archive All Cards in This List…",
     "list-archive-cards-pop": "This will remove all the cards in this list from the board. To view archived cards and bring them back to the board, click “Menu” > “Archived Items”.",
     "log-in": "Log In",
@@ -132,5 +133,6 @@
     "createBoardPopup-title": "Create Board",
     "listActionPopup-title": "List Actions",
     "editLabelPopup-title": "Change Label",
+    "listMoveCardsPopup-title": "Move All Cards in List",
     "listArchiveCardsPopup-title": "Archive All Cards in this List?"
 }

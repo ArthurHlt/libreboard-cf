@@ -101,6 +101,7 @@ Template.addlistForm.events({
 Template.listActionPopup.events({
     'click .js-add-card': function(event, t) {},
     'click .js-list-subscribe': function(event, t) {},
+    'click .js-move-cards': Popup.open('listMoveCards'),
     'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
         Cards.find({listId: this._id}).forEach(function(card) {
             Cards.update(card._id, {
@@ -120,5 +121,20 @@ Template.listActionPopup.events({
         Popup.close();
 
         event.preventDefault();
+    }
+});
+
+Template.listMoveCardsPopup.events({
+    'click .js-select-list': function() {
+        var fromList = Template.parentData(2).data._id;
+        var toList = this._id;
+        Cards.find({listId: fromList}).forEach(function(card) {
+            Cards.update(card._id, {
+                $set: {
+                    listId: toList
+                }
+            });
+        });
+        Popup.close();
     }
 });
