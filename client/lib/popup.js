@@ -1,3 +1,9 @@
+// A simple tracker dependency that we invalidates every time the window is
+// resized. This is used to reactively re-calculate the popup position in case
+// of a window resize.
+var windowResizeDep = new Tracker.Dependency;
+$(window).on('resize', function() { windowResizeDep.changed() });
+
 Popup = {
     /// This function returns a callback that can be used in an event map:
     ///
@@ -11,17 +17,55 @@ Popup = {
         var popupName = name + "Popup";
 
         return function(evt, tpl) {
-            var $element = tpl.$(evt.currentTarget);
+            // We determine the referenceElement (the DOM element that is being
+            // clicking and that the popup should use as a reference for its
+            // position) from the event if the popup has no parent, or from
+            // the parent referenceElement if it has one. That allow use to
+            // position a sub-popup exactly at the same position of its parent.
+            if (self._hasPopupParent()) {
+                var parentData = self._stack[self._stack.length - 1];
+                var $element = parentData.$element;
+            } else {
+                var $element = tpl.$(evt.currentTarget);
+            }
+
+            // We modify the event to prevent the popup being closed when the
+            // event bubble up to the document element.
             evt.originalEvent.clickInPopup = true;
-            self._render({
+            evt.preventDefault();
+
+            // We push our popup data to the stack. The top of the stack is
+            // always used as the data source for our current popup.
+            self._stack.push({
                 __isPopup: true,
                 popupName: popupName,
                 hasPopupParent: self._hasPopupParent(),
                 title: self._getTitle(popupName),
+                $element: $element,
                 offset: self._getOffset($element),
                 dataContext: this
             });
-            evt.preventDefault();
+
+            // If there are no popup currently open we use the Blaze API to
+            // render one into the DOM. We use a reactive function as the data
+            // parameter that just return the top element on the stack and
+            // depends on our internal dependency that is being invalidated
+            // every time the top element of the stack has changed and we want
+            // to update the popup.
+            //
+            // Otherwise if there is already a popup open we just need to
+            // invalidate our internal dependency, and since we just changed the
+            // top element of our internal stack, the popup will be updated with
+            // the new data.
+            if (! self.current) {
+                self.current = Blaze.renderWithData(self.template, function() {
+                    self._dep.depend();
+                    return self._stack[self._stack.length -1];
+                }, document.body);
+
+            } else {
+                self._dep.changed();
+            }
         }
     },
 
@@ -42,21 +86,23 @@ Popup = {
         }
     },
 
-    // In case the popup was opened from a parent popup we can get back to it
-    // with this `Popup.back()` function.
+    /// In case the popup was opened from a parent popup we can get back to it
+    /// with this `Popup.back()` function. You can go back several steps at once
+    /// by providing a number to this function, e.g. `Popup.back(2)`. In this
+    /// case intermediate popup won't even be rendered on the DOM.
     back: function(n) {
         n = n || 1;
         var self = this;
         if (self._stack.length >= n + 1) {
             _.times(n, function() { self._stack.pop() });
-            self._render(self._stack.pop());
+            self._dep.changed();
         }
     },
 
-    // Close the current opened popup.
+    /// Close the current opened popup.
     close: function() {
         if (this.current) {
-            this._remove();
+            Blaze.remove(this.current);
             this.current = null;
             this._stack = [];
         }
@@ -71,36 +117,14 @@ Popup = {
     _current: null,
 
     // It's possible to open a sub-popup B from a popup A. In that case we keep
-    // the data of popup A so we can return back to it.
+    // the data of popup A so we can return back to it. Every time we open a new
+    // popup the stack grows, every time we go back the stack decrease, and if
+    // we close the popup the stack is reseted to the empty stack [].
     _stack: [],
 
-    // We automatically calculate the popup offset from the element size and
-    // the window dimensions.
-    // XXX It should be reactive!
-    _getOffset: function($element) {
-        if (this._hasPopupParent())
-            return this._stack[this._stack.length - 1].offset;
-
-        var offset = $element.offset();
-        var popupWidth = 300 + 15;
-        return {
-            left: Math.min(offset.left, $(window).width() - popupWidth),
-            top: offset.top + $element.outerHeight()
-        };
-    },
-
-    // We get the title from the translation files.
-    // XXX It should be reactive!
-    _getTitle: function(popupName) {
-        var translationKey = popupName + "-title";
-        // XXX There is no public API to check if there is an available
-        // translation for a given key. So we try to translate the key and if
-        // the translation output equals the key input we deduce that no
-        // translation was available and returns `false`. There is a (small)
-        // risk a false positives.
-        var title = TAPi18n.__(translationKey);
-        return title !== translationKey ? title : false;
-    },
+    // We invalidate this internal dependency every time the top of the stack
+    // has changed and we want to render a popup with the new top-stack data.
+    _dep: new Tracker.Dependency,
 
     // We use the blaze API to determine if the current popup has been opened
     // from a parent popup. The number we give to the `Template.parentData` has
@@ -111,17 +135,35 @@ Popup = {
         return !! (tryParentData && tryParentData.__isPopup);
     },
 
-    // Add the popup to the DOM. If a popup is already opened it will be closed
-    _render: function(data) {
-        this._remove();
-        this._stack.push(data);
-        this.current = Blaze.renderWithData(this.template, data, document.body);
+    // We automatically calculate the popup offset from the reference element
+    // position and dimensions. We also reactively use the window dimensions
+    // to ensure that the popup is always visible on the screen.
+    _getOffset: function($element) {
+        return function() {
+            windowResizeDep.depend();
+            var offset = $element.offset();
+            var popupWidth = 300 + 15;
+            return {
+                left: Math.min(offset.left, $(window).width() - popupWidth),
+                top: offset.top + $element.outerHeight()
+            };
+        };
     },
 
-    // Remove the popup from the DOM
-    _remove: function() {
-        if (this.current) {
-            Blaze.remove(this.current)
+    // We get the title from the translation files. Instead of returning the
+    // result, we return a function that compute the result and since
+    // `TAPi18n.__` is a reactive data source, the title will be changed
+    // reactively
+    _getTitle: function(popupName) {
+        return function () {
+            var translationKey = popupName + "-title";
+            // XXX There is no public API to check if there is an available
+            // translation for a given key. So we try to translate the key and if
+            // the translation output equals the key input we deduce that no
+            // translation was available and returns `false`. There is a (small)
+            // risk a false positives.
+            var title = TAPi18n.__(translationKey);
+            return title !== translationKey ? title : false;
         }
     }
 };
