@@ -1,7 +1,28 @@
+// This is the publication used to display the board list. We publish all the
+// non-archived boards:
+// 1. that the user is a member of
+// 2. the user has starred
 Meteor.publish('boards', function() {
+    // Ensure that the user is connected
+    check(this.userId, String);
+
+    // Defensive programming to verify that starredBoards has the expected
+    // format -- since the field is in the `profile` a user can modify it.
+    var starredBoards = Users.findOne(this.userId).profile.starredBoards || [];
+    check(starredBoards, [String]);
+
     return Boards.find({
-        'members.userId': this.userId,
-        archived: false
+        archived: false,
+        $or: [
+            { 'members.userId': this.userId },
+            { _id: { $in: starredBoards } }
+        ]
+    }, {
+        fields: {
+            _id: 1,
+            slug: 1,
+            title: 1
+        }
     });
 });
 
