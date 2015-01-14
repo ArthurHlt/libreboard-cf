@@ -1,8 +1,4 @@
-Meteor.publishComposite('card', function(cardId) {
+Meteor.publish('card', function(cardId) {
     check(cardId, String);
-    return {
-        find: function() {
-            return Cards.find({ _id: cardId });
-        }
-    }
+    return Cards.find({ _id: cardId });
 });

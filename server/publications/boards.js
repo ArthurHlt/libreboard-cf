@@ -31,47 +31,44 @@ Meteor.publishComposite('board', function(boardId, slug) {
     check(slug, String);
     return {
         find: function() {
-            var filter = {
-                    _id: boardId,
-                    slug: slug,
-                    archived: false
-                },
-                board = Boards.findOne(filter);
-
-            if (board && _.findWhere(board.members, { userId: this.userId })) {
-                return Boards.find(filter, { limit: 1 });
-            }
-
-            // permission
-            filter.permission = 'Public';
-
-            // default return boards
-            return Boards.find(filter, { limit: 1 });
+            return Boards.find({
+                _id: boardId,
+                slug: slug,
+                archived: false,
+                $or: [
+                    // If the board is not public the user has to be a member of
+                    // it to see it.
+                    { permission: 'Public' },
+                    { 'members.userId': this.userId }
+                ]
+            }, { limit: 1 });
         },
+        // XXX For efficiency we shouldn't publish all activities and comments
+        // in this publication, and instead use the card publication for that
+        // purpose.
         children: [
-
-            // Lists and Cards
+            // Lists, cards, and cards comments
             {
                 find: function(board) {
-                    return Lists.find({ boardId: board._id });
+                    return Lists.find({
+                        boardId: board._id
+                    });
                 },
                 children: [
                     {
                         find: function(list, board) {
-                            return Cards.find({ listId: list._id });
+                            return Cards.find({
+                                listId: list._id
+                            });
                         },
 
                         children: [
-                            // Card members
-                            {
-                                find: function(card) {
-                                    return Users.find({ _id: { $in: card.members || [] }});
-                                }
-                            },
                             // Card comments
                             {
                                 find: function(card) {
-                                    return CardComments.find({ cardId: card._id });
+                                    return CardComments.find({
+                                        cardId: card._id
+                                    });
                                 }
                             }
                         ]
@@ -79,20 +76,32 @@ Meteor.publishComposite('board', function(boardId, slug) {
                 ]
             },
 
-            // Members
+            // Board members
             {
                 find: function(board) {
-                    return Users.find({ _id: { $in: _.pluck(board.members, 'userId') }});
+                    return Users.find({
+                        _id: { $in: _.pluck(board.members, 'userId') }
+                    });
                 }
             },
 
             // Activities
             {
                 find: function(board) {
-                    return Activities.find({ boardId: board._id });
+                    return Activities.find({
+                        boardId: board._id
+                    });
                 },
                 children: [
-                    // Card members
+                    // Activities members. In general activity members are
+                    // already published in the board member publication above,
+                    // but it can be the case that a board member was removed
+                    // and we still want to read his activity history.
+                    // XXX A more efficient way to do this would be to keep a
+                    // {active: Boolean} field in the `board.members` so we can
+                    // publish former board members in one single publication,
+                    // and have a easy way to distinguish between current and
+                    // former members.
                     {
                         find: function(activity) {
                             if (activity.memberId)
