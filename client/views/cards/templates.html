@@ -24,7 +24,7 @@
                     </div>
                     <div class="list-card-members js-list-card-members">
                         {{# each members }}
-                            {{> userAvatar userId=this size="small" showBadges=true}}
+                            {{> userAvatar userId=this size="small" }}
                         {{/each}}
                     </div>
                 </a>
@@ -67,7 +67,7 @@
             {{# each card.board.members }}
                 <li class="item {{#if isCardMember}}active{{/if}} js-member-item">
                     <a href="#" class="name js-select-member">
-                        {{> userAvatar user=user size="small" showBadges=true }}
+                        {{> userAvatar user=user size="small" }}
                         <span class="full-name">
                             {{ user.profile.name }} ({{ user.username }})
                         </span>
@@ -210,7 +210,7 @@
                             <h3 class="card-detail-item-header">{{_ 'members'}}</h3>
                             <div class="js-card-detail-members-list clearfix">
                                 {{# each card.members }}
-                                    {{> userAvatar userId=this size="small" showBadges=true }}
+                                    {{> userAvatar userId=this size="small" }}
                                 {{/ each }}
                                 <a class="card-detail-item-add-button dark-hover js-details-edit-members">
                                     <span class="icon-sm icon-add"></span>
