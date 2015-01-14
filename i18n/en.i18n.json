@@ -15,6 +15,8 @@
     "add-list": "Add a list…",
     "add-members": "Add Members…",
     "added": "Added",
+    "admin": "Admin",
+    "admin-desc": "Can view and edit cards, remove members, and change settings for the board.",
     "already-have-account-question": "Already have an account?",
     "archive": "Archive",
     "archive-all": "Archive All",
@@ -69,6 +71,7 @@
     "labels-title": "Change the labels for the card.",
     "label-create": "Create a new label",
     "label-delete-pop": "There is no undo. This will remove this label from all cards and destroy its history.",
+    "last-admin-desc": "You can’t change roles because there must be at least one admin.",
     "leave-board": "Leave Board…",
     "link-card": "Link to this card",
     "list-move-cards": "Move All Cards in This List…",
@@ -85,6 +88,8 @@
     "name": "Name",
     "name-placeholder": "e.g., Dr. Frankenstein",
     "new-here-question": "New here?",
+    "normal": "Normal",
+    "normal-desc": "Can view and edit cards. Can't change settings.",
     "no-boards": "No boards.",
     "no-results": "No results",
     "notifications-title": "Notifications",
@@ -138,5 +143,6 @@
     "listMoveCardsPopup-title": "Move All Cards in List",
     "listArchiveCardsPopup-title": "Archive All Cards in this List?",
     "createLabelPopup-title": "Create Label",
-    "deleteLabelPopup-title": "Delete Label?"
+    "deleteLabelPopup-title": "Delete Label?",
+    "changePermissionsPopup-title": "Change Permissions"
 }

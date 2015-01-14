@@ -1,3 +1,7 @@
+var currentBoard = function() {
+    return Boards.findOne(Router.current().params.boardId);
+}
+
 Template.addMemberPopup.helpers({
     isBoardMember: function() {
         var user = Users.findOne(this._id);
@@ -10,7 +14,8 @@ Template.memberPopup.helpers({
         return Users.findOne(this.userId);
     },
     memberType: function() {
-        return Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
+        var type = Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
+        return TAPi18n.__(type).toLowerCase();
     }
 });
 
@@ -19,6 +24,18 @@ Template.removeMemberPopup.helpers({
         return Users.findOne(this.userId)
     },
     board: function() {
-        return Boards.findOne(Router.current().params.boardId);
+        return currentBoard();
+    }
+});
+
+Template.changePermissionsPopup.helpers({
+    isAdmin: function() {
+        return this.user.isBoardAdmin();
+    },
+    isLastAdmin: function() {
+        if (! this.user.isBoardAdmin())
+            return false;
+        var nbAdmins = _.where(currentBoard().members, { isAdmin: true }).length;
+        return nbAdmins === 1;
     }
 });
