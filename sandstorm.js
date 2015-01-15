@@ -32,7 +32,7 @@ if (isSandstorm && Meteor.isServer) {
 if (isSandstorm && Meteor.isClient) {
     Router.go('Board', {
         boardId: sandstormBoard._id,
-        slug: slugify(sandstormBoard.title)
+        slug: getSlug(sandstormBoard.title)
     });
 }
 

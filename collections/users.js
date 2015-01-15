@@ -32,7 +32,7 @@ Users.before.insert(function (userId, doc) {
     doc.profile.status = 'offline';
 
     // slugify to username
-    doc.username = slugify(doc.profile.name, '');
+    doc.username = getSlug(doc.profile.name, '');
 });
 
 

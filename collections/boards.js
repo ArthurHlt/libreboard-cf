@@ -63,7 +63,13 @@ Meteor.methods({
 
 // HOOKS
 Boards.before.insert(function(userId, doc) {
-    doc.slug = slugify(doc.title);
+    // XXX We need to improve slug management. Only the id should be necessary
+    // to identify a board in the code.
+    // XXX If the board title is updated, the slug should also be updated.
+    // In some cases (Chinese and Japanese for instance) the `getSlug` function
+    // return an empty string. This is causes bugs in our application so we set
+    // a default slug in this case.
+    doc.slug = getSlug(doc.title) || 'board';
     doc.createdAt = new Date();
     doc.openWidgets = true;
     doc.archived = false;
