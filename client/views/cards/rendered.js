@@ -34,11 +34,11 @@ Template.cards.rendered = function() {
         }).disableSelection();
 
         Utils.liveEvent('mouseover', function($this) {
-            $this.find('.card').droppable({
-                hoverClass: "active-card",
+            $this.find('.js-member-droppable').droppable({
+                hoverClass: "draggable-hover-card",
                 accept: '.js-member',
                 drop: function(event, ui) {
-                    var memberId = Blaze.getData(ui.draggable.get(0)).memberId;
+                    var memberId = Blaze.getData(ui.draggable.get(0)).userId;
                     var cardId = Blaze.getData(this)._id;
                     Cards.update(cardId, {$addToSet: { members: memberId}});
                 }
