@@ -46,7 +46,7 @@ Popup = {
                 dataContext: this
             });
 
-            // If there are no popup currently open we use the Blaze API to
+            // If there are no popup currently opened we use the Blaze API to
             // render one into the DOM. We use a reactive function as the data
             // parameter that just return the top element on the stack and
             // depends on our internal dependency that is being invalidated
@@ -158,8 +158,8 @@ Popup = {
         return function () {
             var translationKey = popupName + "-title";
             // XXX There is no public API to check if there is an available
-            // translation for a given key. So we try to translate the key and if
-            // the translation output equals the key input we deduce that no
+            // translation for a given key. So we try to translate the key and
+            // if the translation output equals the key input we deduce that no
             // translation was available and returns `false`. There is a (small)
             // risk a false positives.
             var title = TAPi18n.__(translationKey);
@@ -183,11 +183,12 @@ Popup.template.events({
     }
 });
 
-// We automatically close a potential opened popup on any click on the document.
-// To avoid closing it unexpectedly we modify the bubbled event in case the
-// click event happen in the popup or in a button that open a popup.
+// We automatically close a potential opened popup on any left click on the
+// document. To avoid closing it unexpectedly we modify the bubbled event in
+// case the click event happen in the popup or in a button that open a popup.
 $(document).on('click', function (event) {
-    if (! (event.originalEvent && event.originalEvent.clickInPopup)) {
+    if (event.which === 1 &&
+        ! (event.originalEvent && event.originalEvent.clickInPopup)) {
         Popup.close();
     }
 });
