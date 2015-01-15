@@ -171,4 +171,4 @@
     <textarea class="{{class}}" placeholder="{{_ 'comment-placeholder'}}" id="{{id}}" tabindex="1">{{> UI.contentBlock }}</textarea>
 </template>
 
-<template name="viewer">{{#markdown}}{{#emoji}}{{> UI.contentBlock }}{{/emoji}}{{/markdown}}</template>
+<template name="viewer">{{#markdown}}{{#emoji}}{{#mentions}}{{> UI.contentBlock }}{{/mentions}}{{/emoji}}{{/markdown}}</template>
