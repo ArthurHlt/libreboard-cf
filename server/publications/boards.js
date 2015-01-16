@@ -47,31 +47,53 @@ Meteor.publishComposite('board', function(boardId, slug) {
         // in this publication, and instead use the card publication for that
         // purpose.
         children: [
-            // Lists, cards, and cards comments
+            // Lists
             {
                 find: function(board) {
                     return Lists.find({
                         boardId: board._id
                     });
-                },
-                children: [
-                    {
-                        find: function(list, board) {
-                            return Cards.find({
-                                listId: list._id
-                            });
-                        },
+                }
+            },
 
-                        children: [
-                            // Card comments
-                            {
-                                find: function(card) {
-                                    return CardComments.find({
-                                        cardId: card._id
-                                    });
-                                }
-                            }
-                        ]
+            // Cards and cards comments
+            // XXX Originally we were publishing the card documents as a child
+            // of the list publication defined above using the following
+            // selector `{ listId: list._id }`. But it was causing a race
+            // condition in publish-composite, that I documented here:
+            //
+            //   https://github.com/englue/meteor-publish-composite/issues/29
+            //
+            // I then tried to replace publish-composite by cottz:publish, but
+            // it had a similar problem:
+            //
+            //   https://github.com/Goluis/cottz-publish/issues/4
+            //   https://github.com/libreboard/libreboard/pull/78
+            //
+            // The current state of relational publishing in meteor is a bit
+            // sad, there are a lot of various packages, with various APIs, some
+            // of them are unmaintained. Fortunately this is something that will
+            // be fixed by meteor-core at some point:
+            //
+            //   https://trello.com/c/BGvIwkEa/48-easy-joins-in-subscriptions
+            //
+            // And in the meantime our code below works pretty well -- it's not
+            // even a hack!
+            {
+                find: function(board) {
+                    return Cards.find({
+                        boardId: board._id
+                    });
+                },
+
+                children: [
+                    // Card comments
+                    {
+                        find: function(card) {
+                            return CardComments.find({
+                                cardId: card._id
+                            });
+                        }
                     }
                 ]
             },

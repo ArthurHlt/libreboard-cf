@@ -15,16 +15,7 @@ Template.cards.rendered = function() {
             },
             stop: function(event, ui) {
                 var data = new Utils.getCardData(ui.item);
-
-                // XXX For some reason, running the latency compensation method
-                // on the client randomly raise a bug (#61) in which the drag
-                // and drop operation is visually reversed after a moment -- but
-                // the document is correctly updated and a page refresh shows it
-                // correctly. It seems to happen when the server overwrite the
-                // latency compensated result in the DOM.
-                // The hack used here is to skirt the client operation by
-                // directly calling the server underlined method.
-                Meteor.call('/cards/update', {_id: data.cardId}, {
+                Meteor.update(data.cardId, {
                     $set: {
                         listId: data.listId,
                         sort: data.sort
