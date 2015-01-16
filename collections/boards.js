@@ -71,7 +71,6 @@ Boards.before.insert(function(userId, doc) {
     // a default slug in this case.
     doc.slug = getSlug(doc.title) || 'board';
     doc.createdAt = new Date();
-    doc.openWidgets = true;
     doc.archived = false;
     doc.members = [{
         userId: userId || doc.userId,

@@ -3,7 +3,7 @@
         <span class="icon-sm icon-leftarrow"></span>
         <span class="text">{{_ 'show-sidebar'}}</span>
     </a>
-    <div class="board-widgets {{#if openWidgets}}show{{else}}hide{{/if}} }}">
+    <div class="board-widgets {{#if session 'sidebarIsOpen'}}show{{else}}hide{{/if}}">
         <div>
             <a href="#" class="sidebar-hide-btn dark-hover js-hide-sidebar" title="{{_ 'close-sidebar-title'}}">
                 <span class="icon-sm icon-rightarrow"></span>

@@ -50,7 +50,6 @@ Router.configure({
         // reset default sessions
         Session.set('error', false);
         Session.set('warning', false);
-        Session.set('widgets', true);
 
         Popup.close();
 

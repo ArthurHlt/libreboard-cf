@@ -1,9 +1,9 @@
 Template.boardWidgets.events({
     'click .js-show-sidebar': function(event, t) {
-        Session.set('widgets', true);
+        Session.set('sidebarIsOpen', true);
     },
     'click .js-hide-sidebar': function() {
-        Session.set('widgets', false);
+        Session.set('sidebarIsOpen', false);
     }
 });
 

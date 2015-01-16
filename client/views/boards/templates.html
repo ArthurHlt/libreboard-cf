@@ -41,7 +41,7 @@
 
 <template name="board">
     {{# if this }}
-        <div class="board-wrapper {{# unless openWidgets }}disabled-all-widgets{{/ unless }}">
+        <div class="board-wrapper {{# unless session 'sidebarIsOpen' }}disabled-all-widgets{{/ unless }}">
             <div class="board-header clearfix js-board-header">
                 <a href="#" class="board-header-btn board-header-btn-name js-rename-board {{# unless currentUser.isBoardAdmin }}no-edit{{/ unless}}" title="Rename the board.">
                     <span class="board-header-btn-text"> {{ title }} </span>
