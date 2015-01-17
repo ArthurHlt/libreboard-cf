@@ -66,12 +66,28 @@
 </template>
 
 <template name="memberMenuPopup">
-    <ul class="pop-over-list">
+    <ul class="pop-over-list checkable">
         <li><a class="js-profile" href="{{ pathFor route='Profile' username=currentUser.username }}">{{_ 'profile'}}</a></li>
+        <li><a class="js-language">{{_ 'language'}}</a></li>
         <li><a class="js-cards" href="{{ pathFor route='Settings' }}">{{_ 'settings'}}</a></li>
     </ul>
     <hr>
     <ul class="pop-over-list"><li><a class="js-logout" href="#">{{_ 'log-out'}}</a></li></ul>
+</template>
+
+<template name="setLanguagePopup">
+<ul class="pop-over-list">
+    {{#each languages}}
+        <li class="{{# if isCurrentLanguage}}active{{/if}}">
+            <a class="js-set-language">
+                {{name}}
+                {{# if isCurrentLanguage}}
+                    <span class="icon-sm icon-check"></span>
+                {{/if}}
+            </a>
+        </li>
+    {{/each}}
+</ul>
 </template>
 
 <template name='profile'>

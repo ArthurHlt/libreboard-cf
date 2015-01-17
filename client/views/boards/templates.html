@@ -48,7 +48,7 @@
                 </a>
                 <div class="board-header-btns left">
                     {{# unless isSandstorm }}
-                        <a href="#" class="board-header-btn js-star-board {{#if isStarred }}board-header-btn-enabled{{/ if }}" title="Click to {{# if isStarred }}unstar{{ else }}star{{/ if }} this board. Starred boards show up at the top of your boards list.">
+                        <a href="#" class="board-header-btn js-star-board {{#if isStarred }}board-header-btn-enabled{{/ if }}" title="{{# if isStarred }}{{_ 'click-to-unstar'}}{{ else }}{{_ 'click-to-star'}}{{/ if }} {{_ 'starred-boards-description'}}">
                             <span class="board-header-btn-icon icon-sm icon-star"></span>
                         </a>
                         <a href="#" class="board-header-btn perms-btn js-change-vis {{# unless currentUser.isBoardAdmin }}no-edit{{/ unless}}" id="permission-level">

@@ -18,6 +18,11 @@ already. You can then send a request to join one of the translation teams. If
 there is no team for your language, contact us by email or with github issues
 and we will create a new one.
 
+New strings to translate appear automatically on Transifex after the english
+version has been pushed on LibreBoard master branch. It may take a few hours
+before appearing in the Transifex interface. We pull all translations from
+Transifex before every new LibreBoard release.
+
 ## Installation
 
 ## install nodejs on Ubuntu

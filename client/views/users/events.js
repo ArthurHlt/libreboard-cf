@@ -28,7 +28,8 @@ Template.signup.events({
                 email: email,
                 password: password,
                 profile: {
-                    name: name
+                    name: name,
+                    language: TAPi18n.getLanguage()
                 }
             };
 
@@ -53,12 +54,24 @@ Template.memberHeader.events({
 });
 
 Template.memberMenuPopup.events({
+    'click .js-language': Popup.open('setLanguage'),
     'click .js-logout': function(event, t) {
         event.preventDefault();
 
         Meteor.logout(function() {
             Router.go('Home');
         });
+    }
+});
+
+Template.setLanguagePopup.events({
+    'click .js-set-language': function(event) {
+        Users.update(Meteor.userId(), {
+            $set: {
+                'profile.language': this.tag
+            }
+        });
+        event.preventDefault();
     }
 });
 

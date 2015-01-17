@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.com
+
+[libreboard.application]
+file_filter = i18n/<lang>.i18n.json
+source_lang = en
+type = KEYVALUEJSON

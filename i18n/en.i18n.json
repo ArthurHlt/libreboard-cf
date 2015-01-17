@@ -77,6 +77,7 @@
     "label-delete-pop": "There is no undo. This will remove this label from all cards and destroy its history.",
     "label-default": "%s label (default)",
     "last-admin-desc": "You can’t change roles because there must be at least one admin.",
+    "language": "Language",
     "leave-board": "Leave Board…",
     "link-card": "Link to this card",
     "list-move-cards": "Move All Cards in This List…",
@@ -127,6 +128,9 @@
     "sign-up": "Sign Up",
     "star-board-title": "Click to star this board. It will show up at top of your boards list.",
     "starred-boards": "Starred Boards",
+    "starred-boards-description": "Starred boards show up at the top of your boards list.",
+    "click-to-star": "Click to star this board.",
+    "click-to-unstar": "Click to unstar this board.",
     "subscribe": "Subscribe",
     "team": "Team",
     "title": "Title",
@@ -149,5 +153,6 @@
     "listArchiveCardsPopup-title": "Archive All Cards in this List?",
     "createLabelPopup-title": "Create Label",
     "deleteLabelPopup-title": "Delete Label?",
-    "changePermissionsPopup-title": "Change Permissions"
+    "changePermissionsPopup-title": "Change Permissions",
+    "setLanguagePopup-title": "Change Language"
 }
