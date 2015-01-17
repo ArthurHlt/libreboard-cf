@@ -15,7 +15,7 @@ Template.cards.rendered = function() {
             },
             stop: function(event, ui) {
                 var data = new Utils.getCardData(ui.item);
-                Meteor.update(data.cardId, {
+                Cards.update(data.cardId, {
                     $set: {
                         listId: data.listId,
                         sort: data.sort
