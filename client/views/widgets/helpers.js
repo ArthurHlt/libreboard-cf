@@ -2,6 +2,19 @@ var currentBoard = function() {
     return Boards.findOne(Router.current().params.boardId);
 }
 
+var widgetTitles = {
+    filter: 'filter-cards'
+};
+
+Template.boardWidgets.helpers({
+    currentWidget: function() {
+        return Session.get('currentWidget') + 'Widget';
+    },
+    currentWidgetTitle: function() {
+        return TAPi18n.__(widgetTitles[Session.get('currentWidget')]);
+    }
+});
+
 Template.addMemberPopup.helpers({
     isBoardMember: function() {
         var user = Users.findOne(this._id);

@@ -16,7 +16,10 @@ Lists.allow({
 
 Lists.helpers({
     cards: function() {
-        return Cards.find({ listId: this._id, archived: false }, { sort: ['sort'] });
+        return Cards.find(_.extend(Filter.getMongoSelector(), {
+            listId: this._id,
+            archived: false
+        }), { sort: ['sort'] });
     },
     board: function() {
         return Boards.findOne(this.boardId);

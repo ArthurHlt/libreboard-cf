@@ -19,7 +19,15 @@ Template.board.events({
         toggleBoardStar(this._id);
     },
     'click .js-rename-board:not(.no-edit)': Popup.open('boardChangeTitle'),
-    'click #permission-level:not(.no-edit)': Popup.open('boardChangePermission')
+    'click #permission-level:not(.no-edit)': Popup.open('boardChangePermission'),
+    'click .js-filter-cards-indicator': function(event) {
+        Session.set('currentWidget', 'filter');
+        event.preventDefault();
+    },
+    'click .js-filter-card-clear': function(event) {
+        Filter.reset();
+        event.stopPropagation();
+    }
 });
 
 Template.createBoardPopup.events({

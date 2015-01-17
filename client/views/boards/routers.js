@@ -12,6 +12,11 @@ Router.route('/boards/:boardId/:slug', {
     name: 'Board',
     template: 'board',
     bodyClass: 'page-index chrome chrome-39 mac extra-large-window body-webkit-scrollbars body-board-view bgBoard',
+    onAfterAction: function() {
+        Session.set('sidebarIsOpen', true);
+        Session.set('currentWidget', 'home');
+        Session.set('menuWidgetIsOpen', false);
+    },
     waitOn: function() {
         var params = this.params;
 

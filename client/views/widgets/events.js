@@ -4,10 +4,16 @@ Template.boardWidgets.events({
     },
     'click .js-hide-sidebar': function() {
         Session.set('sidebarIsOpen', false);
+    },
+    'click .js-pop-widget-view': function() {
+        Session.set('currentWidget', 'home');
     }
 });
 
 Template.menuWidget.events({
+    'click .js-open-card-filter': function() {
+        Session.set('currentWidget', 'filter');
+    },
     'click .js-close-board': Popup.afterConfirm('closeBoard', function() {
         Boards.update(this.board._id, {
             $set: {
@@ -18,19 +24,18 @@ Template.menuWidget.events({
         Router.go('Boards');
     }),
     'click .js-toggle-widget-nav': function(event, t) {
-        var content = $('.board-widgets-content'),
-            listWidget = $('.board-widget-nav');
+        Session.set('menuWidgetIsOpen', ! Session.get('menuWidgetIsOpen'));
+    }
+});
 
-        // toggle short hasClass remove short and collapsed classes
-        if (content.hasClass('short')) {
-            content.removeClass('short');
-            listWidget.removeClass('collapsed');
-
-        // if found then add Class show menu
-        } else {
-            content.addClass('short');
-            listWidget.addClass('collapsed');
-        }
+Template.filterWidget.events({
+    'click .js-toggle-label-filter': function(event) {
+        Filter.labelIds.toogle(this._id);
+        event.preventDefault();
+    },
+    'click .js-toogle-member-filter': function(event) {
+        Filter.members.toogle(this._id);
+        event.preventDefault();
     }
 });
 

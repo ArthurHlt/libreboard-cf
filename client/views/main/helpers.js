@@ -1,8 +1,3 @@
-// By default we open the widgets sidebar
-// XXX Should we persiste user preference somewhere? In the server database? In
-// the browser?
-Session.setDefault('sidebarIsOpen', true);
-
 var Helpers = {
     error: function() {
         return Session.get('error');
@@ -22,8 +17,8 @@ var Helpers = {
     isTrue: function(a, b) {
         return a == b;
     },
-    isTrueThen: function(a, b, trueThen, falseThen) {
-        return a == b ? trueThen : (falseThen || false);
+    getUser: function(userId) {
+        return Users.findOne(userId);
     },
     moment: function(d, f) {
         return moment(d).format(f);
@@ -57,7 +52,6 @@ Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
 
     var mentionRegex = /\B@(\w*)/gi;
     var currentMention, knowedUser, href, linkClass, linkValue, link;
-    debugger;
     while (currentMention = mentionRegex.exec(content)) {
 
         knowedUser = _.findWhere(knowedUsers, { username: currentMention[1] });

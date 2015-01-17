@@ -57,6 +57,14 @@
                         </a>
                     {{/ unless }}
                 </div>
+                <div class="board-header-btns right">
+                    {{#if Filter.isActive}}
+                        <a class="board-header-btn board-header-btn-filter-indicator js-filter-cards-indicator" title="{{_ 'filter-on-desc'}}">
+                            <span class="board-header-btn-icon icon-sm icon-filter"></span><span class="board-header-btn-text underline">{{_ 'filter-on'}}</span>
+                            <span class="board-header-btn-icon-close icon-sm icon-close js-filter-card-clear" title="{{_ 'filter-clear'}}"></span>
+                        </a>
+                    {{/if}}
+                </div>
             </div>
             {{ > boardWidgets board=this }}
             {{ > lists board=this }}

@@ -8,26 +8,32 @@
             <a href="#" class="sidebar-hide-btn dark-hover js-hide-sidebar" title="{{_ 'close-sidebar-title'}}">
                 <span class="icon-sm icon-rightarrow"></span>
             </a>
-            <div class="board-widgets-title clearfix">
-                <a href="#" class="board-sidebar-back-btn js-pop-widget-view">
-                    <span class="left-arrow"></span>{{_ 'back'}}
-                </a>
-                <h3 class="text"></h3>
-                <hr>
-            </div>
+            {{#unless isTrue currentWidget "homeWidget"}}
+                <div class="board-widgets-title clearfix">
+                    <a href="#" class="board-sidebar-back-btn js-pop-widget-view">
+                        <span class="left-arrow"></span>{{_ 'back'}}
+                    </a>
+                    <h3 class="text">{{currentWidgetTitle}}</h3>
+                    <hr>
+                </div>
+            {{/unless}}
             <div class="board-widgets-content-wrapper">
-                <div class="board-widgets-content default fancy-scrollbar short">
-                    {{ > menuWidget board=board }}
-                    {{ > membersWidget }}
-                    {{ > activityWidget }}
+                <div class="board-widgets-content default fancy-scrollbar short{{#unless session 'menuWidgetIsOpen'}} short{{/unless}}">
+                    {{> UI.dynamic template=currentWidget data=this }}
                 </div>
             </div>
         </div>
     </div>
 </template>
 
+<template name="homeWidget">
+{{ > menuWidget }}
+{{ > membersWidget }}
+{{ > activityWidget }}
+</template>
+
 <template name="menuWidget">
-    <div class="board-widget board-widget-nav clearfix collapsed">
+    <div class="board-widget board-widget-nav clearfix{{#unless session 'menuWidgetIsOpen'}} collapsed{{/unless}}">
         <h3 class="dark-hover toggle-widget-nav js-toggle-widget-nav">{{_ 'menu'}}
             <span class="icon-sm icon-menu toggle-menu-icon"></span>
         </h3>
@@ -37,6 +43,12 @@
                 <a href="#" class="nav-list-item js-open-archive">
                     <span class="icon-sm icon-archive icon-type"></span>
                     {{_ 'archived-items'}}
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-list-item js-open-card-filter">
+                    <span class="icon-sm icon-filter icon-type"></span>
+                    {{_ 'filter-cards'}}
                 </a>
             </li>
             {{# unless isSandstorm }}
@@ -120,6 +132,47 @@
             </ul>
         {{/ if }}
     </div>
+</template>
+
+<template name="filterWidget">
+    <ul class="pop-over-label-list checkable">
+        {{#each board.labels}}
+            <li class="item matches-filter">
+                <a class="name js-toggle-label-filter">
+                    <span class="card-label card-label-{{color}}"></span>
+                    <span class="full-name">
+                        {{#if name}}
+                            {{name}}
+                        {{else}}
+                            <span class="quiet">{{_ "label-default" color}}</span>
+                        {{/if}}
+                    </span>
+                    {{#if Filter.labelIds.isSelected _id}}
+                        <span class="icon-sm icon-check"></span>
+                    {{/if}}
+                </a>
+            </li>
+        {{/each}}
+    </ul>
+    <hr>
+    <ul class="pop-over-member-list checkable">
+        {{#each board.members}}
+            {{#with getUser userId}}
+                <li class="item js-member-item {{#if Filter.members.isSelected _id}}active{{/if}}">
+                    <a href="#" class="name js-toogle-member-filter">
+                        {{> userAvatar user=this size="small" }}
+                        <span class="full-name">
+                            {{ profile.name }}
+                            (<span class="username">{{ username }}</span>)
+                        </span>
+                        {{#if Filter.members.isSelected _id}}
+                            <span class="icon-sm icon-check checked-icon"></span>
+                        {{/if}}
+                    </a>
+                 </li>
+            {{/with}}
+        {{/each}}
+    </ul>
 </template>
 
 <template name="closeBoardPopup">
