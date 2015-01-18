@@ -1,75 +1,60 @@
 # Contributing
 
-We welcome bug reports, enhancement ideas, and pull requests, in our github bug
-tracker. Before opening a new thread please verify if your issue hasn't already
-been reported.
+We’re glad you’re interested in helping the LibreBoard project! We welcome bug
+reports, enhancement ideas, and pull requests, in our Github bug tracker. Before
+opening a new thread please verify that your issue hasn’t already been reported.
 
-> https://github.com/libreboard/libreboard
-
-LibreBoard is made with [Meteor](https://www.meteor.com/).
+<https://github.com/libreboard/libreboard>
 
 ## Translations
 
-You are very welcome to translate — or improve the translation of — LibreBoard
-in your locale language. For that purpose we rely on
-[Transifex](https://www.transifex.com/organization/libreboard/dashboard/libreboard).
-So the first step is to create a Transifex account if you don't have one
-already. You can then send a request to join one of the translation teams. If
-there is no team for your language, contact us by email or with github issues
-and we will create a new one.
+You are encouraged to translate — or improve the translation of — LibreBoard in
+your locale language. For that purpose we rely on
+[Transifex](https://www.transifex.com/projects/p/libreboard). So the first step
+is to create a Transifex account if you don’t have one already. You can then
+send a request to join one of the translation teams. If there is no team for
+your language, contact us by email or open a Github issue and we will create a
+new one.
 
-New strings to translate appear automatically on Transifex after the english
-version has been pushed on LibreBoard master branch. It may take a few hours
-before appearing in the Transifex interface. We pull all translations from
-Transifex before every new LibreBoard release.
+Once you are in a team you can start translating the application. Please take a
+look at the glossary so you can agree with other (present and future)
+contributors on words to use to translate key concepts in the application like
+“boards” and “cards”.
+
+The original application is written in English, and if you want to contribute to
+the application itself, you are asked to fill the `i18n/en.i18n.json` file. When
+you do that the new strings of text to translate automatically appears on
+Transifex to be translated (the refresh may take a few hours).
+
+We pull all translations from Transifex before every new LibreBoard release
+candidate, ask the translators to review the app, and pull all translations
+again for the final release.
 
 ## Installation
 
-## install nodejs on Ubuntu
+LibreBoard is made with [Meteor](https://www.meteor.com). Thus the easiest way
+to start hacking is by installing the framework, cloning the git repository, and
+launching the application:
 
-```
-$ sudo apt-get install python-software-properties
-$ sudo add-apt-repository ppa:chris-lea/node.js
-$ sudo apt-get update
-$ sudo apt-get install nodejs nodejs-dev npm
-```
-
-## install nodejs on Mac OSX
-
-```
-$ brew update
-$ brew install node
-
-## install meteor
-
-```
-$ curl https://install.meteor.com/ | sh
-```
-
-## Clone and run
-
-```
-$ git clone https://github.com/libreboard/libreboard
+```bash
+$ curl https://install.meteor.com/ | sh # On Mac or Linux
+$ git clone https://github.com/libreboard/libreboard.git
 $ cd libreboard
-$ meteor run
+$ meteor
 ```
+
+As for any Meteor application, LibreBoard is automatically refreshed when you
+change any file of the source code, just play with it to see how it behaves!
 
 ## Style guide
 
 We follow the
 [meteor style guide](https://github.com/meteor/meteor/wiki/Meteor-Style-Guide)
-with the following modifications:
+with only one modification, which is that we indent using 4 spaces (spaces, not
+literal tabs).
 
-* 4 space indents
-* indent with spaces, not literal tabs
-
-## Pull requests
-
-1. Fork it
-2. Create your feature branch (git checkout -b new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin new-feature)
-5. Create new Pull Request
+Please read the meteor style guide before making any significant contribution.
 
 ## Code organisation
 
+TODO
