@@ -49,18 +49,6 @@ Boards.helpers({
     }
 });
 
-// METHODS
-Meteor.methods({
-    removeCardMember: function(_id) {
-        check(_id, String);
-        CardMembers.update({ memberId: _id }, {
-            $set: {
-                approved: false
-            }
-        });
-    }
-});
-
 // HOOKS
 Boards.before.insert(function(userId, doc) {
     // XXX We need to improve slug management. Only the id should be necessary
