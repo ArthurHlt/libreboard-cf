@@ -213,21 +213,23 @@ isServer(function() {
     });
 
     // Add a new activity if we add or remove a member to the card
-    Cards.after.update(function(userId, doc, fieldNames, modifier) {
+    Cards.before.update(function(userId, doc, fieldNames, modifier) {
         if (! _.contains(fieldNames, 'members'))
             return;
 
         // Say hello to the new member
         if (modifier.$addToSet && modifier.$addToSet.members) {
             var memberId = modifier.$addToSet.members;
-            Activities.insert({
-                type: 'card',
-                activityType: "joinMember",
-                boardId: doc.boardId,
-                cardId: doc._id,
-                userId: userId,
-                memberId: memberId
-            });
+            if (!_.contains(doc.members, memberId)) {
+                Activities.insert({
+                    type: 'card',
+                    activityType: "joinMember",
+                    boardId: doc.boardId,
+                    cardId: doc._id,
+                    userId: userId,
+                    memberId: memberId
+                });
+            }
         }
 
         // Say goodbye to the former member
