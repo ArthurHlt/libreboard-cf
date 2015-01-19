@@ -10,7 +10,6 @@ meteor-platform
 random
 reactive-dict
 
-copleykj:livestamp
 dburles:collection-helpers
 fortawesome:fontawesome
 iron:router
@@ -18,7 +17,7 @@ kenton:accounts-sandstorm
 linto:jquery-ui
 matb33:collection-hooks
 matteodem:easy-search
-momentjs:moment
+mquandalle:moment
 mquandalle:jquery-textcomplete
 mquandalle:stylus
 ongoworks:speakingurl

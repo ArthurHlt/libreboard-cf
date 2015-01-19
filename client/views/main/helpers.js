@@ -19,9 +19,6 @@ var Helpers = {
     },
     getUser: function(userId) {
         return Users.findOne(userId);
-    },
-    moment: function(d, f) {
-        return moment(d).format(f);
     }
 };
 
