@@ -21,3 +21,13 @@ Migrations.add('board-background-color', function() {
         multi: true
     });
 });
+
+Migrations.add('lowercase-board-permission', function() {
+    _.forEach(['Public', 'Private'], function(permission) {
+        Boards.update(
+            { permission: permission },
+            { $set: { permission: permission.toLowerCase() } },
+            { multi: true }
+        );
+    });
+});

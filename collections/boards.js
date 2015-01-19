@@ -57,8 +57,7 @@ Boards.attachSchema(new SimpleSchema({
     },
     permission: {
         type: String,
-        // XXX Don't uppercase the initial.
-        allowedValues: ['Public', 'Private']
+        allowedValues: ['public', 'private']
     },
     'background.type': {
         type: String,

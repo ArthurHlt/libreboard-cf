@@ -39,7 +39,7 @@ Template.createBoardPopup.events({
             // İnsert Board title
             var boardId = Boards.insert({
                 title: title.val(),
-                permission : 'Public'
+                permission : 'public'
             });
 
             // Go to Board _id

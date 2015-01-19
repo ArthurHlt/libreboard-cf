@@ -28,7 +28,7 @@ Attachments.allow({
         var query = {
             $or: [
                 { 'members.userId': userId },
-                { permission: 'Public' }
+                { permission: 'public' }
             ]
         };
         return !!Boards.findOne(doc.boardId, query);

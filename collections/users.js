@@ -42,7 +42,7 @@ isServer(function() {
         var ExampleBoard = {
             title: 'Welcome Board',
             userId: doc._id,
-            permission: 'Private' // Private || Public
+            permission: 'private' // Private || Public
         };
 
         // Welcome Board insert and list, card :)

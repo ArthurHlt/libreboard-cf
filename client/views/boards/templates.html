@@ -53,7 +53,7 @@
                         </a>
                         <a href="#" class="board-header-btn perms-btn js-change-vis {{# unless currentUser.isBoardAdmin }}no-edit{{/ unless}}" id="permission-level">
                             <span class="board-header-btn-icon icon-sm icon-{{ toLowerCase permission }}"></span>
-                            <span class="board-header-btn-text">{{ permission }}</span>
+                            <span class="board-header-btn-text">{{ _ permission }}</span>
                         </a>
                     {{/ unless }}
                 </div>
@@ -98,20 +98,20 @@
 <template name="boardChangePermissionPopup">
     <ul class="pop-over-list">
         <li>
-            <a class="js-select light-hover" href="#" name="Private">
+            <a class="js-select light-hover" name="private">
                 <span class="icon-sm icon-private vis-icon"></span>
                 {{_ 'private'}}
-                {{# if check 'Private' }}
+                {{# if check 'private' }}
                     <span class="icon-sm icon-check"></span>
                 {{/if}}
                 <span class="sub-name">{{_ 'private-desc'}}</span>
             </a>
         </li>
         <li>
-            <a class="js-select light-hover" href="#" name="Public">
+            <a class="js-select light-hover" name="public">
                 <span class="icon-sm icon-public vis-icon"></span>
                 {{_ 'public'}}
-                {{# if check 'Public' }}
+                {{# if check 'public' }}
                     <span class="icon-sm icon-check"></span>
                 {{/if}}
                 <span class="sub-name">{{_ 'public-desc'}}</span>
