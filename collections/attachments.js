@@ -2,12 +2,7 @@ Attachments = new FS.Collection("attachments", {
     stores: [
         // XXX Add a new store for cover thumbnails so we don't load big images
         // in the general board view
-        new FS.Store.FileSystem("attachments", {
-            // XXX We save the files using a UNIX convention that will not work
-            // on Windows. When meteor support for windows lands (soon!) we
-            // should test the platform and use an appropriate path.
-            path: "/var/lib/libreboard/uploads/attachements"
-        })
+        new FS.Store.GridFS("attachments")
     ]
 });
 

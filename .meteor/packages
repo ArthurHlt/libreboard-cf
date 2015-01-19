@@ -29,4 +29,4 @@ bengott:avatar
 aldeed:collection2
 idmontie:migrations
 cfs:standard-packages
-cfs:filesystem
+cfs:gridfs

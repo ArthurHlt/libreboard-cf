@@ -314,6 +314,8 @@ Template.cardAttachmentsPopup.events({
 
             // upload file
             Attachments.insert(file);
+
+            Popup.close();
         });
     },
     'click .js-computer-upload': function(event, t) {
