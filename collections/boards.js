@@ -8,20 +8,29 @@ Boards.attachSchema(new SimpleSchema({
         type: String
     },
     archived: {
-        type: Boolean
+        type: Boolean,
+        defaultValue: false
     },
     createdAt: {
         type: Date,
-        denyUpdate: true
+        denyUpdate: true,
+        autoValue: function() {
+            if (this.isInsert)
+                return new Date();
+        }
     },
     // XXX Inconsistent field naming
     modifiedAt: {
         type: Date,
         denyInsert: true,
-        optional: true
+        optional: true,
+        autoValue: function() {
+            if (this.isUpdate)
+                return new Date();
+        }
     },
     // De-normalized label system
-    'label.$._id': {
+    'labels.$._id': {
         // We don't specify that this field must be unique in the board because
         // that will cause performance penalties and is not necessary because
         // this field is always set on the server.
@@ -29,11 +38,11 @@ Boards.attachSchema(new SimpleSchema({
         // without being overwritten by the server, could it be a problem?
         type: String
     },
-    'label.$.name': {
+    'labels.$.name': {
         type: String,
         optional: true
     },
-    'label.$.color': {
+    'labels.$.color': {
         type: String
     },
     // XXX We might want to maintain more informations under the member
@@ -43,7 +52,7 @@ Boards.attachSchema(new SimpleSchema({
     'members.$.userId': {
         type: String
     },
-    'member.$.isAdmin': {
+    'members.$.isAdmin': {
         type: Boolean
     },
     permission: {
@@ -130,8 +139,6 @@ Boards.before.insert(function(userId, doc) {
     // return an empty string. This is causes bugs in our application so we set
     // a default slug in this case.
     doc.slug = getSlug(doc.title) || 'board';
-    doc.createdAt = new Date();
-    doc.archived = false;
     doc.members = [{
         userId: userId || doc.userId,
         isAdmin: true
@@ -155,12 +162,6 @@ Boards.before.insert(function(userId, doc) {
             color: Random.choice(DefaultBoardBackgroundColors)
         };
     }
-});
-
-Boards.before.update(function(userId, doc, fieldNames, modifier) {
-    if (! _.isObject(modifier.$set))
-        modifier.$set = {};
-    modifier.$set.modifiedAt = new Date();
 });
 
 

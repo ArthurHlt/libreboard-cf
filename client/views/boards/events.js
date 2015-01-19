@@ -37,7 +37,10 @@ Template.createBoardPopup.events({
         // trim value title
         if ($.trim(title.val())) {
             // İnsert Board title
-            var boardId = Boards.insert({ title: title.val(), permission : 'Public' });
+            var boardId = Boards.insert({
+                title: title.val(),
+                permission : 'Public'
+            });
 
             // Go to Board _id
             Utils.goBoardId(boardId);

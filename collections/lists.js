@@ -5,26 +5,34 @@ Lists.attachSchema(new SimpleSchema({
         type: String
     },
     archived: {
-        type: Boolean
+        type: Boolean,
+        defaultValue: false
     },
     boardId: {
         type: String
     },
     createdAt: {
         type: Date,
-        denyUpdate: true
+        denyUpdate: true,
+        autoValue: function() {
+            if (this.isInsert)
+                return new Date();
+        }
     },
     sort: {
         type: Number,
-        decimal: true
+        decimal: true,
+        // XXX We should probably provide a default
+        optional: true
     },
     updatedAt: {
         type: Date,
-    },
-    // XXX Useless, update authorizations relies on the board members, not on
-    // this field.
-    userId: {
-        type: String
+        denyInsert: true,
+        optional: true,
+        autoValue: function() {
+            if (this.isUpdate)
+                return new Date();
+        }
     }
 }));
 
@@ -56,17 +64,6 @@ Lists.helpers({
 
 // HOOKS
 Lists.hookOptions.after.update = { fetchPrevious: false };
-Lists.before.insert(function(userId, doc) {
-    doc.createdAt = new Date();
-    doc.updatedAt = new Date();
-    doc.archived = false;
-    if (!doc.userId) doc.userId = userId;
-});
-
-
-Lists.before.update(function(userId, doc, fieldNames, modifier) {
-    modifier.$set.modifiedAt = new Date();
-});
 
 isServer(function() {
     Lists.after.insert(function(userId, doc) {
