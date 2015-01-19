@@ -21,7 +21,8 @@ Meteor.publish('boards', function() {
         fields: {
             _id: 1,
             slug: 1,
-            title: 1
+            title: 1,
+            background: 1
         }
     });
 });

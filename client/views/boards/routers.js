@@ -33,3 +33,27 @@ Router.route('/boards/:boardId/:slug', {
         return Boards.findOne(this.params.boardId);
     }
 });
+
+// Reactively set the color of the page from the color of the current board.
+Meteor.startup(function() {
+    Tracker.autorun(function() {
+        var currentRoute = Router.current();
+        // We have to be very defensive here because we have no idea what the
+        // state of the application is, so we have to test existence of any
+        // property we want to use.
+        // XXX There is one feature of coffeescript that rely shine in this kind
+        // of code: `currentRoute?.params?.boardId` -- concise and clear.
+        var currentBoard = Boards.findOne(currentRoute &&
+                                          currentRoute.params &&
+                                          currentRoute.params.boardId);
+        if (currentBoard &&
+            currentBoard.background &&
+            currentBoard.background.type === "color") {
+            $(document.body).css({
+                backgroundColor: currentBoard.background.color
+            });
+        } else {
+            $(document.body).css({ backgroundColor: '' });
+        }
+    });
+});

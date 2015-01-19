@@ -3,7 +3,8 @@ var currentBoard = function() {
 }
 
 var widgetTitles = {
-    filter: 'filter-cards'
+    filter: 'filter-cards',
+    background: 'change-background'
 };
 
 Template.boardWidgets.helpers({
@@ -19,6 +20,12 @@ Template.addMemberPopup.helpers({
     isBoardMember: function() {
         var user = Users.findOne(this._id);
         return user && user.isBoardMember();
+    }
+});
+
+Template.backgroundWidget.helpers({
+    backgroundColors: function() {
+        return DefaultBoardBackgroundColors;
     }
 });
 

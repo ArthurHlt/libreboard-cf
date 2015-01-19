@@ -14,6 +14,9 @@ Template.menuWidget.events({
     'click .js-open-card-filter': function() {
         Session.set('currentWidget', 'filter');
     },
+    'click .js-change-background': function() {
+        Session.set('currentWidget', 'background');
+    },
     'click .js-close-board': Popup.afterConfirm('closeBoard', function() {
         Boards.update(this.board._id, {
             $set: {
@@ -39,6 +42,19 @@ Template.filterWidget.events({
     }
 });
 
+Template.backgroundWidget.events({
+    'click .js-select-background': function(event) {
+        var currentBoardId = Router.current().params.boardId;
+        Boards.update(currentBoardId, {$set: {
+            background: {
+                type: 'color',
+                color: this.toString()
+            }
+        }});
+        event.preventDefault();
+    }
+});
+
 var getMemberIndex = function(board, searchId) {
     for (var i = 0; i < board.members.length; i++) {
         if (board.members[i].userId === searchId)
@@ -50,8 +66,8 @@ var getMemberIndex = function(board, searchId) {
 Template.memberPopup.events({
     'click .js-change-role': Popup.open('changePermissions'),
     'click .js-remove-member:not(.disabled)': Popup.afterConfirm('removeMember', function(){
-        var currentBoard = Boards.findOne(Router.current().params.boardId);
-        Boards.update(currentBoard._id, {$pull: {members: {userId: this.userId}}});
+        var currentBoardId = Router.current().params.boardId;
+        Boards.update(currentBoardId, {$pull: {members: {userId: this.userId}}});
         Popup.close();
     }),
     'click .js-leave-member': function(event, t) {

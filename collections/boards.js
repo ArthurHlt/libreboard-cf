@@ -50,6 +50,17 @@ Boards.attachSchema(new SimpleSchema({
         type: String,
         // XXX Don't uppercase the initial.
         allowedValues: ['Public', 'Private']
+    },
+    'background.type': {
+        type: String,
+        allowedValues: ['color']
+    },
+    'background.color': {
+        // It's important to be strict about what we accept here, because if
+        // certain malicious data are inserted this could lead to XSS injections
+        // since we display this variable in a <style> tag.
+        type: String,
+        regEx: /^#[0-9A-F]{6}$/
     }
 }));
 
@@ -96,11 +107,19 @@ Boards.helpers({
     },
     activities: function() {
         return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
-    } ,
+    },
     absoluteUrl: function() {
         return Router.path("Board", { boardId: this._id, slug: this.slug });
     }
 });
+
+// We define a set of six default background colors that we took from the FlatUI
+// palette: http://flatuicolors.com
+// XXX Unfortunately since we need this list in both the board insert hook and
+// in one of the client side helper we have to makes it global. Change this when
+// the variable sharing model of meteor is improved.
+DefaultBoardBackgroundColors = ["#16A085", "#C0392B", "#2980B9",
+                                "#8E44AD", "#2C3E50", "#E67E22"];
 
 // HOOKS
 Boards.before.insert(function(userId, doc) {
@@ -128,6 +147,14 @@ Boards.before.insert(function(userId, doc) {
             color: val
         });
     });
+
+    // We randomly chose one of the default background colors for the board
+    if (Meteor.isClient) {
+        doc.background = {
+            type: "color",
+            color: Random.choice(DefaultBoardBackgroundColors)
+        };
+    }
 });
 
 Boards.before.update(function(userId, doc, fieldNames, modifier) {

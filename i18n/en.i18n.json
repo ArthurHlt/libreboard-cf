@@ -36,6 +36,7 @@
     "card-delete-notice": "Deleting is permanent. You will lose all actions associated with this card.",
     "card-delete-pop": "All actions will be removed from the activity feed and you won't be able to re-open the card. There is no undo. You can archive a card to remove it from the board and preserve the activity.",
     "change-avatar": "Change Avatar",
+    "change-background": "Change background",
     "change-email": "Change Email",
     "change-name-initials-bio": "Change Name, Initials, or Bio",
     "change-password": "Change Password",

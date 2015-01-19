@@ -51,13 +51,20 @@
                     {{_ 'filter-cards'}}
                 </a>
             </li>
-            {{# unless isSandstorm }}
-                {{# if currentUser.isBoardAdmin }}
+            <hr>
+            {{#if currentUser.isBoardAdmin}}
+                <li>
+                    <a class="nav-list-item nav-list-sub-item board-settings-background js-change-background">
+                        <span class="board-settings-background-preview" style="background-color:{{board.background.color}}"></span>
+                        {{_ 'change-background'}}…
+                    </a>
+                </li>
+                {{#unless isSandstorm }}
                     <li>
                         <a class="nav-list-item nav-list-sub-item js-close-board" href="#">{{_ 'close-board'}}</a>
                     </li>
-                {{/ if }}
-            {{/ unless }}
+                {{/unless}}
+            {{/if}}
         </ul>
     </div>
 </template>
@@ -173,6 +180,33 @@
             {{/with}}
         {{/each}}
     </ul>
+</template>
+
+<template name="backgroundWidget">
+    <div class="board-widgets-content-wrapper fancy-scrollbar">
+        <div class="board-widgets-content">
+            <div class="board-backgrounds-list clearfix">
+                {{#each backgroundColors}}
+                    <div class="board-background-select js-select-background">
+                        <span class="background-box " style="background-color: {{this}}; "></span>
+                    </div>
+                {{/each}}
+            </div>
+            {{!--
+                <h2 class="clear">Photos</h2>
+                <div class="board-backgrounds-list relative clearfix js-gold-photos-list disabled">
+                    <div class="board-background-select js-select-background">
+                        <span class="background-box " style="background-image: url(&quot;{{url}}&quot;);">
+                            <a class="background-option js-background-attribution" href={{href}} target="_blank" title={{title}}>
+                                <img src="https://d78fikflryjgj.cloudfront.net/images/d906fe5c1274c56c5571d49705547587/cc.png" style="height: 14px; width: 14px; vertical-align: text-top;" title="http://creativecommons.org/licenses/by/2.0/deed.en">
+                                <span class="text" style="margin-left: 2px;">{{author}}</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            --}}
+        </div>
+    </div>
 </template>
 
 <template name="closeBoardPopup">
