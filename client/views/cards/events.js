@@ -167,7 +167,16 @@ Template.WindowSidebarModule.events({
         Utils.goBoardId(this.card.board()._id);
         Popup.close();
     }),
-    'click .js-more-menu': Popup.open('cardMore')
+    'click .js-more-menu': Popup.open('cardMore'),
+    'click .js-attach': Popup.open('cardAttachments')
+});
+
+Template.WindowAttachmentsModule.events({
+    'click .js-attach': Popup.open('cardAttachments'),
+    'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
+        Attachments.remove(this._id);
+        Popup.close();
+    })
 });
 
 Template.cardMembersPopup.events({
@@ -291,4 +300,24 @@ Template.cardMorePopup.events({
         // redirect board
         Utils.goBoardId(this.card.board()._id);
     })
+});
+
+Template.cardAttachmentsPopup.events({
+    'change .js-attach-file': function(event, t) {
+        var card = this.card;
+        FS.Utility.eachFile(event, function(f) {
+            var file = new FS.File(f);
+
+            // set Ids
+            file.boardId = card.boardId;
+            file.cardId  = card._id;
+
+            // upload file
+            Attachments.insert(file);
+        });
+    },
+    'click .js-computer-upload': function(event, t) {
+        t.find('.js-attach-file').click();
+        event.preventDefault();
+    }
 });

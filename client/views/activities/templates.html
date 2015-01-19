@@ -79,6 +79,13 @@
                             </div>
                         </div>
                     {{ /if }}
+
+                    {{# if isTrue activityType 'addAttachment' }}
+                        <div class="phenom-desc">
+                            {{_ 'attached'}} <a href="{{ attachment.url }}" class="js-open-attachment-viewer">{{ attachment.name }}</a>
+                            to <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>
+                        </div>
+                    {{ /if }}
                 </div>
                 <p class="phenom-meta quiet">
                     <span class="date js-hide-on-sending">

@@ -31,6 +31,9 @@ Activities.helpers({
     },
     comment: function() {
         return CardComments.findOne(this.commentId);
+    },
+    attachment: function() {
+        return Attachments.findOne(this.attachmentId);
     }
 });
 

@@ -170,7 +170,9 @@ Popup = {
 
 Popup.template.events({
     'click': function(event) {
-        event.originalEvent.clickInPopup = true;
+        if (event.originalEvent)  {
+            event.originalEvent.clickInPopup = true;
+        }
     },
     'click .js-back-view': function() {
         Popup.back();

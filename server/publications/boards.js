@@ -88,10 +88,18 @@ Meteor.publishComposite('board', function(boardId, slug) {
                 },
 
                 children: [
-                    // Card comments
+                    // comments
                     {
                         find: function(card) {
                             return CardComments.find({
+                                cardId: card._id
+                            });
+                        }
+                    },
+                    // Attachments
+                    {
+                        find: function(card) {
+                            return Attachments.find({
                                 cardId: card._id
                             });
                         }

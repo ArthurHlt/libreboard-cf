@@ -127,6 +127,12 @@ Cards.helpers({
     comments: function() {
         return CardComments.find({ cardId: this._id }, { sort: { createdAt: -1 }});
     },
+    attachments: function() {
+        return Attachments.find({ cardId: this._id }, { sort: { uploadedAt: -1 }});
+    },
+    cover: function() {
+        return Attachments.findOne({ cardId: this._id, cover: true });
+    },
     absoluteUrl: function() {
         var board = this.board();
         return Router.path("Card", { boardId: board._id, slug: board.slug, cardId: this._id });

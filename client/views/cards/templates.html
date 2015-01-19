@@ -8,6 +8,9 @@
                             <span class="card-label card-label-{{color}}" title="{{name}}">&nbsp;</span>
                         {{/ each}}
                     </div>
+                    {{# if cover }}
+                        <div class="list-card-cover js-card-cover" style="background-image: url({{ cover.url }});"></div>
+                    {{/if}}
                     <div class="list-card-title clear js-card-name">{{ title }}</div>
                     <div class="badges">
                         {{# if comments.count }}
@@ -19,6 +22,12 @@
                         {{# if description }}
                             <div title="{{ description }}" class="badge badge-state-image-only">
                                 <span class="badge-icon icon-sm icon-desc"></span>
+                            </div>
+                        {{/if}}
+                        {{# if attachments.count }}
+                            <div class="badge">
+                                <span class="badge-icon icon-sm icon-attachment"></span>
+                                <span class="badge-text">{{ attachments.count }}</span>
                             </div>
                         {{/if}}
                     </div>
@@ -114,6 +123,19 @@
     </div>
 </template>
 
+<template name="cardAttachmentsPopup">
+    <div>
+        <ul class="pop-over-list">
+            <li>
+                <input type="file" name="file" class="js-attach-file hide" multiple>
+                <a class="js-computer-upload" href="#">
+                    {{_ 'computer'}}
+                </a>
+            </li>
+        </ul>
+    </div>
+</template>
+
 <template name="formLabel">
     <div class="colors clearfix">
         <label for="labelName">{{_ 'name'}}</label>
@@ -156,6 +178,11 @@
     <input type="submit" class="js-confirm negate full" value="{{_ 'delete'}}">
 </template>
 
+<template name="attachmentDeletePopup">
+    <p>{{_ "attachment-delete-pop"}}</p>
+    <input type="submit" class="js-confirm negate full" value="{{_ 'delete'}}">
+</template>
+
 <template name="addCardForm">
     <div class="card-composer hide">
         <form id="AddCardForm">
@@ -177,6 +204,10 @@
 
 <template name="cardDetailWindow">
     <div class="card-detail-window clearfix">
+        {{# if card.cover }}
+            <div class="window-cover js-card-cover-box js-open-card-cover-in-viewer has-cover" style="background-image: url({{ card.cover.url }}); background-color: rgb(119, 119, 119); background-size: contain;">
+        </div>
+        {{ /if }}
         {{ #if card.archived }}
             <div class="window-archive-banner js-archive-banner">
                 <span class="icon-lg icon-archive window-archive-banner-icon"></span>
@@ -264,6 +295,9 @@
                     </div>
                 </div>
             </div>
+            {{# if card.attachments.count }}
+                {{ > WindowAttachmentsModule card=card }}
+            {{/ if}}
             {{ > WindowActivityModule card=card }}
         </div>
         {{# if currentUser.isBoardMember }}
@@ -293,6 +327,61 @@
     </div>
 </template>
 
+<template name="WindowAttachmentsModule">
+    <div class="window-module js-attachments-section clearfix">
+        <div class="window-module-title window-module-title-no-divider">
+            <span class="window-module-title-icon icon-lg icon-attachment"></span>
+            <h3 class="inline-block">{{_ 'attachments'}}</h3>
+        </div>
+        <div class="gutter">
+            <div class="clearfix js-attachment-list">
+                {{# each card.attachments }}
+                    <div class="attachment-thumbnail">
+                        {{# if isUploaded }}
+                            <a href="{{ url download=true }}" class="attachment-thumbnail-preview js-open-viewer attachment-thumbnail-preview-is-cover">
+                                {{# if isImage }}
+                                    <img src="{{ url }}">
+                                {{ else }}
+                                    <span class="attachment-thumbnail-preview-ext">{{ extension }}</span>
+                                {{ /if }}
+                            </a>
+                            <p class="attachment-thumbnail-details js-open-viewer">
+                                <a href="" class="attachment-thumbnail-details-title js-attachment-thumbnail-details">
+                                    {{ name }}
+                                    <span class="block quiet">
+                                    {{_ 'added'}} <span class="date">{{ livestamp uploadedAt }}</span>
+                                    </span>
+                                </a>
+                                <span class="quiet attachment-thumbnail-details-options">
+                                    <a href="{{ url download=true }}" class="attachment-thumbnail-details-options-item dark-hover js-download">
+                                        <span class="icon-sm icon-movedown"></span>
+                                        <span class="attachment-thumbnail-details-options-item-text">{{_ 'download'}}</span>
+                                    </a>
+                                    {{# if isImage }}
+                                        <a href="#" class="attachment-thumbnail-details-options-item dark-hover js-remove-cover">
+                                            <span class="icon-sm icon-cover"></span>
+                                            <span class="attachment-thumbnail-details-options-item-text">{{_ 'remove-cover'}}</span>
+                                        </a>
+                                    {{/if}}
+                                    <a href="#" class="attachment-thumbnail-details-options-item attachment-thumbnail-details-options-item-delete dark-hover js-confirm-delete">
+                                        <span class="icon-sm icon-close"></span>
+                                        <span class="attachment-thumbnail-details-options-item-text">{{_ 'delete'}}</span>
+                                    </a>
+                                </span>
+                            </p>
+                        {{ else }}
+                            <span class="spinner small"></span>
+                        {{/ if }}
+                    </div>
+                {{/each}}
+            </div>
+            <p>
+                <a href="#" class="quiet-button js-attach">{{_ 'add-attachment' }}</a>
+            </p>
+        </div>
+    </div>
+</template>
+
 <template name="WindowSidebarModule">
     <div class="window-sidebar" style="position: relative;">
         <div class="window-module clearfix">
@@ -303,6 +392,9 @@
                 </a>
                 <a href="#" class="button-link js-edit-labels" title="{{_ 'labels-title'}}">
                     <span class="icon-sm icon-label"></span> {{_ 'labels'}}
+                </a>
+                <a href="#" class="button-link js-attach" title="{{_ 'attachment-title'}}">
+                    <span class="icon-sm icon-label"></span> {{_ 'attachment'}}
                 </a>
             </div>
         </div>
