@@ -1,6 +1,78 @@
 Cards = new Mongo.Collection('cards');
 CardComments = new Mongo.Collection('card_comments');
 
+// XXX To improve pub/sub performances a card document should included a
+// de-normalized number of comments so we don't have to publish the whole list
+// of comments just to display the number of them in the board view.
+Cards.attachSchema(new SimpleSchema({
+    title: {
+        type: String
+    },
+    archived: {
+        type: Boolean
+    },
+    listId: {
+        type: String
+    },
+    // The system could work without this `boardId` information (we could deduce
+    // the board identifier from the card), but it would make the system more
+    // difficult to manage and less efficient.
+    boardId: {
+        type: String
+    },
+    createdAt: {
+        type: Date,
+        denyUpdate: true
+    },
+    dateLastActivity: {
+        type: Date
+    },
+    description: {
+        type: String,
+        optional: true
+    },
+    labelIds: {
+        type: [String],
+        optional: true
+    },
+    members: {
+        type: [String],
+        optional: true
+    },
+    // XXX Should probably be called `authorId`. Is it even needed since we have
+    // the `members` field?
+    userId: {
+        type: String
+    },
+    sort: {
+        type: Number,
+        decimal: true
+    }
+}));
+
+CardComments.attachSchema(new SimpleSchema({
+    boardId: {
+        type: String
+    },
+    cardId: {
+        type: String
+    },
+    // XXX Rename in `content`? `text` is a bit vague...
+    text: {
+        type: String
+    },
+    // XXX We probably don't need this information here, since we already have
+    // it in the associated comment creation activity
+    createdAt: {
+        type: Date,
+        denyUpdate: false
+    },
+    // XXX Should probably be called `authorId`
+    userId: {
+        type: String
+    }
+}));
+
 // ALLOWS
 Cards.allow({
     insert: function(userId, doc) {

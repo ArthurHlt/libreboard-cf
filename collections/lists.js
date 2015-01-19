@@ -1,5 +1,33 @@
 Lists = new Mongo.Collection('lists');
 
+Lists.attachSchema(new SimpleSchema({
+    title: {
+        type: String
+    },
+    archived: {
+        type: Boolean
+    },
+    boardId: {
+        type: String
+    },
+    createdAt: {
+        type: Date,
+        denyUpdate: true
+    },
+    sort: {
+        type: Number,
+        decimal: true
+    },
+    updatedAt: {
+        type: Date,
+    },
+    // XXX Useless, update authorizations relies on the board members, not on
+    // this field.
+    userId: {
+        type: String
+    }
+}));
+
 Lists.allow({
     insert: function(userId, doc) {
         return allowIsBoardMember(userId, Boards.findOne(doc.boardId));

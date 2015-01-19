@@ -1,5 +1,58 @@
 Boards = new Mongo.Collection('boards');
 
+Boards.attachSchema(new SimpleSchema({
+    title: {
+        type: String
+    },
+    slug: {
+        type: String
+    },
+    archived: {
+        type: Boolean
+    },
+    createdAt: {
+        type: Date,
+        denyUpdate: true
+    },
+    // XXX Inconsistent field naming
+    modifiedAt: {
+        type: Date,
+        denyInsert: true,
+        optional: true
+    },
+    // De-normalized label system
+    'label.$._id': {
+        // We don't specify that this field must be unique in the board because
+        // that will cause performance penalties and is not necessary because
+        // this field is always set on the server.
+        // XXX Actually if we create a new label, the `_id` is set on the client
+        // without being overwritten by the server, could it be a problem?
+        type: String
+    },
+    'label.$.name': {
+        type: String,
+        optional: true
+    },
+    'label.$.color': {
+        type: String
+    },
+    // XXX We might want to maintain more informations under the member
+    // sub-documents like an `isActive` boolean (so we can keep a trace of
+    // former members) or de-normalized meta-data (the data the joined the
+    // board, the number of contributions, etc.).
+    'members.$.userId': {
+        type: String
+    },
+    'member.$.isAdmin': {
+        type: Boolean
+    },
+    permission: {
+        type: String,
+        // XXX Don't uppercase the initial.
+        allowedValues: ['Public', 'Private']
+    }
+}));
+
 // ALLOWS
 Boards.allow({
     insert: Meteor.userId,
