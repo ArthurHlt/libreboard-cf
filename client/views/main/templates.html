@@ -20,13 +20,9 @@
     {{ > yield "modal" }}
     <div id="surface">
         <div id="header">
-            <a class="header-btn header-logo bgnone" href="{{ pathFor route='Home' }}">
+            <a href="{{pathFor 'Home'}}" title="{{_ 'header-logo-title'}}" class="header-logo">
                 <span class="header-logo-default"></span>
-            </a>
-            <nav class="promo-nav">
-                <a href="{{ pathFor route='Home' }}" id='navLanding'>{{_ "home"}}</a>
-                <a href="{{ pathFor route='Info' }}">{{_ "Info"}}</a>
-            </nav>
+           </a>
             <div class="header-user">
                 <a class="header-btn header-signup" href="{{ pathFor route='Signup' }}">{{_ "sign-up"}}</a>
                 <a class="header-btn header-login js-toggle-login-popover no-right-margin" href="{{ pathFor route='Login' }}">{{_ "log-in"}}</a>
