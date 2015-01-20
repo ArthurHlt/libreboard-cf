@@ -39,7 +39,7 @@ Meteor.publishComposite('board', function(boardId, slug) {
                 $or: [
                     // If the board is not public the user has to be a member of
                     // it to see it.
-                    { permission: 'Public' },
+                    { permission: 'public' },
                     { 'members.userId': this.userId }
                 ]
             }, { limit: 1 });
