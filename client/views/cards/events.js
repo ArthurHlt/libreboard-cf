@@ -67,10 +67,7 @@ Template.cards.events({
 
 Template.cardMemberPopup.events({
     'click .js-remove-member': function(event, t) {
-
-        // todo
-
-        // close pop
+        Cards.update(this.cardId, {$pull: {members: this.userId}});
         Popup.close();
     }
 });
@@ -122,6 +119,7 @@ Template.cardDetailWindow.events({
         });
         event.preventDefault();
     },
+    'click .member': Popup.open('cardMember'),
     'click .js-details-edit-members': Popup.open('cardMembers'),
     'click .js-details-edit-labels': Popup.open('cardLabels')
 });

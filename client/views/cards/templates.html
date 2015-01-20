@@ -33,7 +33,7 @@
                     </div>
                     <div class="list-card-members js-list-card-members">
                         {{# each members }}
-                            {{> userAvatar userId=this size="small" }}
+                            {{> userAvatar userId=this size="small" cardId=../_id }}
                         {{/each}}
                     </div>
                 </a>
@@ -243,7 +243,7 @@
                             <h3 class="card-detail-item-header">{{_ 'members'}}</h3>
                             <div class="js-card-detail-members-list clearfix">
                                 {{# each card.members }}
-                                    {{> userAvatar userId=this size="small" }}
+                                    {{> userAvatar userId=this size="small" cardId=../card._id }}
                                 {{/ each }}
                                 <a class="card-detail-item-add-button dark-hover js-details-edit-members">
                                     <span class="icon-sm icon-add"></span>
