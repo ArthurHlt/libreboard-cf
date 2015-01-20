@@ -43,6 +43,12 @@ Template.addCardForm.events({
                 listId: this.listId,
                 boardId: this.board._id,
                 sort: sort
+            }, function(err, _id) {
+                // In case the filter is active we need to add the newly
+                // inserted card in the list of exceptions -- cards that are
+                // not filtered. Otherwise the card will disappear instantly.
+                // See https://github.com/libreboard/libreboard/issues/80
+                Filter.addException(_id);
             });
 
             // empty and focus.

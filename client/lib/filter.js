@@ -48,13 +48,19 @@ _.extend(SetFilter.prototype, {
 // the need to provide a list of `_fields`. We also should move methods into the
 // object prototype.
 Filter = {
-    _fields: ['labelIds', 'members'],
-
     // XXX I would like to rename this field into `labels` to be consistent with
     // the rest of the schema, but we need to set some migrations architecture
     // before changing the schema.
     labelIds: new SetFilter(),
     members: new SetFilter(),
+
+    _fields: ['labelIds', 'members'],
+
+    // We don't filter cards that have been added after the last filter change.
+    // To implement this we keep the id of these cards in this `_exceptions`
+    // fields and use a `$or` condition in the mongo selector we return.
+    _exceptions: [],
+    _exceptionsDep: new Tracker.Dependency,
 
     isActive: function() {
         var self = this;
@@ -65,13 +71,21 @@ Filter = {
 
     getMongoSelector: function() {
         var self = this;
-        var mongoSelector = {};
+
+        if (! self.isActive())
+            return {};
+
+        var filterSelector = {};
         _.forEach(self._fields , function(fieldName) {
             var filter = self[fieldName];
             if (filter._isActive())
-                mongoSelector[fieldName] = filter._getMongoSelector();
+                filterSelector[fieldName] = filter._getMongoSelector();
         });
-        return mongoSelector;
+
+        var exceptionsSelector = {_id: {$in: this._exceptions}};
+        this._exceptionsDep.depend();
+
+        return {$or: [filterSelector, exceptionsSelector]};
     },
 
     reset: function() {
@@ -80,6 +94,19 @@ Filter = {
             var filter = self[fieldName];
             filter.reset();
         });
+        self.resetExceptions();
+    },
+
+    addException: function(_id) {
+        if (this.isActive()) {
+            this._exceptions.push(_id);
+            this._exceptionsDep.changed();
+        }
+    },
+
+    resetExceptions: function() {
+        this._exceptions = [];
+        this._exceptionsDep.changed();
     }
 };
 
