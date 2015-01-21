@@ -26,6 +26,7 @@ Template.menuWidget.events({
 
         Router.go('Boards');
     }),
+    'click .js-language': Popup.open('setLanguage'),
     'click .js-toggle-widget-nav': function(event, t) {
         Session.set('menuWidgetIsOpen', ! Session.get('menuWidgetIsOpen'));
     }

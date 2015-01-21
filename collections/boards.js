@@ -47,8 +47,8 @@ Boards.attachSchema(new SimpleSchema({
     },
     // XXX We might want to maintain more informations under the member
     // sub-documents like an `isActive` boolean (so we can keep a trace of
-    // former members) or de-normalized meta-data (the data the joined the
-    // board, the number of contributions, etc.).
+    // former members) or de-normalized meta-data (the date the member joined
+    // the board, the number of contributions, etc.).
     'members.$.userId': {
         type: String
     },
@@ -139,7 +139,7 @@ Boards.before.insert(function(userId, doc) {
     // a default slug in this case.
     doc.slug = getSlug(doc.title) || 'board';
     doc.members = [{
-        userId: userId || doc.userId,
+        userId: userId,
         isAdmin: true
     }];
 
@@ -181,7 +181,7 @@ isServer(function() {
             activityTypeId: doc._id,
             activityType: "createBoard",
             boardId: doc._id,
-            userId: userId || doc.userId
+            userId: userId
         });
     });
 
