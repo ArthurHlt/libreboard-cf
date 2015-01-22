@@ -8,26 +8,17 @@ Boards.attachSchema(new SimpleSchema({
         type: String
     },
     archived: {
-        type: Boolean,
-        defaultValue: false
+        type: Boolean
     },
     createdAt: {
         type: Date,
-        denyUpdate: true,
-        autoValue: function() {
-            if (this.isInsert)
-                return new Date();
-        }
+        denyUpdate: true
     },
     // XXX Inconsistent field naming
     modifiedAt: {
         type: Date,
         denyInsert: true,
-        optional: true,
-        autoValue: function() {
-            if (this.isUpdate)
-                return new Date();
-        }
+        optional: true
     },
     // De-normalized label system
     'labels.$._id': {
@@ -138,6 +129,8 @@ Boards.before.insert(function(userId, doc) {
     // return an empty string. This is causes bugs in our application so we set
     // a default slug in this case.
     doc.slug = getSlug(doc.title) || 'board';
+    doc.createdAt = new Date();
+    doc.archived = false;
     doc.members = [{
         userId: userId,
         isAdmin: true
@@ -161,6 +154,11 @@ Boards.before.insert(function(userId, doc) {
             color: Random.choice(DefaultBoardBackgroundColors)
         };
     }
+});
+
+Boards.before.update(function(userId, doc, fieldNames, modifier) {
+    modifier.$set = modifier.$set || {};
+    modifier.$set.modifiedAt = new Date();
 });
 
 

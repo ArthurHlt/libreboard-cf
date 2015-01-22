@@ -9,8 +9,7 @@ Cards.attachSchema(new SimpleSchema({
         type: String
     },
     archived: {
-        type: Boolean,
-        defaultValue: false
+        type: Boolean
     },
     listId: {
         type: String
@@ -152,6 +151,9 @@ CardComments.hookOptions.after.update = { fetchPrevious: false };
 Cards.before.insert(function(userId, doc) {
     doc.createdAt = new Date();
     doc.dateLastActivity = new Date();
+
+    // defaults
+    doc.archived = false;
 
     // userId native set.
     if (!doc.userId) doc.userId = userId;

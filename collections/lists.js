@@ -5,19 +5,14 @@ Lists.attachSchema(new SimpleSchema({
         type: String
     },
     archived: {
-        type: Boolean,
-        defaultValue: false
+        type: Boolean
     },
     boardId: {
         type: String
     },
     createdAt: {
         type: Date,
-        denyUpdate: true,
-        autoValue: function() {
-            if (this.isInsert)
-                return new Date();
-        }
+        denyUpdate: true
     },
     sort: {
         type: Number,
@@ -28,11 +23,7 @@ Lists.attachSchema(new SimpleSchema({
     updatedAt: {
         type: Date,
         denyInsert: true,
-        optional: true,
-        autoValue: function() {
-            if (this.isUpdate)
-                return new Date();
-        }
+        optional: true
     }
 }));
 
@@ -64,6 +55,18 @@ Lists.helpers({
 
 // HOOKS
 Lists.hookOptions.after.update = { fetchPrevious: false };
+
+Lists.before.insert(function(userId, doc) {
+    doc.createdAt = new Date();
+    doc.archived = false;
+    if (!doc.userId) doc.userId = userId;
+});
+
+Lists.before.update(function(userId, doc, fieldNames, modifier) {
+    modifier.$set = modifier.$set || {};
+    modifier.$set.modifiedAt = new Date();
+});
+
 
 isServer(function() {
     Lists.after.insert(function(userId, doc) {
