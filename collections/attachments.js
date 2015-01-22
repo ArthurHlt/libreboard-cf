@@ -44,6 +44,18 @@ Attachments.files.before.insert(function(userId, doc) {
 
     if (file.isImage()) {
         doc.cover = true;
+
+    // If the uploaded document is not an image we need to enforce browser
+    // download instead of execution. This is particularly important for HTML
+    // files that the browser will just execute if we don't serve them with the
+    // appropriate `application/octet-stream` MIME header which can lead to user
+    // data leaks. I imagine other formats (like PDF) can also be attack
+    // vectors.
+    // See https://github.com/libreboard/libreboard/issues/99
+    // XXX Should we use `beforeWrite` option of CollectionFS instead of
+    // collection-hooks?
+    } else {
+        file.original.type = "application/octet-stream";
     }
 });
 
