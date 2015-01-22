@@ -7,71 +7,60 @@
                     {{ > memberName user=user }}
 
                     {{# if isTrue activityType 'createBoard' }}
-                        {{_ 'activity-create-board'}}
+                        {{_ 'activity-created' boardLabel}}.
                     {{ /if }}
 
                     {{# if isTrue activityType 'createList' }}
-                        {{_ 'activity-create-list' listTitle=list.title }}
+                        {{_ 'activity-added' list.title boardLabel}}.
                     {{ /if }}
 
                     {{# if isTrue activityType 'archivedList' }}
-                        {{_ 'activity-archive-list' listTitle=list.title }}
+                        {{_ 'activity-archived' list.title}}.
                     {{ /if }}
 
                     {{# if isTrue activityType 'createCard' }}
-                        {{{_ 'activity-create-card'
-                            cardLink=card.absoluteUrl
-                            cardTitle=card.title
-                            listTitle=list.title}}}
+                        {{{_ 'activity-added' cardLink boardLabel}}}.
                     {{ /if }}
 
                     {{# if isTrue activityType 'archivedCard' }}
-                        {{{_ 'activity-archive-card'
-                            cardLink=card.absoluteUrl
-                            cardTitle=card.title }}}
+                        {{{_ 'activity-archived' cardLink}}}.
                     {{ /if }}
 
                     {{# if isTrue activityType 'restoredCard' }}
-                        {{{_ 'activity-restore-card'
-                            cardLink=card.absoluteUrl
-                            cardTitle=card.title }}}
+                        {{{_ 'activity-sent' cardLink boardLabel}}}.
                     {{ /if }}
 
                     {{# if isTrue activityType 'moveCard' }}
-                        {{{_ 'activity-move-card'
-                            cardLink=card.absoluteUrl
-                            cardTitle=card.title
-                            oldListTitle=oldList.title
-                            listTitle=list.title }}}
+                        {{{_ 'activity-moved' cardLink oldList.title list.title}}}.
                     {{ /if }}
 
                     {{# if isTrue activityType 'addBoardMember' }}
-                        added {{ > memberName user=member }} to this board.
+                        {{{_ 'activity-added' memberLink boardLabel}}}.
                     {{ /if }}
 
                     {{# if isTrue activityType 'removeBoardMember' }}
-                        excluded {{ > memberName user=member }} from this board.
+                        {{{_ 'activity-excluded' memberLink boardLabel}}}.
                     {{ /if }}
 
                     {{# if isTrue activityType 'joinMember' }}
                         {{# if isTrue currentUser._id member._id }}
-                            joined <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
+                            {{{_ 'activity-joined' cardLink}}}.
                         {{ else }}
-                            added {{ > memberName user=member }} to <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
+                            {{{_ 'activity-added' memberLink cardLink}}}.
                         {{/if}}
                     {{ /if }}
 
                     {{# if isTrue activityType 'unjoinMember' }}
                         {{# if isTrue currentUser._id member._id }}
-                            unjoined <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
+                            {{{_ 'activity-unjoined' cardLink}}}.
                         {{ else }}
-                            removed {{ > memberName user=member }} from <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>.
+                            {{{_ 'activity-removed' memberLink cardLink}}}.
                         {{/if}}
                     {{ /if }}
 
                     {{# if isTrue activityType 'addComment' }}
                         <div class="phenom-desc">
-                            on <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>
+                        {{_ 'activity-on' cardLink}}
                             <div class="action-comment markeddown">
                                 <a href="{{ card.absoluteUrl }}" class="current-comment show tdn">
                                     <p>{{#viewer}}{{ comment.text }}{{/viewer}}</p>
@@ -82,8 +71,7 @@
 
                     {{# if isTrue activityType 'addAttachment' }}
                         <div class="phenom-desc">
-                            {{_ 'attached'}} <a href="{{ attachment.url }}" class="js-open-attachment-viewer">{{ attachment.name }}</a>
-                            to <a href="{{ card.absoluteUrl }}" class="action-card">{{ card.title }}</a>
+                            {{{_ 'activity-attached' attachmentLink cardLink}}}.
                         </div>
                     {{ /if }}
                 </div>
@@ -113,7 +101,7 @@
                             </div>
                         </div>
                         <div class="edit-controls clearfix">
-                            <input type="submit" class="primary confirm js-save-edit" value="Save" tabindex="2">
+                            <input type="submit" class="primary confirm js-save-edit" value="{{_ 'save'}}" tabindex="2">
                         </div>
                     </form>
                     <p class="phenom-meta quiet">
@@ -128,40 +116,38 @@
                 </div>
             {{/each}}
 
-            {{! XXX translation all card detail activities ??? }}
             {{# each card.activities }}
                 <div class="phenom phenom-action clearfix phenom-other">
                     {{> userAvatar user=user size="extra-small" class="creator js-show-mem-menu" }}
                     {{ > memberName user=user }}
                     {{# if isTrue activityType 'createCard' }}
-                        added this card to {{ list.title }}.
+                        {{_ 'activity-added' cardLabel list.title}}.
                     {{ /if }}
                     {{# if isTrue activityType 'joinMember' }}
                         {{# if isTrue currentUser._id member._id }}
-                            joined this card.
+                            {{_ 'activity-joined' cardLabel}}.
                         {{ else }}
-                            added this card to {{ > memberName user=member }}.
+                            {{{_ 'activity-added' cardLabel memberLink}}}.
                         {{/if}}
                     {{/if}}
                     {{# if isTrue activityType 'unjoinMember' }}
                         {{# if isTrue currentUser._id member._id }}
-                            unjoined this card.
+                            {{_ 'activity-unjoined' cardLabel}}.
                         {{ else }}
-                            removed this card from {{ > memberName user=member }}.
+                            {{{_ 'activity-removed' cardLabel memberLink}}}.
                         {{/if}}
                     {{ /if }}
                     {{# if isTrue activityType 'archivedCard' }}
-                        archived this card.
+                        {{_ 'activity-archived' cardLabel}}.
                     {{ /if }}
                     {{# if isTrue activityType 'restoredCard' }}
-                        sent this card to the board.
+                        {{_ 'activity-sent' cardLabel boardLabel}}.
                     {{/ if }}
                     {{# if isTrue activityType 'moveCard' }}
-                        moved this card from {{ oldList.title }} to {{ list.title }}.
+                        {{_ 'activity-moved' oldList.title list.title}}.
                     {{/ if }}
                     {{# if isTrue activityType 'addAttachment' }}
-                        attached <a href="{{ attachment.url }}" class="js-open-attachment-viewer">{{ attachment.name }}</a>
-                        to this card.
+                        {{{_ 'activity-attached' attachmentLink cardLabel}}}.
                         {{# if attachment.isImage }}
                             <img src="{{ attachment.url }}" class="attachment-image-preview">
                         {{/if}}
