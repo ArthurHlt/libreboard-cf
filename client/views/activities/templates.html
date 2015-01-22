@@ -162,7 +162,9 @@
                     {{# if isTrue activityType 'addAttachment' }}
                         attached <a href="{{ attachment.url }}" class="js-open-attachment-viewer">{{ attachment.name }}</a>
                         to this card.
-                        <img src="{{ attachment.url }}" class="attachment-image-preview">
+                        {{# if attachment.isImage }}
+                            <img src="{{ attachment.url }}" class="attachment-image-preview">
+                        {{/if}}
                     {{/ if}}
                 </div>
             {{/each}}
