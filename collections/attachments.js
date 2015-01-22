@@ -58,4 +58,10 @@ isServer(function() {
             userId: userId
         });
     });
+
+    Attachments.files.after.remove(function(userId, doc) {
+        Activities.remove({
+            attachmentId: doc._id
+        });
+    });
 });
