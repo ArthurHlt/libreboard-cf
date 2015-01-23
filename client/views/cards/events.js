@@ -180,7 +180,12 @@ Template.WindowAttachmentsModule.events({
     'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete', function() {
         Attachments.remove(this._id);
         Popup.close();
-    })
+    }),
+    // If we let this event bubble, Iron-Router will handle it and empty the
+    // page content, see #101.
+    'click .js-open-viewer, click .js-download': function(event) {
+        event.stopPropagation();
+    }
 });
 
 Template.cardMembersPopup.events({
