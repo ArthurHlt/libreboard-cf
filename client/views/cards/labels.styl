@@ -55,50 +55,50 @@
 
 .color-blind-mode-enabled {
 
-  .card-label-lime,
-  .card-label-purple {
-      background-image: linear-gradient(to bottom right,
-                                        rgba(255, 255, 255, .5) 25%,
-                                        transparent 25%,
-                                        transparent 50%,
-                                        rgba(255, 255, 255, .5) 50%,
-                                        rgba(255, 255, 255, .5) 75%,
-                                        transparent 75%,
-                                        transparent);
-      background-size: 16px 16px;
-  }
+    .card-label-lime,
+    .card-label-purple {
+        background-image: linear-gradient(to bottom right,
+                                          rgba(255, 255, 255, .5) 25%,
+                                          transparent 25%,
+                                          transparent 50%,
+                                          rgba(255, 255, 255, .5) 50%,
+                                          rgba(255, 255, 255, .5) 75%,
+                                          transparent 75%,
+                                          transparent);
+        background-size: 16px 16px;
+    }
 
-  .card-label-orange,
-  .card-label-mocha,
-  .card-label-black {
-      background-image: linear-gradient(to right,
-                                        rgba(255, 255, 255, .5) 50%,
-                                        transparent 50%,
-                                        transparent);
-      background-size: 8px 8px;
-  }
+    .card-label-orange,
+    .card-label-mocha,
+    .card-label-black {
+        background-image: linear-gradient(to right,
+                                          rgba(255, 255, 255, .5) 50%,
+                                          transparent 50%,
+                                          transparent);
+        background-size: 8px 8px;
+    }
 
-  .card-label-green,
-  .card-label-pink {
-      background-image: linear-gradient(to bottom left,
-                        rgba(255, 255, 255, .5) 25%,
-                        transparent 25%,
-                        transparent 50%,
-                        rgba(255, 255, 255, .5) 50%,
-                        rgba(255, 255, 255, .5) 75%,
-                        transparent 75%,
-                        transparent);
-      background-size: 16px 16px;
-  }
+    .card-label-green,
+    .card-label-pink {
+        background-image: linear-gradient(to bottom left,
+                          rgba(255, 255, 255, .5) 25%,
+                          transparent 25%,
+                          transparent 50%,
+                          rgba(255, 255, 255, .5) 50%,
+                          rgba(255, 255, 255, .5) 75%,
+                          transparent 75%,
+                          transparent);
+        background-size: 16px 16px;
+    }
 
-  .card-label-yellow,
-  .card-label-red {
-      background-image: linear-gradient(135deg, rgba(255, 255, 255, .5) 25%, transparent 25%),
-                        linear-gradient(225deg, rgba(255, 255, 255, .5) 25%, transparent 25%),
-                        linear-gradient(315deg, rgba(255, 255, 255, .5) 25%, transparent 25%),
-                        linear-gradient(45deg,  rgba(255, 255, 255, .5) 25%, transparent 25%);
-      background-size: 12px 12px;
-  }
+    .card-label-yellow,
+    .card-label-red {
+        background-image: linear-gradient(135deg, rgba(255, 255, 255, .5) 25%, transparent 25%),
+                          linear-gradient(225deg, rgba(255, 255, 255, .5) 25%, transparent 25%),
+                          linear-gradient(315deg, rgba(255, 255, 255, .5) 25%, transparent 25%),
+                          linear-gradient(45deg,  rgba(255, 255, 255, .5) 25%, transparent 25%);
+        background-size: 12px 12px;
+    }
 }
 
 .card-label--selectable:hover {
@@ -118,29 +118,28 @@
 
 .edit-labels {
 
+    input[type="text"] {
+        margin: 4px 0 6px 38px;
+        width: 243px;
+    }
 
-  input[type="text"] {
-      margin: 4px 0 6px 38px;
-      width: 243px;
-  }
+    .card-label {
+        height: 30px;
+        left: 0;
+        padding: 1px 5px;
+        position: absolute;
+        top: 0;
+        width: 24px;
+    }
 
-  .card-label {
-      height: 30px;
-      left: 0;
-      padding: 1px 5px;
-      position: absolute;
-      top: 0;
-      width: 24px;
-  }
-
-  .labels-static .card-label {
-      line-height: 30px;
-      margin-bottom: 4px;
-      position: relative;
-      top: auto;
-      left: 0;
-      width: 260px;
-  }
+    .labels-static .card-label {
+        line-height: 30px;
+        margin-bottom: 4px;
+        position: relative;
+        top: auto;
+        left: 0;
+        width: 260px;
+    }
 }
 
 .board-widgets .edit-labels input[type="text"] {
@@ -152,16 +151,17 @@
     z-index: 30;
     top: -6px;
 
-  .card-label {
-      border-radius: 0;
-      float: left;
-      height: 4px;
-      margin-bottom: 1px;
-      padding: 0;
-      width: 40px;
-      line-height: 100px;
-  }
+    .card-label {
+        border-radius: 0;
+        float: left;
+        height: 4px;
+        margin-bottom: 1px;
+        padding: 0;
+        width: 40px;
+        line-height: 100px;
+    }
 }
+
 
 .card-detail-item-labels .card-label {
     border-radius: 3px;
@@ -197,36 +197,36 @@
     position: relative;
     transition: margin-right .1s;
 
-  .card-label-selectable-icon {
-      position: absolute;
-      top: 8px;
-      right: -20px;
-  }
-
-  &.active:hover,
-  &.active,
-  &.active.selected:hover,
-  &.active.selected {
-      margin-right: 38px;
-      padding-right: 32px;
-
     .card-label-selectable-icon {
-        right: 6px;
+        position: absolute;
+        top: 8px;
+        right: -20px;
     }
-  }
 
-  &.active:hover:hover,
-  &.active:hover,
-  &.active.selected:hover:hover,
-  &.active.selected:hover {
-      margin-right: 38px;
-  }
+    &.active:hover,
+    &.active,
+    &.active.selected:hover,
+    &.active.selected {
+        margin-right: 38px;
+        padding-right: 32px;
 
-  &.selected,
-  &:hover {
-      margin-right: 38px;
-      opacity: .8;
-  }
+      .card-label-selectable-icon {
+          right: 6px;
+      }
+    }
+
+    &.active:hover:hover,
+    &.active:hover,
+    &.active.selected:hover:hover,
+    &.active.selected:hover {
+        margin-right: 38px;
+    }
+
+    &.selected,
+    &:hover {
+        margin-right: 38px;
+        opacity: .8;
+    }
 }
 
 .active .card-label-selectable {
@@ -246,9 +246,9 @@
     float: right;
     padding: 8px;
 
-  &:hover {
-      background: #dbdbdb;
-  }
+    &:hover {
+        background: #dbdbdb;
+    }
 }
 
 .card-label-color-select-icon {

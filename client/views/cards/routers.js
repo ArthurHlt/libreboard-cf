@@ -1,6 +1,6 @@
 Router.route('/boards/:boardId/:slug/:cardId', {
     name: 'Card',
-    bodyClass: 'page-index chrome chrome-39 mac extra-large-window body-webkit-scrollbars body-board-view bgBoard window-up',
+    bodyClass: 'page-index large-window body-board-view bgBoard window-up',
     waitOn: function() {
         var params = this.params;
         return [

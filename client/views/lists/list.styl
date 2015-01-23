@@ -263,6 +263,7 @@
     }
 }
 
+
 .list-card-cover {
     background-position: center;
     background-repeat: no-repeat;
@@ -280,6 +281,15 @@
     padding: 6px 8px 4px;
     position: relative;
     z-index: 10;
+
+    &:hover {
+        background: #f2f2f2;
+        border-bottom-color: #b3b3b3;
+    }
+}
+
+a.list-card-details {
+    text-decoration:none;
 }
 
 .list-card-details-overlay {
@@ -336,10 +346,10 @@
     overflow: hidden;
     text-decoration: none;
     word-wrap: break-word;
-}
 
-.list-card-title::selection {
-    background: transparent;
+    &::selection {
+        background: transparent;
+    }
 }
 
 .list-card-edit-title {
@@ -374,10 +384,10 @@ textarea.list-card-composer-textarea:focus {
     box-shadow: none;
     height: auto;
     margin-bottom: 4px;
+    padding: 0;
     max-height: 162px;
     min-height: 54px;
     overflow-y: auto;
-    padding: 0;
 }
 
 .float-cards .list-card-container {

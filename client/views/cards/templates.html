@@ -3,7 +3,7 @@
         {{# each cards }}
             <div class="list-card card js-member-droppable">
                 <a class="list-card-details clearfix show" href="{{ absoluteUrl }}">
-                    <div class="list-card-labels clearfix js-card-labels">
+                    <div class="list-card-labels js-card-labels">
                         {{# each labels }}
                             <span class="card-label card-label-{{color}}" title="{{name}}">&nbsp;</span>
                         {{/ each}}
@@ -187,7 +187,7 @@
     <div class="card-composer hide">
         <form id="AddCardForm">
             <div class="list-card js-composer">
-                <div class="list-card-labels clearfix js-list-card-composer-labels"></div>
+                <div class="list-card-labels js-list-card-composer-labels"></div>
                 <div class="list-card-details clearfix">
                     <textarea class="list-card-composer-textarea js-card-title" style="overflow: hidden; word-wrap: break-word; height: 36px;">{{ inputCache "addCard" listId }}</textarea>
                     <div class="list-card-members js-list-card-composer-members"></div>
