@@ -1,4 +1,4 @@
-FROM grigio/meteor:1.0.2.1
+FROM grigio/meteor:1.0.3.1
 
 # Add the source of your Meteor app and build
 ADD . /app
