@@ -20,6 +20,10 @@ Cards.attachSchema(new SimpleSchema({
     boardId: {
         type: String
     },
+    coverId: {
+        type: String,
+        optional: true
+    },
     createdAt: {
         type: Date,
         denyUpdate: true
@@ -130,7 +134,7 @@ Cards.helpers({
         return Attachments.find({ cardId: this._id }, { sort: { uploadedAt: -1 }});
     },
     cover: function() {
-        return Attachments.findOne({ cardId: this._id, cover: true });
+        return Attachments.findOne(this.coverId);
     },
     absoluteUrl: function() {
         var board = this.board();

@@ -357,9 +357,9 @@
                                         <span class="attachment-thumbnail-details-options-item-text">{{_ 'download'}}</span>
                                     </a>
                                     {{# if isImage }}
-                                        <a href="#" class="attachment-thumbnail-details-options-item dark-hover js-remove-cover">
+                                        <a class="attachment-thumbnail-details-options-item dark-hover {{#if isTrue ../card.coverId _id}}js-remove-cover{{else}}js-add-cover{{/if}}">
                                             <span class="icon-sm fa fa-thumb-tack"></span>
-                                            <span class="attachment-thumbnail-details-options-item-text">{{_ 'remove-cover'}}</span>
+                                            <span class="attachment-thumbnail-details-options-item-text">{{#if isTrue ../card.coverId _id}}{{_ 'remove-cover'}}{{else}}{{_ 'add-cover'}}{{/if}}</span>
                                         </a>
                                     {{/if}}
                                     <a href="#" class="attachment-thumbnail-details-options-item attachment-thumbnail-details-options-item-delete dark-hover js-confirm-delete">

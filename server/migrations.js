@@ -46,3 +46,13 @@ Migrations.add('change-attachments-type-for-non-images', function() {
         }
     });
 });
+
+Migrations.add('card-covers', function() {
+    Cards.find().forEach(function(card) {
+        var cover =  Attachments.findOne({ cardId: card._id, cover: true });
+        if (cover) {
+            Cards.update(card._id, {$set: {coverId: cover._id}});
+        }
+    });
+    Attachments.update({}, {$unset: {cover: ""}}, {multi: true});
+});
