@@ -17,16 +17,22 @@ Popup = {
         var popupName = name + "Popup";
 
         return function(evt, tpl) {
-            // We determine the referenceElement (the DOM element that is being
-            // clicking and that the popup should use as a reference for its
-            // position) from the event if the popup has no parent, or from
-            // the parent referenceElement if it has one. That allow use to
-            // position a sub-popup exactly at the same position of its parent.
+            // We determine the openerElement (the DOM element that is being
+            // clicked and the one to take in reference for the popup position)
+            // from the event if the popup has no parent, or from the parent
+            // openerElement if it has one. That allow use to position a
+            // sub-popup exactly at the same position of its parent.
             if (self._hasPopupParent()) {
                 var parentData = self._stack[self._stack.length - 1];
-                var $element = parentData.$element;
+                var openerElement = parentData.openerElement;
             } else {
-                var $element = tpl.$(evt.currentTarget);
+                var openerElement = evt.currentTarget;
+            }
+
+            // If a popup is already openened, clicking again on the opener
+            // element should close it -- and stop the current function.
+            if (self.current && openerElement === evt.currentTarget) {
+                return self.close();
             }
 
             // We modify the event to prevent the popup being closed when the
@@ -41,8 +47,8 @@ Popup = {
                 popupName: popupName,
                 hasPopupParent: self._hasPopupParent(),
                 title: self._getTitle(popupName),
-                $element: $element,
-                offset: self._getOffset($element),
+                openerElement: openerElement,
+                offset: self._getOffset(openerElement),
                 dataContext: this
             });
 
@@ -60,7 +66,7 @@ Popup = {
             if (! self.current) {
                 self.current = Blaze.renderWithData(self.template, function() {
                     self._dep.depend();
-                    return self._stack[self._stack.length -1];
+                    return self._stack[self._stack.length - 1];
                 }, document.body);
 
             } else {
@@ -138,7 +144,8 @@ Popup = {
     // We automatically calculate the popup offset from the reference element
     // position and dimensions. We also reactively use the window dimensions
     // to ensure that the popup is always visible on the screen.
-    _getOffset: function($element) {
+    _getOffset: function(element) {
+        var $element = $(element);
         return function() {
             windowResizeDep.depend();
             var offset = $element.offset();
