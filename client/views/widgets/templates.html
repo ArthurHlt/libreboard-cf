@@ -192,6 +192,14 @@
             {{/with}}
         {{/each}}
     </ul>
+    <hr>
+    <ul class="pop-over-list inset normal-weight">
+        <li>
+            <a class="js-clear-all {{#unless Filter.isActive}}disabled{{/unless}}" style="padding-left: 40px;">
+                {{_ 'filter-clear'}}
+            </a>
+        </li>
+    </ul>
 </template>
 
 <template name="backgroundWidget">

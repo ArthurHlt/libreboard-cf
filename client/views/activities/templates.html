@@ -60,7 +60,7 @@
 
                     {{# if isTrue activityType 'addComment' }}
                         <div class="phenom-desc">
-                        {{_ 'activity-on' cardLink}}
+                        {{{_ 'activity-on' cardLink}}}
                             <div class="action-comment markeddown">
                                 <a href="{{ card.absoluteUrl }}" class="current-comment show tdn">
                                     <p>{{#viewer}}{{ comment.text }}{{/viewer}}</p>

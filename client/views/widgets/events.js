@@ -42,6 +42,10 @@ Template.filterWidget.events({
         Filter.members.toogle(this._id);
         Filter.resetExceptions();
         event.preventDefault();
+    },
+    'click .js-clear-all': function(event) {
+        Filter.reset()
+        event.preventDefault();
     }
 });
 
