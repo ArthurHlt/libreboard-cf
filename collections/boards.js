@@ -101,6 +101,9 @@ Boards.deny({
 
 // HELPERS
 Boards.helpers({
+    isPublic: function() {
+        return this.permission === 'public';
+    },
     lists: function() {
         return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 }});
     },

@@ -53,14 +53,14 @@
 <template name="memberHeader">
     <div class="header-user">
         <a class="header-btn js-open-add-menu" href="#" title="{{_ 'add-board'}}">
-            <span class="header-btn-icon icon-lg icon-add light"></span>
+            <span class="header-btn-icon icon-lg fa fa-plus light"></span>
         </a>
         <a class="header-btn header-member js-open-header-member-menu" href="#">
             {{> userAvatar user=currentUser size="small" }}
             <span class="header-btn-text js-member-name">{{ currentUser.profile.name }}</span>
         </a>
         <a class="header-btn header-notifications js-open-header-notifications-menu" href="#" title="0 {{_ 'notifications-title'}}.">
-            <span class="header-btn-icon icon-lg icon-notification light"></span>
+            <span class="header-btn-icon icon-lg fa fa-bell-o light"></span>
         </a>
     </div>
 </template>
@@ -82,7 +82,7 @@
             <a class="js-set-language">
                 {{name}}
                 {{# if isCurrentLanguage}}
-                    <span class="icon-sm icon-check"></span>
+                    <span class="icon-sm fa fa-check"></span>
                 {{/if}}
             </a>
         </li>
@@ -163,7 +163,7 @@
             </form>
         {{ else }}
             <a class="button-link tabbed-pane-header-details-edit js-edit-profile" href="#">
-                <span class="icon-sm icon-edit"></span>
+                <span class="icon-sm fa fa-pencil"></span>
                 {{_ "edit-profile"}}
             </a>
         {{ /if }}

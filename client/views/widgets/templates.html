@@ -1,12 +1,12 @@
 <template name="boardWidgets">
     <a href="#" class="sidebar-show-btn dark-hover js-show-sidebar">
-        <span class="icon-sm icon-leftarrow"></span>
+        <span class="icon-sm fa fa-chevron-left"></span>
         <span class="text">{{_ 'show-sidebar'}}</span>
     </a>
     <div class="board-widgets {{#if session 'sidebarIsOpen'}}show{{else}}hide{{/if}}">
         <div>
             <a href="#" class="sidebar-hide-btn dark-hover js-hide-sidebar" title="{{_ 'close-sidebar-title'}}">
-                <span class="icon-sm icon-rightarrow"></span>
+                <span class="icon-sm fa fa-chevron-right"></span>
             </a>
             {{#unless isTrue currentWidget "homeWidget"}}
                 <div class="board-widgets-title clearfix">
@@ -35,19 +35,19 @@
 <template name="menuWidget">
     <div class="board-widget board-widget-nav clearfix{{#unless session 'menuWidgetIsOpen'}} collapsed{{/unless}}">
         <h3 class="dark-hover toggle-widget-nav js-toggle-widget-nav">{{_ 'menu'}}
-            <span class="icon-sm icon-menu toggle-menu-icon"></span>
+            <span class="icon-sm fa fa-chevron-circle-down toggle-menu-icon"></span>
         </h3>
         <ul class="nav-list">
             <hr style="margin-top: 0;">
             <li>
                 <a href="#" class="nav-list-item js-open-archive">
-                    <span class="icon-sm icon-archive icon-type"></span>
+                    <span class="icon-sm fa fa-archive icon-type"></span>
                     {{_ 'archived-items'}}
                 </a>
             </li>
             <li>
                 <a href="#" class="nav-list-item js-open-card-filter">
-                    <span class="icon-sm icon-filter icon-type"></span>
+                    <span class="icon-sm fa fa-filter icon-type"></span>
                     {{_ 'filter-cards'}}
                 </a>
             </li>
@@ -94,7 +94,7 @@
             {{# unless isSandstorm }}
                 {{# if currentUser.isBoardAdmin }}
                     <a href="#" class="button-link js-open-manage-board-members">
-                        <span class="icon-sm icon-member"></span> {{_ 'add-members'}}
+                        <span class="icon-sm fa fa-user"></span> {{_ 'add-members'}}
                     </a>
                 {{/ if }}
             {{/ unless }}
@@ -167,7 +167,7 @@
                         {{/if}}
                     </span>
                     {{#if Filter.labelIds.isSelected _id}}
-                        <span class="icon-sm icon-check"></span>
+                        <span class="icon-sm fa fa-check"></span>
                     {{/if}}
                 </a>
             </li>
@@ -185,7 +185,7 @@
                             (<span class="username">{{ username }}</span>)
                         </span>
                         {{#if Filter.members.isSelected _id}}
-                            <span class="icon-sm icon-check checked-icon"></span>
+                            <span class="icon-sm fa fa-check checked-icon"></span>
                         {{/if}}
                     </a>
                  </li>
@@ -259,7 +259,7 @@
                        {{# if isBoardMember }}
                            <div class="extra-text quiet">({{_ 'joined'}})</div>
                        {{/if}}
-                        <span class="icon-sm icon-rightarrow light option js-open-option"></span>
+                        <span class="icon-sm fa fa-chevron-right light option js-open-option"></span>
                     </a>
                 </li>
             {{/esEach }}
@@ -288,14 +288,14 @@
         <li>
             <a class="{{#if isLastAdmin}}disabled{{else}}js-set-admin{{/if}}">
                 {{_ 'admin'}}
-                {{#if isAdmin}}<span class="icon-sm icon-check"></span>{{/if}}
+                {{#if isAdmin}}<span class="icon-sm fa fa-check"></span>{{/if}}
                 <span class="sub-name">{{_ 'admin-desc'}}</span>
             </a>
         </li>
         <li>
             <a class="{{#if isLastAdmin}}disabled{{else}}js-set-normal{{/if}}">
                 {{_ 'normal'}}
-                {{#unless isAdmin}}<span class="icon-sm icon-check"></span>{{/unless}}
+                {{#unless isAdmin}}<span class="icon-sm fa fa-check"></span>{{/unless}}
                 <span class="sub-name">{{_ 'normal-desc'}}</span>
             </a>
         </li>

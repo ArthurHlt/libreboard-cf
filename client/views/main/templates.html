@@ -65,7 +65,7 @@
         <input id="search-text" type="text" autocomplete="off" autocorrect="off" spellcheck="false">
         <input id="search-submit" type="submit" value="{{ _ 'search'}}">
         <a class="header-btn header-search js-search-submit" href="#" title="{{ _ 'search-title'}}">
-            <span class="header-btn-icon icon-lg icon-search light"></span>
+            <span class="header-btn-icon icon-lg fa fa-search light"></span>
         </a>
     </div>
 </template>
@@ -148,12 +148,12 @@
         <div class="header clearfix">
             {{#if hasPopupParent}}
                 <a class="back-btn js-back-view" href="#">
-                    <span class="icon-sm icon-leftarrow"></span>
+                    <span class="icon-sm fa fa-chevron-left"></span>
                 </a>
             {{/if}}
             <span class="header-title">{{ title }}</span>
             <a class="close-btn js-close-popover" href="#">
-                <span class="icon-sm icon-close"></span>
+                <span class="icon-sm fa fa-times"></span>
             </a>
         </div>
         <div class="content clearfix fancy-scrollbar js-tab-parent" style="max-height: 549px;">

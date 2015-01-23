@@ -2,7 +2,7 @@
     <div class="member-boards-view">
         {{# if starredBoards }}
             <div class="window-module-title window-module-title-no-divider">
-                <span class="icon-lg window-module-title-icon icon-star"></span>
+                <span class="icon-lg window-module-title-icon fa fa-star"></span>
                 <h3>{{_ 'starred-boards'}}</h3>
             </div>
             <ul class="board-list gutter js-board-list clearfix">
@@ -11,7 +11,7 @@
                         <a href="{{ pathFor route='Board' boardId=_id }}" class="js-open-board highlight-icon" style="background-color: {{background.color}};">
                             <span class="details">
                                 <span class="board-list-item-name">{{ title }}</span>
-                                <span class="icon-sm icon-star js-star-board icon-star-active"></span>
+                                <span class="icon-sm fa fa-star-o js-star-board icon-star-active"></span>
                             </span>
                         </a>
                     </li>
@@ -19,7 +19,7 @@
             </ul>
         {{/ if }}
         <div class="window-module-title window-module-title-no-divider">
-            <span class="icon-lg window-module-title-icon icon-member"></span>
+            <span class="icon-lg window-module-title-icon fa fa-user"></span>
             <h3>{{_ 'my-boards'}}</h3>
         </div>
         <ul class="board-list gutter js-board-list clearfix">
@@ -28,7 +28,7 @@
                     <a href="{{ pathFor route='Board' boardId=_id }}" class="js-open-board highlight-icon" style="background-color: {{background.color}};">
                         <span class="details">
                             <span class="board-list-item-name">{{ title }}</span>
-                            <span class="icon-sm icon-star js-star-board {{# if isStarred }}icon-star-active{{/ if}}" title="{{_ 'star-board-title'}}"></span>
+                            <span class="icon-sm fa fa-star-o js-star-board {{# if isStarred }}icon-star-active{{/ if}}" title="{{_ 'star-board-title'}}"></span>
                         </span>
                     </a>
                 </li>
@@ -49,20 +49,20 @@
                 <div class="board-header-btns left">
                     {{# unless isSandstorm }}
                         <a href="#" class="board-header-btn js-star-board {{#if isStarred }}board-header-btn-enabled{{/ if }}" title="{{# if isStarred }}{{_ 'click-to-unstar'}}{{ else }}{{_ 'click-to-star'}}{{/ if }} {{_ 'starred-boards-description'}}">
-                            <span class="board-header-btn-icon icon-sm icon-star"></span>
+                            <span class="board-header-btn-icon icon-sm fa fa-star-o"></span>
                         </a>
                     {{/ unless }}
                     {{! XXX Normally we would disable this field for sandstorm, but we keep it until sandstorm implements sharing capabilities }}
                     <a href="#" class="board-header-btn perms-btn js-change-vis {{# unless currentUser.isBoardAdmin }}no-edit{{/ unless}}" id="permission-level">
-                        <span class="board-header-btn-icon icon-sm icon-{{ toLowerCase permission }}"></span>
+                        <span class="board-header-btn-icon icon-sm fa {{#if isPublic}}fa-globe{{else}}fa-lock{{/if}}"></span>
                         <span class="board-header-btn-text">{{ _ permission }}</span>
                     </a>
                 </div>
                 <div class="board-header-btns right">
                     {{#if Filter.isActive}}
                         <a class="board-header-btn board-header-btn-filter-indicator js-filter-cards-indicator" title="{{_ 'filter-on-desc'}}">
-                            <span class="board-header-btn-icon icon-sm icon-filter"></span><span class="board-header-btn-text underline">{{_ 'filter-on'}}</span>
-                            <span class="board-header-btn-icon-close icon-sm icon-close js-filter-card-clear" title="{{_ 'filter-clear'}}"></span>
+                            <span class="board-header-btn-icon icon-sm fa fa-filter"></span><span class="board-header-btn-text underline">{{_ 'filter-on'}}</span>
+                            <span class="board-header-btn-icon-close icon-sm fa fa-times js-filter-card-clear" title="{{_ 'filter-clear'}}"></span>
                         </a>
                     {{/if}}
                 </div>
@@ -81,7 +81,7 @@
             <label for="boardNewTitle">{{_ 'title'}}</label>
             <input id="boardNewTitle" type="text" name="name" class="non-empty js-autofocus" placeholder="{{_ 'bucket-example'}}" autofocus>
             <p class="quiet js-vis-display">
-                <span class="icon-sm icon-public"></span>{{{_ 'board-public-info'}}}
+                <span class="icon-sm fa fa-globe"></span>{{{_ 'board-public-info'}}}
             </p>
             <input type="submit" class="primary wide js-submit" value="{{_ 'create'}}">
         </form>
@@ -100,20 +100,20 @@
     <ul class="pop-over-list">
         <li>
             <a class="js-select light-hover" name="private">
-                <span class="icon-sm icon-private vis-icon"></span>
+                <span class="icon-sm fa fa-lock vis-icon"></span>
                 {{_ 'private'}}
                 {{# if check 'private' }}
-                    <span class="icon-sm icon-check"></span>
+                    <span class="icon-sm fa fa-check"></span>
                 {{/if}}
                 <span class="sub-name">{{_ 'private-desc'}}</span>
             </a>
         </li>
         <li>
             <a class="js-select light-hover" name="public">
-                <span class="icon-sm icon-public vis-icon"></span>
+                <span class="icon-sm fa fa-globe vis-icon"></span>
                 {{_ 'public'}}
                 {{# if check 'public' }}
-                    <span class="icon-sm icon-check"></span>
+                    <span class="icon-sm fa fa-check"></span>
                 {{/if}}
                 <span class="sub-name">{{_ 'public-desc'}}</span>
             </a>

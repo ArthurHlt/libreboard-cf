@@ -7,7 +7,7 @@
                         <h2 class="list-header-name js-list-name current {{# if currentUser.isBoardMember }}hide-on-edit{{/ if }}">{{ title }}</h2>
                         {{ > listTitleEditForm list=this }}
                         {{# if currentUser.isBoardMember }}
-                            <a href="#" class="list-header-menu-icon icon-sm icon-menu dark-hover js-open-list-menu"></a>
+                            <a href="#" class="list-header-menu-icon icon-sm fa fa-bars dark-hover js-open-list-menu"></a>
                         {{/ if }}
                     </div>
                     {{ > cards cards=cards listId=_id board=board }}

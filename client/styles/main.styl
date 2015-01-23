@@ -445,7 +445,7 @@ dd {
         box-sizing: border-box;
         position: relative;
 
-        &.starred .icon-star {
+        &.starred .fa-star-o {
             opacity: 1;
         }
     }
@@ -493,7 +493,7 @@ dd {
         display: none;
     }
 
-    .icon-star {
+    .fa-star-o {
         bottom: 0;
         font-size: 14px;
         height: 18px;
@@ -538,7 +538,7 @@ dd {
             padding-right: 36px;
         }
 
-        .icon-star {
+        .fa-star-o {
             opacity: 1;
         }
 
@@ -599,6 +599,10 @@ dd {
         top: 0;
     }
 
+    .icon-star-active {
+        color: #e6bf00;
+    }
+
     a.unkonwn .fade,
     a.light .fade {
         background: rgba(0, 0, 0, .3);
@@ -613,7 +617,7 @@ dd {
         background: rgba(0, 0, 0, .4);
     }
 
-    li:hover a .icon-star {
+    li:hover a .fa-star-o {
         color: #fff;
         opacity: .75;
 
@@ -726,7 +730,7 @@ dd {
                 background: rgba(255, 255, 255, .78);
             }
 
-            .icon-star {
+            .fa-star-o {
                 color: #000;
                 opacity: .3;
 
@@ -3826,7 +3830,6 @@ input[type="submit"].attachment-add-link-submit {
 .badges {
     float: left;
     padding-bottom: 2px;
-    margin-left: 8px;
 }
 
 .badges:empty {
