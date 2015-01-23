@@ -9,7 +9,7 @@
     "activity-moved": "moved %s from %s to %s",
     "activity-sent": "sent %s to %s",
     "activity-joined": "joined %s",
-    "activity-unjoinded": "unjoinded %s",
+    "activity-unjoined": "unjoinded %s",
     "activity-removed": "removed %s from %s",
     "activity-attached": "attached %s to %s",
     "activity-on": "on %s",
