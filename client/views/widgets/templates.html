@@ -91,7 +91,8 @@
                     {{> userAvatar userId=this.userId draggable=true size="small" showBadges=true}}
                 {{/ each }}
             </div>
-            {{# unless isSandstorm }}
+            {{! Temporary disable this feature, condition was 'unless isSandstrom'}}
+            {{# unless true }}
                 {{# if currentUser.isBoardAdmin }}
                     <a href="#" class="button-link js-open-manage-board-members">
                         <span class="icon-sm fa fa-user"></span> {{_ 'add-members'}}

@@ -1,9 +1,20 @@
 Users = Meteor.users;
 
 // Search subscribe mongodb fields ['username', 'profile.name']
-Users.initEasySearch(['username', 'profile.name'], {
-    use: 'mongo-db'
-});
+// XXX returnFields are not working so remove the feature for now.
+//
+//   https://github.com/libreboard/libreboard/issues/115
+//   https://github.com/matteodem/meteor-easy-search/issues/126
+//
+// Users.initEasySearch(['username', 'profile.name'], {
+//     use: 'mongo-db',
+//     returnFields: {
+//         _id: 1,
+//         username: 1,
+//         'profile.name': 1
+//     }
+// });
+
 
 
 // HELPERS
