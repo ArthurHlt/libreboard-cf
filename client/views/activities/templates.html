@@ -144,7 +144,7 @@
                         {{_ 'activity-sent' cardLabel boardLabel}}.
                     {{/ if }}
                     {{# if isTrue activityType 'moveCard' }}
-                        {{_ 'activity-moved' oldList.title list.title}}.
+                        {{_ 'activity-moved' cardLabel oldList.title list.title}}.
                     {{/ if }}
                     {{# if isTrue activityType 'addAttachment' }}
                         {{{_ 'activity-attached' attachmentLink cardLabel}}}.
