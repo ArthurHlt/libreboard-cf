@@ -16,7 +16,14 @@ var sandstormBoard = {
     background: {
         type: "color",
         color: "#16A085"
-    }
+    },
+
+    // XXX Not certain this is a bug, but we except these fields
+    // get inserted by the Lists.before.insert collection-hook.
+    // Since this hook is not called in this case, we have to
+    // dublicate the logic and set them here.
+    archived: false,
+    createdAt: new Date()
 };
 
 // On the first launch of the instance a user is automatically created thanks to
