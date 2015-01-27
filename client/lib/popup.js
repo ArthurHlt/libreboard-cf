@@ -18,21 +18,21 @@ Popup = {
 
         return function(evt, tpl) {
             // We determine the openerElement (the DOM element that is being
-            // clicked and the one to take in reference for the popup position)
+            // clicked and the one we take in reference for the popup position)
             // from the event if the popup has no parent, or from the parent
-            // openerElement if it has one. That allow use to position a
-            // sub-popup exactly at the same position of its parent.
+            // openerElement if it has one. That allow us to position a
+            // sub-popup exactly at the same position than its parent.
             if (self._hasPopupParent()) {
-                var parentData = self._stack[self._stack.length - 1];
-                var openerElement = parentData.openerElement;
-            } else {
-                var openerElement = evt.currentTarget;
-            }
+                var openerElement = self._getTopStack().openerElement;
 
             // If a popup is already openened, clicking again on the opener
             // element should close it -- and stop the current function.
-            if (self.current && openerElement === evt.currentTarget) {
+            } else if (self.current &&
+                      self._getTopStack().openerElement === evt.currentTarget) {
                 return self.close();
+
+            } else {
+                var openerElement = evt.currentTarget;
             }
 
             // We modify the event to prevent the popup being closed when the
@@ -131,6 +131,11 @@ Popup = {
     // We invalidate this internal dependency every time the top of the stack
     // has changed and we want to render a popup with the new top-stack data.
     _dep: new Tracker.Dependency,
+
+    // An utility fonction that returns the top element of the internal stack
+    _getTopStack: function() {
+        return this._stack[this._stack.length - 1];
+    },
 
     // We use the blaze API to determine if the current popup has been opened
     // from a parent popup. The number we give to the `Template.parentData` has
