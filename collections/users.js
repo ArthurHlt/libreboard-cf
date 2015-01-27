@@ -1,20 +1,12 @@
 Users = Meteor.users;
 
-// Search subscribe mongodb fields ['username', 'profile.name']
-// XXX returnFields are not working so remove the feature for now.
-//
-//   https://github.com/libreboard/libreboard/issues/115
-//   https://github.com/matteodem/meteor-easy-search/issues/126
-//
-// Users.initEasySearch(['username', 'profile.name'], {
-//     use: 'mongo-db',
-//     returnFields: {
-//         _id: 1,
-//         username: 1,
-//         'profile.name': 1
-//     }
-// });
-
+// Search a user in the complete server database by its name or username. This
+// is used for instance to add a new user to a board.
+var searchInFields = ['username', 'profile.name'];
+Users.initEasySearch(searchInFields, {
+    use: 'mongo-db',
+    returnFields: searchInFields
+});
 
 
 // HELPERS
