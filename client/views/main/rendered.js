@@ -33,4 +33,4 @@ Template.editor.rendered = function() {
             index: 1
         }
     ]);
-}
+};

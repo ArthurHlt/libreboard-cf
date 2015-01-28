@@ -18,13 +18,13 @@ Template.setLanguagePopup.helpers({
             return {
                 tag: tag,
                 name: lang.name
-            }
+            };
         });
     },
     isCurrentLanguage: function() {
         return this.tag === TAPi18n.getLanguage();
     }
-})
+});
 
 Avatar.options = {
     fallbackType: 'initials'

@@ -1,8 +1,8 @@
 // A simple tracker dependency that we invalidates every time the window is
 // resized. This is used to reactively re-calculate the popup position in case
 // of a window resize.
-var windowResizeDep = new Tracker.Dependency;
-$(window).on('resize', function() { windowResizeDep.changed() });
+var windowResizeDep = new Tracker.Dependency();
+$(window).on('resize', function() { windowResizeDep.changed(); });
 
 Popup = {
     /// This function returns a callback that can be used in an event map:
@@ -16,14 +16,15 @@ Popup = {
         var self = this;
         var popupName = name + "Popup";
 
-        return function(evt, tpl) {
+        return function(evt) {
             // We determine the openerElement (the DOM element that is being
             // clicked and the one we take in reference for the popup position)
             // from the event if the popup has no parent, or from the parent
             // openerElement if it has one. That allow us to position a
             // sub-popup exactly at the same position than its parent.
+            var openerElement;
             if (self._hasPopupParent()) {
-                var openerElement = self._getTopStack().openerElement;
+                openerElement = self._getTopStack().openerElement;
 
             // If a popup is already openened, clicking again on the opener
             // element should close it -- and stop the current function.
@@ -32,7 +33,7 @@ Popup = {
                 return self.close();
 
             } else {
-                var openerElement = evt.currentTarget;
+                openerElement = evt.currentTarget;
             }
 
             // We modify the event to prevent the popup being closed when the
@@ -89,7 +90,7 @@ Popup = {
             var context = this;
             context.__afterConfirmAction = action;
             self.open(name).call(context, evt, tpl);
-        }
+        };
     },
 
     /// In case the popup was opened from a parent popup we can get back to it
@@ -100,7 +101,7 @@ Popup = {
         n = n || 1;
         var self = this;
         if (self._stack.length >= n + 1) {
-            _.times(n, function() { self._stack.pop() });
+            _.times(n, function() { self._stack.pop(); });
             self._dep.changed();
         }
     },
@@ -130,7 +131,7 @@ Popup = {
 
     // We invalidate this internal dependency every time the top of the stack
     // has changed and we want to render a popup with the new top-stack data.
-    _dep: new Tracker.Dependency,
+    _dep: new Tracker.Dependency(),
 
     // An utility fonction that returns the top element of the internal stack
     _getTopStack: function() {
@@ -176,7 +177,7 @@ Popup = {
             // risk a false positives.
             var title = TAPi18n.__(translationKey);
             return title !== translationKey ? title : false;
-        }
+        };
     }
 };
 

@@ -83,7 +83,7 @@ if (isSandstorm && Meteor.isClient) {
     Meteor.absoluteUrl = function(path, options) {
         var url = _absoluteUrl(path, options);
         return url.replace(/^https?:\/\/127\.0\.0\.1:[0-9]{2,5}/, '');
-    }
+    };
     Meteor.absoluteUrl.defaultOptions = _defaultOptions;
 }
 

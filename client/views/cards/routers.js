@@ -10,7 +10,7 @@ Router.route('/boards/:boardId/:slug/:cardId', {
 
             // Board page list, cards members vs
             Meteor.subscribe('board', params.boardId, params.slug)
-        ]
+        ];
     },
     action: function() {
         var params = this.params;

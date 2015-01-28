@@ -142,5 +142,5 @@ Meteor.publishComposite('board', function(boardId, slug) {
                 ]
             }
         ]
-    }
+    };
 });

@@ -30,6 +30,6 @@ Template.board.helpers({
 
 Template.boardChangePermissionPopup.helpers({
     check: function(perm) {
-        return this.permission == perm;
+        return this.permission === perm;
     }
 });

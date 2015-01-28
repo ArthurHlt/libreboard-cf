@@ -11,9 +11,9 @@ Tracker.autorun(function() {
     var language;
     var currentUser = Meteor.user();
     if (currentUser) {
-        var language = currentUser.profile && currentUser.profile.language;
+        language = currentUser.profile && currentUser.profile.language;
     } else {
-        var language = navigator.language || navigator.userLanguage;
+        language = navigator.language || navigator.userLanguage;
     }
 
     if (language) {

@@ -15,7 +15,7 @@ Utils = {
 
             // call
             callback && callback();
-        }
+        };
     },
 
     boardScrollLeft: function() {
@@ -141,7 +141,7 @@ Utils = {
             key: function(key) {
                 return 'labels.' + labels[labelId] + '.' + key;
             }
-        }
+        };
     }
 };
 

@@ -97,7 +97,7 @@ Boards.deny({
         });
     },
     fetch: ['members']
-})
+});
 
 // HELPERS
 Boards.helpers({

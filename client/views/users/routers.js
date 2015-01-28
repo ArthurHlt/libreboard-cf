@@ -27,7 +27,7 @@ Router.route('/profile/:username', {
             profile: function() {
                 return Users.findOne({ username: params.username });
             }
-        }
+        };
     }
 });
 
@@ -37,4 +37,3 @@ Router.route('/settings', {
     layoutTemplate: 'AuthLayout',
     bodyClass: 'page-index chrome chrome-39 mac large-window body-webkit-scrollbars tabbed-page'
 });
-
