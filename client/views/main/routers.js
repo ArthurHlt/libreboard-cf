@@ -5,6 +5,7 @@
 Router.configure({
     loadingTemplate: 'loading',
     notFoundTemplate: 'notfound',
+    trackPageView: true,
 
     yieldRegions: {
         '': {
