@@ -49,7 +49,7 @@
                 <div class="board-header-btns left">
                     {{# unless isSandstorm }}
                         <a href="#" class="board-header-btn js-star-board {{#if isStarred }}board-header-btn-enabled{{/ if }}" title="{{# if isStarred }}{{_ 'click-to-unstar'}}{{ else }}{{_ 'click-to-star'}}{{/ if }} {{_ 'starred-boards-description'}}">
-                            <span class="board-header-btn-icon icon-sm fa fa-star-o"></span>
+                          <span class="board-header-btn-icon icon-sm fa {{#if isStarred }}fa-star{{ else }}fa-star-o{{/if}}"></span>
                         </a>
                     {{/ unless }}
                     {{! XXX Normally we would disable this field for sandstorm, but we keep it until sandstorm implements sharing capabilities }}
