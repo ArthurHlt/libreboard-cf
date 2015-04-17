@@ -10,7 +10,6 @@ install:
 - 'echo "web: node main" > Procfile'
 - npm install
 - zip -r libreboard-cf ./*
-- mv libreboard-cf.zip ../
 deploy:
   provider: releases
   api_key:
