@@ -10,11 +10,12 @@ install:
 - 'echo "web: node main" > Procfile'
 - npm install
 - zip -r libreboard-cf ./*
+- mv libreboard-cf.zip ../
 deploy:
   provider: releases
   api_key:
     secure: sU47/RsQBBoGbezeuQYZzqQDw9MR6GVzqU49UeeTUfDTTbLsTS7PGAzDJCUOYBLl8QR48UpZiROFsx0uIUe6krqpFbR2xmyeSo+wFUMb7cD3+SSyup8Z6t7hEHYFcecsl3fWH9Ws35jpbMXaeMUd0CGZkaugPHB5isrzYSKtPcA=
-  file: ./.demeteorized/libreboard-cf.zip
+  file: libreboard-cf.zip
   on:
     tags: true
     all_branches: true
