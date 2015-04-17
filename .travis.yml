@@ -1,9 +1,10 @@
 language: node_js
+sudo: required
 node_js:
 - '0.10'
 install:
 - npm install -g demeteorizer
-- curl https://install.meteor.com | /bin/sh
+- sudo curl https://install.meteor.com | /bin/sh
 - demeteorizer
 - cd ./.demeteorized
 - 'echo "web: node main" > Procfile'
@@ -13,7 +14,7 @@ deploy:
   provider: releases
   api_key:
     secure: sU47/RsQBBoGbezeuQYZzqQDw9MR6GVzqU49UeeTUfDTTbLsTS7PGAzDJCUOYBLl8QR48UpZiROFsx0uIUe6krqpFbR2xmyeSo+wFUMb7cD3+SSyup8Z6t7hEHYFcecsl3fWH9Ws35jpbMXaeMUd0CGZkaugPHB5isrzYSKtPcA=
-  file: libreboard-cf.zip
+  file: ./.demeteorized/libreboard-cf.zip
   on:
     tags: true
     all_branches: true
