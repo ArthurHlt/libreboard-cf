@@ -1,7 +1,16 @@
 language: node_js
 node_js:
-  - "0.10"
-before_install:
-  - "curl -L http://git.io/ejPSng | /bin/sh"
-services:
-  - mongodb
+- '0.10'
+install:
+- 'echo "web: node main" > Procfile'
+- npm install -g demeteorizer
+- npm install
+- zip -r libreboard-cf ./*
+deploy:
+  provider: releases
+  api_key:
+    secure: uIdbTn+DtFHjf2DgOnpQrmO0OK9fo73N0M4L7m5hiRZf5NRo+0j6ox7FjkWfUK4bF/DBn7jZMj7FXWW+NWHpkEO+VKIeEoIaICrJzVik9MeRKQTRV+/qGDrf+yYHE3Hq+Be7hc3gJjGGHxrBwwTW5VQnH7sOyrfzEiaupeKzR68=
+  file: libreboard-cf.zip
+  on:
+    tags: true
+    all_branches: true
