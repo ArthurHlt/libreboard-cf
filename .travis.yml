@@ -3,6 +3,7 @@ node_js:
 - '0.10'
 install:
 - npm install -g demeteorizer
+- curl https://install.meteor.com | /bin/sh
 - demeteorizer
 - cd ./.demeteorized
 - 'echo "web: node main" > Procfile'
