@@ -2,8 +2,10 @@ language: node_js
 node_js:
 - '0.10'
 install:
-- ! 'echo "web: node main" > Procfile'
 - npm install -g demeteorizer
+- demeteorizer
+- cd ./.demeteorized
+- 'echo "web: node main" > Procfile'
 - npm install
 - zip -r libreboard-cf ./*
 deploy:
