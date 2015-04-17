@@ -10,4 +10,4 @@ applications:
   env:
     http_proxy: http://10.203.6.6:3128
     https_proxy: http://10.203.6.6:3128
-buildpack: meteor
+buildpack: nodejs_buildpack

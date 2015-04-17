@@ -1,13 +1,13 @@
 language: node_js
 sudo: required
 node_js:
-- '0.10'
+- '0.11'
 install:
 - npm install -g demeteorizer
 - sudo curl https://install.meteor.com | /bin/sh
 - demeteorizer
 - cd ./.demeteorized
-- 'echo "web: node main" > Procfile'
+- 'echo "web: node main.js" > Procfile'
 - npm install
 - zip -r libreboard-cf ./*
 deploy:
