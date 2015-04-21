@@ -9,6 +9,7 @@ install:
 - cd ./.demeteorized
 - 'echo "web: node main.js" > Procfile'
 - npm install
+- npm rebuild
 - zip -r libreboard-cf ./*
 deploy:
   provider: releases
